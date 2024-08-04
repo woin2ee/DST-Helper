@@ -1,7 +1,6 @@
 import 'package:dst_helper/models/crop.dart';
 import 'package:dst_helper/models/season.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class FarmPlantGroupCard extends StatelessWidget {
   const FarmPlantGroupCard({

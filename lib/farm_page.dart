@@ -2,7 +2,6 @@ import 'package:dst_helper/farm_plant.dart';
 import 'package:dst_helper/models/crop.dart';
 import 'package:dst_helper/models/season.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class FarmPage extends StatefulWidget {
   const FarmPage({super.key});
@@ -190,7 +189,7 @@ class SeedInfoBox extends StatelessWidget {
         color: Colors.brown.shade400,
         child: Column(
           children: [
-            Row(
+            const Row(
               children: [
                 Text(
                   "Seeds",
