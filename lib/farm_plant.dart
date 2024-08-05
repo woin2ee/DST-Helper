@@ -258,23 +258,20 @@ class FarmPlantGroupCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
     return Container(
       margin: const EdgeInsets.all(8),
       child: Card(
         shape: const BeveledRectangleBorder(),
-        color: colorScheme.onSurfaceVariant,
+        color: theme.colorScheme.onSurfaceVariant,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
               '${title ?? ''} ${suitableSeasons.map((season) => season.name)}',
               maxLines: 1,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                height: 1.6,
-                color: Theme.of(context).colorScheme.surfaceBright,
+              style: theme.textTheme.titleMedium?.copyWith(
+                color: theme.colorScheme.surfaceBright,
               ),
             ),
             Row(
@@ -288,7 +285,10 @@ class FarmPlantGroupCard extends StatelessWidget {
 }
 
 enum PlacementStyle {
+  /// (top) 3 : 3 : 3 (bottom)
   basic,
+
+  /// (top) 2 : 3 : 2 : 3 (bottom)
   dense,
 }
 
@@ -438,38 +438,3 @@ class CropCell extends StatelessWidget {
     );
   }
 }
-
-
-// class _FarmPlantState extends State<FarmPlant> {
-//   static const _size = 9;
-
-//   // late List<Crop> _crops;
-
-//   // _FarmPlantState([
-//   //   Crop c0 = Crop.none,
-//   //   Crop c1 = Crop.none,
-//   //   Crop c2 = Crop.none,
-//   //   Crop c3 = Crop.none,
-//   //   Crop c4 = Crop.none,
-//   //   Crop c5 = Crop.none,
-//   //   Crop c6 = Crop.none,
-//   //   Crop c7 = Crop.none,
-//   //   Crop c8 = Crop.none,
-//   // ]) {
-//   //   _crops = [c0, c1, c2, c3, c4, c5, c6, c7, c8];
-//   // }
-
-//   // _FarmPlantState.empty() {
-//   //   _crops = List.filled(_size, Crop.none);
-//   // }
-
-//   // void replaceCrop(int index, Crop crop) {
-//   //   if (index >= _size) return;
-//   //   setState(() {});
-//   // }
-
-//   @override
-//   Widget build(BuildContext context) {
-    
-//   }
-// }

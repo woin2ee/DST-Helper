@@ -1,3 +1,4 @@
+import 'package:dst_helper/farm_page/seed_info_box.dart';
 import 'package:dst_helper/farm_plant.dart';
 import 'package:dst_helper/models/crop.dart';
 import 'package:dst_helper/models/season.dart';
@@ -17,8 +18,6 @@ class _FarmPageState extends State<FarmPage> {
     (Season.autumn, false),
     (Season.winter, false),
   ];
-
-  bool seedsBarFolded = true;
 
   @override
   Widget build(BuildContext context) {
@@ -140,96 +139,8 @@ class _FarmPageState extends State<FarmPage> {
               ],
             ),
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(top: 16),
-                decoration: BoxDecoration(
-                  color: Colors.brown.shade400,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    bottomLeft: Radius.circular(20),
-                  ),
-                ),
-                child: IconButton(
-                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 3),
-                  iconSize: 20,
-                  onPressed: () {
-                    setState(() {
-                      seedsBarFolded = !seedsBarFolded;
-                    });
-                  },
-                  icon: Image.asset(
-                    "seeds/seeds.png",
-                    width: 50,
-                  ),
-                ),
-              ),
-              if (!seedsBarFolded) SeedInfoBox(),
-            ],
-          ),
+          const SeedInfoBox(),
         ],
-      ),
-    );
-  }
-}
-
-class SeedInfoBox extends StatelessWidget {
-  SeedInfoBox({super.key});
-
-  final List<Crop> seedCrops =
-      Crop.values.where((crop) => crop.hasSeeds).toList();
-
-  @override
-  Widget build(BuildContext context) {
-    return FittedBox(
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        color: Colors.brown.shade400,
-        child: Column(
-          children: [
-            const Row(
-              children: [
-                Text(
-                  "Seeds",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-            Center(
-              child: Column(
-                children: seedCrops.map((crop) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'seeds/${crop.name}_seeds.png',
-                        width: 46,
-                      ),
-                      const Text(
-                        "=",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          letterSpacing: 10,
-                        ),
-                      ),
-                      Image.asset(
-                        'crops/${crop.name}.png',
-                        width: 46,
-                      ),
-                    ],
-                  );
-                }).toList(),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
