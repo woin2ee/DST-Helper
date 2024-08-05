@@ -18,7 +18,7 @@ class FarmPlantGroupCard extends StatelessWidget {
             Crop.potato,
             Crop.potato,
             Crop.potato,
-            Crop.none,
+            null,
             Crop.tomato,
             Crop.tomato,
             Crop.tomato,
@@ -72,7 +72,7 @@ class FarmPlantGroupCard extends StatelessWidget {
             Crop.potato,
           ),
           FarmPlant(
-            PlacementStyle.dense,
+            PlacementStyle.reverseDense,
             Crop.garlic,
             Crop.pumpkin,
             Crop.pumpkin,
@@ -149,7 +149,7 @@ class FarmPlantGroupCard extends StatelessWidget {
         farmPlants = [
           FarmPlant(
             PlacementStyle.basic,
-            Crop.none,
+            null,
             Crop.onion,
             Crop.onion,
             Crop.potato,
@@ -163,7 +163,7 @@ class FarmPlantGroupCard extends StatelessWidget {
             PlacementStyle.basic,
             Crop.onion,
             Crop.onion,
-            Crop.none,
+            null,
             Crop.garlic,
             Crop.potato,
             Crop.potato,
@@ -211,7 +211,7 @@ class FarmPlantGroupCard extends StatelessWidget {
             Crop.watermelon,
             Crop.watermelon,
             Crop.watermelon,
-            Crop.none,
+            null,
             Crop.carrot,
             Crop.carrot,
             Crop.carrot,
@@ -247,12 +247,21 @@ class FarmPlantGroupCard extends StatelessWidget {
     };
     for (var farmPlant in farmPlants) {
       for (var crop in farmPlant.crops) {
-        if (crop == Crop.none) continue;
+        if (crop == null) continue;
         seasons = seasons.intersection(crop.seasons);
       }
     }
     return seasons;
   }
+
+  // bool get canBecomeGiant {
+  //   for (var farmPlant in farmPlants) {
+  //     for (var crop in farmPlant.crops) {
+  //       if (crop == null) continue;
+
+  //     }
+  //   }
+  // }
 
   final List<FarmPlant> farmPlants;
 
@@ -268,7 +277,7 @@ class FarmPlantGroupCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              '${title ?? ''} ${suitableSeasons.map((season) => season.name)}',
+              '${title != null ? title! : suitableSeasons.map((season) => season.name)} ★',
               maxLines: 1,
               style: theme.textTheme.titleMedium?.copyWith(
                 color: theme.colorScheme.surfaceBright,
@@ -290,21 +299,24 @@ enum PlacementStyle {
 
   /// (top) 2 : 3 : 2 : 3 (bottom)
   dense,
+
+  /// (top) 3 : 2 : 3 : 2 (bottom)
+  reverseDense,
 }
 
 class FarmPlant extends StatelessWidget {
   FarmPlant(
     this.style, [
-    Crop c0 = Crop.none,
-    Crop c1 = Crop.none,
-    Crop c2 = Crop.none,
-    Crop c3 = Crop.none,
-    Crop c4 = Crop.none,
-    Crop c5 = Crop.none,
-    Crop c6 = Crop.none,
-    Crop c7 = Crop.none,
-    Crop c8 = Crop.none,
-    Crop c9 = Crop.none, // extra
+    Crop? c0,
+    Crop? c1,
+    Crop? c2,
+    Crop? c3,
+    Crop? c4,
+    Crop? c5,
+    Crop? c6,
+    Crop? c7,
+    Crop? c8,
+    Crop? c9, // extra
     Key? key,
   ])  : crops = [c0, c1, c2, c3, c4, c5, c6, c7, c8, c9],
         super(key: key);
@@ -313,21 +325,42 @@ class FarmPlant extends StatelessWidget {
     super.key,
     required this.style,
   }) : crops = [
-          Crop.none,
-          Crop.none,
-          Crop.none,
-          Crop.none,
-          Crop.none,
-          Crop.none,
-          Crop.none,
-          Crop.none,
-          Crop.none,
-          Crop.none, // extra
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null, // extra
         ];
 
-  final List<Crop> crops;
+  final List<Crop?> crops;
 
   final PlacementStyle style;
+
+  bool get hasBalancedNutrients {
+    var result = const Nutrient(compost: 0, growthFormula: 0, manure: 0);
+    int countOfCrops;
+    switch (style) {
+      case PlacementStyle.basic:
+        countOfCrops = 9;
+      case PlacementStyle.dense:
+      case PlacementStyle.reverseDense:
+        countOfCrops = 10;
+    }
+    for (var i = 0; i < countOfCrops; i++) {
+      var crop = crops[i];
+      if (crop != null) {
+        result += crop.nutrient;
+      }
+    }
+    return result.compost == 0 &&
+        result.growthFormula == 0 &&
+        result.manure == 0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -405,6 +438,49 @@ class FarmPlant extends StatelessWidget {
             ],
           ),
         );
+      case PlacementStyle.reverseDense:
+        return SizedBox(
+          width: 180,
+          height: 220,
+          child: Column(
+            children: [
+              Flexible(
+                child: Row(
+                  children: [
+                    CropCell(crop: crops[0]),
+                    CropCell(crop: crops[1]),
+                    CropCell(crop: crops[2]),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Row(
+                  children: [
+                    CropCell(crop: crops[3]),
+                    CropCell(crop: crops[4]),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Row(
+                  children: [
+                    CropCell(crop: crops[5]),
+                    CropCell(crop: crops[6]),
+                    CropCell(crop: crops[7]),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: Row(
+                  children: [
+                    CropCell(crop: crops[8]),
+                    CropCell(crop: crops[9]),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
     }
   }
 }
@@ -415,7 +491,7 @@ class CropCell extends StatelessWidget {
     required this.crop,
   });
 
-  final Crop crop;
+  final Crop? crop;
 
   static const double margin = 1;
 
@@ -431,9 +507,9 @@ class CropCell extends StatelessWidget {
         margin: const EdgeInsets.all(margin),
         padding: const EdgeInsets.all(padding),
         color: colorScheme.surfaceContainerHighest,
-        child: Image.asset(
-          'crops/${crop.name}.png',
-        ),
+        child: crop != null
+            ? Image.asset('crops/${crop!.name}.png')
+            : const AspectRatio(aspectRatio: 1),
       ),
     );
   }

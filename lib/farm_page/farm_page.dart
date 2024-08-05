@@ -1,6 +1,5 @@
 import 'package:dst_helper/farm_page/seed_info_box.dart';
-import 'package:dst_helper/farm_plant.dart';
-import 'package:dst_helper/models/crop.dart';
+import 'package:dst_helper/farm_page/farm_plant.dart';
 import 'package:dst_helper/models/season.dart';
 import 'package:flutter/material.dart';
 
