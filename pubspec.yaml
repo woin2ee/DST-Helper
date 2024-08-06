@@ -35,6 +35,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
+  material_symbols_icons: ^4.2777.1
 
 dev_dependencies:
   flutter_test:
@@ -75,8 +76,8 @@ flutter:
   # example:
   fonts:
     - family: CustomIcon
-      fonts:
-        - asset: assets/fonts/CustomIcon.ttf
+      fonts: 
+        - asset: assets/custom_icon/CustomIcon.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

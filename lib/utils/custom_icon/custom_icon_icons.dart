@@ -12,9 +12,9 @@
 ///       - asset: fonts/CustomIcon.ttf
 ///
 ///
-/// * Font Awesome 4, Copyright (C) 2016 by Dave Gandy
+/// * Font Awesome 5, Copyright (C) 2016 by Dave Gandy
 ///         Author:    Dave Gandy
-///         License:   SIL ()
+///         License:   SIL (https://github.com/FortAwesome/Font-Awesome/blob/master/LICENSE.txt)
 ///         Homepage:  http://fortawesome.github.com/Font-Awesome/
 ///
 library;
@@ -27,6 +27,6 @@ class CustomIcon {
   static const _kFontFam = 'CustomIcon';
   static const String? _kFontPkg = null;
 
-  static const IconData github_circled =
+  static const IconData github =
       IconData(0xf09b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
