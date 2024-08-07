@@ -1,3 +1,4 @@
+import 'package:dst_helper/cook_page/cook_page.dart';
 import 'package:dst_helper/farm_page/farm_page.dart';
 import 'package:dst_helper/utils/custom_icon/custom_icon_icons.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,9 @@ import 'package:material_symbols_icons/symbols.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+  };
   runApp(const App());
 }
 
@@ -78,11 +82,10 @@ class _HomePageState extends State<HomePage> {
       case Menu.farm:
         page = const FarmPage();
       case Menu.cook:
-        page = Container(
-          color: Colors.white38,
-        );
+        page = const CookPage();
       case Menu.github:
-        break;
+        page = const FarmPage();
+        throw Exception('Github menu has not been handled.');
     }
 
     return Scaffold(
@@ -105,7 +108,7 @@ class _HomePageState extends State<HomePage> {
               onDestinationSelected: (index) {
                 setState(() {
                   if (selectedMenuState[index].$1 == Menu.github) {
-                    final Uri url = Uri.parse('https://github.com/woin2ee');
+                    final Uri url = Uri.parse('https://github.com/woin2ee/DST-Helper');
                     launchUrl(url);
                     return;
                   }

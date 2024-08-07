@@ -1,4 +1,5 @@
-import 'package:dst_helper/models/crop.dart';
+import 'package:dst_helper/models/plant.dart';
+import 'package:dst_helper/models/plants.dart';
 import 'package:dst_helper/models/season.dart';
 import 'package:flutter/material.dart';
 
@@ -14,15 +15,15 @@ class FarmPlantGroupCard extends StatelessWidget {
         farmPlants = [
           FarmPlant(
             PlacementStyle.basic,
-            Crop.potato,
-            Crop.potato,
-            Crop.potato,
-            Crop.potato,
+            const Potato(),
+            const Potato(),
+            const Potato(),
+            const Potato(),
             null,
-            Crop.tomato,
-            Crop.tomato,
-            Crop.tomato,
-            Crop.tomato,
+            const TomaRoot(),
+            const TomaRoot(),
+            const TomaRoot(),
+            const TomaRoot(),
           ),
         ];
 
@@ -31,27 +32,27 @@ class FarmPlantGroupCard extends StatelessWidget {
         farmPlants = [
           FarmPlant(
             PlacementStyle.basic,
-            Crop.dragonFruit,
-            Crop.dragonFruit,
-            Crop.dragonFruit,
-            Crop.tomato,
-            Crop.tomato,
-            Crop.tomato,
-            Crop.tomato,
-            Crop.tomato,
-            Crop.tomato,
+            const DragonFruit(),
+            const DragonFruit(),
+            const DragonFruit(),
+            const TomaRoot(),
+            const TomaRoot(),
+            const TomaRoot(),
+            const TomaRoot(),
+            const TomaRoot(),
+            const TomaRoot(),
           ),
           FarmPlant(
             PlacementStyle.basic,
-            Crop.dragonFruit,
-            Crop.dragonFruit,
-            Crop.dragonFruit,
-            Crop.tomato,
-            Crop.tomato,
-            Crop.tomato,
-            Crop.tomato,
-            Crop.tomato,
-            Crop.tomato,
+            const DragonFruit(),
+            const DragonFruit(),
+            const DragonFruit(),
+            const TomaRoot(),
+            const TomaRoot(),
+            const TomaRoot(),
+            const TomaRoot(),
+            const TomaRoot(),
+            const TomaRoot(),
           ),
         ];
 
@@ -60,29 +61,29 @@ class FarmPlantGroupCard extends StatelessWidget {
         farmPlants = [
           FarmPlant(
             PlacementStyle.dense,
-            Crop.pumpkin,
-            Crop.garlic,
-            Crop.pumpkin,
-            Crop.pumpkin,
-            Crop.garlic,
-            Crop.pumpkin,
-            Crop.potato,
-            Crop.potato,
-            Crop.potato,
-            Crop.potato,
+            const Pumpkin(),
+            const Garlic(),
+            const Pumpkin(),
+            const Pumpkin(),
+            const Garlic(),
+            const Pumpkin(),
+            const Potato(),
+            const Potato(),
+            const Potato(),
+            const Potato(),
           ),
           FarmPlant(
             PlacementStyle.reverseDense,
-            Crop.garlic,
-            Crop.pumpkin,
-            Crop.pumpkin,
-            Crop.garlic,
-            Crop.pumpkin,
-            Crop.potato,
-            Crop.potato,
-            Crop.pumpkin,
-            Crop.potato,
-            Crop.potato,
+            const Garlic(),
+            const Pumpkin(),
+            const Pumpkin(),
+            const Garlic(),
+            const Pumpkin(),
+            const Potato(),
+            const Potato(),
+            const Pumpkin(),
+            const Potato(),
+            const Potato(),
           ),
         ];
 
@@ -91,27 +92,27 @@ class FarmPlantGroupCard extends StatelessWidget {
         farmPlants = [
           FarmPlant(
             PlacementStyle.basic,
-            Crop.onion,
-            Crop.onion,
-            Crop.onion,
-            Crop.garlic,
-            Crop.garlic,
-            Crop.garlic,
-            Crop.dragonFruit,
-            Crop.dragonFruit,
-            Crop.dragonFruit,
+            const Onion(),
+            const Onion(),
+            const Onion(),
+            const Garlic(),
+            const Garlic(),
+            const Garlic(),
+            const DragonFruit(),
+            const DragonFruit(),
+            const DragonFruit(),
           ),
           FarmPlant(
             PlacementStyle.basic,
-            Crop.onion,
-            Crop.onion,
-            Crop.onion,
-            Crop.garlic,
-            Crop.garlic,
-            Crop.garlic,
-            Crop.dragonFruit,
-            Crop.dragonFruit,
-            Crop.dragonFruit,
+            const Onion(),
+            const Onion(),
+            const Onion(),
+            const Garlic(),
+            const Garlic(),
+            const Garlic(),
+            const DragonFruit(),
+            const DragonFruit(),
+            const DragonFruit(),
           ),
         ];
 
@@ -120,27 +121,27 @@ class FarmPlantGroupCard extends StatelessWidget {
         farmPlants = [
           FarmPlant(
             PlacementStyle.basic,
-            Crop.onion,
-            Crop.onion,
-            Crop.onion,
-            Crop.watermelon,
-            Crop.watermelon,
-            Crop.watermelon,
-            Crop.watermelon,
-            Crop.watermelon,
-            Crop.watermelon,
+            const Onion(),
+            const Onion(),
+            const Onion(),
+            const Watermelon(),
+            const Watermelon(),
+            const Watermelon(),
+            const Watermelon(),
+            const Watermelon(),
+            const Watermelon(),
           ),
           FarmPlant(
             PlacementStyle.basic,
-            Crop.onion,
-            Crop.onion,
-            Crop.onion,
-            Crop.watermelon,
-            Crop.watermelon,
-            Crop.watermelon,
-            Crop.watermelon,
-            Crop.watermelon,
-            Crop.watermelon,
+            const Onion(),
+            const Onion(),
+            const Onion(),
+            const Watermelon(),
+            const Watermelon(),
+            const Watermelon(),
+            const Watermelon(),
+            const Watermelon(),
+            const Watermelon(),
           ),
         ];
 
@@ -150,26 +151,26 @@ class FarmPlantGroupCard extends StatelessWidget {
           FarmPlant(
             PlacementStyle.basic,
             null,
-            Crop.onion,
-            Crop.onion,
-            Crop.potato,
-            Crop.potato,
-            Crop.garlic,
-            Crop.potato,
-            Crop.potato,
-            Crop.garlic,
+            const Onion(),
+            const Onion(),
+            const Potato(),
+            const Potato(),
+            const Garlic(),
+            const Potato(),
+            const Potato(),
+            const Garlic(),
           ),
           FarmPlant(
             PlacementStyle.basic,
-            Crop.onion,
-            Crop.onion,
+            const Onion(),
+            const Onion(),
             null,
-            Crop.garlic,
-            Crop.potato,
-            Crop.potato,
-            Crop.garlic,
-            Crop.potato,
-            Crop.potato,
+            const Garlic(),
+            const Potato(),
+            const Potato(),
+            const Garlic(),
+            const Potato(),
+            const Potato(),
           ),
         ];
 
@@ -178,27 +179,27 @@ class FarmPlantGroupCard extends StatelessWidget {
         farmPlants = [
           FarmPlant(
             PlacementStyle.basic,
-            Crop.asparagus,
-            Crop.asparagus,
-            Crop.asparagus,
-            Crop.potato,
-            Crop.potato,
-            Crop.potato,
-            Crop.pumpkin,
-            Crop.pumpkin,
-            Crop.pumpkin,
+            const Asparagus(),
+            const Asparagus(),
+            const Asparagus(),
+            const Potato(),
+            const Potato(),
+            const Potato(),
+            const Pumpkin(),
+            const Pumpkin(),
+            const Pumpkin(),
           ),
           FarmPlant(
             PlacementStyle.basic,
-            Crop.asparagus,
-            Crop.asparagus,
-            Crop.asparagus,
-            Crop.potato,
-            Crop.potato,
-            Crop.potato,
-            Crop.pumpkin,
-            Crop.pumpkin,
-            Crop.pumpkin,
+            const Asparagus(),
+            const Asparagus(),
+            const Asparagus(),
+            const Potato(),
+            const Potato(),
+            const Potato(),
+            const Pumpkin(),
+            const Pumpkin(),
+            const Pumpkin(),
           ),
         ];
 
@@ -207,15 +208,15 @@ class FarmPlantGroupCard extends StatelessWidget {
         farmPlants = [
           FarmPlant(
             PlacementStyle.basic,
-            Crop.watermelon,
-            Crop.watermelon,
-            Crop.watermelon,
-            Crop.watermelon,
+            const Watermelon(),
+            const Watermelon(),
+            const Watermelon(),
+            const Watermelon(),
             null,
-            Crop.carrot,
-            Crop.carrot,
-            Crop.carrot,
-            Crop.carrot,
+            const Carrot(),
+            const Carrot(),
+            const Carrot(),
+            const Carrot(),
           ),
         ];
 
@@ -224,15 +225,15 @@ class FarmPlantGroupCard extends StatelessWidget {
         farmPlants = [
           FarmPlant(
             PlacementStyle.basic,
-            Crop.onion,
-            Crop.onion,
-            Crop.onion,
-            Crop.garlic,
-            Crop.garlic,
-            Crop.garlic,
-            Crop.pepper,
-            Crop.pepper,
-            Crop.pepper,
+            const Onion(),
+            const Onion(),
+            const Onion(),
+            const Garlic(),
+            const Garlic(),
+            const Garlic(),
+            const Pepper(),
+            const Pepper(),
+            const Pepper(),
           ),
         ];
 
@@ -246,9 +247,9 @@ class FarmPlantGroupCard extends StatelessWidget {
       Season.winter,
     };
     for (var farmPlant in farmPlants) {
-      for (var crop in farmPlant.crops) {
-        if (crop == null) continue;
-        seasons = seasons.intersection(crop.seasons);
+      for (var plant in farmPlant.plants) {
+        if (plant == null) continue;
+        seasons = seasons.intersection(plant.seasons);
       }
     }
     return seasons;
@@ -307,24 +308,24 @@ enum PlacementStyle {
 class FarmPlant extends StatelessWidget {
   FarmPlant(
     this.style, [
-    Crop? c0,
-    Crop? c1,
-    Crop? c2,
-    Crop? c3,
-    Crop? c4,
-    Crop? c5,
-    Crop? c6,
-    Crop? c7,
-    Crop? c8,
-    Crop? c9, // extra
+    Plant? c0,
+    Plant? c1,
+    Plant? c2,
+    Plant? c3,
+    Plant? c4,
+    Plant? c5,
+    Plant? c6,
+    Plant? c7,
+    Plant? c8,
+    Plant? c9, // extra
     Key? key,
-  ])  : crops = [c0, c1, c2, c3, c4, c5, c6, c7, c8, c9],
+  ])  : plants = [c0, c1, c2, c3, c4, c5, c6, c7, c8, c9],
         super(key: key);
 
   FarmPlant.empty({
     super.key,
     required this.style,
-  }) : crops = [
+  }) : plants = [
           null,
           null,
           null,
@@ -337,24 +338,24 @@ class FarmPlant extends StatelessWidget {
           null, // extra
         ];
 
-  final List<Crop?> crops;
+  final List<Plant?> plants;
 
   final PlacementStyle style;
 
   bool get hasBalancedNutrients {
     var result = const Nutrient(compost: 0, growthFormula: 0, manure: 0);
-    int countOfCrops;
+    int countOfPlants;
     switch (style) {
       case PlacementStyle.basic:
-        countOfCrops = 9;
+        countOfPlants = 9;
       case PlacementStyle.dense:
       case PlacementStyle.reverseDense:
-        countOfCrops = 10;
+        countOfPlants = 10;
     }
-    for (var i = 0; i < countOfCrops; i++) {
-      var crop = crops[i];
-      if (crop != null) {
-        result += crop.nutrient;
+    for (var i = 0; i < countOfPlants; i++) {
+      var plant = plants[i];
+      if (plant != null) {
+        result += plant.nutrient;
       }
     }
     return result.compost == 0 &&
@@ -373,23 +374,23 @@ class FarmPlant extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  CropCell(crop: crops[0]),
-                  CropCell(crop: crops[1]),
-                  CropCell(crop: crops[2]),
+                  PlantCell(plant: plants[0]),
+                  PlantCell(plant: plants[1]),
+                  PlantCell(plant: plants[2]),
                 ],
               ),
               Row(
                 children: [
-                  CropCell(crop: crops[3]),
-                  CropCell(crop: crops[4]),
-                  CropCell(crop: crops[5]),
+                  PlantCell(plant: plants[3]),
+                  PlantCell(plant: plants[4]),
+                  PlantCell(plant: plants[5]),
                 ],
               ),
               Row(
                 children: [
-                  CropCell(crop: crops[6]),
-                  CropCell(crop: crops[7]),
-                  CropCell(crop: crops[8]),
+                  PlantCell(plant: plants[6]),
+                  PlantCell(plant: plants[7]),
+                  PlantCell(plant: plants[8]),
                 ],
               ),
             ],
@@ -404,34 +405,34 @@ class FarmPlant extends StatelessWidget {
               Flexible(
                 child: Row(
                   children: [
-                    CropCell(crop: crops[0]),
-                    CropCell(crop: crops[1]),
+                    PlantCell(plant: plants[0]),
+                    PlantCell(plant: plants[1]),
                   ],
                 ),
               ),
               Flexible(
                 child: Row(
                   children: [
-                    CropCell(crop: crops[2]),
-                    CropCell(crop: crops[3]),
-                    CropCell(crop: crops[4]),
+                    PlantCell(plant: plants[2]),
+                    PlantCell(plant: plants[3]),
+                    PlantCell(plant: plants[4]),
                   ],
                 ),
               ),
               Flexible(
                 child: Row(
                   children: [
-                    CropCell(crop: crops[5]),
-                    CropCell(crop: crops[6]),
+                    PlantCell(plant: plants[5]),
+                    PlantCell(plant: plants[6]),
                   ],
                 ),
               ),
               Flexible(
                 child: Row(
                   children: [
-                    CropCell(crop: crops[7]),
-                    CropCell(crop: crops[8]),
-                    CropCell(crop: crops[9]),
+                    PlantCell(plant: plants[7]),
+                    PlantCell(plant: plants[8]),
+                    PlantCell(plant: plants[9]),
                   ],
                 ),
               ),
@@ -447,34 +448,34 @@ class FarmPlant extends StatelessWidget {
               Flexible(
                 child: Row(
                   children: [
-                    CropCell(crop: crops[0]),
-                    CropCell(crop: crops[1]),
-                    CropCell(crop: crops[2]),
+                    PlantCell(plant: plants[0]),
+                    PlantCell(plant: plants[1]),
+                    PlantCell(plant: plants[2]),
                   ],
                 ),
               ),
               Flexible(
                 child: Row(
                   children: [
-                    CropCell(crop: crops[3]),
-                    CropCell(crop: crops[4]),
+                    PlantCell(plant: plants[3]),
+                    PlantCell(plant: plants[4]),
                   ],
                 ),
               ),
               Flexible(
                 child: Row(
                   children: [
-                    CropCell(crop: crops[5]),
-                    CropCell(crop: crops[6]),
-                    CropCell(crop: crops[7]),
+                    PlantCell(plant: plants[5]),
+                    PlantCell(plant: plants[6]),
+                    PlantCell(plant: plants[7]),
                   ],
                 ),
               ),
               Flexible(
                 child: Row(
                   children: [
-                    CropCell(crop: crops[8]),
-                    CropCell(crop: crops[9]),
+                    PlantCell(plant: plants[8]),
+                    PlantCell(plant: plants[9]),
                   ],
                 ),
               ),
@@ -485,13 +486,13 @@ class FarmPlant extends StatelessWidget {
   }
 }
 
-class CropCell extends StatelessWidget {
-  const CropCell({
+class PlantCell extends StatelessWidget {
+  const PlantCell({
     super.key,
-    required this.crop,
+    required this.plant,
   });
 
-  final Crop? crop;
+  final Plant? plant;
 
   static const double margin = 1;
 
@@ -507,8 +508,8 @@ class CropCell extends StatelessWidget {
         margin: const EdgeInsets.all(margin),
         padding: const EdgeInsets.all(padding),
         color: colorScheme.surfaceContainerHighest,
-        child: crop != null
-            ? Image.asset('crops/${crop!.name}.png')
+        child: plant != null
+            ? Image.asset('items/${plant!.assetName}.png')
             : const AspectRatio(aspectRatio: 1),
       ),
     );

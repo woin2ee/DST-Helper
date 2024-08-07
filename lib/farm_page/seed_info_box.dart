@@ -1,4 +1,5 @@
-import 'package:dst_helper/models/crop.dart';
+import 'package:dst_helper/models/items.dart';
+import 'package:dst_helper/models/plants.dart';
 import 'package:flutter/material.dart';
 
 class SeedInfoBox extends StatefulWidget {
@@ -9,8 +10,6 @@ class SeedInfoBox extends StatefulWidget {
 }
 
 class _SeedInfoBoxState extends State<SeedInfoBox> {
-  final seedCrops = Crop.values.where((crop) => crop.hasSeeds);
-
   bool folded = true;
 
   @override
@@ -41,13 +40,15 @@ class _SeedInfoBoxState extends State<SeedInfoBox> {
                     ),
                   ),
                   Column(
-                    children: seedCrops
+                    children: Plants.crops
                         .map((crop) => SizedBox(
                               height: 46,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Image.asset('seeds/${crop.name}_seeds.png'),
+                                  Image.asset(
+                                    'items/${crop.assetName}_seeds.png',
+                                  ),
                                   const Text(
                                     "=",
                                     style: TextStyle(
@@ -56,7 +57,7 @@ class _SeedInfoBoxState extends State<SeedInfoBox> {
                                       letterSpacing: 10,
                                     ),
                                   ),
-                                  Image.asset('crops/${crop.name}.png'),
+                                  Image.asset('items/${crop.assetName}.png'),
                                 ],
                               ),
                             ))
@@ -93,7 +94,7 @@ class SeedInfoBoxIcon extends StatelessWidget {
         iconSize: 20,
         onPressed: onPressed,
         icon: Image.asset(
-          "seeds/seeds.png",
+          "items/${const Seeds().assetName}.png",
           width: 50,
         ),
       ),
