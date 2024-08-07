@@ -17,7 +17,7 @@ class Recipes {
       Kabobs(),
       MandrakeSoup(),
       BaconAndEggs(),
-      Meatballs(),
+      const Meatballs(),
       MeatyStew(),
       Pierogi(),
       TurkeyDinner(),
@@ -334,6 +334,8 @@ class BaconAndEggs implements Recipe {
 }
 
 class Meatballs implements Recipe {
+  const Meatballs();
+
   @override
   String get assetName => 'meatballs';
 
@@ -341,14 +343,15 @@ class Meatballs implements Recipe {
   String get name => 'Meatballs';
 
   @override
-  int get priority => throw UnimplementedError();
+  int get priority => -1;
 
   @override
-  FoodType get type => throw UnimplementedError();
+  FoodType get type => FoodType.meat;
 
   @override
   bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
+    assert(ingredients.length == 4);
+    return ingredients.containMeet && !ingredients.containInedible;
   }
 }
 

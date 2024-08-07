@@ -24,7 +24,23 @@ class BatiliskWing {}
 
 // class CookedBatiliskWing {}
 
-class Berries {}
+class Berries implements Food, Ingredient {
+  @override
+  // TODO: implement assetName
+  String get assetName => throw UnimplementedError();
+
+  @override
+  // TODO: implement foodValue
+  FoodValue? get foodValue => throw UnimplementedError();
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
+
+  @override
+  // TODO: implement type
+  FoodType get type => throw UnimplementedError();
+}
 
 // class RoastedBerries {}
 
@@ -152,7 +168,21 @@ class MoonShroom {}
 
 class MoonMothWings {}
 
-class Morsel {}
+class Morsel implements Ingredient, Food {
+  const Morsel();
+
+  @override
+  FoodValue? get foodValue => const FoodValue(meat: MeatValue.half);
+
+  @override
+  FoodType get type => FoodType.meat;
+  
+  @override
+  String get assetName => 'morsel';
+  
+  @override
+  String get name => 'Morsel';
+}
 
 // class CookedMorsel {}
 

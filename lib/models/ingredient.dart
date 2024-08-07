@@ -82,7 +82,7 @@ enum MonsterValue {
 
 typedef Ingredients = List<Ingredient>;
 
-extension on Ingredients {
+extension IngredientsInspector on Ingredients {
   bool get containEgg {
     for (var i = 0; i < length; i++) {
       if (this[i].foodValue?.egg != null) return true;
@@ -100,6 +100,34 @@ extension on Ingredients {
   bool get containTwigs {
     for (var i = 0; i < length; i++) {
       if (this[i] is Twigs) return true;
+    }
+    return false;
+  }
+
+  bool get containMeet {
+    for (var i = 0; i < length; i++) {
+      if (this[i].foodValue?.meat != null) return true;
+    }
+    return false;
+  }
+  
+  bool get containVeggie {
+    for (var i = 0; i < length; i++) {
+      if (this[i].foodValue?.vegetable != null) return true;
+    }
+    return false;
+  }
+  
+  bool get containFruit {
+    for (var i = 0; i < length; i++) {
+      if (this[i].foodValue?.fruit != null) return true;
+    }
+    return false;
+  }
+
+  bool get containSweetener {
+    for (var i = 0; i < length; i++) {
+      if (this[i].foodValue?.sweetener != null) return true;
     }
     return false;
   }
