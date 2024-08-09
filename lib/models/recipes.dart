@@ -1,96 +1,130 @@
+import 'dart:math';
+
 import 'package:dst_helper/models/food.dart';
 import 'package:dst_helper/models/ingredient.dart';
+import 'package:dst_helper/models/items.dart';
+import 'package:dst_helper/models/plants.dart';
 import 'package:dst_helper/models/recipe.dart';
 
 class Recipes {
   static List<Recipe> get recipes {
     return [
       const ButterMuffin(),
+      const Fishsticks(),
       const FroggleBunwich(),
-      const Taffy(),
+      const HoneyHam(),
+      const HoneyNuggets(),
+      const Meatballs(),
+      const MeatyStew(),
       const PumpkinCookie(),
       const StuffedEggplant(),
-      const Fishsticks(),
-      const HoneyNuggets(),
-      const HoneyHam(),
-      Dragonpie(),
-      Kabobs(),
-      MandrakeSoup(),
-      BaconAndEggs(),
-      const Meatballs(),
-      MeatyStew(),
-      Pierogi(),
-      TurkeyDinner(),
-      Ratatouille(),
-      FistFullOfJam(),
-      FruitMedley(),
-      FishTacos(),
-      Waffles(),
-      MonsterLasagna(),
-      Powdercake(),
-      Unagi(),
-      WetGoop(),
-      FlowerSalad(),
-      IceCream(),
-      Melonsicle(),
-      TrailMix(),
-      SpicyChili(),
-      Guacamole(),
-      BananaPop(),
-      CaliforniaRoll(),
-      Ceviche(),
-      WobsterBisque(),
-      WobsterDinner(),
-      SeafoodGumbo(),
-      SurfNTurf(),
-      Jellybeans(),
-      VegetableStinger(),
-      AsparagusSoup(),
-      StuffedPepperPoppers(),
-      MashedPotatoes(),
-      SalsaFresca(),
-      FancySpiralledTubers(),
-      BarnaclePita(),
-      BarnacleNigiri(),
-      BarnacleLinguine(),
-      StuffedFishHeads(),
-      MushyCake(),
-      SoothingTea(),
-      FigStuffedTrunk(),
-      Figatoni(),
-      Figkabab(),
-      FiggyFrogwich(),
-      FrozenBananaDaiquiri(),
-      BunnyStew(),
-      BananaShake(),
-      PlainOmelette(),
-      BreakfastSkillet(),
-      TallScotchEggs(),
-      SteamedTwigs(),
-      BeefaloTreats(),
-      LeafyMeatloaf(),
-      VeggieBurger(),
-      JellySalad(),
-      BeefyGreens(),
-      MilkmadeHat(),
-      Amberosia(),
-      GrimGalette(),
-      VoltGoatChaudFroid(),
-      GlowBerryMousse(),
-      FishCordonBleu(),
-      HotDragonChiliSalad(),
-      Asparagazpacho(),
-      PuffedPotatoSouffle(),
-      MonsterTartare(),
-      FreshFruitCrepes(),
-      BoneBouillon(),
-      Moqueca(),
+      const Taffy(),
+      const Amberosia(),
+      const Asparagazpacho(),
+      const AsparagusSoup(),
+      const BaconAndEggs(),
+      const BananaPop(),
+      const BananaShake(),
+      const BarnacleLinguine(),
+      const BarnacleNigiri(),
+      const BarnaclePita(),
+      const BeefaloTreats(),
+      const BeefyGreens(),
+      const BoneBouillon(),
+      const BreakfastSkillet(),
+      const BunnyStew(),
+      const CaliforniaRoll(),
+      const Ceviche(),
+      const Dragonpie(),
+      const FancySpiralledTubers(),
+      const FigStuffedTrunk(),
+      const Figatoni(),
+      const FiggyFrogwich(),
+      const Figkabab(),
+      const FishCordonBleu(),
+      const FishTacos(),
+      const FistFullOfJam(),
+      const FlowerSalad(),
+      const FreshFruitCrepes(),
+      const FrozenBananaDaiquiri(),
+      const FruitMedley(),
+      const GlowBerryMousse(),
+      const GrimGalette(),
+      const Guacamole(),
+      const HotDragonChiliSalad(),
+      const IceCream(),
+      const JellySalad(),
+      const Jellybeans(),
+      const Kabobs(),
+      const LeafyMeatloaf(),
+      const MandrakeSoup(),
+      const MashedPotatoes(),
+      const Melonsicle(),
+      const MilkmadeHat(),
+      const MonsterLasagna(),
+      const MonsterTartare(),
+      const Moqueca(),
+      const MushyCake(),
+      const Pierogi(),
+      const PlainOmelette(),
+      const Powdercake(),
+      const PuffedPotatoSouffle(),
+      const Ratatouille(),
+      const SalsaFresca(),
+      const SeafoodGumbo(),
+      const SoothingTea(),
+      const SpicyChili(),
+      const SteamedTwigs(),
+      const StuffedFishHeads(),
+      const StuffedPepperPoppers(),
+      const SurfNTurf(),
+      const TallScotchEggs(),
+      const TrailMix(),
+      const TurkeyDinner(),
+      const Unagi(),
+      const VegetableStinger(),
+      const VeggieBurger(),
+      const VoltGoatChaudFroid(),
+      const Waffles(),
+      const WetGoop(),
+      const WobsterBisque(),
+      const WobsterDinner(),
     ];
   }
 }
 
-class ButterMuffin implements Recipe {
-  const ButterMuffin();
+mixin RecipeAnalysing on Recipe {
+  /// A value indicating whether the recipe can be cooked with given ingredients.
+  ///
+  /// If the recipe can't be able to cook with given ingredients any way, it returns `false`, while able to, returns `true`.
+  ///
+  /// Note: The moment a certain recipe becomes cookable, the recipes having low priority than the recipe becomes uncookable.
+  bool canBeCookedWith(Ingredient i1, Ingredient i2, Ingredient i3, Ingredient i4) {
+    final ingredientsAnalyser = IngredientsAnalyser([i1, i2, i3, i4]);
+    if (!requirements.isMetFor(ingredientsAnalyser)) return false;
+    // The length of recipes is always greater than 0 because the checking above.
+    var satisfiedRecipes = Recipes.recipes.where((recipe) => recipe.requirements.isMetFor(ingredientsAnalyser));
+    if (satisfiedRecipes.length == 1) return true;
+    var maxPriority = satisfiedRecipes.map((recipe) => recipe.priority).reduce(max);
+    if (priority < maxPriority) return false;
+    return true;
+  }
+}
+
+class ButterMuffin extends Recipe with RecipeAnalysing {
+  const ButterMuffin()
+      : super(
+          priority: 1,
+          requirements: const Requirements({
+            OrRequirement({
+              ContainingRequirement(ButterflyWings()),
+              ContainingRequirement(MoonMothWings()),
+            }),
+            MeetRequirement(FoodValues({
+              FoodValue(FoodValueCategory.vegetable, 0.5),
+            }))
+          }),
+        );
 
   @override
   String get assetName => 'butter_muffin';
@@ -99,103 +133,19 @@ class ButterMuffin implements Recipe {
   String get name => 'Butter Muffin';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class FroggleBunwich implements Recipe {
-  const FroggleBunwich();
-
-  @override
-  String get assetName => 'froggle_bunwich';
-
-  @override
-  String get name => 'Froggle Bunwich';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class Taffy implements Recipe {
-  const Taffy();
-
-  @override
-  String get assetName => 'taffy';
-
-  @override
-  String get name => 'Taffy';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class PumpkinCookie implements Recipe {
-  const PumpkinCookie();
-
-  @override
-  String get assetName => 'pumpkin_cookie';
-
-  @override
-  String get name => 'Pumpkin Cookie';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class StuffedEggplant implements Recipe {
-  const StuffedEggplant();
-
-  @override
-  String get assetName => 'stuffed_eggplant';
-
-  @override
-  String get name => 'Stuffed Eggplant';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class Fishsticks implements Recipe {
-  const Fishsticks();
+class Fishsticks extends Recipe with RecipeAnalysing {
+  const Fishsticks()
+      : super(
+          priority: 10,
+          requirements: const Requirements({
+            AtLeastRequirement({FoodValueCategory.fish}),
+            ContainingRequirement(Twigs()),
+            MaxRequirement(FoodValue(FoodValueCategory.inedible, 1.0)), // Fillers cannot be `Inedibles`.
+          }),
+        );
 
   @override
   String get assetName => 'fishsticks';
@@ -204,19 +154,89 @@ class Fishsticks implements Recipe {
   String get name => 'Fishsticks';
 
   @override
-  int get priority => throw UnimplementedError();
+  FoodType get type => throw UnimplementedError();
+}
+
+class FroggleBunwich extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const FroggleBunwich()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
+  @override
+  String get assetName => 'froggle_bunwich';
+
+  @override
+  String get name => 'Froggle Bunwich';
 
   @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class HoneyNuggets implements Recipe {
-  const HoneyNuggets();
+class Taffy extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const Taffy()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
+  @override
+  String get assetName => 'taffy';
+
+  @override
+  String get name => 'Taffy';
+
+  @override
+  FoodType get type => throw UnimplementedError();
+}
+
+class PumpkinCookie extends Recipe with RecipeAnalysing {
+  const PumpkinCookie()
+      : super(
+          priority: 10,
+          requirements: const Requirements({
+            ContainingRequirement(Pumpkin()),
+            MeetRequirement(FoodValues({FoodValue(FoodValueCategory.sweetener, 2.0)})),
+          }),
+        );
+
+  @override
+  String get assetName => 'pumpkin_cookie';
+
+  @override
+  String get name => 'Pumpkin Cookie';
+
+  @override
+  FoodType get type => FoodType.veggie;
+}
+
+class StuffedEggplant extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const StuffedEggplant()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
+  @override
+  String get assetName => 'stuffed_eggplant';
+
+  @override
+  String get name => 'Stuffed Eggplant';
+
+  @override
+  FoodType get type => throw UnimplementedError();
+}
+
+class HoneyNuggets extends Recipe with RecipeAnalysing {
+  const HoneyNuggets()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
 
   @override
   String get assetName => 'honey_nuggets';
@@ -225,19 +245,20 @@ class HoneyNuggets implements Recipe {
   String get name => 'Honey Nuggets';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class HoneyHam implements Recipe {
-  const HoneyHam();
+class HoneyHam extends Recipe with RecipeAnalysing {
+  const HoneyHam()
+      : super(
+          priority: 2,
+          requirements: const Requirements({
+            ContainingRequirement(Honey()),
+            ExcessRequirement(FoodValues({FoodValue(FoodValueCategory.meat, 1.5)})),
+            NoRequirement(categories: {FoodValueCategory.inedible}),
+            MaxRequirement(FoodValue(FoodValueCategory.meat, 1.5))
+          }),
+        );
 
   @override
   String get assetName => 'honey_ham';
@@ -246,18 +267,19 @@ class HoneyHam implements Recipe {
   String get name => 'Honey Ham';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class Dragonpie implements Recipe {
+class Dragonpie extends Recipe with RecipeAnalysing {
+  const Dragonpie()
+      : super(
+          priority: 1,
+          requirements: const Requirements({
+            ContainingRequirement(DragonFruit()),
+            NoRequirement(categories: {FoodValueCategory.meat}),
+          }),
+        );
+
   @override
   String get assetName => 'dragonpie';
 
@@ -265,18 +287,22 @@ class Dragonpie implements Recipe {
   String get name => 'Dragonpie';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class Kabobs implements Recipe {
+class Kabobs extends Recipe with RecipeAnalysing {
+  const Kabobs()
+      : super(
+          priority: 5,
+          requirements: const Requirements({
+            AtLeastRequirement({FoodValueCategory.meat}),
+            ContainingRequirement(Twigs()),
+            // Actually, `NoRequirement` should be here, but it requires 1 Twigs.
+            MaxRequirement(FoodValue(FoodValueCategory.inedible, 1.0)),
+            MaxRequirement(FoodValue(FoodValueCategory.monster, 1.0)),
+          }),
+        );
+
   @override
   String get assetName => 'kabobs';
 
@@ -284,18 +310,17 @@ class Kabobs implements Recipe {
   String get name => 'Kabobs';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class MandrakeSoup implements Recipe {
+class MandrakeSoup extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const MandrakeSoup()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'mandrake_soup';
 
@@ -303,18 +328,17 @@ class MandrakeSoup implements Recipe {
   String get name => 'Mandrake Soup';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class BaconAndEggs implements Recipe {
+class BaconAndEggs extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const BaconAndEggs()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'bacon_and_eggs';
 
@@ -322,19 +346,18 @@ class BaconAndEggs implements Recipe {
   String get name => 'Bacon and Eggs';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class Meatballs implements Recipe {
-  const Meatballs();
+class Meatballs extends Recipe with RecipeAnalysing {
+  const Meatballs()
+      : super(
+          priority: -1,
+          requirements: const Requirements({
+            AtLeastRequirement({FoodValueCategory.meat}),
+            NoRequirement(categories: {FoodValueCategory.inedible})
+          }),
+        );
 
   @override
   String get assetName => 'meatballs';
@@ -343,19 +366,22 @@ class Meatballs implements Recipe {
   String get name => 'Meatballs';
 
   @override
-  int get priority => -1;
-
-  @override
   FoodType get type => FoodType.meat;
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    assert(ingredients.length == 4);
-    return ingredients.containMeet && !ingredients.containInedible;
-  }
 }
 
-class MeatyStew implements Recipe {
+class MeatyStew extends Recipe with RecipeAnalysing {
+  const MeatyStew()
+      : super(
+          priority: 0,
+          requirements: const Requirements({
+            MeetRequirement(FoodValues({FoodValue(FoodValueCategory.meat, 3.0)})),
+            NoRequirement(
+              categories: {FoodValueCategory.inedible},
+              ingredients: {TallbirdEgg(), Mandrake()},
+            )
+          }),
+        );
+
   @override
   String get assetName => 'meaty_stew';
 
@@ -363,18 +389,29 @@ class MeatyStew implements Recipe {
   String get name => 'Meaty Stew';
 
   @override
-  int get priority => throw UnimplementedError();
+  FoodType get type => FoodType.meat;
 
-  @override
-  FoodType get type => throw UnimplementedError();
+  // @override
+  // bool canBeCookedWith(Ingredients ingredients) {
 
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
+  //   return ingredients.meatValue.meets(3) &&
+  //       !ingredients.containInedible &&
+  //       !ingredients.containTallbirdEgg &&
+  //       !ingredients.containMandrake;
+  // }
 }
 
-class Pierogi implements Recipe {
+class Pierogi extends Recipe with RecipeAnalysing {
+  const Pierogi()
+      : super(
+          priority: 5,
+          requirements: const Requirements({
+            MeetRequirement(FoodValues({FoodValue(FoodValueCategory.egg, 1.0)})),
+            AtLeastRequirement({FoodValueCategory.meat, FoodValueCategory.vegetable}),
+            NoRequirement(categories: {FoodValueCategory.inedible}),
+          }),
+        );
+
   @override
   String get assetName => 'pierogi';
 
@@ -382,18 +419,17 @@ class Pierogi implements Recipe {
   String get name => 'Pierogi';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class TurkeyDinner implements Recipe {
+class TurkeyDinner extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const TurkeyDinner()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'turkey_dinner';
 
@@ -401,18 +437,19 @@ class TurkeyDinner implements Recipe {
   String get name => 'Turkey Dinner';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class Ratatouille implements Recipe {
+class Ratatouille extends Recipe with RecipeAnalysing {
+  const Ratatouille()
+      : super(
+          priority: 0,
+          requirements: const Requirements({
+            MeetRequirement(FoodValues({FoodValue(FoodValueCategory.vegetable, 0.5)})),
+            NoRequirement(categories: {FoodValueCategory.meat, FoodValueCategory.inedible}),
+          }),
+        );
+
   @override
   String get assetName => 'ratatouille';
 
@@ -420,18 +457,17 @@ class Ratatouille implements Recipe {
   String get name => 'Ratatouille';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class FistFullOfJam implements Recipe {
+class FistFullOfJam extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const FistFullOfJam()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'fist_full_of_jam';
 
@@ -439,18 +475,17 @@ class FistFullOfJam implements Recipe {
   String get name => 'Fist Full of Jam';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class FruitMedley implements Recipe {
+class FruitMedley extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const FruitMedley()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'fruit_medley';
 
@@ -458,18 +493,17 @@ class FruitMedley implements Recipe {
   String get name => 'Fruit Medley';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class FishTacos implements Recipe {
+class FishTacos extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const FishTacos()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'fish_tacos';
 
@@ -477,18 +511,17 @@ class FishTacos implements Recipe {
   String get name => 'Fish Tacos';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class Waffles implements Recipe {
+class Waffles extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const Waffles()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'waffles';
 
@@ -496,18 +529,19 @@ class Waffles implements Recipe {
   String get name => 'Waffles';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class MonsterLasagna implements Recipe {
+class MonsterLasagna extends Recipe with RecipeAnalysing {
+  const MonsterLasagna()
+      : super(
+          priority: 10,
+          requirements: const Requirements({
+            MeetRequirement(FoodValues({FoodValue(FoodValueCategory.monster, 2.0)})),
+            NoRequirement(categories: {FoodValueCategory.inedible}),
+          }),
+        );
+
   @override
   String get assetName => 'monster_lasagna';
 
@@ -515,18 +549,23 @@ class MonsterLasagna implements Recipe {
   String get name => 'Monster Lasagna';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
+  FoodType get type => FoodType.meat;
 }
 
-class Powdercake implements Recipe {
+class Powdercake extends Recipe with RecipeAnalysing {
+  const Powdercake()
+      : super(
+          priority: 10,
+          requirements: const Requirements({
+            OrRequirement({
+              ContainingRequirement(Corn()),
+              ContainingRequirement(Popperfish()),
+            }),
+            ContainingRequirement(Honey()),
+            ContainingRequirement(Twigs()),
+          }),
+        );
+
   @override
   String get assetName => 'powdercake';
 
@@ -534,18 +573,17 @@ class Powdercake implements Recipe {
   String get name => 'Powdercake';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class Unagi implements Recipe {
+class Unagi extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const Unagi()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'unagi';
 
@@ -553,18 +591,17 @@ class Unagi implements Recipe {
   String get name => 'Unagi';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class WetGoop implements Recipe {
+class WetGoop extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const WetGoop()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'wet_goop';
 
@@ -572,18 +609,17 @@ class WetGoop implements Recipe {
   String get name => 'Wet Goop';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class FlowerSalad implements Recipe {
+class FlowerSalad extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const FlowerSalad()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'flower_salad';
 
@@ -591,18 +627,17 @@ class FlowerSalad implements Recipe {
   String get name => 'Flower Salad';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class IceCream implements Recipe {
+class IceCream extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const IceCream()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'ice_cream';
 
@@ -610,18 +645,17 @@ class IceCream implements Recipe {
   String get name => 'Ice Cream';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class Melonsicle implements Recipe {
+class Melonsicle extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const Melonsicle()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'melonsicle';
 
@@ -629,18 +663,17 @@ class Melonsicle implements Recipe {
   String get name => 'Melonsicle';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class TrailMix implements Recipe {
+class TrailMix extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const TrailMix()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'trail_mix';
 
@@ -648,18 +681,17 @@ class TrailMix implements Recipe {
   String get name => 'Trail Mix';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class SpicyChili implements Recipe {
+class SpicyChili extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const SpicyChili()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'spicy_chili';
 
@@ -667,18 +699,17 @@ class SpicyChili implements Recipe {
   String get name => 'Spicy Chili';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class Guacamole implements Recipe {
+class Guacamole extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const Guacamole()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'guacamole';
 
@@ -686,18 +717,17 @@ class Guacamole implements Recipe {
   String get name => 'Guacamole';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class BananaPop implements Recipe {
+class BananaPop extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const BananaPop()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'banana_pop';
 
@@ -705,18 +735,17 @@ class BananaPop implements Recipe {
   String get name => 'Banana Pop';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class CaliforniaRoll implements Recipe {
+class CaliforniaRoll extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const CaliforniaRoll()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'california_roll';
 
@@ -724,18 +753,17 @@ class CaliforniaRoll implements Recipe {
   String get name => 'California Roll';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class Ceviche implements Recipe {
+class Ceviche extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const Ceviche()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'ceviche';
 
@@ -743,18 +771,17 @@ class Ceviche implements Recipe {
   String get name => 'Ceviche';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class WobsterBisque implements Recipe {
+class WobsterBisque extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const WobsterBisque()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'wobster_bisque';
 
@@ -762,18 +789,17 @@ class WobsterBisque implements Recipe {
   String get name => 'Wobster Bisque';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class WobsterDinner implements Recipe {
+class WobsterDinner extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const WobsterDinner()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'wobster_dinner';
 
@@ -781,18 +807,17 @@ class WobsterDinner implements Recipe {
   String get name => 'Wobster Dinner';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class SeafoodGumbo implements Recipe {
+class SeafoodGumbo extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const SeafoodGumbo()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'seafood_gumbo';
 
@@ -800,18 +825,17 @@ class SeafoodGumbo implements Recipe {
   String get name => 'Seafood Gumbo';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class SurfNTurf implements Recipe {
+class SurfNTurf extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const SurfNTurf()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'surf_n_turf';
 
@@ -819,18 +843,17 @@ class SurfNTurf implements Recipe {
   String get name => 'Surf \'n\' Turf';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class Jellybeans implements Recipe {
+class Jellybeans extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const Jellybeans()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'jellybeans';
 
@@ -838,18 +861,17 @@ class Jellybeans implements Recipe {
   String get name => 'Jellybeans';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class VegetableStinger implements Recipe {
+class VegetableStinger extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const VegetableStinger()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'vegetable_stinger';
 
@@ -857,18 +879,17 @@ class VegetableStinger implements Recipe {
   String get name => 'Vegetable Stinger';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class AsparagusSoup implements Recipe {
+class AsparagusSoup extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const AsparagusSoup()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'asparagus_soup';
 
@@ -876,18 +897,17 @@ class AsparagusSoup implements Recipe {
   String get name => 'Asparagus Soup';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class StuffedPepperPoppers implements Recipe {
+class StuffedPepperPoppers extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const StuffedPepperPoppers()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'stuffed_pepper_poppers';
 
@@ -895,18 +915,17 @@ class StuffedPepperPoppers implements Recipe {
   String get name => 'Stuffed Pepper Poppers';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class SalsaFresca implements Recipe {
+class SalsaFresca extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const SalsaFresca()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'salsa_fresca';
 
@@ -914,18 +933,17 @@ class SalsaFresca implements Recipe {
   String get name => 'Salsa Fresca';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class FancySpiralledTubers implements Recipe {
+class FancySpiralledTubers extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const FancySpiralledTubers()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'fancy_spiralled_tubers';
 
@@ -933,18 +951,17 @@ class FancySpiralledTubers implements Recipe {
   String get name => 'Fancy Spiralled Tubers';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class BarnaclePita implements Recipe {
+class BarnaclePita extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const BarnaclePita()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'barnacle_pita';
 
@@ -952,18 +969,17 @@ class BarnaclePita implements Recipe {
   String get name => 'Barnacle Pita';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class BarnacleNigiri implements Recipe {
+class BarnacleNigiri extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const BarnacleNigiri()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'barnacle_nigiri';
 
@@ -971,18 +987,17 @@ class BarnacleNigiri implements Recipe {
   String get name => 'Barnacle Nigiri';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class BarnacleLinguine implements Recipe {
+class BarnacleLinguine extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const BarnacleLinguine()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'barnacle_linguine';
 
@@ -990,18 +1005,17 @@ class BarnacleLinguine implements Recipe {
   String get name => 'Barnacle Linguine';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class StuffedFishHeads implements Recipe {
+class StuffedFishHeads extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const StuffedFishHeads()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'stuffed_fish_heads';
 
@@ -1009,18 +1023,17 @@ class StuffedFishHeads implements Recipe {
   String get name => 'Stuffed Fish Heads';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class MushyCake implements Recipe {
+class MushyCake extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const MushyCake()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'mushy_cake';
 
@@ -1028,18 +1041,17 @@ class MushyCake implements Recipe {
   String get name => 'Mushy Cake';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class SoothingTea implements Recipe {
+class SoothingTea extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const SoothingTea()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'soothing_tea';
 
@@ -1047,18 +1059,17 @@ class SoothingTea implements Recipe {
   String get name => 'Soothing Tea';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class FigStuffedTrunk implements Recipe {
+class FigStuffedTrunk extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const FigStuffedTrunk()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'fig_stuffed_trunk';
 
@@ -1066,18 +1077,17 @@ class FigStuffedTrunk implements Recipe {
   String get name => 'Fig-Stuffed Trunk';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class Figatoni implements Recipe {
+class Figatoni extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const Figatoni()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'figatoni';
 
@@ -1085,18 +1095,17 @@ class Figatoni implements Recipe {
   String get name => 'Figatoni';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class Figkabab implements Recipe {
+class Figkabab extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const Figkabab()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'figkabab';
 
@@ -1104,18 +1113,17 @@ class Figkabab implements Recipe {
   String get name => 'Figkabab';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class FiggyFrogwich implements Recipe {
+class FiggyFrogwich extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const FiggyFrogwich()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'figgy_frogwich';
 
@@ -1123,18 +1131,17 @@ class FiggyFrogwich implements Recipe {
   String get name => 'Figgy Frogwich';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class FrozenBananaDaiquiri implements Recipe {
+class FrozenBananaDaiquiri extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const FrozenBananaDaiquiri()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'frozen_banana_daiquiri';
 
@@ -1142,18 +1149,21 @@ class FrozenBananaDaiquiri implements Recipe {
   String get name => 'Frozen Banana Daiquiri';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class BunnyStew implements Recipe {
+class BunnyStew extends Recipe with RecipeAnalysing {
+  const BunnyStew()
+      : super(
+          priority: 1,
+          requirements: const Requirements({
+            AtLeastRequirement({FoodValueCategory.meat}),
+            ContainingRequirement(Ice(), 2),
+            NoRequirement(categories: {FoodValueCategory.inedible}),
+            MaxRequirement(FoodValue(FoodValueCategory.meat, 0.75)),
+          }),
+        );
+
   @override
   String get assetName => 'bunny_stew';
 
@@ -1161,18 +1171,17 @@ class BunnyStew implements Recipe {
   String get name => 'Bunny Stew';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class BananaShake implements Recipe {
+class BananaShake extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const BananaShake()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'banana_shake';
 
@@ -1180,18 +1189,17 @@ class BananaShake implements Recipe {
   String get name => 'Banana Shake';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class PlainOmelette implements Recipe {
+class PlainOmelette extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const PlainOmelette()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'plain_omelette';
 
@@ -1199,18 +1207,17 @@ class PlainOmelette implements Recipe {
   String get name => 'Plain Omelette';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class BreakfastSkillet implements Recipe {
+class BreakfastSkillet extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const BreakfastSkillet()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'breakfast_skillet';
 
@@ -1218,18 +1225,17 @@ class BreakfastSkillet implements Recipe {
   String get name => 'Breakfast Skillet';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class TallScotchEggs implements Recipe {
+class TallScotchEggs extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const TallScotchEggs()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'tall_scotch_eggs';
 
@@ -1237,18 +1243,18 @@ class TallScotchEggs implements Recipe {
   String get name => 'Tall Scotch Eggs';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class SteamedTwigs implements Recipe {
+class SteamedTwigs extends Recipe with RecipeAnalysing {
+  const SteamedTwigs()
+      : super(
+          priority: -5,
+          requirements: const Requirements({
+            ContainingRequirement(Twigs(), 3),
+          }),
+        );
+
   @override
   String get assetName => 'steamed_twigs';
 
@@ -1256,18 +1262,17 @@ class SteamedTwigs implements Recipe {
   String get name => 'Steamed Twigs';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class BeefaloTreats implements Recipe {
+class BeefaloTreats extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const BeefaloTreats()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'beefalo_treats';
 
@@ -1275,18 +1280,18 @@ class BeefaloTreats implements Recipe {
   String get name => 'Beefalo Treats';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class LeafyMeatloaf implements Recipe {
+class LeafyMeatloaf extends Recipe with RecipeAnalysing {
+  const LeafyMeatloaf()
+      : super(
+          priority: 25,
+          requirements: const Requirements({
+            ContainingRequirement(LeafyMeat(), 2),
+          }),
+        );
+
   @override
   String get assetName => 'leafy_meatloaf';
 
@@ -1294,18 +1299,20 @@ class LeafyMeatloaf implements Recipe {
   String get name => 'Leafy Meatloaf';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
+  FoodType get type => FoodType.meat;
 }
 
-class VeggieBurger implements Recipe {
+class VeggieBurger extends Recipe with RecipeAnalysing {
+  const VeggieBurger()
+      : super(
+          priority: 25,
+          requirements: const Requirements({
+            ContainingRequirement(LeafyMeat()),
+            ContainingRequirement(Onion()),
+            MeetRequirement(FoodValues({FoodValue(FoodValueCategory.vegetable, 1.0)})),
+          }),
+        );
+
   @override
   String get assetName => 'veggie_burger';
 
@@ -1313,18 +1320,19 @@ class VeggieBurger implements Recipe {
   String get name => 'Veggie Burger';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class JellySalad implements Recipe {
+class JellySalad extends Recipe with RecipeAnalysing {
+  const JellySalad()
+      : super(
+          priority: 50,
+          requirements: const Requirements({
+            ContainingRequirement(LeafyMeat(), 2),
+            MeetRequirement(FoodValues({FoodValue(FoodValueCategory.sweetener, 2.0)})),
+          }),
+        );
+
   @override
   String get assetName => 'jelly_salad';
 
@@ -1332,18 +1340,17 @@ class JellySalad implements Recipe {
   String get name => 'Jelly Salad';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class BeefyGreens implements Recipe {
+class BeefyGreens extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const BeefyGreens()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'beefy_greens';
 
@@ -1351,18 +1358,17 @@ class BeefyGreens implements Recipe {
   String get name => 'Beefy Greens';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class MilkmadeHat implements Recipe {
+class MilkmadeHat extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const MilkmadeHat()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'milkmade_hat';
 
@@ -1370,18 +1376,16 @@ class MilkmadeHat implements Recipe {
   String get name => 'Milkmade Hat';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class Amberosia implements Recipe {
+class Amberosia extends Recipe with RecipeAnalysing {
+  const Amberosia()
+      : super(
+          priority: 100,
+          requirements: const Requirements({ContainingRequirement(CollectedDust())}),
+        );
+
   @override
   String get assetName => 'amberosia';
 
@@ -1389,18 +1393,18 @@ class Amberosia implements Recipe {
   String get name => 'Amberosia';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
+  // TODO: Not food checking
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class BeetSalho implements Recipe {
+class BeetSalho extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const BeetSalho()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'beet_salho';
 
@@ -1408,18 +1412,17 @@ class BeetSalho implements Recipe {
   String get name => 'Beet Salho';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class CricketCrackers implements Recipe {
+class CricketCrackers extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const CricketCrackers()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'cricket_crackers';
 
@@ -1427,18 +1430,17 @@ class CricketCrackers implements Recipe {
   String get name => 'Cricket Crackers';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class LeafySalad implements Recipe {
+class LeafySalad extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const LeafySalad()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'leafy_salad';
 
@@ -1446,18 +1448,17 @@ class LeafySalad implements Recipe {
   String get name => 'Leafy Salad';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class Leafloaf implements Recipe {
+class Leafloaf extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const Leafloaf()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'leafloaf';
 
@@ -1465,18 +1466,17 @@ class Leafloaf implements Recipe {
   String get name => 'Leafloaf';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class MixedVegetable implements Recipe {
+class MixedVegetable extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const MixedVegetable()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'mixed_vegetable';
 
@@ -1484,94 +1484,17 @@ class MixedVegetable implements Recipe {
   String get name => 'Mixed Vegetable';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class MudPie implements Recipe {
-  @override
-  String get assetName => 'mud_pie';
+class BoneBouillon extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const BoneBouillon()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
 
-  @override
-  String get name => 'Mud Pie';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class MixedJellybeans implements Recipe {
-  @override
-  String get assetName => 'mixed_jellybeans';
-
-  @override
-  String get name => 'Mixed Jellybeans';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class MisoRamen implements Recipe {
-  @override
-  String get assetName => 'miso_ramen';
-
-  @override
-  String get name => 'Miso Ramen';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class RoastedGarlicMussels implements Recipe {
-  @override
-  String get assetName => 'roasted_garlic_mussels';
-
-  @override
-  String get name => 'Roasted Garlic Mussels';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class BoneBouillon implements Recipe {
   @override
   String get assetName => 'bone_bouillon';
 
@@ -1579,37 +1502,17 @@ class BoneBouillon implements Recipe {
   String get name => 'Bone Bouillon';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class BoneStew implements Recipe {
-  @override
-  String get assetName => 'bone_stew';
+class Moqueca extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const Moqueca()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
 
-  @override
-  String get name => 'Bone Stew';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class Moqueca implements Recipe {
   @override
   String get assetName => 'moqueca';
 
@@ -1617,56 +1520,17 @@ class Moqueca implements Recipe {
   String get name => 'Moqueca';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class JellyOmelette implements Recipe {
-  @override
-  String get assetName => 'jelly_omelette';
+class MonsterTartare extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const MonsterTartare()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
 
-  @override
-  String get name => 'Jelly Omelette';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class StuffedTomato implements Recipe {
-  @override
-  String get assetName => 'stuffed_tomato';
-
-  @override
-  String get name => 'Stuffed Tomato';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class MonsterTartare implements Recipe {
   @override
   String get assetName => 'monster_tartare';
 
@@ -1674,37 +1538,17 @@ class MonsterTartare implements Recipe {
   String get name => 'Monster Tartare';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class DragonPie implements Recipe {
-  @override
-  String get assetName => 'dragonpie';
+class CreamyFettuccine extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const CreamyFettuccine()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
 
-  @override
-  String get name => 'Dragon Pie';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class CreamyFettuccine implements Recipe {
   @override
   String get assetName => 'creamy_fettuccine';
 
@@ -1712,18 +1556,17 @@ class CreamyFettuccine implements Recipe {
   String get name => 'Creamy Fettuccine';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class Fruitcake implements Recipe {
+class Fruitcake extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const Fruitcake()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'fruitcake';
 
@@ -1731,18 +1574,17 @@ class Fruitcake implements Recipe {
   String get name => 'Fruitcake';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class FreshFruitCrepes implements Recipe {
+class FreshFruitCrepes extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const FreshFruitCrepes()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'fresh_fruit_crepes';
 
@@ -1750,18 +1592,17 @@ class FreshFruitCrepes implements Recipe {
   String get name => 'Fresh Fruit Crepes';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class HotChili implements Recipe {
+class HotChili extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const HotChili()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'hot_chili';
 
@@ -1769,18 +1610,17 @@ class HotChili implements Recipe {
   String get name => 'Hot Chili';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class GlowBerryMousse implements Recipe {
+class GlowBerryMousse extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const GlowBerryMousse()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'glow_berry_mousse';
 
@@ -1788,151 +1628,17 @@ class GlowBerryMousse implements Recipe {
   String get name => 'Glow Berry Mousse';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class StoneSoup implements Recipe {
-  @override
-  String get assetName => 'stone_soup';
+class MashedPotatoes extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const MashedPotatoes()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
 
-  @override
-  String get name => 'Stone Soup';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class Gravy implements Recipe {
-  @override
-  String get assetName => 'gravy';
-
-  @override
-  String get name => 'Gravy';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class LuneTreeBlend implements Recipe {
-  @override
-  String get assetName => 'lune_tree_blend';
-
-  @override
-  String get name => 'Lune Tree Blend';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class BrambleBlooms implements Recipe {
-  @override
-  String get assetName => 'bramble_blooms';
-
-  @override
-  String get name => 'Bramble Blooms';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class GlowberrySyrup implements Recipe {
-  @override
-  String get assetName => 'glowberry_syrup';
-
-  @override
-  String get name => 'Glowberry Syrup';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class BerryWaffleDelight implements Recipe {
-  @override
-  String get assetName => 'berry_waffle_delight';
-
-  @override
-  String get name => 'Berry Waffle Delight';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class HoneyCrackers implements Recipe {
-  @override
-  String get assetName => 'honey_crackers';
-
-  @override
-  String get name => 'Honey Crackers';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class MashedPotatoes implements Recipe {
   @override
   String get assetName => 'mashedpotatoes';
 
@@ -1940,607 +1646,17 @@ class MashedPotatoes implements Recipe {
   String get name => 'Creamy Potato Purée';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class PotatoSouffle implements Recipe {
-  @override
-  String get assetName => 'potato_souffle';
+class GrimGalette extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const GrimGalette()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
 
-  @override
-  String get name => 'Potato Souffle';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class CreamyMushroomSoup implements Recipe {
-  @override
-  String get assetName => 'creamy_mushroom_soup';
-
-  @override
-  String get name => 'Creamy Mushroom Soup';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class IceBream implements Recipe {
-  @override
-  String get assetName => 'ice_bream';
-
-  @override
-  String get name => 'Ice Bream';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class GrilledAsparagus implements Recipe {
-  @override
-  String get assetName => 'grilled_asparagus';
-
-  @override
-  String get name => 'Grilled Asparagus';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class PoachedEgg implements Recipe {
-  @override
-  String get assetName => 'poached_egg';
-
-  @override
-  String get name => 'Poached Egg';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class HerbalSalad implements Recipe {
-  @override
-  String get assetName => 'herbal_salad';
-
-  @override
-  String get name => 'Herbal Salad';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class CreamyFishMuffin implements Recipe {
-  @override
-  String get assetName => 'creamy_fish_muffin';
-
-  @override
-  String get name => 'Creamy Fish Muffin';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class TropicalBouillabaisse implements Recipe {
-  @override
-  String get assetName => 'tropical_bouillabaisse';
-
-  @override
-  String get name => 'Tropical Bouillabaisse';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class Gazpacho implements Recipe {
-  @override
-  String get assetName => 'gazpacho';
-
-  @override
-  String get name => 'Gazpacho';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class HibiscusTea implements Recipe {
-  @override
-  String get assetName => 'hibiscus_tea';
-
-  @override
-  String get name => 'Hibiscus Tea';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class Horchata implements Recipe {
-  @override
-  String get assetName => 'horchata';
-
-  @override
-  String get name => 'Horchata';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class IcedTea implements Recipe {
-  @override
-  String get assetName => 'iced_tea';
-
-  @override
-  String get name => 'Iced Tea';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class JellyBean implements Recipe {
-  @override
-  String get assetName => 'jelly_bean';
-
-  @override
-  String get name => 'Jelly Bean';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class MangoFloat implements Recipe {
-  @override
-  String get assetName => 'mango_float';
-
-  @override
-  String get name => 'Mango Float';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class Marshmallow implements Recipe {
-  @override
-  String get assetName => 'marshmallow';
-
-  @override
-  String get name => 'Marshmallow';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class MelonJuice implements Recipe {
-  @override
-  String get assetName => 'melon_juice';
-
-  @override
-  String get name => 'Melon Juice';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class MusselBouillabaisse implements Recipe {
-  @override
-  String get assetName => 'mussel_bouillabaisse';
-
-  @override
-  String get name => 'Mussel Bouillabaisse';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class Mustard implements Recipe {
-  @override
-  String get assetName => 'mustard';
-
-  @override
-  String get name => 'Mustard';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class OnionSoup implements Recipe {
-  @override
-  String get assetName => 'onion_soup';
-
-  @override
-  String get name => 'Onion Soup';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class PankoCrustedFish implements Recipe {
-  @override
-  String get assetName => 'panko_crusted_fish';
-
-  @override
-  String get name => 'Panko Crusted Fish';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class Parfait implements Recipe {
-  @override
-  String get assetName => 'parfait';
-
-  @override
-  String get name => 'Parfait';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class PeachCobbler implements Recipe {
-  @override
-  String get assetName => 'peach_cobbler';
-
-  @override
-  String get name => 'Peach Cobbler';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class PickledVeggies implements Recipe {
-  @override
-  String get assetName => 'pickled_veggies';
-
-  @override
-  String get name => 'Pickled Veggies';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class PistachioBrittle implements Recipe {
-  @override
-  String get assetName => 'pistachio_brittle';
-
-  @override
-  String get name => 'Pistachio Brittle';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class PoachedFishWithAsparagus implements Recipe {
-  @override
-  String get assetName => 'poached_fish_with_asparagus';
-
-  @override
-  String get name => 'Poached Fish With Asparagus';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class Popcorn implements Recipe {
-  @override
-  String get assetName => 'popcorn';
-
-  @override
-  String get name => 'Popcorn';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class PulledPorkSandwich implements Recipe {
-  @override
-  String get assetName => 'pulled_pork_sandwich';
-
-  @override
-  String get name => 'Pulled Pork Sandwich';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class PumpkinPie implements Recipe {
-  @override
-  String get assetName => 'pumpkin_pie';
-
-  @override
-  String get name => 'Pumpkin Pie';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class RoastedBrusselsSprouts implements Recipe {
-  @override
-  String get assetName => 'roasted_brussels_sprouts';
-
-  @override
-  String get name => 'Roasted Brussels Sprouts';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class SaltedPeanuts implements Recipe {
-  @override
-  String get assetName => 'salted_peanuts';
-
-  @override
-  String get name => 'Salted Peanuts';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class Smoothie implements Recipe {
-  @override
-  String get assetName => 'smoothie';
-
-  @override
-  String get name => 'Smoothie';
-
-  @override
-  int get priority => throw UnimplementedError();
-
-  @override
-  FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
-}
-
-class GrimGalette implements Recipe {
   @override
   String get assetName => 'grim_galette';
 
@@ -2548,18 +1664,17 @@ class GrimGalette implements Recipe {
   String get name => 'Grim Galette';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class VoltGoatChaudFroid implements Recipe {
+class VoltGoatChaudFroid extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const VoltGoatChaudFroid()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'volt_goat_chaud_froid';
 
@@ -2567,18 +1682,17 @@ class VoltGoatChaudFroid implements Recipe {
   String get name => 'Volt Goat Chaud Froid';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class FishCordonBleu implements Recipe {
+class FishCordonBleu extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const FishCordonBleu()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'fish_cordon_bleu';
 
@@ -2586,18 +1700,17 @@ class FishCordonBleu implements Recipe {
   String get name => 'Fish Cordon Bleu';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class HotDragonChiliSalad implements Recipe {
+class HotDragonChiliSalad extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const HotDragonChiliSalad()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'hot_dragon_chili_salad';
 
@@ -2605,18 +1718,17 @@ class HotDragonChiliSalad implements Recipe {
   String get name => 'Hot Dragon Chili Salad';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class Asparagazpacho implements Recipe {
+class Asparagazpacho extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const Asparagazpacho()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'asparagazpacho';
 
@@ -2624,18 +1736,17 @@ class Asparagazpacho implements Recipe {
   String get name => 'Asparagazpacho';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }
 
-class PuffedPotatoSouffle implements Recipe {
+class PuffedPotatoSouffle extends Recipe with RecipeAnalysing {
+  // TODO: implement
+  const PuffedPotatoSouffle()
+      : super(
+          priority: 0,
+          requirements: const Requirements({}),
+        );
+
   @override
   String get assetName => 'puffed_potato_souffle';
 
@@ -2643,13 +1754,5 @@ class PuffedPotatoSouffle implements Recipe {
   String get name => 'Puffed Potato Souffle';
 
   @override
-  int get priority => throw UnimplementedError();
-
-  @override
   FoodType get type => throw UnimplementedError();
-
-  @override
-  bool canCookWith(Ingredients ingredients) {
-    throw UnimplementedError();
-  }
 }

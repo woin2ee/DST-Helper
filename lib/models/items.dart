@@ -11,27 +11,60 @@ class Twigs implements Ingredient {
   String get name => 'Twigs';
 
   @override
-  final FoodValue? foodValue = null;
+  final FoodValues? foodValues = const FoodValues({FoodValue(FoodValueCategory.inedible, 1.0)});
 }
 
 // class CookedAsparagus {}
 
-class Barnacles {}
+class Barnacles implements Food, Ingredient {
+  const Barnacles();
+
+  @override
+  String get assetName => 'barnacles';
+
+  @override
+  String get name => 'Barnacles';
+
+  @override
+  FoodType get type => FoodType.meat;
+
+  @override
+  FoodValues? get foodValues => const FoodValues({
+        FoodValue(FoodValueCategory.meat, 0.25),
+        FoodValue(FoodValueCategory.fish, 0.25),
+      });
+}
 
 // class CookedBarnacles {}
 
-class BatiliskWing {}
+class BatiliskWing implements Food, Ingredient {
+  const BatiliskWing();
+
+  @override
+  String get assetName => 'batilisk_wing';
+
+  @override
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.meat, 0.5)});
+
+  @override
+  String get name => 'Batilisk Wing';
+
+  @override
+  FoodType get type => FoodType.meat;
+}
 
 // class CookedBatiliskWing {}
 
 class Berries implements Food, Ingredient {
+  const Berries();
+
   @override
   // TODO: implement assetName
   String get assetName => throw UnimplementedError();
 
   @override
   // TODO: implement foodValue
-  FoodValue? get foodValue => throw UnimplementedError();
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.meat, 0.5)});
 
   @override
   // TODO: implement name
@@ -39,7 +72,7 @@ class Berries implements Food, Ingredient {
 
   @override
   // TODO: implement type
-  FoodType get type => throw UnimplementedError();
+  FoodType get type => FoodType.veggie;
 }
 
 // class RoastedBerries {}
@@ -48,7 +81,21 @@ class RoastedBirchnut {}
 
 class Butter {}
 
-class ButterflyWings {}
+class ButterflyWings implements Food, Ingredient {
+  const ButterflyWings();
+
+  @override
+  String get assetName => 'butterfly_wings';
+
+  @override
+  FoodValues? get foodValues => null;
+
+  @override
+  String get name => 'Butterfly Wings';
+
+  @override
+  FoodType get type => FoodType.veggie;
+}
 
 class CactusFlesh {}
 
@@ -72,9 +119,27 @@ class DeerclopsEyeball {}
 
 class PreparedDragonFruit {}
 
-class Drumstick {}
+class Drumstick implements Food, Ingredient {
+  const Drumstick();
 
-class FriedDrumstick {}
+  @override
+  // TODO: implement assetName
+  String get assetName => throw UnimplementedError();
+
+  @override
+  // TODO: implement foodValue
+  FoodValues? get foodValues => throw UnimplementedError();
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
+
+  @override
+  // TODO: implement type
+  FoodType get type => throw UnimplementedError();
+}
+
+// class FriedDrumstick {}
 
 class ExtraSmellyDurian {}
 
@@ -84,7 +149,25 @@ class Eel {}
 
 class ElectricMilk {}
 
-class Egg {}
+class Egg implements Food, Ingredient {
+  const Egg();
+
+  @override
+  // TODO: implement assetName
+  String get assetName => throw UnimplementedError();
+
+  @override
+  // TODO: implement foodValue
+  FoodValues? get foodValues => throw UnimplementedError();
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
+
+  @override
+  // TODO: implement type
+  FoodType get type => throw UnimplementedError();
+}
 
 // class CookedEgg {}
 
@@ -104,7 +187,21 @@ class FishMorsel {}
 
 class Foliage {}
 
-class FrogLegs {}
+class FrogLegs implements Food, Ingredient {
+  const FrogLegs();
+
+  @override
+  String get assetName => 'frog_legs';
+
+  @override
+  String get name => 'Frog Legs';
+
+  @override
+  FoodType get type => FoodType.meat;
+
+  @override
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.meat, 0.5)});
+}
 
 // class CookedFrogLegs {}
 
@@ -114,9 +211,41 @@ class GlowBerry {}
 
 class LesserGlowBerry {}
 
-class Honey {}
+class Honey implements Food, Ingredient {
+  const Honey();
 
-class Ice {}
+  @override
+  String get assetName => 'honey';
+
+  @override
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.sweetener, 1.0)});
+
+  @override
+  String get name => 'Honey';
+
+  @override
+  FoodType get type => FoodType.generic;
+}
+
+class Ice implements Food, Ingredient {
+  const Ice();
+  
+  @override
+  // TODO: implement assetName
+  String get assetName => throw UnimplementedError();
+
+  @override
+  // TODO: implement foodValues
+  FoodValues? get foodValues => throw UnimplementedError();
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
+
+  @override
+  // TODO: implement type
+  FoodType get type => throw UnimplementedError();
+}
 
 class JuicyBerries {}
 
@@ -134,7 +263,21 @@ class WinterKoalefantTrunk {}
 
 class KoalefantTrunkSteak {}
 
-class LeafyMeat {}
+class LeafyMeat implements Food, Ingredient {
+  const LeafyMeat();
+
+  @override
+  String get assetName => 'leafy_meat';
+
+  @override
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.meat, 1.0)});
+
+  @override
+  String get name => 'Leafy Meat';
+
+  @override
+  FoodType get type => FoodType.meat;
+}
 
 // class CookedLeafyMeat {}
 
@@ -144,42 +287,105 @@ class LightBulb {}
 
 class LuneTreeBlossom {}
 
-class Mandrake {}
+class Mandrake implements Food, Ingredient {
+  const Mandrake();
+
+  @override
+  String get assetName => 'mandrake';
+
+  @override
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.vegetable, 1.0)});
+
+  @override
+  String get name => 'Mandrake';
+
+  @override
+  FoodType get type => FoodType.veggie;
+}
 
 // class CookedMandrake {}
 
-class Meat {}
+class Meat implements Food, Ingredient {
+  const Meat();
+
+  @override
+  String get assetName => 'meat';
+
+  @override
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.meat, 1.0)});
+
+  @override
+  String get name => 'Meat';
+
+  @override
+  FoodType get type => FoodType.meat;
+}
 
 // class CookedMeat {}
 
-class Jerky {}
+// class Jerky {}
 
 class MilkyWhites {}
 
-class MonsterMeat {}
+class MonsterMeat implements Food, Ingredient {
+  const MonsterMeat();
+
+  @override
+  String get assetName => 'monster_meat';
+
+  @override
+  String get name => 'Monster Meat';
+
+  @override
+  FoodType get type => FoodType.meat;
+
+  @override
+  FoodValues? get foodValues => const FoodValues({
+        FoodValue(FoodValueCategory.meat, 1.0),
+        FoodValue(FoodValueCategory.monster, 1.0),
+      });
+}
 
 // class CookedMonsterMeat {}
 
-class MonsterJerky {}
+// class MonsterJerky {}
 
 class MoonShroom {}
 
 // class CookedMoonShroom {}
 
-class MoonMothWings {}
+class MoonMothWings implements Food, Ingredient {
+  const MoonMothWings();
+
+  @override
+  // TODO: implement assetName
+  String get assetName => throw UnimplementedError();
+
+  @override
+  // TODO: implement foodValues
+  FoodValues? get foodValues => throw UnimplementedError();
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
+
+  @override
+  // TODO: implement type
+  FoodType get type => throw UnimplementedError();
+}
 
 class Morsel implements Ingredient, Food {
   const Morsel();
 
   @override
-  FoodValue? get foodValue => const FoodValue(meat: MeatValue.half);
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.meat, 0.5)});
 
   @override
   FoodType get type => FoodType.meat;
-  
+
   @override
   String get assetName => 'morsel';
-  
+
   @override
   String get name => 'Morsel';
 }
@@ -196,7 +402,25 @@ class GreenCap {}
 
 // class CookedGreenCap {}
 
-class RedCap {}
+class RedCap implements Food, Ingredient {
+  const RedCap();
+
+  @override
+  // TODO: implement assetName
+  String get assetName => throw UnimplementedError();
+
+  @override
+  // TODO: implement foodValue
+  FoodValues? get foodValues => throw UnimplementedError();
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
+
+  @override
+  // TODO: implement type
+  FoodType get type => throw UnimplementedError();
+}
 
 // class CookedRedCap {}
 
@@ -253,14 +477,54 @@ class RipeStoneFruit {}
 
 class Succulent {}
 
-class TallbirdEgg {}
+class TallbirdEgg implements Food, Ingredient {
+  const TallbirdEgg();
 
-class HatchingTallbirdEgg {}
+  @override
+  String get assetName => 'tallbird_egg';
 
-class FriedTallbirdEgg {}
+  @override
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.egg, 4.0)});
+
+  @override
+  String get name => 'Tallbird Egg';
+
+  @override
+  FoodType get type => FoodType.meat;
+}
+
+// class HatchingTallbirdEgg {}
+
+// class FriedTallbirdEgg {}
 
 // class RoastedTomaRoot {}
 
 class GrilledWatermelon {}
 
 class StuffedNightCap {}
+
+class CollectedDust implements Ingredient {
+  const CollectedDust();
+
+  @override
+  String get assetName => 'collected_dust';
+
+  @override
+  FoodValues? get foodValues => null;
+
+  @override
+  String get name => 'Collected Dust';
+}
+
+class Popperfish implements Ingredient {
+  const Popperfish();
+
+  @override
+  String get assetName => 'popperfish';
+
+  @override
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.vegetable, 1.0)});
+
+  @override
+  String get name => throw 'Popperfish';
+}

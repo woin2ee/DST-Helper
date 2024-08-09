@@ -2,6 +2,7 @@ import 'package:dst_helper/models/food.dart';
 import 'package:dst_helper/models/ingredient.dart';
 import 'package:dst_helper/models/item.dart';
 import 'package:dst_helper/models/season.dart';
+import 'package:dst_helper/models/seeds.dart';
 
 // 식물
 abstract class Plant implements Item {
@@ -16,9 +17,9 @@ abstract class Plant implements Item {
 
 /// 작물
 abstract class Crop implements Plant, Food, Ingredient {
-  const Crop(this.seed);
+  const Crop(this.seeds);
 
-  final Item seed;
+  final Seeds seeds;
 }
 
 /// 잡초

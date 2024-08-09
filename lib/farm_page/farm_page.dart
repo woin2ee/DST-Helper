@@ -21,9 +21,7 @@ class _FarmPageState extends State<FarmPage> {
   @override
   Widget build(BuildContext context) {
     final Widget currentSeason;
-    final selectedSeason =
-        selectedSeasonState.firstWhere((element) => element.$2 == true).$1;
-
+    final selectedSeason = selectedSeasonState.firstWhere((element) => element.$2 == true).$1;
     switch (selectedSeason) {
       case Season.spring:
         currentSeason = Column(
@@ -98,8 +96,7 @@ class _FarmPageState extends State<FarmPage> {
     return Theme(
       data: ThemeData(
         useMaterial3: true,
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: selectedSeason.personalColor),
+        colorScheme: ColorScheme.fromSeed(seedColor: selectedSeason.personalColor),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -120,14 +117,11 @@ class _FarmPageState extends State<FarmPage> {
                     textStyle: const TextStyle(
                       fontSize: 18,
                     ),
-                    isSelected: selectedSeasonState
-                        .map((element) => element.$2)
-                        .toList(),
+                    isSelected: selectedSeasonState.map((element) => element.$2).toList(),
                     onPressed: (int index) {
                       setState(() {
                         for (var i = 0; i < Season.values.length; i++) {
-                          selectedSeasonState[i] =
-                              (selectedSeasonState[i].$1, i == index);
+                          selectedSeasonState[i] = (selectedSeasonState[i].$1, i == index);
                         }
                       });
                     },

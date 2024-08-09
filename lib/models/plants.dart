@@ -1,8 +1,8 @@
 import 'package:dst_helper/models/food.dart';
 import 'package:dst_helper/models/ingredient.dart';
-import 'package:dst_helper/models/item.dart';
 import 'package:dst_helper/models/plant.dart';
 import 'package:dst_helper/models/season.dart';
+import 'package:dst_helper/models/seeds.dart';
 
 class Plants {
   static List<Crop> get crops {
@@ -35,22 +35,21 @@ class Potato implements Crop {
   String get name => 'Potato';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: 2, growthFormula: 2, manure: -4);
+  Nutrient get nutrient => const Nutrient(compost: 2, growthFormula: 2, manure: -4);
 
   @override
   Seasons get seasons => {Season.spring, Season.autumn, Season.winter};
 
   @override
-  FoodValue? get foodValue => throw UnimplementedError();
+  FoodValues? get foodValues => throw UnimplementedError();
 
   @override
   // TODO: implement type
   FoodType get type => throw UnimplementedError();
 
   @override
-  // TODO: implement seed
-  Item get seed => throw UnimplementedError();
+  // TODO: implement seeds
+  Seeds get seeds => throw UnimplementedError();
 }
 
 class Carrot implements Crop {
@@ -63,14 +62,13 @@ class Carrot implements Crop {
   String get name => 'Carrot';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: 2, growthFormula: -4, manure: 2);
+  Nutrient get nutrient => const Nutrient(compost: 2, growthFormula: -4, manure: 2);
 
   @override
   Seasons get seasons => {Season.spring, Season.autumn, Season.winter};
 
   @override
-  FoodValue? get foodValue => throw UnimplementedError();
+  FoodValues? get foodValues => throw UnimplementedError();
 
   @override
   // TODO: implement type
@@ -78,7 +76,7 @@ class Carrot implements Crop {
 
   @override
   // TODO: implement seed
-  Item get seed => throw UnimplementedError();
+  Seeds get seeds => throw UnimplementedError();
 }
 
 class Corn implements Crop {
@@ -91,14 +89,13 @@ class Corn implements Crop {
   String get name => 'Corn';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: -4, growthFormula: 2, manure: 2);
+  Nutrient get nutrient => const Nutrient(compost: -4, growthFormula: 2, manure: 2);
 
   @override
   Seasons get seasons => {Season.spring, Season.summer, Season.autumn};
 
   @override
-  FoodValue? get foodValue => throw UnimplementedError();
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.vegetable, 1.0)});
 
   @override
   // TODO: implement type
@@ -106,7 +103,7 @@ class Corn implements Crop {
 
   @override
   // TODO: implement seed
-  Item get seed => throw UnimplementedError();
+  Seeds get seeds => throw UnimplementedError();
 }
 
 class TomaRoot implements Crop {
@@ -119,22 +116,20 @@ class TomaRoot implements Crop {
   String get name => 'Toma Root';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: -2, growthFormula: -2, manure: 4);
+  Nutrient get nutrient => const Nutrient(compost: -2, growthFormula: -2, manure: 4);
 
   @override
   Seasons get seasons => {Season.spring, Season.summer, Season.autumn};
 
   @override
-  FoodValue? get foodValue => throw UnimplementedError();
-
-  @override
-  // TODO: implement type
-  FoodType get type => throw UnimplementedError();
+  FoodType get type => FoodType.veggie;
 
   @override
   // TODO: implement seed
-  Item get seed => throw UnimplementedError();
+  Seeds get seeds => throw UnimplementedError();
+
+  @override
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.vegetable, 1.0)});
 }
 
 class Asparagus implements Crop {
@@ -147,22 +142,35 @@ class Asparagus implements Crop {
   String get name => 'Asparagus';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: -4, growthFormula: 2, manure: 2);
+  Nutrient get nutrient => const Nutrient(compost: -4, growthFormula: 2, manure: 2);
 
   @override
   Seasons get seasons => {Season.spring, Season.winter};
 
   @override
-  FoodValue? get foodValue => const FoodValue(vegetable: VegetableValue.full);
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.vegetable, 1.0)});
 
   @override
-  // TODO: implement type
-  FoodType get type => throw UnimplementedError();
+  FoodType get type => FoodType.veggie;
 
   @override
-  // TODO: implement seed
-  Item get seed => throw UnimplementedError();
+  Seeds get seeds => const AsparagusSeeds();
+}
+
+class AsparagusSeeds implements Seeds {
+  const AsparagusSeeds();
+
+  @override
+  // TODO: implement assetName
+  String get assetName => throw UnimplementedError();
+
+  @override
+  // TODO: implement assumedName
+  String? get assumedName => throw UnimplementedError();
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
 }
 
 class Watermelon implements Crop {
@@ -175,22 +183,32 @@ class Watermelon implements Crop {
   String get name => 'Watermelon';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: -2, growthFormula: 4, manure: -2);
+  Nutrient get nutrient => const Nutrient(compost: -2, growthFormula: 4, manure: -2);
 
   @override
   Seasons get seasons => {Season.spring, Season.summer};
 
   @override
-  FoodValue? get foodValue => throw UnimplementedError();
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.fruit, 1.0)});
 
   @override
-  // TODO: implement type
-  FoodType get type => throw UnimplementedError();
+  FoodType get type => FoodType.veggie;
 
   @override
-  // TODO: implement seed
-  Item get seed => throw UnimplementedError();
+  Seeds get seeds => const WatermelonSeeds();
+}
+
+class WatermelonSeeds implements Seeds {
+  const WatermelonSeeds();
+
+  @override
+  String get assetName => 'watermelon_seeds';
+
+  @override
+  String get name => 'Watermelon Seeds';
+
+  @override
+  String get assumedName => 'Square Seeds';
 }
 
 class Pumpkin implements Crop {
@@ -203,22 +221,21 @@ class Pumpkin implements Crop {
   String get name => 'Pumpkin';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: 2, growthFormula: -4, manure: 2);
+  Nutrient get nutrient => const Nutrient(compost: 2, growthFormula: -4, manure: 2);
 
   @override
   Seasons get seasons => {Season.autumn, Season.winter};
 
   @override
-  FoodValue? get foodValue => throw UnimplementedError();
+  FoodValues? get foodValues => throw UnimplementedError();
 
   @override
   // TODO: implement type
   FoodType get type => throw UnimplementedError();
 
   @override
-  // TODO: implement seed
-  Item get seed => throw UnimplementedError();
+  // TODO: implement seeds
+  Seeds get seeds => throw UnimplementedError();
 }
 
 class Eggplant implements Crop {
@@ -231,14 +248,13 @@ class Eggplant implements Crop {
   String get name => 'Eggplant';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: 2, growthFormula: 2, manure: -4);
+  Nutrient get nutrient => const Nutrient(compost: 2, growthFormula: 2, manure: -4);
 
   @override
   Seasons get seasons => {Season.spring, Season.autumn};
 
   @override
-  FoodValue? get foodValue => throw UnimplementedError();
+  FoodValues? get foodValues => throw UnimplementedError();
 
   @override
   // TODO: implement type
@@ -246,7 +262,7 @@ class Eggplant implements Crop {
 
   @override
   // TODO: implement seed
-  Item get seed => throw UnimplementedError();
+  Seeds get seeds => throw UnimplementedError();
 }
 
 class Garlic implements Crop {
@@ -259,15 +275,13 @@ class Garlic implements Crop {
   String get name => 'Garlic';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: -8, growthFormula: 4, manure: 4);
+  Nutrient get nutrient => const Nutrient(compost: -8, growthFormula: 4, manure: 4);
 
   @override
-  Seasons get seasons =>
-      {Season.spring, Season.summer, Season.autumn, Season.winter};
+  Seasons get seasons => {Season.spring, Season.summer, Season.autumn, Season.winter};
 
   @override
-  FoodValue? get foodValue => throw UnimplementedError();
+  FoodValues? get foodValues => throw UnimplementedError();
 
   @override
   // TODO: implement type
@@ -275,7 +289,7 @@ class Garlic implements Crop {
 
   @override
   // TODO: implement seed
-  Item get seed => throw UnimplementedError();
+  Seeds get seeds => throw UnimplementedError();
 }
 
 class Onion implements Crop {
@@ -288,14 +302,13 @@ class Onion implements Crop {
   String get name => 'Onion';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: 4, growthFormula: -8, manure: 4);
+  Nutrient get nutrient => const Nutrient(compost: 4, growthFormula: -8, manure: 4);
 
   @override
   Seasons get seasons => {Season.spring, Season.summer, Season.autumn};
 
   @override
-  FoodValue? get foodValue => throw UnimplementedError();
+  FoodValues? get foodValues => throw UnimplementedError();
 
   @override
   // TODO: implement type
@@ -303,7 +316,7 @@ class Onion implements Crop {
 
   @override
   // TODO: implement seed
-  Item get seed => throw UnimplementedError();
+  Seeds get seeds => throw UnimplementedError();
 }
 
 class Pepper implements Crop {
@@ -316,14 +329,13 @@ class Pepper implements Crop {
   String get name => 'Pepper';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: 4, growthFormula: 4, manure: -8);
+  Nutrient get nutrient => const Nutrient(compost: 4, growthFormula: 4, manure: -8);
 
   @override
   Seasons get seasons => {Season.summer, Season.autumn};
 
   @override
-  FoodValue? get foodValue => throw UnimplementedError();
+  FoodValues? get foodValues => throw UnimplementedError();
 
   @override
   // TODO: implement type
@@ -331,7 +343,7 @@ class Pepper implements Crop {
 
   @override
   // TODO: implement seed
-  Item get seed => throw UnimplementedError();
+  Seeds get seeds => throw UnimplementedError();
 }
 
 class Pomegranate implements Crop {
@@ -344,22 +356,21 @@ class Pomegranate implements Crop {
   String get name => 'Pomegranate';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: 4, growthFormula: -8, manure: 4);
+  Nutrient get nutrient => const Nutrient(compost: 4, growthFormula: -8, manure: 4);
 
   @override
   Seasons get seasons => {Season.spring, Season.summer};
 
   @override
-  FoodValue? get foodValue => throw UnimplementedError();
+  FoodValues? get foodValues => throw UnimplementedError();
 
   @override
   // TODO: implement type
   FoodType get type => throw UnimplementedError();
 
   @override
-  // TODO: implement seed
-  Item get seed => throw UnimplementedError();
+  // TODO: implement seeds
+  Seeds get seeds => throw UnimplementedError();
 }
 
 class DragonFruit implements Crop {
@@ -372,22 +383,21 @@ class DragonFruit implements Crop {
   String get name => 'Dragon Fruit';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: 4, growthFormula: 4, manure: -8);
+  Nutrient get nutrient => const Nutrient(compost: 4, growthFormula: 4, manure: -8);
 
   @override
   Seasons get seasons => {Season.spring, Season.summer};
 
   @override
-  FoodValue? get foodValue => throw UnimplementedError();
+  FoodValues? get foodValues => throw UnimplementedError();
 
   @override
   // TODO: implement type
   FoodType get type => throw UnimplementedError();
 
   @override
-  // TODO: implement seed
-  Item get seed => throw UnimplementedError();
+  // TODO: implement seeds
+  Seeds get seeds => throw UnimplementedError();
 }
 
 class Durian implements Crop {
@@ -400,14 +410,13 @@ class Durian implements Crop {
   String get name => 'Durian';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: -8, growthFormula: 4, manure: 4);
+  Nutrient get nutrient => const Nutrient(compost: -8, growthFormula: 4, manure: 4);
 
   @override
   Seasons get seasons => {Season.spring};
 
   @override
-  FoodValue? get foodValue => throw UnimplementedError();
+  FoodValues? get foodValues => throw UnimplementedError();
 
   @override
   // TODO: implement type
@@ -415,7 +424,7 @@ class Durian implements Crop {
 
   @override
   // TODO: implement seed
-  Item get seed => throw UnimplementedError();
+  Seeds get seeds => throw UnimplementedError();
 }
 
 class ForgetMeLots implements Weed, Food, Ingredient {
@@ -428,14 +437,13 @@ class ForgetMeLots implements Weed, Food, Ingredient {
   String get name => 'ForgetMeLots';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: -2, growthFormula: -2, manure: -2);
+  Nutrient get nutrient => const Nutrient(compost: -2, growthFormula: -2, manure: -2);
 
   @override
   Seasons get seasons => {};
 
   @override
-  FoodValue? get foodValue => throw UnimplementedError();
+  FoodValues? get foodValues => throw UnimplementedError();
 
   @override
   // TODO: implement type
@@ -450,8 +458,7 @@ class FireNettleFronds implements Weed, Food {
   String get name => 'Fire Nettle Fronds';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: -2, growthFormula: -2, manure: -2);
+  Nutrient get nutrient => const Nutrient(compost: -2, growthFormula: -2, manure: -2);
 
   @override
   Seasons get seasons => {};
@@ -469,8 +476,7 @@ class Tillweeds implements Weed, Food {
   String get name => 'Tillweeds';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: -2, growthFormula: -2, manure: -2);
+  Nutrient get nutrient => const Nutrient(compost: -2, growthFormula: -2, manure: -2);
 
   @override
   Seasons get seasons => {};
@@ -488,8 +494,7 @@ class SpinyBindweed implements Weed {
   String get name => 'Spiny Bindweed';
 
   @override
-  Nutrient get nutrient =>
-      const Nutrient(compost: -2, growthFormula: -2, manure: -2);
+  Nutrient get nutrient => const Nutrient(compost: -2, growthFormula: -2, manure: -2);
 
   @override
   Seasons get seasons => {};
