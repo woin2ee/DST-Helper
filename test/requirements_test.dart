@@ -8,7 +8,7 @@ void main() {
     test('The same values', () {
       // Given
       const subject = MeetRequirement(FoodValues({FoodValue(FoodValueCategory.meat, 1.0)}));
-      final ingredientsAnalyser = IngredientsAnalyser([const Meat()]);
+      const ingredientsAnalyser = IngredientsAnalyser([Meat()]);
 
       // When & Then
       expect(subject.isMetFor(ingredientsAnalyser), true);
@@ -17,7 +17,7 @@ void main() {
     test('The lacked value', () {
       // Given
       const subject = MeetRequirement(FoodValues({FoodValue(FoodValueCategory.meat, 1.0)}));
-      final ingredientsAnalyser = IngredientsAnalyser([const Morsel()]);
+      const ingredientsAnalyser = IngredientsAnalyser([Morsel()]);
 
       // When & Then
       expect(subject.isMetFor(ingredientsAnalyser), false);
@@ -26,7 +26,7 @@ void main() {
     test('The abounded value', () {
       // Given
       const subject = MeetRequirement(FoodValues({FoodValue(FoodValueCategory.egg, 1.0)}));
-      final ingredientsAnalyser = IngredientsAnalyser([const TallbirdEgg()]);
+      const ingredientsAnalyser = IngredientsAnalyser([TallbirdEgg()]);
 
       // When & Then
       expect(subject.isMetFor(ingredientsAnalyser), true);

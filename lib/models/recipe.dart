@@ -1,6 +1,5 @@
 import 'package:dst_helper/models/ingredient.dart';
 import 'package:dst_helper/models/item.dart';
-import 'package:flutter/foundation.dart';
 
 abstract class Recipe implements Item {
   const Recipe({required this.priority, required this.requirements});
