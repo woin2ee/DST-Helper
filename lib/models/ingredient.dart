@@ -10,16 +10,16 @@ abstract class Ingredient extends Item {
 }
 
 class FoodValues with Iterable {
-  const FoodValues(this._values);
+  const FoodValues(this.rawValues);
 
-  final Set<FoodValue> _values;
+  final Set<FoodValue> rawValues;
 
   Set<FoodValue> get values {
     for (var category in FoodValueCategory.values) {
-      var countPerCategory = _values.where((foodValue) => foodValue.category == category).length;
+      var countPerCategory = rawValues.where((foodValue) => foodValue.category == category).length;
       if (countPerCategory > 1) assert(false);
     }
-    return _values;
+    return rawValues;
   }
 
   @override
@@ -33,10 +33,35 @@ enum FoodValueCategory {
   fruit,
   sweetener,
   egg,
-  ice,
+  // ice,
   dairy,
   monster,
-  inedible,
+  inedible;
+
+  String get assetName {
+    switch (this) {
+      case FoodValueCategory.meat:
+        return 'meats';
+      case FoodValueCategory.fish:
+        return 'fishes';
+      case FoodValueCategory.vegetable:
+        return 'vegetables';
+      case FoodValueCategory.fruit:
+        return 'fruits';
+      case FoodValueCategory.sweetener:
+        return 'sweetener';
+      case FoodValueCategory.egg:
+        return 'eggs';
+      // case FoodValueCategory.ice:
+      //   return '';
+      case FoodValueCategory.dairy:
+        return 'dairy_product';
+      case FoodValueCategory.monster:
+        return 'monster_meats';
+      case FoodValueCategory.inedible:
+        return 'inedible';
+    }
+  }
 }
 
 class FoodValue {

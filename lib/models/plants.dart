@@ -308,7 +308,7 @@ class Onion implements Crop {
   Seasons get seasons => {Season.spring, Season.summer, Season.autumn};
 
   @override
-  FoodValues? get foodValues => throw UnimplementedError();
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.vegetable, 1.0)});
 
   @override
   // TODO: implement type

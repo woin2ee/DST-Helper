@@ -1,6 +1,7 @@
 import 'package:dst_helper/cook_page/cook_page.dart';
 import 'package:dst_helper/farm_page/farm_page.dart';
 import 'package:dst_helper/utils/custom_icon/custom_icon_icons.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -65,8 +66,9 @@ enum Menu {
 }
 
 class _HomePageState extends State<HomePage> {
+  static const firstPageIndex = kReleaseMode ? 0 : 1;
   final List<(Menu, bool)> selectedMenuState = Menu.values.map((menu) {
-    if (menu.index == 0) return (menu, true);
+    if (menu.index == firstPageIndex) return (menu, true);
     return (menu, false);
   }).toList(growable: false);
 
@@ -74,8 +76,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    var selectedMenu =
-        selectedMenuState.firstWhere((element) => element.$2 == true).$1;
+    var selectedMenu = selectedMenuState.firstWhere((element) => element.$2 == true).$1;
 
     late Widget page;
     switch (selectedMenu) {
@@ -113,8 +114,7 @@ class _HomePageState extends State<HomePage> {
                     return;
                   }
                   for (var i = 0; i < selectedMenuState.length; i++) {
-                    selectedMenuState[i] =
-                        (selectedMenuState[i].$1, i == index);
+                    selectedMenuState[i] = (selectedMenuState[i].$1, i == index);
                   }
                 });
               },

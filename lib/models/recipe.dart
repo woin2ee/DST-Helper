@@ -1,5 +1,9 @@
+import 'dart:math';
+
+import 'package:dst_helper/models/cookable_food.dart';
 import 'package:dst_helper/models/ingredient.dart';
 import 'package:dst_helper/models/item.dart';
+import 'package:dst_helper/models/recipes.dart';
 
 abstract class Recipe implements Item {
   const Recipe({required this.priority, required this.requirements});
@@ -7,9 +11,66 @@ abstract class Recipe implements Item {
   final int priority;
 
   final Requirements requirements;
+
+  /// A value indicating whether the recipe can be cooked with given ingredients.
+  ///
+  /// If the recipe can't be able to cook with given ingredients any way, it returns `false`, while able to, returns `true`.
+  ///
+  /// Note: The moment a certain recipe becomes cookable, the recipes having low priority than the recipe becomes uncookable.
+  bool canBeCookedWith(Ingredient i1, Ingredient i2, Ingredient i3, Ingredient i4) {
+    final ingredientsAnalyser = IngredientsAnalyser([i1, i2, i3, i4]);
+    if (!requirements.isMetFor(ingredientsAnalyser)) return false;
+    // The length of recipes is always greater than 0 because the checking above.
+    var satisfiedRecipes = Recipes.recipes.where((recipe) => recipe.requirements.isMetFor(ingredientsAnalyser));
+    if (satisfiedRecipes.length == 1) return true;
+    var maxPriority = satisfiedRecipes.map((recipe) => recipe.priority).reduce(max);
+    if (priority < maxPriority) return false;
+    return true;
+  }
+
+  List<String> get ingredientListAssetNames {
+    final requirements = this.requirements.rawRequirements.toList();
+    requirements.sort((a, b) => a.runtimeType is ContainingRequirement ? 1 : 0);
+
+    List<String> assets = [];
+    List<Ingredient> containedIngredient = [];
+    for (final requirement in requirements) {
+      switch (requirement) {
+        case AtLeastRequirement(:final categories):
+          for (final category in categories) {
+            assets.add(category.assetName);
+          }
+        case ContainingRequirement(:final ingredient, :final count):
+          containedIngredient.add(ingredient);
+          for (var i = 0; i < count; i++) {
+            if (ingredient is CookableFood) {
+              assets.add((ingredient as CookableFood).compositeAssetName);
+            } else {
+              assets.add(ingredient.assetName);
+            }
+          }
+        case MeetRequirement(minimumValues: final foodValues):
+        case ExcessRequirement(thresholdValues: final foodValues):
+          final ingredientsAnalyser = IngredientsAnalyser(containedIngredient);
+          for (final foodValue in foodValues.rawValues) {
+            final remainingValue = foodValue.quantifiedValue - ingredientsAnalyser.foodValueFor(foodValue.category);
+            for (var i = 0; i < remainingValue.ceil(); i++) {
+              assets.add(foodValue.category.assetName);
+            }
+          }
+        case NoRequirement():
+        case AndRequirements():
+        case OrRequirement():
+        case MaxRequirement():
+          break;
+      }
+    }
+    assert(assets.length <= 4);
+    return assets;
+  }
 }
 
-abstract class Requirement {
+sealed class Requirement {
   const Requirement();
 
   bool isMetFor(IngredientsAnalyser ingredientsAnalyser);
@@ -19,13 +80,13 @@ typedef Requirements = AndRequirements;
 
 /// A requirement indicating `and` logic for a couple of requirements.
 class AndRequirements extends Requirement {
-  const AndRequirements(this.requirements);
+  const AndRequirements(this.rawRequirements);
 
-  final Set<Requirement> requirements;
+  final Set<Requirement> rawRequirements;
 
   @override
   bool isMetFor(IngredientsAnalyser ingredientsAnalyser) {
-    return requirements.every((requirement) => requirement.isMetFor(ingredientsAnalyser));
+    return rawRequirements.every((requirement) => requirement.isMetFor(ingredientsAnalyser));
   }
 }
 
@@ -107,7 +168,7 @@ class ContainingRequirement extends Requirement {
 // class ExactRequirement extends Requirement {
 //   const ExactRequirement();
 
-//   final 
+//   final
 
 //   @override
 //   bool isMetFor(IngredientsAnalyser ingredientsAnalyser) {

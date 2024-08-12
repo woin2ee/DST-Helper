@@ -5,6 +5,7 @@ import 'package:dst_helper/models/ingredient.dart';
 import 'package:dst_helper/models/items.dart';
 import 'package:dst_helper/models/plants.dart';
 import 'package:dst_helper/models/recipe.dart';
+import 'package:flutter/foundation.dart';
 
 class Recipes {
   static List<Recipe> get recipes {
@@ -93,25 +94,7 @@ class Recipes {
   }
 }
 
-mixin RecipeAnalysing on Recipe {
-  /// A value indicating whether the recipe can be cooked with given ingredients.
-  ///
-  /// If the recipe can't be able to cook with given ingredients any way, it returns `false`, while able to, returns `true`.
-  ///
-  /// Note: The moment a certain recipe becomes cookable, the recipes having low priority than the recipe becomes uncookable.
-  bool canBeCookedWith(Ingredient i1, Ingredient i2, Ingredient i3, Ingredient i4) {
-    final ingredientsAnalyser = IngredientsAnalyser([i1, i2, i3, i4]);
-    if (!requirements.isMetFor(ingredientsAnalyser)) return false;
-    // The length of recipes is always greater than 0 because the checking above.
-    var satisfiedRecipes = Recipes.recipes.where((recipe) => recipe.requirements.isMetFor(ingredientsAnalyser));
-    if (satisfiedRecipes.length == 1) return true;
-    var maxPriority = satisfiedRecipes.map((recipe) => recipe.priority).reduce(max);
-    if (priority < maxPriority) return false;
-    return true;
-  }
-}
-
-class ButterMuffin extends Recipe with RecipeAnalysing {
+class ButterMuffin extends Recipe {
   const ButterMuffin()
       : super(
           priority: 1,
@@ -136,7 +119,7 @@ class ButterMuffin extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Fishsticks extends Recipe with RecipeAnalysing {
+class Fishsticks extends Recipe {
   const Fishsticks()
       : super(
           priority: 10,
@@ -157,7 +140,7 @@ class Fishsticks extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class FroggleBunwich extends Recipe with RecipeAnalysing {
+class FroggleBunwich extends Recipe {
   // TODO: implement
   const FroggleBunwich()
       : super(
@@ -175,7 +158,7 @@ class FroggleBunwich extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Taffy extends Recipe with RecipeAnalysing {
+class Taffy extends Recipe {
   // TODO: implement
   const Taffy()
       : super(
@@ -193,7 +176,7 @@ class Taffy extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class PumpkinCookie extends Recipe with RecipeAnalysing {
+class PumpkinCookie extends Recipe {
   const PumpkinCookie()
       : super(
           priority: 10,
@@ -213,7 +196,7 @@ class PumpkinCookie extends Recipe with RecipeAnalysing {
   FoodType get type => FoodType.veggie;
 }
 
-class StuffedEggplant extends Recipe with RecipeAnalysing {
+class StuffedEggplant extends Recipe {
   // TODO: implement
   const StuffedEggplant()
       : super(
@@ -231,7 +214,7 @@ class StuffedEggplant extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class HoneyNuggets extends Recipe with RecipeAnalysing {
+class HoneyNuggets extends Recipe {
   const HoneyNuggets()
       : super(
           priority: 0,
@@ -248,7 +231,7 @@ class HoneyNuggets extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class HoneyHam extends Recipe with RecipeAnalysing {
+class HoneyHam extends Recipe {
   const HoneyHam()
       : super(
           priority: 2,
@@ -270,7 +253,7 @@ class HoneyHam extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Dragonpie extends Recipe with RecipeAnalysing {
+class Dragonpie extends Recipe {
   const Dragonpie()
       : super(
           priority: 1,
@@ -290,7 +273,7 @@ class Dragonpie extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Kabobs extends Recipe with RecipeAnalysing {
+class Kabobs extends Recipe {
   const Kabobs()
       : super(
           priority: 5,
@@ -313,7 +296,7 @@ class Kabobs extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class MandrakeSoup extends Recipe with RecipeAnalysing {
+class MandrakeSoup extends Recipe {
   // TODO: implement
   const MandrakeSoup()
       : super(
@@ -331,7 +314,7 @@ class MandrakeSoup extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class BaconAndEggs extends Recipe with RecipeAnalysing {
+class BaconAndEggs extends Recipe {
   // TODO: implement
   const BaconAndEggs()
       : super(
@@ -349,7 +332,7 @@ class BaconAndEggs extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Meatballs extends Recipe with RecipeAnalysing {
+class Meatballs extends Recipe {
   const Meatballs()
       : super(
           priority: -1,
@@ -369,7 +352,7 @@ class Meatballs extends Recipe with RecipeAnalysing {
   FoodType get type => FoodType.meat;
 }
 
-class MeatyStew extends Recipe with RecipeAnalysing {
+class MeatyStew extends Recipe {
   const MeatyStew()
       : super(
           priority: 0,
@@ -401,7 +384,7 @@ class MeatyStew extends Recipe with RecipeAnalysing {
   // }
 }
 
-class Pierogi extends Recipe with RecipeAnalysing {
+class Pierogi extends Recipe {
   const Pierogi()
       : super(
           priority: 5,
@@ -422,7 +405,7 @@ class Pierogi extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class TurkeyDinner extends Recipe with RecipeAnalysing {
+class TurkeyDinner extends Recipe {
   // TODO: implement
   const TurkeyDinner()
       : super(
@@ -440,7 +423,7 @@ class TurkeyDinner extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Ratatouille extends Recipe with RecipeAnalysing {
+class Ratatouille extends Recipe {
   const Ratatouille()
       : super(
           priority: 0,
@@ -460,7 +443,7 @@ class Ratatouille extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class FistFullOfJam extends Recipe with RecipeAnalysing {
+class FistFullOfJam extends Recipe {
   // TODO: implement
   const FistFullOfJam()
       : super(
@@ -478,7 +461,7 @@ class FistFullOfJam extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class FruitMedley extends Recipe with RecipeAnalysing {
+class FruitMedley extends Recipe {
   // TODO: implement
   const FruitMedley()
       : super(
@@ -496,7 +479,7 @@ class FruitMedley extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class FishTacos extends Recipe with RecipeAnalysing {
+class FishTacos extends Recipe {
   // TODO: implement
   const FishTacos()
       : super(
@@ -514,7 +497,7 @@ class FishTacos extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Waffles extends Recipe with RecipeAnalysing {
+class Waffles extends Recipe {
   // TODO: implement
   const Waffles()
       : super(
@@ -532,7 +515,7 @@ class Waffles extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class MonsterLasagna extends Recipe with RecipeAnalysing {
+class MonsterLasagna extends Recipe {
   const MonsterLasagna()
       : super(
           priority: 10,
@@ -552,7 +535,7 @@ class MonsterLasagna extends Recipe with RecipeAnalysing {
   FoodType get type => FoodType.meat;
 }
 
-class Powdercake extends Recipe with RecipeAnalysing {
+class Powdercake extends Recipe {
   const Powdercake()
       : super(
           priority: 10,
@@ -576,7 +559,7 @@ class Powdercake extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Unagi extends Recipe with RecipeAnalysing {
+class Unagi extends Recipe {
   // TODO: implement
   const Unagi()
       : super(
@@ -594,7 +577,7 @@ class Unagi extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class WetGoop extends Recipe with RecipeAnalysing {
+class WetGoop extends Recipe {
   // TODO: implement
   const WetGoop()
       : super(
@@ -612,7 +595,7 @@ class WetGoop extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class FlowerSalad extends Recipe with RecipeAnalysing {
+class FlowerSalad extends Recipe {
   // TODO: implement
   const FlowerSalad()
       : super(
@@ -630,12 +613,17 @@ class FlowerSalad extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class IceCream extends Recipe with RecipeAnalysing {
-  // TODO: implement
+class IceCream extends Recipe {
   const IceCream()
       : super(
-          priority: 0,
-          requirements: const Requirements({}),
+          priority: 10,
+          requirements: const Requirements({
+            ContainingRequirement(Ice()),
+            MeetRequirement(FoodValues({
+              FoodValue(FoodValueCategory.dairy, 1.0),
+              FoodValue(FoodValueCategory.sweetener, 1.0),
+            })),
+          }),
         );
 
   @override
@@ -648,7 +636,7 @@ class IceCream extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Melonsicle extends Recipe with RecipeAnalysing {
+class Melonsicle extends Recipe {
   // TODO: implement
   const Melonsicle()
       : super(
@@ -666,7 +654,7 @@ class Melonsicle extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class TrailMix extends Recipe with RecipeAnalysing {
+class TrailMix extends Recipe {
   // TODO: implement
   const TrailMix()
       : super(
@@ -684,7 +672,7 @@ class TrailMix extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class SpicyChili extends Recipe with RecipeAnalysing {
+class SpicyChili extends Recipe {
   // TODO: implement
   const SpicyChili()
       : super(
@@ -702,7 +690,7 @@ class SpicyChili extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Guacamole extends Recipe with RecipeAnalysing {
+class Guacamole extends Recipe {
   // TODO: implement
   const Guacamole()
       : super(
@@ -720,7 +708,7 @@ class Guacamole extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class BananaPop extends Recipe with RecipeAnalysing {
+class BananaPop extends Recipe {
   // TODO: implement
   const BananaPop()
       : super(
@@ -738,7 +726,7 @@ class BananaPop extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class CaliforniaRoll extends Recipe with RecipeAnalysing {
+class CaliforniaRoll extends Recipe {
   // TODO: implement
   const CaliforniaRoll()
       : super(
@@ -756,7 +744,7 @@ class CaliforniaRoll extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Ceviche extends Recipe with RecipeAnalysing {
+class Ceviche extends Recipe {
   // TODO: implement
   const Ceviche()
       : super(
@@ -774,7 +762,7 @@ class Ceviche extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class WobsterBisque extends Recipe with RecipeAnalysing {
+class WobsterBisque extends Recipe {
   // TODO: implement
   const WobsterBisque()
       : super(
@@ -792,7 +780,7 @@ class WobsterBisque extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class WobsterDinner extends Recipe with RecipeAnalysing {
+class WobsterDinner extends Recipe {
   // TODO: implement
   const WobsterDinner()
       : super(
@@ -810,7 +798,7 @@ class WobsterDinner extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class SeafoodGumbo extends Recipe with RecipeAnalysing {
+class SeafoodGumbo extends Recipe {
   // TODO: implement
   const SeafoodGumbo()
       : super(
@@ -828,7 +816,7 @@ class SeafoodGumbo extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class SurfNTurf extends Recipe with RecipeAnalysing {
+class SurfNTurf extends Recipe {
   // TODO: implement
   const SurfNTurf()
       : super(
@@ -846,7 +834,7 @@ class SurfNTurf extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Jellybeans extends Recipe with RecipeAnalysing {
+class Jellybeans extends Recipe {
   // TODO: implement
   const Jellybeans()
       : super(
@@ -864,12 +852,18 @@ class Jellybeans extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class VegetableStinger extends Recipe with RecipeAnalysing {
-  // TODO: implement
+class VegetableStinger extends Recipe {
   const VegetableStinger()
       : super(
-          priority: 0,
-          requirements: const Requirements({}),
+          priority: 15,
+          requirements: const Requirements({
+            OrRequirement({
+              ContainingRequirement(Asparagus()),
+              ContainingRequirement(TomaRoot()),
+            }),
+            ContainingRequirement(Ice()),
+            MeetRequirement(FoodValues({FoodValue(FoodValueCategory.vegetable, 1.5)})),
+          }),
         );
 
   @override
@@ -880,9 +874,13 @@ class VegetableStinger extends Recipe with RecipeAnalysing {
 
   @override
   FoodType get type => throw UnimplementedError();
+
+  @override
+  List<String> get ingredientListAssetNames =>
+      [const TomaRoot().assetName, const Ice().assetName, FoodValueCategory.vegetable.assetName];
 }
 
-class AsparagusSoup extends Recipe with RecipeAnalysing {
+class AsparagusSoup extends Recipe {
   // TODO: implement
   const AsparagusSoup()
       : super(
@@ -900,7 +898,7 @@ class AsparagusSoup extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class StuffedPepperPoppers extends Recipe with RecipeAnalysing {
+class StuffedPepperPoppers extends Recipe {
   // TODO: implement
   const StuffedPepperPoppers()
       : super(
@@ -918,12 +916,19 @@ class StuffedPepperPoppers extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class SalsaFresca extends Recipe with RecipeAnalysing {
-  // TODO: implement
+class SalsaFresca extends Recipe {
   const SalsaFresca()
       : super(
-          priority: 0,
-          requirements: const Requirements({}),
+          priority: 20,
+          requirements: const Requirements({
+            ContainingRequirement(TomaRoot()),
+            ContainingRequirement(Onion()),
+            NoRequirement(categories: {
+              FoodValueCategory.meat,
+              FoodValueCategory.inedible,
+              FoodValueCategory.egg,
+            })
+          }),
         );
 
   @override
@@ -936,12 +941,16 @@ class SalsaFresca extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class FancySpiralledTubers extends Recipe with RecipeAnalysing {
-  // TODO: implement
+class FancySpiralledTubers extends Recipe {
   const FancySpiralledTubers()
       : super(
-          priority: 0,
-          requirements: const Requirements({}),
+          priority: 10,
+          requirements: const Requirements({
+            ContainingRequirement(Potato()),
+            ContainingRequirement(Twigs()),
+            NoRequirement(categories: {FoodValueCategory.meat, FoodValueCategory.monster}),
+            MaxRequirement(FoodValue(FoodValueCategory.inedible, 2.0)),
+          }),
         );
 
   @override
@@ -954,7 +963,7 @@ class FancySpiralledTubers extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class BarnaclePita extends Recipe with RecipeAnalysing {
+class BarnaclePita extends Recipe {
   // TODO: implement
   const BarnaclePita()
       : super(
@@ -972,7 +981,7 @@ class BarnaclePita extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class BarnacleNigiri extends Recipe with RecipeAnalysing {
+class BarnacleNigiri extends Recipe {
   // TODO: implement
   const BarnacleNigiri()
       : super(
@@ -990,7 +999,7 @@ class BarnacleNigiri extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class BarnacleLinguine extends Recipe with RecipeAnalysing {
+class BarnacleLinguine extends Recipe {
   // TODO: implement
   const BarnacleLinguine()
       : super(
@@ -1008,7 +1017,7 @@ class BarnacleLinguine extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class StuffedFishHeads extends Recipe with RecipeAnalysing {
+class StuffedFishHeads extends Recipe {
   // TODO: implement
   const StuffedFishHeads()
       : super(
@@ -1026,7 +1035,7 @@ class StuffedFishHeads extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class MushyCake extends Recipe with RecipeAnalysing {
+class MushyCake extends Recipe {
   // TODO: implement
   const MushyCake()
       : super(
@@ -1044,7 +1053,7 @@ class MushyCake extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class SoothingTea extends Recipe with RecipeAnalysing {
+class SoothingTea extends Recipe {
   // TODO: implement
   const SoothingTea()
       : super(
@@ -1062,7 +1071,7 @@ class SoothingTea extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class FigStuffedTrunk extends Recipe with RecipeAnalysing {
+class FigStuffedTrunk extends Recipe {
   // TODO: implement
   const FigStuffedTrunk()
       : super(
@@ -1080,7 +1089,7 @@ class FigStuffedTrunk extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Figatoni extends Recipe with RecipeAnalysing {
+class Figatoni extends Recipe {
   // TODO: implement
   const Figatoni()
       : super(
@@ -1098,7 +1107,7 @@ class Figatoni extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Figkabab extends Recipe with RecipeAnalysing {
+class Figkabab extends Recipe {
   // TODO: implement
   const Figkabab()
       : super(
@@ -1116,7 +1125,7 @@ class Figkabab extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class FiggyFrogwich extends Recipe with RecipeAnalysing {
+class FiggyFrogwich extends Recipe {
   // TODO: implement
   const FiggyFrogwich()
       : super(
@@ -1134,7 +1143,7 @@ class FiggyFrogwich extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class FrozenBananaDaiquiri extends Recipe with RecipeAnalysing {
+class FrozenBananaDaiquiri extends Recipe {
   // TODO: implement
   const FrozenBananaDaiquiri()
       : super(
@@ -1152,7 +1161,7 @@ class FrozenBananaDaiquiri extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class BunnyStew extends Recipe with RecipeAnalysing {
+class BunnyStew extends Recipe {
   const BunnyStew()
       : super(
           priority: 1,
@@ -1174,7 +1183,7 @@ class BunnyStew extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class BananaShake extends Recipe with RecipeAnalysing {
+class BananaShake extends Recipe {
   // TODO: implement
   const BananaShake()
       : super(
@@ -1192,7 +1201,7 @@ class BananaShake extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class PlainOmelette extends Recipe with RecipeAnalysing {
+class PlainOmelette extends Recipe {
   // TODO: implement
   const PlainOmelette()
       : super(
@@ -1210,7 +1219,7 @@ class PlainOmelette extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class BreakfastSkillet extends Recipe with RecipeAnalysing {
+class BreakfastSkillet extends Recipe {
   // TODO: implement
   const BreakfastSkillet()
       : super(
@@ -1228,7 +1237,7 @@ class BreakfastSkillet extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class TallScotchEggs extends Recipe with RecipeAnalysing {
+class TallScotchEggs extends Recipe {
   // TODO: implement
   const TallScotchEggs()
       : super(
@@ -1246,7 +1255,7 @@ class TallScotchEggs extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class SteamedTwigs extends Recipe with RecipeAnalysing {
+class SteamedTwigs extends Recipe {
   const SteamedTwigs()
       : super(
           priority: -5,
@@ -1265,7 +1274,7 @@ class SteamedTwigs extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class BeefaloTreats extends Recipe with RecipeAnalysing {
+class BeefaloTreats extends Recipe {
   // TODO: implement
   const BeefaloTreats()
       : super(
@@ -1283,7 +1292,7 @@ class BeefaloTreats extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class LeafyMeatloaf extends Recipe with RecipeAnalysing {
+class LeafyMeatloaf extends Recipe {
   const LeafyMeatloaf()
       : super(
           priority: 25,
@@ -1302,14 +1311,14 @@ class LeafyMeatloaf extends Recipe with RecipeAnalysing {
   FoodType get type => FoodType.meat;
 }
 
-class VeggieBurger extends Recipe with RecipeAnalysing {
+class VeggieBurger extends Recipe {
   const VeggieBurger()
       : super(
           priority: 25,
           requirements: const Requirements({
             ContainingRequirement(LeafyMeat()),
             ContainingRequirement(Onion()),
-            MeetRequirement(FoodValues({FoodValue(FoodValueCategory.vegetable, 1.0)})),
+            MeetRequirement(FoodValues({FoodValue(FoodValueCategory.vegetable, 2.0)})),
           }),
         );
 
@@ -1323,7 +1332,7 @@ class VeggieBurger extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class JellySalad extends Recipe with RecipeAnalysing {
+class JellySalad extends Recipe {
   const JellySalad()
       : super(
           priority: 50,
@@ -1343,7 +1352,7 @@ class JellySalad extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class BeefyGreens extends Recipe with RecipeAnalysing {
+class BeefyGreens extends Recipe {
   // TODO: implement
   const BeefyGreens()
       : super(
@@ -1361,7 +1370,7 @@ class BeefyGreens extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class MilkmadeHat extends Recipe with RecipeAnalysing {
+class MilkmadeHat extends Recipe {
   // TODO: implement
   const MilkmadeHat()
       : super(
@@ -1379,7 +1388,7 @@ class MilkmadeHat extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Amberosia extends Recipe with RecipeAnalysing {
+class Amberosia extends Recipe {
   const Amberosia()
       : super(
           priority: 100,
@@ -1397,7 +1406,7 @@ class Amberosia extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class BeetSalho extends Recipe with RecipeAnalysing {
+class BeetSalho extends Recipe {
   // TODO: implement
   const BeetSalho()
       : super(
@@ -1415,7 +1424,7 @@ class BeetSalho extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class CricketCrackers extends Recipe with RecipeAnalysing {
+class CricketCrackers extends Recipe {
   // TODO: implement
   const CricketCrackers()
       : super(
@@ -1433,7 +1442,7 @@ class CricketCrackers extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class LeafySalad extends Recipe with RecipeAnalysing {
+class LeafySalad extends Recipe {
   // TODO: implement
   const LeafySalad()
       : super(
@@ -1451,7 +1460,7 @@ class LeafySalad extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Leafloaf extends Recipe with RecipeAnalysing {
+class Leafloaf extends Recipe {
   // TODO: implement
   const Leafloaf()
       : super(
@@ -1469,7 +1478,7 @@ class Leafloaf extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class MixedVegetable extends Recipe with RecipeAnalysing {
+class MixedVegetable extends Recipe {
   // TODO: implement
   const MixedVegetable()
       : super(
@@ -1487,7 +1496,7 @@ class MixedVegetable extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class BoneBouillon extends Recipe with RecipeAnalysing {
+class BoneBouillon extends Recipe {
   // TODO: implement
   const BoneBouillon()
       : super(
@@ -1505,7 +1514,7 @@ class BoneBouillon extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Moqueca extends Recipe with RecipeAnalysing {
+class Moqueca extends Recipe {
   // TODO: implement
   const Moqueca()
       : super(
@@ -1523,7 +1532,7 @@ class Moqueca extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class MonsterTartare extends Recipe with RecipeAnalysing {
+class MonsterTartare extends Recipe {
   // TODO: implement
   const MonsterTartare()
       : super(
@@ -1541,7 +1550,7 @@ class MonsterTartare extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class CreamyFettuccine extends Recipe with RecipeAnalysing {
+class CreamyFettuccine extends Recipe {
   // TODO: implement
   const CreamyFettuccine()
       : super(
@@ -1559,7 +1568,7 @@ class CreamyFettuccine extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Fruitcake extends Recipe with RecipeAnalysing {
+class Fruitcake extends Recipe {
   // TODO: implement
   const Fruitcake()
       : super(
@@ -1577,7 +1586,7 @@ class Fruitcake extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class FreshFruitCrepes extends Recipe with RecipeAnalysing {
+class FreshFruitCrepes extends Recipe {
   // TODO: implement
   const FreshFruitCrepes()
       : super(
@@ -1595,7 +1604,7 @@ class FreshFruitCrepes extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class HotChili extends Recipe with RecipeAnalysing {
+class HotChili extends Recipe {
   // TODO: implement
   const HotChili()
       : super(
@@ -1613,7 +1622,7 @@ class HotChili extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class GlowBerryMousse extends Recipe with RecipeAnalysing {
+class GlowBerryMousse extends Recipe {
   // TODO: implement
   const GlowBerryMousse()
       : super(
@@ -1631,12 +1640,15 @@ class GlowBerryMousse extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class MashedPotatoes extends Recipe with RecipeAnalysing {
-  // TODO: implement
+class MashedPotatoes extends Recipe {
   const MashedPotatoes()
       : super(
-          priority: 0,
-          requirements: const Requirements({}),
+          priority: 20,
+          requirements: const Requirements({
+            ContainingRequirement(Potato(), 2),
+            ContainingRequirement(Garlic()),
+            NoRequirement(categories: {FoodValueCategory.meat, FoodValueCategory.inedible}),
+          }),
         );
 
   @override
@@ -1649,7 +1661,7 @@ class MashedPotatoes extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class GrimGalette extends Recipe with RecipeAnalysing {
+class GrimGalette extends Recipe {
   // TODO: implement
   const GrimGalette()
       : super(
@@ -1667,7 +1679,7 @@ class GrimGalette extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class VoltGoatChaudFroid extends Recipe with RecipeAnalysing {
+class VoltGoatChaudFroid extends Recipe {
   // TODO: implement
   const VoltGoatChaudFroid()
       : super(
@@ -1685,7 +1697,7 @@ class VoltGoatChaudFroid extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class FishCordonBleu extends Recipe with RecipeAnalysing {
+class FishCordonBleu extends Recipe {
   // TODO: implement
   const FishCordonBleu()
       : super(
@@ -1703,7 +1715,7 @@ class FishCordonBleu extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class HotDragonChiliSalad extends Recipe with RecipeAnalysing {
+class HotDragonChiliSalad extends Recipe {
   // TODO: implement
   const HotDragonChiliSalad()
       : super(
@@ -1721,7 +1733,7 @@ class HotDragonChiliSalad extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class Asparagazpacho extends Recipe with RecipeAnalysing {
+class Asparagazpacho extends Recipe {
   // TODO: implement
   const Asparagazpacho()
       : super(
@@ -1739,7 +1751,7 @@ class Asparagazpacho extends Recipe with RecipeAnalysing {
   FoodType get type => throw UnimplementedError();
 }
 
-class PuffedPotatoSouffle extends Recipe with RecipeAnalysing {
+class PuffedPotatoSouffle extends Recipe {
   // TODO: implement
   const PuffedPotatoSouffle()
       : super(

@@ -1,3 +1,5 @@
+import 'package:dst_helper/cook_page/favorite_recipes_widget.dart';
+import 'package:dst_helper/models/plants.dart';
 import 'package:dst_helper/models/recipes.dart';
 import 'package:flutter/material.dart';
 
@@ -6,17 +8,24 @@ class CookPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 16,
-      ),
+    return Row(
       children: [
-        ...Recipes.recipes.map(
-          (recipe) => Image.asset(
-            'items/${recipe.assetName}.png',
-            errorBuilder: (context, error, stackTrace) => Text(recipe.name),
-          ),
+        const SizedBox(
+          width: 400,
+          child: FavoriteRecipesWidget(),
         ),
+        Expanded(
+          child: GridView(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 10),
+            children: [
+              ...Recipes.recipes.map((recipe) => Image.asset(
+                    'items/${recipe.assetName}.png',
+                    width: 40,
+                    height: 40,
+                  ))
+            ],
+          ),
+        )
       ],
     );
   }

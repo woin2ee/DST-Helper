@@ -1,3 +1,4 @@
+import 'package:dst_helper/models/cookable_food.dart';
 import 'package:dst_helper/models/food.dart';
 import 'package:dst_helper/models/ingredient.dart';
 
@@ -229,19 +230,16 @@ class Honey implements Food, Ingredient {
 
 class Ice implements Food, Ingredient {
   const Ice();
+
+  @override
+  String get assetName => 'ice';
+
+  @override
+  FoodValues? get foodValues => null;
+
+  @override
+  String get name => "Ice";
   
-  @override
-  // TODO: implement assetName
-  String get assetName => throw UnimplementedError();
-
-  @override
-  // TODO: implement foodValues
-  FoodValues? get foodValues => throw UnimplementedError();
-
-  @override
-  // TODO: implement name
-  String get name => throw UnimplementedError();
-
   @override
   // TODO: implement type
   FoodType get type => throw UnimplementedError();
@@ -263,7 +261,7 @@ class WinterKoalefantTrunk {}
 
 class KoalefantTrunkSteak {}
 
-class LeafyMeat implements Food, Ingredient {
+class LeafyMeat implements CookableFood, Ingredient {
   const LeafyMeat();
 
   @override
@@ -277,6 +275,9 @@ class LeafyMeat implements Food, Ingredient {
 
   @override
   FoodType get type => FoodType.meat;
+
+  @override
+  String get compositeAssetName => 'leafy_meats';
 }
 
 // class CookedLeafyMeat {}
