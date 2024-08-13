@@ -9,8 +9,8 @@ class SeedInfoBox extends StatefulWidget {
   State<StatefulWidget> createState() => _SeedInfoBoxState();
 }
 
-class _SeedInfoBoxState extends State<SeedInfoBox> {
-  bool folded = true;
+class _SeedInfoBoxState extends State<SeedInfoBox> with RestorationMixin {
+  final RestorableBool _folded = RestorableBool(true);
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +19,10 @@ class _SeedInfoBoxState extends State<SeedInfoBox> {
       children: [
         SeedInfoBoxIcon(onPressed: () {
           setState(() {
-            folded = !folded;
+            _folded.value = !_folded.value;
           });
         }),
-        if (!folded)
+        if (!_folded.value)
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
@@ -70,13 +70,21 @@ class _SeedInfoBoxState extends State<SeedInfoBox> {
       ],
     );
   }
+  
+  @override
+  String? get restorationId => 'restoration_id_seed_info_box_state';
+  
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(_folded, 'folded');
+  }
 }
 
 class SeedInfoBoxIcon extends StatelessWidget {
   const SeedInfoBoxIcon({super.key, required this.onPressed});
 
   final Function() onPressed;
-
+  
   @override
   Widget build(BuildContext context) {
     return Container(
