@@ -103,8 +103,8 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Row(
         children: [
-          Container(
-            constraints: const BoxConstraints(maxWidth: 160),
+          SizedBox(
+            width: 170,
             child: NavigationRail(
               onDestinationSelected: (index) {
                 setState(() {
@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                   }
                 });
               },
-              elevation: 2,
+              elevation: 4,
               extended: true,
               destinations: [
                 ...Menu.values.map((menu) => NavigationRailDestination(

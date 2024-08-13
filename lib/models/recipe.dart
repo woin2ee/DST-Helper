@@ -66,6 +66,9 @@ abstract class Recipe implements Item {
       }
     }
     assert(assets.length <= 4);
+    while (assets.length < 4) {
+      assets.add('none');
+    }
     return assets;
   }
 }
