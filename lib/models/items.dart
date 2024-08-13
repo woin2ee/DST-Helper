@@ -78,7 +78,21 @@ class Berries implements Food, Ingredient {
 
 // class RoastedBerries {}
 
-class RoastedBirchnut {}
+class RoastedBirchnut implements Food, Ingredient {
+  const RoastedBirchnut();
+
+  @override
+  String get assetName => 'roasted_birchnut';
+
+  @override
+  FoodValues? get foodValues => null;
+
+  @override
+  String get name => 'Roasted Birchnut';
+
+  @override
+  FoodType get type => FoodType.veggie;
+}
 
 class Butter {}
 
@@ -174,7 +188,24 @@ class Egg implements Food, Ingredient {
 
 class BraisedEggplant {}
 
-class Fig {}
+class Fig implements CookableFood, Ingredient {
+  const Fig();
+
+  @override
+  String get assetName => 'fig';
+
+  @override
+  String get compositeAssetName => 'figs';
+
+  @override
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.fruit, 0.5)});
+
+  @override
+  String get name => 'Fig';
+
+  @override
+  FoodType get type => FoodType.veggie;
+}
 
 // class CookedFig {}
 
@@ -239,13 +270,30 @@ class Ice implements Food, Ingredient {
 
   @override
   String get name => "Ice";
-  
+
   @override
   // TODO: implement type
   FoodType get type => throw UnimplementedError();
 }
 
-class JuicyBerries {}
+class JuicyBerries implements CookableFood, Ingredient {
+  const JuicyBerries();
+
+  @override
+  String get assetName => 'juicy_berries';
+
+  @override
+  String get compositeAssetName => 'juicy_berries';
+
+  @override
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.fruit, 0.5)});
+
+  @override
+  String get name => 'Juicy Berries';
+
+  @override
+  FoodType get type => FoodType.veggie;
+}
 
 // class RoastedJuicyBerries {}
 
@@ -255,11 +303,45 @@ class KelpFronds {}
 
 class DriedKelpFronds {}
 
-class KoalefantTrunk {}
+class KoalefantTrunk implements CookableFood, Ingredient {
+  const KoalefantTrunk();
 
-class WinterKoalefantTrunk {}
+  @override
+  String get assetName => 'koalefant_trunk';
 
-class KoalefantTrunkSteak {}
+  @override
+  String get compositeAssetName => 'koalefant_trunks';
+
+  @override
+  FoodValues? get foodValues => null;
+
+  @override
+  String get name => 'Koalefant Trunk';
+
+  @override
+  FoodType get type => FoodType.meat;
+}
+
+class WinterKoalefantTrunk implements CookableFood, Ingredient {
+  const WinterKoalefantTrunk();
+
+  @override
+  String get assetName => 'winter_koalefant_trunk';
+
+  @override
+  String get compositeAssetName => 'koalefant_trunks';
+
+  @override
+  FoodValues? get foodValues => null;
+
+  @override
+  String get name => 'Winter Koalefant Trunk';
+
+  @override
+  FoodType get type => FoodType.meat;
+}
+
+// class KoalefantTrunkSteak {}
 
 class LeafyMeat implements CookableFood, Ingredient {
   const LeafyMeat();

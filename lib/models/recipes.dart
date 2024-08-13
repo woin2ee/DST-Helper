@@ -159,11 +159,13 @@ class FroggleBunwich extends Recipe {
 }
 
 class Taffy extends Recipe {
-  // TODO: implement
   const Taffy()
       : super(
-          priority: 0,
-          requirements: const Requirements({}),
+          priority: 10,
+          requirements: const Requirements({
+            ContainingRequirement(Honey(), 3),
+            NoRequirement(categories: {FoodValueCategory.meat}),
+          }),
         );
 
   @override
@@ -239,7 +241,7 @@ class HoneyHam extends Recipe {
             ContainingRequirement(Honey()),
             ExcessRequirement(FoodValues({FoodValue(FoodValueCategory.meat, 1.5)})),
             NoRequirement(categories: {FoodValueCategory.inedible}),
-            MaxRequirement(FoodValue(FoodValueCategory.meat, 1.5))
+            MaxRequirement(FoodValue(FoodValueCategory.meat, 1.5)),
           }),
         );
 
@@ -315,11 +317,16 @@ class MandrakeSoup extends Recipe {
 }
 
 class BaconAndEggs extends Recipe {
-  // TODO: implement
   const BaconAndEggs()
       : super(
-          priority: 0,
-          requirements: const Requirements({}),
+          priority: 10,
+          requirements: const Requirements({
+            ExcessRequirement(FoodValues({
+              FoodValue(FoodValueCategory.meat, 1.0),
+              FoodValue(FoodValueCategory.egg, 1.0),
+            })),
+            NoRequirement(categories: {FoodValueCategory.vegetable}),
+          }),
         );
 
   @override
@@ -578,10 +585,9 @@ class Unagi extends Recipe {
 }
 
 class WetGoop extends Recipe {
-  // TODO: implement
   const WetGoop()
       : super(
-          priority: 0,
+          priority: -2,
           requirements: const Requirements({}),
         );
 
@@ -655,11 +661,23 @@ class Melonsicle extends Recipe {
 }
 
 class TrailMix extends Recipe {
-  // TODO: implement
   const TrailMix()
       : super(
-          priority: 0,
-          requirements: const Requirements({}),
+          priority: 10,
+          requirements: const Requirements({
+            ContainingRequirement(RoastedBirchnut()),
+            OrRequirement({
+              ContainingRequirement(Berries()),
+              ContainingRequirement(JuicyBerries()),
+            }),
+            MeetRequirement(FoodValues({FoodValue(FoodValueCategory.fruit, 0.5)})),
+            NoRequirement(categories: {
+              FoodValueCategory.meat,
+              FoodValueCategory.egg,
+              FoodValueCategory.vegetable,
+              FoodValueCategory.dairy,
+            }),
+          }),
         );
 
   @override
@@ -899,11 +917,15 @@ class AsparagusSoup extends Recipe {
 }
 
 class StuffedPepperPoppers extends Recipe {
-  // TODO: implement
   const StuffedPepperPoppers()
       : super(
-          priority: 0,
-          requirements: const Requirements({}),
+          priority: 20,
+          requirements: const Requirements({
+            ContainingRequirement(Pepper()),
+            MeetRequirement(FoodValues({FoodValue(FoodValueCategory.meat, 0.5)})),
+            NoRequirement(categories: {FoodValueCategory.inedible}),
+            MaxRequirement(FoodValue(FoodValueCategory.meat, 1.5)),
+          }),
         );
 
   @override
@@ -1054,11 +1076,23 @@ class MushyCake extends Recipe {
 }
 
 class SoothingTea extends Recipe {
-  // TODO: implement
   const SoothingTea()
       : super(
-          priority: 0,
-          requirements: const Requirements({}),
+          priority: 1,
+          requirements: const Requirements({
+            ContainingRequirement(ForgetMeLots()),
+            ContainingRequirement(Honey()),
+            ContainingRequirement(Ice()),
+            NoRequirement(categories: {
+              FoodValueCategory.meat,
+              FoodValueCategory.monster,
+              FoodValueCategory.fish,
+              FoodValueCategory.vegetable,
+              FoodValueCategory.inedible,
+              FoodValueCategory.dairy,
+              FoodValueCategory.egg,
+            }),
+          }),
         );
 
   @override
@@ -1072,11 +1106,16 @@ class SoothingTea extends Recipe {
 }
 
 class FigStuffedTrunk extends Recipe {
-  // TODO: implement
   const FigStuffedTrunk()
       : super(
-          priority: 0,
-          requirements: const Requirements({}),
+          priority: 40,
+          requirements: const Requirements({
+            ContainingRequirement(Fig()),
+            OrRequirement({
+              ContainingRequirement(KoalefantTrunk()),
+              ContainingRequirement(WinterKoalefantTrunk()),
+            }),
+          }),
         );
 
   @override
@@ -1090,11 +1129,14 @@ class FigStuffedTrunk extends Recipe {
 }
 
 class Figatoni extends Recipe {
-  // TODO: implement
   const Figatoni()
       : super(
-          priority: 0,
-          requirements: const Requirements({}),
+          priority: 30,
+          requirements: const Requirements({
+            ContainingRequirement(Fig()),
+            MeetRequirement(FoodValues({FoodValue(FoodValueCategory.vegetable, 2.0)})),
+            NoRequirement(categories: {FoodValueCategory.meat}),
+          }),
         );
 
   @override
@@ -1108,11 +1150,14 @@ class Figatoni extends Recipe {
 }
 
 class Figkabab extends Recipe {
-  // TODO: implement
   const Figkabab()
       : super(
-          priority: 0,
-          requirements: const Requirements({}),
+          priority: 30,
+          requirements: const Requirements({
+            ContainingRequirement(Fig()),
+            MeetRequirement(FoodValues({FoodValue(FoodValueCategory.meat, 1.0)})),
+            ContainingRequirement(Twigs()),
+          }),
         );
 
   @override
@@ -1126,11 +1171,13 @@ class Figkabab extends Recipe {
 }
 
 class FiggyFrogwich extends Recipe {
-  // TODO: implement
   const FiggyFrogwich()
       : super(
-          priority: 0,
-          requirements: const Requirements({}),
+          priority: 1,
+          requirements: const Requirements({
+            ContainingRequirement(Fig()),
+            ContainingRequirement(FrogLegs()),
+          }),
         );
 
   @override
