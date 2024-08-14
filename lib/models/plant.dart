@@ -2,7 +2,6 @@ import 'package:dst_helper/models/food.dart';
 import 'package:dst_helper/models/ingredient.dart';
 import 'package:dst_helper/models/item.dart';
 import 'package:dst_helper/models/season.dart';
-import 'package:dst_helper/models/seeds.dart';
 
 // 식물
 abstract class Plant implements Item {
@@ -20,6 +19,18 @@ abstract class Crop implements Plant, Food, Ingredient {
   const Crop(this.seeds);
 
   final Seeds seeds;
+}
+
+/// 씨앗
+abstract class Seeds implements Item {
+  const Seeds({required this.crop, this.assumedName});
+
+  final Crop crop;
+
+  final String? assumedName;
+
+  @override
+  String get assetName => '${crop.assetName}_seeds';
 }
 
 /// 잡초

@@ -2,7 +2,6 @@ import 'package:dst_helper/models/food.dart';
 import 'package:dst_helper/models/ingredient.dart';
 import 'package:dst_helper/models/plant.dart';
 import 'package:dst_helper/models/season.dart';
-import 'package:dst_helper/models/seeds.dart';
 
 class Plants {
   static List<Crop> get crops {
@@ -48,8 +47,19 @@ class Potato implements Crop {
   FoodType get type => throw UnimplementedError();
 
   @override
-  // TODO: implement seeds
-  Seeds get seeds => throw UnimplementedError();
+  Seeds get seeds => const PotatoSeeds();
+}
+
+class PotatoSeeds extends Seeds {
+  const PotatoSeeds()
+      : super(
+          crop: const Potato(),
+          assumedName: 'Fluffy Seeds',
+        );
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
 }
 
 class Carrot implements Crop {
@@ -75,8 +85,19 @@ class Carrot implements Crop {
   FoodType get type => throw UnimplementedError();
 
   @override
-  // TODO: implement seed
-  Seeds get seeds => throw UnimplementedError();
+  Seeds get seeds => const CarrotSeeds();
+}
+
+class CarrotSeeds extends Seeds {
+  const CarrotSeeds()
+      : super(
+          crop: const Carrot(),
+          assumedName: 'Oblong Seeds',
+        );
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
 }
 
 class Corn implements Crop {
@@ -102,8 +123,19 @@ class Corn implements Crop {
   FoodType get type => throw UnimplementedError();
 
   @override
-  // TODO: implement seed
-  Seeds get seeds => throw UnimplementedError();
+  Seeds get seeds => const CornSeeds();
+}
+
+class CornSeeds extends Seeds {
+  const CornSeeds()
+      : super(
+          crop: const Corn(),
+          assumedName: 'Clustered Seeds',
+        );
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
 }
 
 class TomaRoot implements Crop {
@@ -125,11 +157,22 @@ class TomaRoot implements Crop {
   FoodType get type => FoodType.veggie;
 
   @override
-  // TODO: implement seed
-  Seeds get seeds => throw UnimplementedError();
+  Seeds get seeds => const TomaRootSeeds();
 
   @override
   FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.vegetable, 1.0)});
+}
+
+class TomaRootSeeds extends Seeds {
+  const TomaRootSeeds()
+      : super(
+          crop: const TomaRoot(),
+          assumedName: 'Spiky Seeds',
+        );
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
 }
 
 class Asparagus implements Crop {
@@ -157,20 +200,15 @@ class Asparagus implements Crop {
   Seeds get seeds => const AsparagusSeeds();
 }
 
-class AsparagusSeeds implements Seeds {
-  const AsparagusSeeds();
+class AsparagusSeeds extends Seeds {
+  const AsparagusSeeds()
+      : super(
+          assumedName: 'Tubular Seeds',
+          crop: const Asparagus(),
+        );
 
   @override
-  // TODO: implement assetName
-  String get assetName => throw UnimplementedError();
-
-  @override
-  // TODO: implement assumedName
-  String? get assumedName => throw UnimplementedError();
-
-  @override
-  // TODO: implement name
-  String get name => throw UnimplementedError();
+  String get name => 'Asparagus Seeds';
 }
 
 class Watermelon implements Crop {
@@ -198,17 +236,15 @@ class Watermelon implements Crop {
   Seeds get seeds => const WatermelonSeeds();
 }
 
-class WatermelonSeeds implements Seeds {
-  const WatermelonSeeds();
-
-  @override
-  String get assetName => 'watermelon_seeds';
+class WatermelonSeeds extends Seeds {
+  const WatermelonSeeds()
+      : super(
+          crop: const Watermelon(),
+          assumedName: 'Square Seeds',
+        );
 
   @override
   String get name => 'Watermelon Seeds';
-
-  @override
-  String get assumedName => 'Square Seeds';
 }
 
 class Pumpkin implements Crop {
@@ -234,8 +270,19 @@ class Pumpkin implements Crop {
   FoodType get type => throw UnimplementedError();
 
   @override
-  // TODO: implement seeds
-  Seeds get seeds => throw UnimplementedError();
+  Seeds get seeds => const PumpkinSeeds();
+}
+
+class PumpkinSeeds extends Seeds {
+  const PumpkinSeeds()
+      : super(
+          crop: const Pumpkin(),
+          assumedName: 'Sharp Seeds',
+        );
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
 }
 
 class Eggplant implements Crop {
@@ -261,8 +308,19 @@ class Eggplant implements Crop {
   FoodType get type => throw UnimplementedError();
 
   @override
-  // TODO: implement seed
-  Seeds get seeds => throw UnimplementedError();
+  Seeds get seeds => const EggplantSeeds();
+}
+
+class EggplantSeeds extends Seeds {
+  const EggplantSeeds()
+      : super(
+          crop: const Eggplant(),
+          assumedName: 'Swirly Seeds',
+        );
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
 }
 
 class Garlic implements Crop {
@@ -288,8 +346,19 @@ class Garlic implements Crop {
   FoodType get type => throw UnimplementedError();
 
   @override
-  // TODO: implement seed
-  Seeds get seeds => throw UnimplementedError();
+  Seeds get seeds => const GarlicSeeds();
+}
+
+class GarlicSeeds extends Seeds {
+  const GarlicSeeds()
+      : super(
+          crop: const Garlic(),
+          assumedName: 'Seed Pods',
+        );
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
 }
 
 class Onion implements Crop {
@@ -315,8 +384,19 @@ class Onion implements Crop {
   FoodType get type => throw UnimplementedError();
 
   @override
-  // TODO: implement seed
-  Seeds get seeds => throw UnimplementedError();
+  Seeds get seeds => const OnionSeeds();
+}
+
+class OnionSeeds extends Seeds {
+  const OnionSeeds()
+      : super(
+          crop: const Onion(),
+          assumedName: 'Pointy Seeds',
+        );
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
 }
 
 class Pepper implements Crop {
@@ -342,8 +422,19 @@ class Pepper implements Crop {
   FoodType get type => throw UnimplementedError();
 
   @override
-  // TODO: implement seed
-  Seeds get seeds => throw UnimplementedError();
+  Seeds get seeds => const PepperSeeds();
+}
+
+class PepperSeeds extends Seeds {
+  const PepperSeeds()
+      : super(
+          crop: const Pepper(),
+          assumedName: 'Lumpy Seeds',
+        );
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
 }
 
 class Pomegranate implements Crop {
@@ -369,8 +460,19 @@ class Pomegranate implements Crop {
   FoodType get type => throw UnimplementedError();
 
   @override
-  // TODO: implement seeds
-  Seeds get seeds => throw UnimplementedError();
+  Seeds get seeds => const PomegranateSeeds();
+}
+
+class PomegranateSeeds extends Seeds {
+  const PomegranateSeeds()
+      : super(
+          crop: const Pomegranate(),
+          assumedName: 'Windblown Seeds',
+        );
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
 }
 
 class DragonFruit implements Crop {
@@ -396,8 +498,19 @@ class DragonFruit implements Crop {
   FoodType get type => throw UnimplementedError();
 
   @override
-  // TODO: implement seeds
-  Seeds get seeds => throw UnimplementedError();
+  Seeds get seeds => const DragonFruitSeeds();
+}
+
+class DragonFruitSeeds extends Seeds {
+  const DragonFruitSeeds()
+      : super(
+          crop: const DragonFruit(),
+          assumedName: 'Bulbous Seeds',
+        );
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
 }
 
 class Durian implements Crop {
@@ -423,8 +536,19 @@ class Durian implements Crop {
   FoodType get type => throw UnimplementedError();
 
   @override
-  // TODO: implement seed
-  Seeds get seeds => throw UnimplementedError();
+  Seeds get seeds => const DurianSeeds();
+}
+
+class DurianSeeds extends Seeds {
+  const DurianSeeds()
+      : super(
+          crop: const Durian(),
+          assumedName: 'Brittle Seed Pods',
+        );
+
+  @override
+  // TODO: implement name
+  String get name => throw UnimplementedError();
 }
 
 class ForgetMeLots implements Weed, Food, Ingredient {
