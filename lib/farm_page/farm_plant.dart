@@ -268,26 +268,24 @@ class FarmPlantGroupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      margin: const EdgeInsets.all(8),
-      child: Card(
-        shape: const BeveledRectangleBorder(),
-        color: theme.colorScheme.onSurfaceVariant,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              '${title != null ? title! : suitableSeasons.map((season) => season.name)} ★',
-              maxLines: 1,
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: theme.colorScheme.surfaceBright,
-              ),
+    return Card(
+      shape: const BeveledRectangleBorder(),
+      color: theme.colorScheme.onSurfaceVariant,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            '${title != null ? title! : suitableSeasons.map((season) => season.name)} ★',
+            maxLines: 1,
+            style: theme.textTheme.titleMedium?.copyWith(
+              color: theme.colorScheme.surfaceBright,
             ),
-            Row(
-              children: farmPlants,
-            ),
-          ],
-        ),
+          ),
+          // 현재 일자 밭만 가능
+          Row(
+            children: farmPlants,
+          ),
+        ],
       ),
     );
   }

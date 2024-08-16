@@ -48,8 +48,8 @@ sealed class CookableFood extends FoodObject {
 }
 
 /// 요리 가능한 아이템(Crock Pot에 넣을 수 있는 아이템)
-abstract class Ingredient extends DSTObject {
-  const Ingredient({
+abstract class IngredientObject extends DSTObject {
+  const IngredientObject({
     required super.code,
     required super.assetName,
     required this.foodValues,
@@ -72,7 +72,7 @@ sealed class PlantObject extends DSTObject {
 }
 
 /// 작물
-sealed class CropObject implements PlantObject, FoodObject, Ingredient {
+sealed class CropObject implements PlantObject, FoodObject, IngredientObject {
   const CropObject(this.seeds);
 
   final SeedsObject seeds;
@@ -136,7 +136,7 @@ sealed class RecipeObject extends DSTObject {
   /// If the recipe can't be able to cook with given ingredients any way, it returns `false`, while able to, returns `true`.
   ///
   /// Note: The moment a certain recipe becomes cookable, the recipes having low priority than the recipe becomes uncookable.
-  bool canBeCookedWith(Ingredient i1, Ingredient i2, Ingredient i3, Ingredient i4) {
+  bool canBeCookedWith(IngredientObject i1, IngredientObject i2, IngredientObject i3, IngredientObject i4) {
     final ingredientsAnalyser = IngredientsAnalyser([i1, i2, i3, i4]);
     if (!requirements.isMetFor(ingredientsAnalyser)) return false;
     // The length of recipes is always greater than 0 because the checking above.
@@ -152,7 +152,7 @@ sealed class RecipeObject extends DSTObject {
     requirements.sort((a, b) => a.runtimeType is ContainingRequirement ? 1 : 0);
 
     List<String> assets = [];
-    List<Ingredient> containedIngredient = [];
+    List<IngredientObject> containedIngredient = [];
     for (final requirement in requirements) {
       switch (requirement) {
         case AtLeastRequirement(:final categories):
@@ -258,7 +258,7 @@ class PotatoSeeds extends SeedsObject {
   @override
   // TODO: implement name
   String get name => throw UnimplementedError();
-  
+
   @override
   // TODO: implement code
   String get code => throw UnimplementedError();
@@ -395,7 +395,7 @@ class TomaRootSeeds extends SeedsObject {
   @override
   // TODO: implement name
   String get name => throw UnimplementedError();
-  
+
   @override
   // TODO: implement code
   String get code => throw UnimplementedError();
@@ -651,7 +651,7 @@ class Onion implements CropObject {
 
   @override
   SeedsObject get seeds => const OnionSeeds();
-  
+
   @override
   // TODO: implement code
   String get code => throw UnimplementedError();
@@ -857,7 +857,7 @@ class DurianSeeds extends SeedsObject {
   String get name => throw UnimplementedError();
 }
 
-class ForgetMeLots implements WeedObject, FoodObject, Ingredient {
+class ForgetMeLots implements WeedObject, FoodObject, IngredientObject {
   const ForgetMeLots();
 
   @override
@@ -1142,17 +1142,13 @@ class PumpkinCookie extends RecipeObject {
       : super(
           // TODO: Implement
           code: '',
-          // TODO: Implement
-          assetName: '',
+          assetName: 'pumpkin_cookie',
           priority: 10,
           requirements: const Requirements({
             ContainingRequirement(Pumpkin()),
             MeetRequirement(FoodValues({FoodValue(FoodValueCategory.sweetener, 2.0)})),
           }),
         );
-
-  @override
-  String get assetName => 'pumpkin_cookie';
 
   @override
   String get name => 'Pumpkin Cookie';
@@ -1437,17 +1433,13 @@ class Ratatouille extends RecipeObject {
       : super(
           // TODO: Implement
           code: '',
-          // TODO: Implement
-          assetName: '',
+          assetName: 'ratatouille',
           priority: 0,
           requirements: const Requirements({
             MeetRequirement(FoodValues({FoodValue(FoodValueCategory.vegetable, 0.5)})),
             NoRequirement(categories: {FoodValueCategory.meat, FoodValueCategory.inedible}),
           }),
         );
-
-  @override
-  String get assetName => 'ratatouille';
 
   @override
   String get name => 'Ratatouille';
@@ -1689,19 +1681,23 @@ class IceCream extends RecipeObject {
 }
 
 class Melonsicle extends RecipeObject {
-  // TODO: implement
   const Melonsicle()
       : super(
           // TODO: Implement
           code: '',
-          // TODO: Implement
-          assetName: '',
-          priority: 0,
-          requirements: const Requirements({}),
+          assetName: 'melonsicle',
+          priority: 10,
+          requirements: const Requirements({
+            ContainingRequirement(Watermelon()),
+            ContainingRequirement(Ice()),
+            ContainingRequirement(Twigs()),
+            NoRequirement(categories: {
+              FoodValueCategory.meat,
+              FoodValueCategory.egg,
+              FoodValueCategory.vegetable,
+            }),
+          }),
         );
-
-  @override
-  String get assetName => 'melonsicle';
 
   @override
   String get name => 'Melonsicle';
@@ -1943,19 +1939,21 @@ class SurfNTurf extends RecipeObject {
 }
 
 class Jellybeans extends RecipeObject {
-  // TODO: implement
   const Jellybeans()
       : super(
           // TODO: Implement
           code: '',
           // TODO: Implement
-          assetName: '',
-          priority: 0,
-          requirements: const Requirements({}),
+          assetName: 'jellybeans',
+          priority: 12,
+          requirements: const Requirements({
+            ContainingRequirement(RoyalJelly()),
+            NoRequirement(categories: {
+              FoodValueCategory.inedible,
+              FoodValueCategory.monster,
+            })
+          }),
         );
-
-  @override
-  String get assetName => 'jellybeans';
 
   @override
   String get name => 'Jellybeans';
@@ -2049,8 +2047,7 @@ class SalsaFresca extends RecipeObject {
       : super(
           // TODO: Implement
           code: '',
-          // TODO: Implement
-          assetName: '',
+          assetName: 'salsa_fresca',
           priority: 20,
           requirements: const Requirements({
             ContainingRequirement(TomaRoot()),
@@ -2062,9 +2059,6 @@ class SalsaFresca extends RecipeObject {
             })
           }),
         );
-
-  @override
-  String get assetName => 'salsa_fresca';
 
   @override
   String get name => 'Salsa Fresca';
@@ -2415,19 +2409,16 @@ class BananaShake extends RecipeObject {
 }
 
 class PlainOmelette extends RecipeObject {
-  // TODO: implement
   const PlainOmelette()
       : super(
           // TODO: Implement
           code: '',
-          // TODO: Implement
-          assetName: '',
-          priority: 0,
-          requirements: const Requirements({}),
+          assetName: 'plain_omelette',
+          priority: 1,
+          requirements: const Requirements({
+            MeetRequirement(FoodValues({FoodValue(FoodValueCategory.egg, 3.0)})),
+          }),
         );
-
-  @override
-  String get assetName => 'plain_omelette';
 
   @override
   String get name => 'Plain Omelette';
@@ -2485,16 +2476,20 @@ class SteamedTwigs extends RecipeObject {
       : super(
           // TODO: Implement
           code: '',
-          // TODO: Implement
-          assetName: '',
+          assetName: 'steamed_twigs',
           priority: -5,
           requirements: const Requirements({
             ContainingRequirement(Twigs(), 3),
+            NoRequirement(
+              ingredients: {NightmareFuel()},
+              categories: {
+                FoodValueCategory.meat,
+                FoodValueCategory.egg,
+                FoodValueCategory.dairy,
+              },
+            ),
           }),
         );
-
-  @override
-  String get assetName => 'steamed_twigs';
 
   @override
   String get name => 'Steamed Twigs';
@@ -3110,7 +3105,7 @@ class PuffedPotatoSouffle extends RecipeObject {
 // Itmes
 //
 
-class Twigs implements Ingredient {
+class Twigs implements IngredientObject {
   const Twigs();
 
   @override
@@ -3127,9 +3122,22 @@ class Twigs implements Ingredient {
   final FoodValues? foodValues = const FoodValues({FoodValue(FoodValueCategory.inedible, 1.0)});
 }
 
+class NightmareFuel implements IngredientObject {
+  const NightmareFuel();
+
+  @override
+  String get assetName => 'nightmare_fuel';
+
+  @override
+  String get code => 'nightmarefuel';
+
+  @override
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.inedible, 1.0)});
+}
+
 // class CookedAsparagus {}
 
-class Barnacles implements FoodObject, Ingredient {
+class Barnacles implements FoodObject, IngredientObject {
   const Barnacles();
 
   @override
@@ -3154,7 +3162,7 @@ class Barnacles implements FoodObject, Ingredient {
 
 // class CookedBarnacles {}
 
-class BatiliskWing implements FoodObject, Ingredient {
+class BatiliskWing implements FoodObject, IngredientObject {
   const BatiliskWing();
 
   @override
@@ -3176,7 +3184,7 @@ class BatiliskWing implements FoodObject, Ingredient {
 
 // class CookedBatiliskWing {}
 
-class Berries implements FoodObject, Ingredient {
+class Berries implements FoodObject, IngredientObject {
   const Berries();
 
   @override
@@ -3202,7 +3210,7 @@ class Berries implements FoodObject, Ingredient {
 
 // class RoastedBerries {}
 
-class RoastedBirchnut implements FoodObject, Ingredient {
+class RoastedBirchnut implements FoodObject, IngredientObject {
   const RoastedBirchnut();
 
   @override
@@ -3224,7 +3232,7 @@ class RoastedBirchnut implements FoodObject, Ingredient {
 
 class Butter {}
 
-class ButterflyWings implements FoodObject, Ingredient {
+class ButterflyWings implements FoodObject, IngredientObject {
   const ButterflyWings();
 
   @override
@@ -3266,7 +3274,7 @@ class DeerclopsEyeball {}
 
 class PreparedDragonFruit {}
 
-class Drumstick implements FoodObject, Ingredient {
+class Drumstick implements FoodObject, IngredientObject {
   const Drumstick();
 
   @override
@@ -3300,7 +3308,7 @@ class Eel {}
 
 class ElectricMilk {}
 
-class Egg implements FoodObject, Ingredient {
+class Egg implements FoodObject, IngredientObject {
   const Egg();
 
   @override
@@ -3328,7 +3336,7 @@ class Egg implements FoodObject, Ingredient {
 
 class BraisedEggplant {}
 
-class Fig implements CookableFood, Ingredient {
+class Fig implements CookableFood, IngredientObject {
   const Fig();
 
   @override
@@ -3363,7 +3371,7 @@ class FishMorsel {}
 
 class Foliage {}
 
-class FrogLegs implements FoodObject, Ingredient {
+class FrogLegs implements FoodObject, IngredientObject {
   const FrogLegs();
 
   @override
@@ -3391,7 +3399,7 @@ class GlowBerry {}
 
 class LesserGlowBerry {}
 
-class Honey implements FoodObject, Ingredient {
+class Honey implements FoodObject, IngredientObject {
   const Honey();
 
   @override
@@ -3411,7 +3419,7 @@ class Honey implements FoodObject, Ingredient {
   FoodType get type => FoodType.generic;
 }
 
-class Ice implements FoodObject, Ingredient {
+class Ice implements FoodObject, IngredientObject {
   const Ice();
 
   @override
@@ -3432,7 +3440,7 @@ class Ice implements FoodObject, Ingredient {
   FoodType get type => throw UnimplementedError();
 }
 
-class JuicyBerries implements CookableFood, Ingredient {
+class JuicyBerries implements CookableFood, IngredientObject {
   const JuicyBerries();
 
   @override
@@ -3463,7 +3471,7 @@ class KelpFronds {}
 
 class DriedKelpFronds {}
 
-class KoalefantTrunk implements CookableFood, Ingredient {
+class KoalefantTrunk implements CookableFood, IngredientObject {
   const KoalefantTrunk();
 
   @override
@@ -3486,7 +3494,7 @@ class KoalefantTrunk implements CookableFood, Ingredient {
   FoodType get type => FoodType.meat;
 }
 
-class WinterKoalefantTrunk implements CookableFood, Ingredient {
+class WinterKoalefantTrunk implements CookableFood, IngredientObject {
   const WinterKoalefantTrunk();
 
   @override
@@ -3511,7 +3519,7 @@ class WinterKoalefantTrunk implements CookableFood, Ingredient {
 
 // class KoalefantTrunkSteak {}
 
-class LeafyMeat implements CookableFood, Ingredient {
+class LeafyMeat implements CookableFood, IngredientObject {
   const LeafyMeat();
 
   @override
@@ -3542,7 +3550,7 @@ class LightBulb {}
 
 class LuneTreeBlossom {}
 
-class Mandrake implements FoodObject, Ingredient {
+class Mandrake implements FoodObject, IngredientObject {
   const Mandrake();
 
   @override
@@ -3564,7 +3572,7 @@ class Mandrake implements FoodObject, Ingredient {
 
 // class CookedMandrake {}
 
-class Meat implements FoodObject, Ingredient {
+class Meat implements FoodObject, IngredientObject {
   const Meat();
 
   @override
@@ -3590,7 +3598,7 @@ class Meat implements FoodObject, Ingredient {
 
 class MilkyWhites {}
 
-class MonsterMeat implements FoodObject, Ingredient {
+class MonsterMeat implements FoodObject, IngredientObject {
   const MonsterMeat();
 
   @override
@@ -3621,7 +3629,7 @@ class MoonShroom {}
 
 // class CookedMoonShroom {}
 
-class MoonMothWings implements FoodObject, Ingredient {
+class MoonMothWings implements FoodObject, IngredientObject {
   const MoonMothWings();
 
   @override
@@ -3645,7 +3653,7 @@ class MoonMothWings implements FoodObject, Ingredient {
   FoodType get type => throw UnimplementedError();
 }
 
-class Morsel implements Ingredient, FoodObject {
+class Morsel implements IngredientObject, FoodObject {
   const Morsel();
 
   @override
@@ -3677,7 +3685,7 @@ class GreenCap {}
 
 // class CookedGreenCap {}
 
-class RedCap implements FoodObject, Ingredient {
+class RedCap implements FoodObject, IngredientObject {
   const RedCap();
 
   @override
@@ -3731,7 +3739,25 @@ class Rot {}
 
 class RottenEgg {}
 
-class RoyalJelly {}
+class RoyalJelly implements FoodObject, IngredientObject {
+  const RoyalJelly();
+
+  @override
+  // TODO: implement assetName
+  String get assetName => throw UnimplementedError();
+
+  @override
+  // TODO: implement code
+  String get code => throw UnimplementedError();
+
+  @override
+  // TODO: implement foodValues
+  FoodValues? get foodValues => throw UnimplementedError();
+
+  @override
+  // TODO: implement type
+  FoodType get type => throw UnimplementedError();
+}
 
 class Seeds implements FoodObject {
   const Seeds();
@@ -3760,7 +3786,7 @@ class RipeStoneFruit {}
 
 class Succulent {}
 
-class TallbirdEgg implements FoodObject, Ingredient {
+class TallbirdEgg implements FoodObject, IngredientObject {
   const TallbirdEgg();
 
   @override
@@ -3790,7 +3816,7 @@ class GrilledWatermelon {}
 
 class StuffedNightCap {}
 
-class CollectedDust implements Ingredient {
+class CollectedDust implements IngredientObject {
   const CollectedDust();
 
   @override
@@ -3807,7 +3833,7 @@ class CollectedDust implements Ingredient {
   String get name => 'Collected Dust';
 }
 
-class Popperfish implements Ingredient {
+class Popperfish implements IngredientObject {
   const Popperfish();
 
   @override

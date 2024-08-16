@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('containEgg', () {
-    List<Ingredient> ingredients = [
+    List<IngredientObject> ingredients = [
       const Twigs(),
       const Meat(),
       const TallbirdEgg(),
@@ -14,7 +14,7 @@ void main() {
   });
 
   test('containInedible', () {
-    List<Ingredient> ingredients = [
+    List<IngredientObject> ingredients = [
       const Twigs(),
       const Meat(),
     ];
@@ -23,7 +23,7 @@ void main() {
   });
 
   test('containTwigs', () {
-    List<Ingredient> ingredients = [
+    List<IngredientObject> ingredients = [
       const Twigs(),
       const Meat(),
     ];
@@ -32,7 +32,7 @@ void main() {
   });
 
   test('containMeet', () {
-    List<Ingredient> ingredients = [
+    List<IngredientObject> ingredients = [
       const Twigs(),
       const Meat(),
     ];
@@ -41,7 +41,7 @@ void main() {
   });
 
   test('containVeggie', () {
-    List<Ingredient> ingredients = [
+    List<IngredientObject> ingredients = [
       const Twigs(),
       const Meat(),
       const TomaRoot(),
@@ -51,7 +51,7 @@ void main() {
   });
 
   test('containFruit', () {
-    List<Ingredient> ingredients = [
+    List<IngredientObject> ingredients = [
       const Twigs(),
       const Meat(),
       const Watermelon(),
@@ -61,7 +61,7 @@ void main() {
   });
 
   test('containSweetener', () {
-    List<Ingredient> ingredients = [
+    List<IngredientObject> ingredients = [
       const Twigs(),
       const Meat(),
       const Watermelon(),
@@ -72,7 +72,7 @@ void main() {
   });
 
   test('meatValue', () {
-    List<Ingredient> ingredients = [
+    List<IngredientObject> ingredients = [
       const Barnacles(),
       const FrogLegs(),
       const Morsel(),

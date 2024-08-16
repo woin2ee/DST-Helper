@@ -1,7 +1,7 @@
 import 'package:dst_helper/models/dst_object.dart';
 import 'package:dst_helper/models/food_value.dart';
 
-typedef Ingredients = Iterable<Ingredient>;
+typedef Ingredients = Iterable<IngredientObject>;
 
 class IngredientsAnalyser {
   const IngredientsAnalyser(this.ingredients);
@@ -60,7 +60,7 @@ class IngredientsAnalyser {
     });
   }
 
-  bool contains(Ingredient ingredient, {int count = 1}) {
+  bool contains(IngredientObject ingredient, {int count = 1}) {
     int hitCount = 0;
     for (final i in ingredients) {
       if (i == ingredient) hitCount += 1;

@@ -1,4 +1,4 @@
-import 'package:dst_helper/cook_page/farm_page/farm_plant.dart';
+import 'package:dst_helper/farm_page/farm_plant.dart';
 import 'package:dst_helper/models/dst_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 

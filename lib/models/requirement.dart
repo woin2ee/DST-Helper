@@ -88,7 +88,7 @@ class AtLeastRequirement extends Requirement {
 class ContainingRequirement extends Requirement {
   const ContainingRequirement(this.ingredient, [this.count = 1]);
 
-  final Ingredient ingredient;
+  final IngredientObject ingredient;
   final int count;
 
   @override
@@ -116,7 +116,7 @@ class NoRequirement extends Requirement {
     // this.excluded = const {},
   });
 
-  final Set<Ingredient>? ingredients;
+  final Set<IngredientObject>? ingredients;
   final Set<FoodValueCategory>? categories;
   // final Set<Ingredient> excluded;
 
