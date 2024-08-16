@@ -1,4 +1,4 @@
-import 'package:dst_helper/app/menu.dart';
+import 'package:dst_helper/app/models/menu.dart';
 import 'package:dst_helper/cook_page/cook_page.dart';
 import 'package:dst_helper/farm_page/farm_page.dart';
 import 'package:flutter/foundation.dart';
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
               destinations: [
                 ...Menu.values.map((menu) => NavigationRailDestination(
                       icon: menu.icon,
-                      label: Text(menu.toString()),
+                      label: Text(menu.localized(context)),
                     )),
               ],
               selectedIndex: selectedMenu.index,

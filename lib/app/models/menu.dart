@@ -1,19 +1,19 @@
 import 'package:dst_helper/utils/custom_icon/custom_icon_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum Menu {
   farm,
   cook,
   github;
 
-  @override
-  String toString() {
+  String localized(BuildContext context) {
     switch (this) {
       case Menu.farm:
-        return 'Farm';
+        return AppLocalizations.of(context)!.sideBar_farm;
       case Menu.cook:
-        return 'Cook';
+        return AppLocalizations.of(context)!.sideBar_cook;
       case Menu.github:
         return 'Github';
     }
