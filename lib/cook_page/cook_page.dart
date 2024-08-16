@@ -1,5 +1,5 @@
 import 'package:dst_helper/cook_page/favorite_recipe_list.dart';
-import 'package:dst_helper/models/recipes.dart';
+import 'package:dst_helper/models/dst_object.dart' show Recipes;
 import 'package:flutter/material.dart';
 
 class CookPage extends StatelessWidget {

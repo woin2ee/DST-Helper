@@ -1,5 +1,4 @@
-import 'package:dst_helper/models/recipe.dart';
-import 'package:dst_helper/models/recipes.dart';
+import 'package:dst_helper/models/dst_object.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteRecipeList extends StatefulWidget {
@@ -10,7 +9,7 @@ class FavoriteRecipeList extends StatefulWidget {
 }
 
 class _FavoriteRecipeListState extends State<FavoriteRecipeList> {
-  List<Recipe> recipes = [
+  List<RecipeObject> recipes = [
     const Meatballs(),
     const MashedPotatoes(),
     const FancySpiralledTubers(),

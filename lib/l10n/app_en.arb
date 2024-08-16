@@ -5,5 +5,19 @@
         "description": "The conventional newborn programmer greeting"
     },
     "sideBar_farm": "Farm",
-    "sideBar_cook": "Cook"
+    "sideBar_cook": "Cook",
+    "potato_seeds_assumed_name": "Fluffy Seeds",
+    "carrot_seeds_assumed_name": "Oblong Seeds",
+    "corn_seeds_assumed_name": "Clustered Seeds",
+    "tomato_seeds_assumed_name": "Spiky Seeds",
+    "asparagus_seeds_assumed_name": "Tubular Seeds",
+    "watermelon_seeds_assumed_name": "Square Seeds",
+    "pumpkin_seeds_assumed_name": "Sharp Seeds",
+    "eggplant_seeds_assumed_name": "Swirly Seeds",
+    "garlic_seeds_assumed_name": "Seed Pods",
+    "onion_seeds_assumed_name": "Pointy Seeds",
+    "pepper_seeds_assumed_name": "Lumpy Seeds",
+    "pomegranate_seeds_assumed_name": "Windblown Seeds",
+    "dragonfruit_seeds_assumed_name": "Bulbous Seeds",
+    "durian_seeds_assumed_name": "Brittle Seed Pods"
 }

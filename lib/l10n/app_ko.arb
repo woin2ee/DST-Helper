@@ -2,5 +2,19 @@
     "@@locale": "ko",
     "helloWorld": "안녕하세요!",
     "sideBar_farm": "농사",
-    "sideBar_cook": "요리"
+    "sideBar_cook": "요리",
+    "potato_seeds_assumed_name": "솜털 씨앗",
+    "carrot_seeds_assumed_name": "네모난 씨앗",
+    "corn_seeds_assumed_name": "씨앗 뭉치",
+    "tomato_seeds_assumed_name": "삐죽삐죽한 씨앗",
+    "asparagus_seeds_assumed_name": "관모양 씨앗",
+    "watermelon_seeds_assumed_name": "정사각형 씨앗",
+    "pumpkin_seeds_assumed_name": "날카로운 씨앗",
+    "eggplant_seeds_assumed_name": "회오리무늬 씨앗",
+    "garlic_seeds_assumed_name": "씨앗 꼬투리",
+    "onion_seeds_assumed_name": "뾰족한 씨앗들",
+    "pepper_seeds_assumed_name": "혹투성이 씨앗",
+    "pomegranate_seeds_assumed_name": "솜털 달린 씨앗",
+    "dragonfruit_seeds_assumed_name": "둥글 납작 씨앗",
+    "durian_seeds_assumed_name": "털난 씨앗 꼬투리"
 }

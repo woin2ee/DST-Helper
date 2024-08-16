@@ -1,6 +1,4 @@
-import 'package:dst_helper/models/items.dart';
-import 'package:dst_helper/models/plants.dart';
-import 'package:dst_helper/models/recipes.dart';
+import 'package:dst_helper/models/dst_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

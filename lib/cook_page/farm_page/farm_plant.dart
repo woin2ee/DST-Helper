@@ -1,5 +1,4 @@
-import 'package:dst_helper/models/plant.dart';
-import 'package:dst_helper/models/plants.dart';
+import 'package:dst_helper/models/dst_object.dart';
 import 'package:dst_helper/models/season.dart';
 import 'package:flutter/material.dart';
 
@@ -308,16 +307,16 @@ enum PlacementStyle {
 class FarmPlant extends StatelessWidget {
   FarmPlant(
     this.style, [
-    Plant? c0,
-    Plant? c1,
-    Plant? c2,
-    Plant? c3,
-    Plant? c4,
-    Plant? c5,
-    Plant? c6,
-    Plant? c7,
-    Plant? c8,
-    Plant? c9, // extra
+    PlantObject? c0,
+    PlantObject? c1,
+    PlantObject? c2,
+    PlantObject? c3,
+    PlantObject? c4,
+    PlantObject? c5,
+    PlantObject? c6,
+    PlantObject? c7,
+    PlantObject? c8,
+    PlantObject? c9, // extra
     Key? key,
   ])  : plants = [c0, c1, c2, c3, c4, c5, c6, c7, c8, c9],
         super(key: key);
@@ -338,7 +337,7 @@ class FarmPlant extends StatelessWidget {
           null, // extra
         ];
 
-  final List<Plant?> plants;
+  final List<PlantObject?> plants;
 
   final PlacementStyle style;
 
@@ -358,9 +357,7 @@ class FarmPlant extends StatelessWidget {
         result += plant.nutrient;
       }
     }
-    return result.compost == 0 &&
-        result.growthFormula == 0 &&
-        result.manure == 0;
+    return result.compost == 0 && result.growthFormula == 0 && result.manure == 0;
   }
 
   @override
@@ -492,7 +489,7 @@ class PlantCell extends StatelessWidget {
     required this.plant,
   });
 
-  final Plant? plant;
+  final PlantObject? plant;
 
   static const double margin = 1;
 
@@ -508,9 +505,7 @@ class PlantCell extends StatelessWidget {
         margin: const EdgeInsets.all(margin),
         padding: const EdgeInsets.all(padding),
         color: colorScheme.surfaceContainerHighest,
-        child: plant != null
-            ? Image.asset('items/${plant!.assetName}.png')
-            : const AspectRatio(aspectRatio: 1),
+        child: plant != null ? Image.asset('items/${plant!.assetName}.png') : const AspectRatio(aspectRatio: 1),
       ),
     );
   }

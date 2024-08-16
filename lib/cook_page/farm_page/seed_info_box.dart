@@ -1,6 +1,6 @@
-import 'package:dst_helper/models/items.dart';
-import 'package:dst_helper/models/plants.dart';
+import 'package:dst_helper/models/dst_object.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum SettingItem {
   displayingSeedName;
@@ -88,8 +88,7 @@ class _SeedInfoBoxState extends State<SeedInfoBox> with RestorationMixin {
                               Padding(
                                 padding: const EdgeInsets.only(left: 6.0, right: 10.0),
                                 child: Text(
-                                  crop.seeds.assumedName ?? "",
-                                  textAlign: TextAlign.right,
+                                  crop.seeds.assumedName(context) ?? "",
                                   style: const TextStyle(
                                     fontSize: 16,
                                     color: Colors.white,
@@ -155,5 +154,40 @@ class SeedInfoBoxTag extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+extension SeedsObjectLocalization on SeedsObject {
+  String? assumedName(BuildContext context) {
+    switch (this) {
+      case PotatoSeeds():
+        return AppLocalizations.of(context)!.potato_seeds_assumed_name;
+      case CarrotSeeds():
+        return AppLocalizations.of(context)!.carrot_seeds_assumed_name;
+      case CornSeeds():
+        return AppLocalizations.of(context)!.corn_seeds_assumed_name;
+      case TomaRootSeeds():
+        return AppLocalizations.of(context)!.tomato_seeds_assumed_name;
+      case AsparagusSeeds():
+        return AppLocalizations.of(context)!.asparagus_seeds_assumed_name;
+      case WatermelonSeeds():
+        return AppLocalizations.of(context)!.watermelon_seeds_assumed_name;
+      case PumpkinSeeds():
+        return AppLocalizations.of(context)!.pumpkin_seeds_assumed_name;
+      case EggplantSeeds():
+        return AppLocalizations.of(context)!.eggplant_seeds_assumed_name;
+      case GarlicSeeds():
+        return AppLocalizations.of(context)!.garlic_seeds_assumed_name;
+      case OnionSeeds():
+        return AppLocalizations.of(context)!.onion_seeds_assumed_name;
+      case PepperSeeds():
+        return AppLocalizations.of(context)!.pepper_seeds_assumed_name;
+      case PomegranateSeeds():
+        return AppLocalizations.of(context)!.pomegranate_seeds_assumed_name;
+      case DragonFruitSeeds():
+        return AppLocalizations.of(context)!.dragonfruit_seeds_assumed_name;
+      case DurianSeeds():
+        return AppLocalizations.of(context)!.durian_seeds_assumed_name;
+    }
   }
 }
