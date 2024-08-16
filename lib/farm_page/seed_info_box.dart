@@ -50,6 +50,7 @@ class _SeedInfoBoxState extends State<SeedInfoBox> with RestorationMixin {
             ),
             child: FittedBox(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Row(
                     children: [
@@ -81,9 +82,7 @@ class _SeedInfoBoxState extends State<SeedInfoBox> with RestorationMixin {
                   ),
                   ...Plants.crops.map((crop) => SizedBox(
                         height: 46,
-                        // TODO: 오른쪽 정렬 필요
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             if (_settings[SettingItem.displayingSeedName] ?? false)
                               Padding(
