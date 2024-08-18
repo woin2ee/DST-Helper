@@ -1,5 +1,5 @@
+import 'package:dst_helper/farm_page/farm_plant/farm_plant_set_sample.dart';
 import 'package:dst_helper/farm_page/seed_info_box.dart';
-import 'package:dst_helper/farm_page/farm_plant.dart';
 import 'package:dst_helper/models/season.dart';
 import 'package:flutter/material.dart';
 
@@ -35,18 +35,26 @@ class _FarmPageState extends State<FarmPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: WeatherSelectionButton(
-                    onSelected: (index) {
-                      setState(() {
-                        for (var i = 0; i < Season.values.length; i++) {
-                          selectedSeasonState[i] = (selectedSeasonState[i].$1, i == index);
-                        }
-                      });
-                    },
-                    selectedSeasonState: selectedSeasonState.map((element) => element.$2).toList(),
-                  ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: WeatherSelectionButton(
+                        onSelected: (index) {
+                          setState(() {
+                            for (var i = 0; i < Season.values.length; i++) {
+                              selectedSeasonState[i] = (selectedSeasonState[i].$1, i == index);
+                            }
+                          });
+                        },
+                        selectedSeasonState: selectedSeasonState.map((element) => element.$2).toList(),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('New'),
+                    ),
+                  ],
                 ),
                 Expanded(
                   child: Padding(
@@ -101,28 +109,30 @@ class FarmList extends StatelessWidget {
         runSpacing: 10.0,
         children: switch (selectedSeason) {
           Season.spring => [
-              FittedBox(child: FarmPlantGroupCard.preDefined1()),
-              FittedBox(child: FarmPlantGroupCard.preDefined2()),
-              FittedBox(child: FarmPlantGroupCard.preDefined4()),
-              FittedBox(child: FarmPlantGroupCard.preDefined5()),
-              FittedBox(child: FarmPlantGroupCard.preDefined6()),
-              FittedBox(child: FarmPlantGroupCard.preDefined8()),
+              FittedBox(child: FarmPlantSetSample.preDefined1),
+              FittedBox(child: FarmPlantSetSample.preDefined2),
+              FittedBox(child: FarmPlantSetSample.preDefined4),
+              FittedBox(child: FarmPlantSetSample.preDefined5),
+              FittedBox(child: FarmPlantSetSample.preDefined6),
+              FittedBox(child: FarmPlantSetSample.preDefined8),
             ],
           Season.summer => [
-              FittedBox(child: FarmPlantGroupCard.preDefined2()),
-              FittedBox(child: FarmPlantGroupCard.preDefined4()),
-              FittedBox(child: FarmPlantGroupCard.preDefined5()),
-              FittedBox(child: FarmPlantGroupCard.preDefined9()),
+              FittedBox(child: FarmPlantSetSample.preDefined2),
+              FittedBox(child: FarmPlantSetSample.preDefined4),
+              FittedBox(child: FarmPlantSetSample.preDefined5),
+              FittedBox(child: FarmPlantSetSample.preDefined9),
             ],
           Season.autumn => [
-              FittedBox(child: FarmPlantGroupCard.preDefined1()),
-              FittedBox(child: FarmPlantGroupCard.preDefined3()),
-              FittedBox(child: FarmPlantGroupCard.preDefined6()),
-              FittedBox(child: FarmPlantGroupCard.preDefined9()),
+              FittedBox(child: FarmPlantSetSample.preDefined1),
+              FittedBox(child: FarmPlantSetSample.preDefined3),
+              FittedBox(child: FarmPlantSetSample.preDefined6),
+              FittedBox(child: FarmPlantSetSample.preDefined9),
+              FittedBox(child: FarmPlantSetSample.preDefined10),
             ],
           Season.winter => [
-              FittedBox(child: FarmPlantGroupCard.preDefined3()),
-              FittedBox(child: FarmPlantGroupCard.preDefined7()),
+              FittedBox(child: FarmPlantSetSample.preDefined3),
+              FittedBox(child: FarmPlantSetSample.preDefined7),
+              FittedBox(child: FarmPlantSetSample.preDefined10),
             ],
         },
       ),
