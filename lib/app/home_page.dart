@@ -32,9 +32,12 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.black,
         title: Padding(
           padding: const EdgeInsets.only(right: 20),
-          child: Image.asset(
-            'bg_loading_loading_charlie2.png',
-            height: 100,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Image.asset(
+              'assets/images/bg_loading_loading_charlie2.png',
+              height: 100,
+            ),
           ),
         ),
       ),

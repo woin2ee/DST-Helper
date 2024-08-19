@@ -1,5 +1,6 @@
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_set_sample.dart';
-import 'package:dst_helper/farm_page/seed_info_box.dart';
+import 'package:dst_helper/farm_page/side_info_box/seed_info_box.dart';
+import 'package:dst_helper/farm_page/side_info_box/side_info_box.dart';
 import 'package:dst_helper/models/season.dart';
 import 'package:flutter/material.dart';
 
@@ -65,7 +66,7 @@ class _FarmPageState extends State<FarmPage> {
               ],
             ),
           ),
-          const SeedInfoBox(),
+          const SideInfoBox(),
         ],
       ),
     );

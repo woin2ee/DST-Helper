@@ -279,7 +279,7 @@ class PlantCell extends StatelessWidget {
         margin: const EdgeInsets.all(1),
         padding: const EdgeInsets.all(6),
         color: darkTheme ? colorScheme.surfaceContainerHighest.dark : colorScheme.surfaceContainerHighest,
-        child: plant != null ? Image.asset('items/${plant!.assetName}.png') : const AspectRatio(aspectRatio: 1),
+        child: plant != null ? Image.asset('assets/images/items/${plant!.assetName}.png') : const AspectRatio(aspectRatio: 1),
       ),
     );
   }

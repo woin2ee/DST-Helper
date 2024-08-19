@@ -53,7 +53,7 @@ class _FavoriteRecipeListState extends State<FavoriteRecipeList> {
                             Padding(
                               padding: const EdgeInsets.only(left: 20, right: 20, top: 4, bottom: 4),
                               child: Image.asset(
-                                'items/${entry.value.assetName}.png',
+                                'assets/images/items/${entry.value.assetName}.png',
                                 width: 60,
                                 height: 60,
                               ),
@@ -64,7 +64,7 @@ class _FavoriteRecipeListState extends State<FavoriteRecipeList> {
                                     padding: const EdgeInsets.all(2.0),
                                     decoration: BoxDecoration(border: Border.all()),
                                     child: Image.asset(
-                                      'items/$assetName.png',
+                                      'assets/images/items/$assetName.png',
                                       width: 45,
                                       height: 45,
                                     ),

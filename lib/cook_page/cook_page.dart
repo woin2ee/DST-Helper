@@ -23,7 +23,7 @@ class CookPage extends StatelessWidget {
               ...Recipes.recipes.map((recipe) => Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Image.asset(
-                      'items/${recipe.assetName}.png',
+                      'assets/images/items/${recipe.assetName}.png',
                       width: 50,
                       height: 50,
                     ),
