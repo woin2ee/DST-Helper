@@ -7,10 +7,10 @@ enum SettingItem {
   displayingSeedName;
   // displayingCropName;
 
-  String get description {
+  String description(BuildContext context) {
     switch (this) {
       case SettingItem.displayingSeedName:
-        return '씨앗 이름 표시';
+        return AppLocalizations.of(context)!.show_seeds_alias;
       // case SettingItem.displayingCropName:
       //   return '작물 이름 표시';
     }
@@ -69,7 +69,7 @@ class _SeedInfoBoxState extends State<SeedInfoBox> {
                     ...SettingItem.values.map((settingItem) => CheckedPopupMenuItem(
                           value: settingItem,
                           checked: _settings[settingItem] ?? false,
-                          child: Text(settingItem.description),
+                          child: Text(settingItem.description(context)),
                         ))
                   ],
                 ),
