@@ -160,7 +160,7 @@ extension on Locale {
       case 'ko':
         return '한국어';
       default:
-        return 'None';
+        return 'Language';
     }
   }
 }
