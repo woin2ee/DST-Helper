@@ -39,7 +39,7 @@ class _FarmPageState extends State<FarmPage> {
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(18.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: WeatherSelectionButton(
                         onSelected: (index) {
                           setState(() {
@@ -59,7 +59,7 @@ class _FarmPageState extends State<FarmPage> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                     child: FarmList(selectedSeason: selectedSeason),
                   ),
                 )
@@ -115,38 +115,41 @@ class FarmList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Wrap(
-        spacing: 10.0,
-        runSpacing: 10.0,
-        children: switch (selectedSeason) {
-          Season.spring => [
-              FittedBox(child: FarmPlantSetSample.preDefined1),
-              FittedBox(child: FarmPlantSetSample.preDefined2),
-              FittedBox(child: FarmPlantSetSample.preDefined4),
-              FittedBox(child: FarmPlantSetSample.preDefined5),
-              FittedBox(child: FarmPlantSetSample.preDefined6),
-              FittedBox(child: FarmPlantSetSample.preDefined8),
-              FittedBox(child: FarmPlantSetSample.preDefined11),
-            ],
-          Season.summer => [
-              FittedBox(child: FarmPlantSetSample.preDefined2),
-              FittedBox(child: FarmPlantSetSample.preDefined4),
-              FittedBox(child: FarmPlantSetSample.preDefined5),
-              FittedBox(child: FarmPlantSetSample.preDefined9),
-            ],
-          Season.autumn => [
-              FittedBox(child: FarmPlantSetSample.preDefined1),
-              FittedBox(child: FarmPlantSetSample.preDefined3),
-              FittedBox(child: FarmPlantSetSample.preDefined6),
-              FittedBox(child: FarmPlantSetSample.preDefined9),
-              FittedBox(child: FarmPlantSetSample.preDefined10),
-            ],
-          Season.winter => [
-              FittedBox(child: FarmPlantSetSample.preDefined3),
-              FittedBox(child: FarmPlantSetSample.preDefined7),
-              FittedBox(child: FarmPlantSetSample.preDefined10),
-            ],
-        },
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 4.0),
+        child: Wrap(
+          spacing: 10.0,
+          runSpacing: 10.0,
+          children: switch (selectedSeason) {
+            Season.spring => [
+                FittedBox(child: FarmPlantSetSample.preDefined1),
+                FittedBox(child: FarmPlantSetSample.preDefined2),
+                FittedBox(child: FarmPlantSetSample.preDefined4),
+                FittedBox(child: FarmPlantSetSample.preDefined5),
+                FittedBox(child: FarmPlantSetSample.preDefined6),
+                FittedBox(child: FarmPlantSetSample.preDefined8),
+                FittedBox(child: FarmPlantSetSample.preDefined11),
+              ],
+            Season.summer => [
+                FittedBox(child: FarmPlantSetSample.preDefined2),
+                FittedBox(child: FarmPlantSetSample.preDefined4),
+                FittedBox(child: FarmPlantSetSample.preDefined5),
+                FittedBox(child: FarmPlantSetSample.preDefined9),
+              ],
+            Season.autumn => [
+                FittedBox(child: FarmPlantSetSample.preDefined1),
+                FittedBox(child: FarmPlantSetSample.preDefined3),
+                FittedBox(child: FarmPlantSetSample.preDefined6),
+                FittedBox(child: FarmPlantSetSample.preDefined9),
+                FittedBox(child: FarmPlantSetSample.preDefined10),
+              ],
+            Season.winter => [
+                FittedBox(child: FarmPlantSetSample.preDefined3),
+                FittedBox(child: FarmPlantSetSample.preDefined7),
+                FittedBox(child: FarmPlantSetSample.preDefined10),
+              ],
+          },
+        ),
       ),
     );
   }

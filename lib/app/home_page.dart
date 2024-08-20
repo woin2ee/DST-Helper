@@ -39,33 +39,86 @@ class _HomePageState extends State<HomePage> {
 
     final selectedMenu = _selectedMenuState.firstWhere((element) => element.$2 == true).$1;
 
-    final languageButton = Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        border: Border.all(width: 1.0, color: Colors.white),
+    final languagePopupMenuButton = PopupMenuButton<AvailableLanguage>(
+      position: PopupMenuPosition.under,
+      color: Colors.white,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4.0),
+          border: Border.all(width: 1.0, color: Colors.white),
+        ),
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(right: 8.0),
+              child: Icon(
+                Icons.language,
+                color: Colors.white,
+              ),
+            ),
+            Text(
+              widget.selectedLocale.localizedName,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
+              ),
+            ),
+            const Icon(
+              Icons.arrow_drop_down,
+              color: Colors.white,
+            ),
+          ],
+        ),
       ),
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(right: 8.0),
-            child: Icon(
-              Icons.language,
-              color: Colors.white,
-            ),
+      onSelected: (AvailableLanguage item) {
+        widget.onSelectedLocale(Locale(item.name));
+      },
+      itemBuilder: (BuildContext context) => [
+        const PopupMenuItem(
+          value: AvailableLanguage.en,
+          child: Text('English'),
+        ),
+        const PopupMenuItem(
+          value: AvailableLanguage.ko,
+          child: Text('한국어'),
+        ),
+      ],
+    );
+
+    final sideTabBar = SizedBox(
+      width: 170,
+      child: NavigationRail(
+        onDestinationSelected: (index) {
+          setState(() {
+            if (_selectedMenuState[index].$1 == Menu.github) {
+              final Uri url = Uri.parse('https://github.com/woin2ee/DST-Helper');
+              launchUrl(url);
+              return;
+            }
+            for (var i = 0; i < _selectedMenuState.length; i++) {
+              _selectedMenuState[i] = (_selectedMenuState[i].$1, i == index);
+            }
+          });
+        },
+        elevation: 4,
+        extended: true,
+        destinations: [
+          NavigationRailDestination(
+            icon: Menu.farm.icon,
+            label: Text(Menu.farm.localized(context)),
           ),
-          Text(
-            widget.selectedLocale.localizedName,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-            ),
+          NavigationRailDestination(
+            icon: Menu.cook.icon,
+            label: Text(Menu.cook.localized(context)),
           ),
-          const Icon(
-            Icons.arrow_drop_down,
-            color: Colors.white,
+          NavigationRailDestination(
+            icon: Menu.github.icon,
+            label: Text(Menu.farm.localized(context)),
+            padding: const EdgeInsets.only(top: 20.0),
           ),
         ],
+        selectedIndex: selectedMenu.index,
       ),
     );
 
@@ -73,70 +126,25 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: colorScheme.surfaceContainerLowest,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Padding(
-          padding: const EdgeInsets.only(right: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Image.asset(
-                'assets/images/bg_loading_loading_charlie2.png',
-                height: 100,
-              ),
-              Row(
-                children: [
-                  PopupMenuButton<AvailableLanguage>(
-                    position: PopupMenuPosition.under,
-                    color: Colors.white,
-                    child: languageButton,
-                    onSelected: (AvailableLanguage item) {
-                      widget.onSelectedLocale(Locale(item.name));
-                    },
-                    itemBuilder: (BuildContext context) => [
-                      const PopupMenuItem(
-                        value: AvailableLanguage.en,
-                        child: Text('English'),
-                      ),
-                      const PopupMenuItem(
-                        value: AvailableLanguage.ko,
-                        child: Text('한국어'),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: 80),
-                ],
-              ),
-            ],
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.asset(
+              'assets/images/bg_loading_loading_charlie2.png',
+              height: 100,
+            ),
+            Row(
+              children: [
+                languagePopupMenuButton,
+                const SizedBox(width: 80),
+              ],
+            ),
+          ],
         ),
       ),
       body: Row(
         children: [
-          SizedBox(
-            width: 170,
-            child: NavigationRail(
-              onDestinationSelected: (index) {
-                setState(() {
-                  if (_selectedMenuState[index].$1 == Menu.github) {
-                    final Uri url = Uri.parse('https://github.com/woin2ee/DST-Helper');
-                    launchUrl(url);
-                    return;
-                  }
-                  for (var i = 0; i < _selectedMenuState.length; i++) {
-                    _selectedMenuState[i] = (_selectedMenuState[i].$1, i == index);
-                  }
-                });
-              },
-              elevation: 4,
-              extended: true,
-              destinations: [
-                ...Menu.values.map((menu) => NavigationRailDestination(
-                      icon: menu.icon,
-                      label: Text(menu.localized(context)),
-                    )),
-              ],
-              selectedIndex: selectedMenu.index,
-            ),
-          ),
+          sideTabBar,
           Expanded(
             child: IndexedStack(
               index: selectedMenu.index,
