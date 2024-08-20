@@ -1,4 +1,5 @@
 import 'package:dst_helper/models/dst_object.dart';
+import 'package:dst_helper/models/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -249,42 +250,5 @@ class FertilizerInfoBoxTag extends StatelessWidget {
         icon: Image.asset("assets/images/items/${const Fertilizer().assetName}.png"),
       ),
     );
-  }
-}
-
-extension on FertilizerObject {
-  String localizedName(BuildContext context) {
-    switch (this) {
-      case Rot():
-        return AppLocalizations.of(context)!.spoiled_food_name;
-      case RottenEgg():
-        return AppLocalizations.of(context)!.rottenegg;
-      case Manure():
-        return AppLocalizations.of(context)!.manure;
-      case Fertilizer():
-        return AppLocalizations.of(context)!.fertilizer;
-      case Guano():
-        return AppLocalizations.of(context)!.guano;
-      case Compost():
-        return AppLocalizations.of(context)!.compost;
-      case GrowthFormulaStarter():
-        return AppLocalizations.of(context)!.soil_amender;
-      case FermentingGrowthFormula():
-        return AppLocalizations.of(context)!.soil_amender;
-      case FermentedGrowthFormula():
-        return AppLocalizations.of(context)!.soil_amender;
-      case SuperGrowthFormula():
-        return AppLocalizations.of(context)!.soil_amender;
-      case SpoiledFish():
-        return AppLocalizations.of(context)!.spoiled_fish;
-      case SpoiledFishMorsel():
-        return AppLocalizations.of(context)!.spoiled_fish_small;
-      case CompostWrap():
-        return AppLocalizations.of(context)!.compostwrap;
-      case GlommerFuel():
-        return AppLocalizations.of(context)!.glommerfuel;
-      case TreeJam():
-        return AppLocalizations.of(context)!.treegrowthsolution;
-    }
   }
 }
