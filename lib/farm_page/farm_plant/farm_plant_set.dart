@@ -1,4 +1,5 @@
 import 'package:dst_helper/farm_page/farm_plant/farm_plants_shape.dart';
+import 'package:dst_helper/models/localization.dart';
 import 'package:dst_helper/models/season.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +48,7 @@ class FarmPlantSet extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text(
-            '${title != null ? title! : suitableSeasons.map((season) => season.name)} ★',
+            '${title != null ? title! : suitableSeasons.map((season) => season.localizedName(context))} ★',
             maxLines: 1,
             style: theme.textTheme.titleMedium?.copyWith(
               color: theme.colorScheme.surfaceBright,

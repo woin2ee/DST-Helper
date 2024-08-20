@@ -45,15 +45,18 @@ class _SeedInfoBoxState extends State<SeedInfoBox> {
           children: [
             Row(
               children: [
-                const Text(
-                  "Seeds",
-                  style: TextStyle(
-                    fontSize: 22,
+                Text(
+                  AppLocalizations.of(context)!.seeds,
+                  style: const TextStyle(
+                    fontSize: 20,
                     color: Colors.white,
                   ),
                 ),
                 PopupMenuButton(
-                  icon: const Icon(Icons.settings),
+                  icon: const Icon(
+                    Icons.settings,
+                    color: Colors.white,
+                  ),
                   onSelected: (settingItem) {
                     final currentState = _settings[settingItem];
                     assert(currentState != null);

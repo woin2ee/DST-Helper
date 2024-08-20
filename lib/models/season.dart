@@ -6,19 +6,6 @@ enum Season {
   autumn,
   winter;
 
-  String get name {
-    switch (this) {
-      case Season.spring:
-        return '봄';
-      case Season.summer:
-        return '여름';
-      case Season.autumn:
-        return '가을';
-      case Season.winter:
-        return '겨울';
-    }
-  }
-
   Color get personalColor {
     switch (this) {
       case Season.spring:

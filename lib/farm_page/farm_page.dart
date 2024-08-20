@@ -1,5 +1,7 @@
+
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_set_sample.dart';
 import 'package:dst_helper/farm_page/side_info_box/side_info_box.dart';
+import 'package:dst_helper/models/localization.dart';
 import 'package:dst_helper/models/season.dart';
 import 'package:flutter/material.dart';
 
@@ -83,15 +85,25 @@ class WeatherSelectionButton extends StatelessWidget {
     return ToggleButtons(
       borderRadius: BorderRadius.circular(10),
       constraints: const BoxConstraints(
-        minWidth: 60,
+        minWidth: 70,
         minHeight: 40,
-      ),
-      textStyle: const TextStyle(
-        fontSize: 18,
       ),
       isSelected: selectedSeasonState,
       onPressed: onSelected,
-      children: Season.values.map((e) => Text(e.name)).toList(),
+      children: [
+        ...Season.values.map((season) => Padding(
+              padding: const EdgeInsets.only(
+                left: 8.0,
+                right: 8.0,
+              ),
+              child: Text(
+                season.localizedName(context),
+                style: const TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            )),
+      ],
     );
   }
 }

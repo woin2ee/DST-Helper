@@ -3536,14 +3536,10 @@ class Seeds implements FoodObject {
   const Seeds();
 
   @override
-  // TODO: implement code
-  String get code => throw UnimplementedError();
+  String get code => 'seeds';
 
   @override
   String get assetName => 'seeds';
-
-  @override
-  String get name => 'Seeds';
 
   @override
   FoodType get type => FoodType.seeds;
