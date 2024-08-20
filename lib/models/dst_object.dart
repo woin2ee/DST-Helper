@@ -3638,25 +3638,47 @@ sealed class FertilizerObject extends DSTObject {
 }
 
 class Fertilizers {
-  static List<FertilizerObject> get fertilizers {
-    return const [
-      Manure(),
-      Fertilizer(),
-      Guano(),
-      Compost(),
-      RottenEgg(),
-      Rot(),
-      GrowthFormulaStarter(),
-      FermentingGrowthFormula(),
-      FermentedGrowthFormula(),
-      SuperGrowthFormula(),
-      SpoiledFish(),
-      SpoiledFishMorsel(),
-      CompostWrap(),
-      GlommerFuel(),
-      TreeJam(),
-    ];
-  }
+  static const List<FertilizerObject> fertilizers = [
+    Manure(),
+    Fertilizer(),
+    Guano(),
+    Compost(),
+    RottenEgg(),
+    Rot(),
+    GrowthFormulaStarter(),
+    FermentingGrowthFormula(),
+    FermentedGrowthFormula(),
+    SuperGrowthFormula(),
+    SpoiledFish(),
+    SpoiledFishMorsel(),
+    CompostWrap(),
+    GlommerFuel(),
+    TreeJam(),
+  ];
+
+  static const List<FertilizerObject> compostList = [
+    Rot(),
+    RottenEgg(),
+    Compost(),
+  ];
+
+  static const List<FertilizerObject> growthFormulaList = [
+    SpoiledFishMorsel(),
+    SpoiledFish(),
+    GrowthFormulaStarter(),
+  ];
+
+  static const List<FertilizerObject> manureList = [
+    Manure(),
+    Guano(),
+    Fertilizer(),
+  ];
+
+  static const List<FertilizerObject> mixList = [
+    GlommerFuel(),
+    TreeJam(),
+    CompostWrap(),
+  ];
 }
 
 class Manure implements FertilizerObject {
@@ -3666,8 +3688,7 @@ class Manure implements FertilizerObject {
   String get assetName => 'manure';
 
   @override
-  // TODO: implement code
-  String get code => throw UnimplementedError();
+  String get code => 'poop';
 
   @override
   Nutrient get nutrient => const Nutrient(compost: 0, growthFormula: 0, manure: 8);
@@ -3681,8 +3702,7 @@ class Fertilizer implements FertilizerObject {
   String get assetName => 'bucket-o-poop';
 
   @override
-  // TODO: implement code
-  String get code => throw UnimplementedError();
+  String get code => 'fertilizer';
 
   @override
   Nutrient get nutrient => const Nutrient(compost: 0, growthFormula: 0, manure: 16);
@@ -3695,8 +3715,7 @@ class Guano implements FertilizerObject {
   String get assetName => 'guano';
 
   @override
-  // TODO: implement code
-  String get code => throw UnimplementedError();
+  String get code => 'guano';
 
   @override
   Nutrient get nutrient => const Nutrient(compost: 0, growthFormula: 0, manure: 16);
@@ -3709,8 +3728,7 @@ class Compost implements FertilizerObject {
   String get assetName => 'compost';
 
   @override
-  // TODO: implement code
-  String get code => throw UnimplementedError();
+  String get code => 'compost';
 
   @override
   Nutrient get nutrient => const Nutrient(compost: 24, growthFormula: 0, manure: 0);
@@ -3775,8 +3793,7 @@ class SpoiledFish implements FertilizerObject {
   String get assetName => 'spoiled_fish';
 
   @override
-  // TODO: implement code
-  String get code => throw UnimplementedError();
+  String get code => 'spoiled_fish';
 
   @override
   Nutrient get nutrient => const Nutrient(compost: 0, growthFormula: 16, manure: 0);
@@ -3789,8 +3806,7 @@ class SpoiledFishMorsel implements FertilizerObject {
   String get assetName => 'spoiled_fish_morsel';
 
   @override
-  // TODO: implement code
-  String get code => throw UnimplementedError();
+  String get code => 'spoiled_fish_small';
 
   @override
   Nutrient get nutrient => const Nutrient(compost: 0, growthFormula: 8, manure: 0);
@@ -3803,8 +3819,7 @@ class CompostWrap implements FertilizerObject {
   String get assetName => 'compost_wrap';
 
   @override
-  // TODO: implement code
-  String get code => throw UnimplementedError();
+  String get code => 'compostwrap';
 
   @override
   Nutrient get nutrient => const Nutrient(compost: 32, growthFormula: 24, manure: 24);
@@ -3817,8 +3832,7 @@ class GlommerFuel implements FertilizerObject {
   String get assetName => 'glommer_fuel';
 
   @override
-  // TODO: implement code
-  String get code => throw UnimplementedError();
+  String get code => 'glommerfuel';
 
   @override
   Nutrient get nutrient => const Nutrient(compost: 8, growthFormula: 8, manure: 8);
@@ -3831,8 +3845,7 @@ class TreeJam implements FertilizerObject {
   String get assetName => 'tree_jam';
 
   @override
-  // TODO: implement code
-  String get code => throw UnimplementedError();
+  String get code => 'treegrowthsolution';
 
   @override
   Nutrient get nutrient => const Nutrient(compost: 32, growthFormula: 8, manure: 8);

@@ -67,7 +67,7 @@ class _SideInfoBoxState extends State<SideInfoBox> {
                             _sideInfoSelection[menu.key] = true;
                           });
                         },
-                        color: Colors.brown.shade300,
+                        color: Colors.brown.shade200,
                       ),
                     ),
                 }),
@@ -82,7 +82,7 @@ class _SideInfoBoxState extends State<SideInfoBox> {
             ),
             SizedBox(
               width: selectedIndex == 1 ? null : 0,
-              child: FertilizerInfoBox(color: Colors.brown.shade300),
+              child: FertilizerInfoBox(color: Colors.brown.shade200),
             ),
           ],
         ),

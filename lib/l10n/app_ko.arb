@@ -17,5 +17,20 @@
     "pomegranate_seeds_assumed_name": "솜털 달린 씨앗",
     "dragonfruit_seeds_assumed_name": "둥글 납작 씨앗",
     "durian_seeds_assumed_name": "털난 씨앗 꼬투리",
-    "butterflymuffin": "버터 머핀"
+    "butterflymuffin": "버터 머핀",
+    "compost": "퇴비",
+    "growthFormula": "성장 촉진제",
+    "manure": "비료",
+    "mix": "복합",
+    "spoiled_food_name": "부패물",
+    "rottenegg": "썩은 알",
+    "poop": "거름",
+    "fertilizer": "거름통",
+    "guano": "구아노",
+    "soil_amender": "성장 촉진제",
+    "spoiled_fish": "썩은 생선",
+    "spoiled_fish_small": "썩은 생선 조각",
+    "compostwrap": "퇴비 쌈",
+    "glommerfuel": "글로머의 점액",
+    "treegrowthsolution": "나무 잼"
 }

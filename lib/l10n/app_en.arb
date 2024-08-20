@@ -20,5 +20,20 @@
     "pomegranate_seeds_assumed_name": "Windblown Seeds",
     "dragonfruit_seeds_assumed_name": "Bulbous Seeds",
     "durian_seeds_assumed_name": "Brittle Seed Pods",
-    "butterflymuffin": "Butter Muffin"
+    "butterflymuffin": "Butter Muffin",
+    "compost": "Compost",
+    "growthFormula": "Growth Formula",
+    "manure": "Manure",
+    "mix": "Mix",
+    "spoiled_food_name": "Rot",
+    "rottenegg": "Rotten Egg",
+    "poop": "Manure",
+    "fertilizer": "Bucket-o-poop",
+    "guano": "Guano",
+    "soil_amender": "Growth Formula Starter",
+    "spoiled_fish": "Spoiled Fish",
+    "spoiled_fish_small": "Spoiled Fish Morsel",
+    "compostwrap": "Compost Wrap",
+    "glommerfuel": "Glommer's Goop",
+    "treegrowthsolution": "Tree Jam"
 }
