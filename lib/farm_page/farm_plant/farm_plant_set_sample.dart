@@ -6,17 +6,19 @@ import 'package:dst_helper/models/dst_object.dart';
 class FarmPlantSetSample {
   static FarmPlantSet get preDefined1 {
     return FarmPlantSet(
-      shape: FarmPlantsShapeSingle(BasicFarmPlant(
-        const Potato(),
-        const Potato(),
-        const Potato(),
-        const Potato(),
-        null,
-        const TomaRoot(),
-        const TomaRoot(),
-        const TomaRoot(),
-        const TomaRoot(),
-      )),
+      shape: FarmPlantsShapeSingle(
+        BasicFarmPlant(
+          const Potato(),
+          const Potato(),
+          const Potato(),
+          const Potato(),
+          null,
+          const TomaRoot(),
+          const TomaRoot(),
+          const TomaRoot(),
+          const TomaRoot(),
+        ),
+      ),
     );
   }
 
@@ -142,25 +144,25 @@ class FarmPlantSetSample {
     return FarmPlantSet(
       shape: FarmPlantsShapeDouble(
         left: BasicFarmPlant(
+          const Potato(),
+          const Potato(),
+          const Garlic(),
+          const Potato(),
           null,
-          const Onion(),
-          const Onion(),
-          const Potato(),
-          const Potato(),
           const Garlic(),
           const Potato(),
-          const Potato(),
-          const Garlic(),
+          const Onion(),
+          const Onion(),
         ),
         right: BasicFarmPlant(
-          const Onion(),
-          const Onion(),
+          const Garlic(),
+          const Potato(),
+          const Potato(),
+          const Garlic(),
           null,
-          const Garlic(),
           const Potato(),
-          const Potato(),
-          const Garlic(),
-          const Potato(),
+          const Onion(),
+          const Onion(),
           const Potato(),
         ),
       ),
@@ -234,51 +236,103 @@ class FarmPlantSetSample {
 
   static FarmPlantSet get preDefined10 {
     return FarmPlantSet(
-        shape: FarmPlantsShapeSquare(
-      topLeft: BasicFarmPlant(
-        null,
-        null,
-        const Potato(),
-        null,
-        null,
-        const Potato(),
-        const Pumpkin(),
-        const Pumpkin(),
-        const Garlic(),
+      shape: FarmPlantsShapeSquare(
+        topLeft: BasicFarmPlant(
+          null,
+          null,
+          const Potato(),
+          null,
+          null,
+          const Potato(),
+          const Pumpkin(),
+          const Pumpkin(),
+          const Garlic(),
+        ),
+        topRight: BasicFarmPlant(
+          const Potato(),
+          null,
+          null,
+          const Potato(),
+          null,
+          null,
+          const Garlic(),
+          const Pumpkin(),
+          const Pumpkin(),
+        ),
+        bottomLeft: BasicFarmPlant(
+          const Pumpkin(),
+          const Pumpkin(),
+          const Garlic(),
+          null,
+          null,
+          const Potato(),
+          null,
+          null,
+          const Potato(),
+        ),
+        bottomRight: BasicFarmPlant(
+          const Garlic(),
+          const Pumpkin(),
+          const Pumpkin(),
+          const Potato(),
+          null,
+          null,
+          const Potato(),
+          null,
+          null,
+        ),
       ),
-      topRight: BasicFarmPlant(
-        const Potato(),
-        null,
-        null,
-        const Potato(),
-        null,
-        null,
-        const Garlic(),
-        const Pumpkin(),
-        const Pumpkin(),
+    );
+  }
+
+  static FarmPlantSet get preDefined11 {
+    return FarmPlantSet(
+      shape: FarmPlantsShapeSquare(
+        topLeft: BasicFarmPlant(
+          const Potato(),
+          const Potato(),
+          const Onion(),
+          const Potato(),
+          const Potato(),
+          const Onion(),
+          const Asparagus(),
+          const Asparagus(),
+          const Garlic(),
+        ),
+        topRight: BasicFarmPlant(
+          const Onion(),
+          const Potato(),
+          const Potato(),
+          const Onion(),
+          const Potato(),
+          const Potato(),
+          const Garlic(),
+          const Asparagus(),
+          const Asparagus(),
+        ),
+        bottomLeft: BasicFarmPlant(
+          const Asparagus(),
+          const Asparagus(),
+          const Garlic(),
+          const Potato(),
+          const Potato(),
+          const Onion(),
+          const Potato(),
+          const Potato(),
+          const Onion(),
+        ),
+        bottomRight: BasicFarmPlant(
+          const Garlic(),
+          const Asparagus(),
+          const Asparagus(),
+          const Onion(),
+          const Potato(),
+          const Potato(),
+          const Onion(),
+          const Potato(),
+          const Potato(),
+        ),
       ),
-      bottomLeft: BasicFarmPlant(
-        const Pumpkin(),
-        const Pumpkin(),
-        const Garlic(),
-        null,
-        null,
-        const Potato(),
-        null,
-        null,
-        const Potato(),
-      ),
-      bottomRight: BasicFarmPlant(
-        const Garlic(),
-        const Pumpkin(),
-        const Pumpkin(),
-        const Potato(),
-        null,
-        null,
-        const Potato(),
-        null,
-        null,
-      ),
-    ));
+    );
   }
 }

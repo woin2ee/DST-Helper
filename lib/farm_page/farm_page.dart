@@ -1,4 +1,3 @@
-
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_set_sample.dart';
 import 'package:dst_helper/farm_page/side_info_box/side_info_box.dart';
 import 'package:dst_helper/models/localization.dart';
@@ -127,6 +126,7 @@ class FarmList extends StatelessWidget {
               FittedBox(child: FarmPlantSetSample.preDefined5),
               FittedBox(child: FarmPlantSetSample.preDefined6),
               FittedBox(child: FarmPlantSetSample.preDefined8),
+              FittedBox(child: FarmPlantSetSample.preDefined11),
             ],
           Season.summer => [
               FittedBox(child: FarmPlantSetSample.preDefined2),
