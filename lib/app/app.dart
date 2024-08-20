@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:universal_io/io.dart';
 
 import 'package:dst_helper/app/home_page.dart';
 import 'package:flutter/material.dart';
