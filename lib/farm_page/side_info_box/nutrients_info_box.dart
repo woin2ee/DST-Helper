@@ -1,104 +1,105 @@
 import 'package:dst_helper/models/dst_object.dart';
-import 'package:dst_helper/models/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NutrientsInfoBox extends StatelessWidget {
   const NutrientsInfoBox({super.key});
 
+  final double horizontalSpacing = 4;
+  final double imageWidth = 40;
+  final double amountWidth = 70;
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: FittedBox(
-        child: Column(
-          spacing: 6,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Row(
-              spacing: 16,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(width: 40),
-                Column(
-                  children: [
-                    Image(
-                      image: AssetImage('assets/images/nutrients_compost_icon.png'),
-                      width: 30,
-                      height: 30,
-                    ),
-                    Text('Compost'),
-                    // Text(AppLocalizations.of(context)!.compost),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Image(
-                      image: AssetImage('assets/images/nutrients_growth_formula_icon.png'),
-                      width: 30,
-                      height: 30,
-                    ),
-                    Text('Growth Formula'),
-                    // Text(AppLocalizations.of(context)!.growthFormula),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Image(
-                      image: AssetImage('assets/images/nutrients_manure_icon.png'),
-                      width: 30,
-                      height: 30,
-                    ),
-                    Text('Manure'),
-                    // Text(AppLocalizations.of(context)!.manure),
-                  ],
-                ),
-              ],
+    final nutrientsNameRow = Row(
+      spacing: horizontalSpacing,
+      children: <Widget>[
+        SizedBox(width: imageWidth),
+        SizedBox(
+          width: amountWidth,
+          child: Center(
+            child: FittedBox(
+              child: Text(
+                AppLocalizations.of(context)!.compost,
+              ),
             ),
-            ...Plants.crops.map((crop) => Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Image(
-                        image: AssetImage('assets/images/items/${crop.assetName}.png'),
-                        width: 40,
-                        height: 40,
-                      ),
-                    ),
-                    SizedBox(width: 30),
-                    Row(
-                      spacing: 80,
-                      children: [
-                        Text(
-                          crop.nutrient.compost > 0
-                              ? '+${crop.nutrient.compost.toString()}'
-                              : crop.nutrient.compost.toString(),
-                          style: TextStyle(
-                            color: crop.nutrient.compost > 0 ? Colors.green : Colors.red,
-                          ),
-                        ),
-                        Text(
-                          crop.nutrient.growthFormula > 0
-                              ? '+${crop.nutrient.growthFormula.toString()}'
-                              : crop.nutrient.growthFormula.toString(),
-                          style: TextStyle(
-                            color: crop.nutrient.growthFormula > 0 ? Colors.green : Colors.red,
-                          ),
-                        ),
-                        Text(
-                          crop.nutrient.manure > 0
-                              ? '+${crop.nutrient.manure.toString()}'
-                              : crop.nutrient.manure.toString(),
-                          style: TextStyle(
-                            color: crop.nutrient.manure > 0 ? Colors.green : Colors.red,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ))
-          ],
+          ),
         ),
+        SizedBox(
+          width: amountWidth,
+          child: Center(
+            child: FittedBox(
+              child: Text(
+                AppLocalizations.of(context)!.growthFormula,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: amountWidth,
+          child: Center(
+            child: FittedBox(
+              child: Text(
+                AppLocalizations.of(context)!.manure,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+    final nutrientsImageRow = SizedBox(
+      height: 34,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: horizontalSpacing,
+        children: [
+          SizedBox(width: imageWidth),
+          SizedBox(
+            width: amountWidth,
+            child: const Image(image: AssetImage('assets/images/nutrients_compost_icon.png')),
+          ),
+          SizedBox(
+            width: amountWidth,
+            child: const Image(image: AssetImage('assets/images/nutrients_growth_formula_icon.png')),
+          ),
+          SizedBox(
+            width: amountWidth,
+            child: const Image(image: AssetImage('assets/images/nutrients_manure_icon.png')),
+          ),
+        ],
+      ),
+    );
+    return FittedBox(
+      child: Column(
+        children: [
+          nutrientsImageRow,
+          nutrientsNameRow,
+          Column(
+            spacing: 4,
+            children: <Widget>[
+              ...Plants.crops.map((crop) => Row(
+                    spacing: horizontalSpacing,
+                    children: [
+                      Image(
+                        image: AssetImage('assets/images/items/${crop.assetName}.png'),
+                        width: imageWidth,
+                      ),
+                      ...[crop.nutrient.compost, crop.nutrient.growthFormula, crop.nutrient.manure]
+                          .map((nutrient) => SizedBox(
+                                width: amountWidth,
+                                child: Text(
+                                  nutrient > 0 ? '+${nutrient.toString()}' : nutrient.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: nutrient > 0 ? Colors.green : Colors.red,
+                                  ),
+                                ),
+                              )),
+                    ],
+                  )),
+            ],
+          ),
+        ],
       ),
     );
   }

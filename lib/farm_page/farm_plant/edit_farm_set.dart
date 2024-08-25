@@ -44,7 +44,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
           spacing: 26,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            NutrientsInfoBox(),
+            const NutrientsInfoBox(),
             Column(
               children: [
                 Container(

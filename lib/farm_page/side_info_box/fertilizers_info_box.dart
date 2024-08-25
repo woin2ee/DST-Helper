@@ -99,12 +99,8 @@ class _NutrientTypeTitle extends StatelessWidget {
 }
 
 class FertilizersInfoBox extends StatelessWidget {
-  const FertilizersInfoBox({
-    super.key,
-    required this.color,
-  });
+  const FertilizersInfoBox({super.key});
 
-  final Color color;
   final List<(_NutrientType, List<FertilizerObject>)> _nutrientList = const [
     (_NutrientType.compost, Fertilizers.compostList),
     (_NutrientType.growthFormula, Fertilizers.growthFormulaList),
@@ -114,60 +110,53 @@ class FertilizersInfoBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(4.0),
-      decoration: BoxDecoration(
-        color: color,
-        boxShadow: kElevationToShadow[2],
-      ),
-      child: FittedBox(
-        child: Column(
-          children: ListTile.divideTiles(
-            context: context,
-            color: Colors.white30,
-            tiles: [
-              ..._nutrientList.map((nutrient) => Padding(
-                    padding: const EdgeInsets.only(top: 12.0),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 18.0),
-                          child: _NutrientTypeTitle(type: nutrient.$1),
-                        ),
-                        ...nutrient.$2.map((fertilizer) => SizedBox(
-                              width: 110,
-                              height: 100,
-                              child: Column(
-                                spacing: 6.0,
-                                children: [
-                                  Image.asset(
-                                    'assets/images/items/${fertilizer.assetName}.png',
-                                    width: 50,
-                                    height: 50,
-                                  ),
-                                  Column(
-                                    children: [
-                                      FittedBox(
-                                        child: Text(
-                                          fertilizer.localizedName(context),
-                                          style: const TextStyle(
-                                            fontSize: 13,
-                                            color: Colors.black87,
-                                          ),
+    return FittedBox(
+      child: Column(
+        children: ListTile.divideTiles(
+          context: context,
+          color: Colors.white30,
+          tiles: [
+            ..._nutrientList.map((nutrient) => Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 18.0),
+                        child: _NutrientTypeTitle(type: nutrient.$1),
+                      ),
+                      ...nutrient.$2.map((fertilizer) => SizedBox(
+                            width: 110,
+                            height: 100,
+                            child: Column(
+                              spacing: 6.0,
+                              children: [
+                                Image.asset(
+                                  'assets/images/items/${fertilizer.assetName}.png',
+                                  width: 50,
+                                  height: 50,
+                                ),
+                                Column(
+                                  children: [
+                                    FittedBox(
+                                      child: Text(
+                                        fertilizer.localizedName(context),
+                                        style: const TextStyle(
+                                          fontSize: 13,
+                                          color: Colors.black87,
                                         ),
                                       ),
-                                      RichText(text: _nutrientAmountText(fertilizer, type: nutrient.$1)),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            )),
-                      ],
-                    ),
-                  )),
-            ],
-          ).toList(),
-        ),
+                                    ),
+                                    RichText(text: _nutrientAmountText(fertilizer, type: nutrient.$1)),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )),
+                    ],
+                  ),
+                )),
+          ],
+        ).toList(),
       ),
     );
   }

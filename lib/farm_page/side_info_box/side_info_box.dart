@@ -76,16 +76,30 @@ class _SideInfoBoxState extends State<SideInfoBox> {
           children: [
             SizedBox(
               width: selectedIndex == 0 ? null : 0,
-              child: SeedsInfoBox(color: Colors.brown.shade400),
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.brown.shade400,
+                  boxShadow: kElevationToShadow[2],
+                ),
+                child: const SeedsInfoBox(),
+              ),
             ),
             SizedBox(
               width: selectedIndex == 1 ? null : 0,
-              child: FertilizersInfoBox(color: Colors.brown.shade200),
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  color: Colors.brown.shade200,
+                  boxShadow: kElevationToShadow[2],
+                ),
+                child: const FertilizersInfoBox(),
+              ),
             ),
             SizedBox(
               width: selectedIndex == 2 ? null : 0,
               child: Container(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: Colors.orange.shade50,
                   boxShadow: kElevationToShadow[2],
