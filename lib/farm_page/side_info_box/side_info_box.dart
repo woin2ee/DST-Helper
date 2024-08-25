@@ -1,10 +1,32 @@
-import 'package:dst_helper/farm_page/side_info_box/fertilizer_info_box.dart';
-import 'package:dst_helper/farm_page/side_info_box/seed_info_box.dart';
+import 'package:dst_helper/farm_page/side_info_box/fertilizers_info_box.dart';
+import 'package:dst_helper/farm_page/side_info_box/nutrients_info_box.dart';
+import 'package:dst_helper/farm_page/side_info_box/seeds_info_box.dart';
 import 'package:flutter/material.dart';
 
 enum SideInfoMenu {
   seed,
   fertilizer,
+  nutrients;
+
+  Widget tag(void Function() onPressed) {
+    return switch (this) {
+      SideInfoMenu.seed => SeedsInfoBoxTag(
+          size: SideInfoBox.tagSize,
+          onPressed: onPressed,
+          color: Colors.brown.shade400,
+        ),
+      SideInfoMenu.fertilizer => FertilizersInfoBoxTag(
+          size: SideInfoBox.tagSize,
+          onPressed: onPressed,
+          color: Colors.brown.shade200,
+        ),
+      SideInfoMenu.nutrients => NutrientsInfoBoxTag(
+          size: SideInfoBox.tagSize,
+          onPressed: onPressed,
+          color: Colors.orange.shade50,
+        ),
+    };
+  }
 }
 
 class SideInfoBox extends StatefulWidget {
@@ -34,42 +56,19 @@ class _SideInfoBoxState extends State<SideInfoBox> {
       children: [
         Column(
           children: [
-            ...SideInfoMenu.values.asMap().entries.map((menu) => switch (menu.value) {
-                  SideInfoMenu.seed => Container(
-                      margin: const EdgeInsets.only(top: 16),
-                      child: SeedInfoBoxTag(
-                        size: SideInfoBox.tagSize,
-                        onPressed: () {
-                          setState(() {
-                            if (_sideInfoSelection[menu.key] == true) {
-                              _sideInfoSelection[menu.key] = false;
-                              return;
-                            }
-                            _sideInfoSelection = List.filled(SideInfoMenu.values.length, false);
-                            _sideInfoSelection[menu.key] = true;
-                          });
-                        },
-                        color: Colors.brown.shade400,
-                      ),
-                    ),
-                  SideInfoMenu.fertilizer => Container(
-                      margin: const EdgeInsets.only(top: 16),
-                      child: FertilizerInfoBoxTag(
-                        size: SideInfoBox.tagSize,
-                        onPressed: () {
-                          setState(() {
-                            if (_sideInfoSelection[menu.key] == true) {
-                              _sideInfoSelection[menu.key] = false;
-                              return;
-                            }
-                            _sideInfoSelection = List.filled(SideInfoMenu.values.length, false);
-                            _sideInfoSelection[menu.key] = true;
-                          });
-                        },
-                        color: Colors.brown.shade200,
-                      ),
-                    ),
-                }),
+            ...SideInfoMenu.values.asMap().entries.map((menu) => Container(
+                  margin: const EdgeInsets.only(top: 16),
+                  child: menu.value.tag(() {
+                    setState(() {
+                      if (_sideInfoSelection[menu.key] == true) {
+                        _sideInfoSelection[menu.key] = false;
+                        return;
+                      }
+                      _sideInfoSelection = List.filled(SideInfoMenu.values.length, false);
+                      _sideInfoSelection[menu.key] = true;
+                    });
+                  }),
+                )),
           ],
         ),
         IndexedStack(
@@ -77,11 +76,22 @@ class _SideInfoBoxState extends State<SideInfoBox> {
           children: [
             SizedBox(
               width: selectedIndex == 0 ? null : 0,
-              child: SeedInfoBox(color: Colors.brown.shade400),
+              child: SeedsInfoBox(color: Colors.brown.shade400),
             ),
             SizedBox(
               width: selectedIndex == 1 ? null : 0,
-              child: FertilizerInfoBox(color: Colors.brown.shade200),
+              child: FertilizersInfoBox(color: Colors.brown.shade200),
+            ),
+            SizedBox(
+              width: selectedIndex == 2 ? null : 0,
+              child: Container(
+                padding: const EdgeInsets.all(4.0),
+                decoration: BoxDecoration(
+                  color: Colors.orange.shade50,
+                  boxShadow: kElevationToShadow[2],
+                ),
+                child: const NutrientsInfoBox(),
+              ),
             ),
           ],
         ),

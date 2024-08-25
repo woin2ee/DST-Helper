@@ -98,8 +98,8 @@ class _NutrientTypeTitle extends StatelessWidget {
   }
 }
 
-class FertilizerInfoBox extends StatelessWidget {
-  const FertilizerInfoBox({
+class FertilizersInfoBox extends StatelessWidget {
+  const FertilizersInfoBox({
     super.key,
     required this.color,
   });
@@ -219,8 +219,8 @@ class FertilizerInfoBox extends StatelessWidget {
   }
 }
 
-class FertilizerInfoBoxTag extends StatelessWidget {
-  const FertilizerInfoBoxTag({
+class FertilizersInfoBoxTag extends StatelessWidget {
+  const FertilizersInfoBoxTag({
     super.key,
     this.onPressed,
     required this.size,

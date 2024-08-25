@@ -1,6 +1,7 @@
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_data.dart';
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_set.dart';
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_set_data.dart';
+import 'package:dst_helper/farm_page/side_info_box/nutrients_info_box.dart';
 import 'package:dst_helper/models/dst_object.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -20,6 +21,14 @@ class _EditFarmSetState extends State<EditFarmSet> {
     farmPlantData: BasicFarmPlantData.empty(),
   );
 
+  bool get _anyPlantIsPlaced {
+    return _farmPlantSetData.farmPlantDataList.any((e) => e.plants.any((plant) => plant is CropObject));
+  }
+
+  bool get _everyFarmPlantHasBalancedNutrients {
+    return _farmPlantSetData.farmPlantDataList.every((farmPlant) => farmPlant.hasBalancedNutrients);
+  }
+
   @override
   Widget build(BuildContext context) {
     return FittedBox(
@@ -35,6 +44,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
           spacing: 26,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            NutrientsInfoBox(),
             Column(
               children: [
                 Container(
@@ -55,10 +65,8 @@ class _EditFarmSetState extends State<EditFarmSet> {
                     ),
                   ),
                 ),
-                Text('적합 계절: ${_farmPlantSetData.suitableSeasons.map((season) => season.name)}'),
-                if (_farmPlantSetData.farmPlantDataList.every((farmPlant) => farmPlant.hasBalancedNutrients) &&
-                    _farmPlantSetData.farmPlantDataList.any((e) => e.plants.any((plant) => plant is CropObject)))
-                  const Text('영양소 충족!'),
+                if (_anyPlantIsPlaced) Text('적합 계절: ${_farmPlantSetData.suitableSeasons.map((season) => season.name)}'),
+                if (_everyFarmPlantHasBalancedNutrients && _anyPlantIsPlaced) const Text('영양소 충족!'),
               ],
             ),
             Column(

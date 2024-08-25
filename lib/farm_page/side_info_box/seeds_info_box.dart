@@ -17,16 +17,19 @@ enum SettingItem {
   }
 }
 
-class SeedInfoBox extends StatefulWidget {
-  const SeedInfoBox({super.key, required this.color});
+class SeedsInfoBox extends StatefulWidget {
+  const SeedsInfoBox({
+    super.key,
+    required this.color,
+  });
 
   final Color color;
 
   @override
-  State<StatefulWidget> createState() => _SeedInfoBoxState();
+  State<StatefulWidget> createState() => _SeedsInfoBoxState();
 }
 
-class _SeedInfoBoxState extends State<SeedInfoBox> {
+class _SeedsInfoBoxState extends State<SeedsInfoBox> {
   final Map<SettingItem, bool> _settings = {
     SettingItem.displayingSeedName: false,
     // SettingItem.displayingCropName: false,
@@ -112,8 +115,8 @@ class _SeedInfoBoxState extends State<SeedInfoBox> {
   }
 }
 
-class SeedInfoBoxTag extends StatelessWidget {
-  const SeedInfoBoxTag({
+class SeedsInfoBoxTag extends StatelessWidget {
+  const SeedsInfoBoxTag({
     super.key,
     this.onPressed,
     required this.size,
