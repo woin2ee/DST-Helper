@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
           ),
           NavigationRailDestination(
             icon: Menu.github.icon,
-            label: Text(Menu.farm.localized(context)),
+            label: Text(Menu.github.localized(context)),
             padding: const EdgeInsets.only(top: 20.0),
           ),
         ],
