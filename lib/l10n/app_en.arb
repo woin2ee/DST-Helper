@@ -1,8 +1,10 @@
 {
     "@@locale": "en",
+    "add": "Add",
     "asparagus_seeds_assumed_name": "Tubular Seeds",
     "autumn": "Autumn",
     "butterflymuffin": "Butter Muffin",
+    "cancel": "Cancel",
     "carrot_seeds_assumed_name": "Oblong Seeds",
     "compost": "Compost",
     "compostwrap": "Compost Wrap",

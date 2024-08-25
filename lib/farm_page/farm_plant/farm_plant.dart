@@ -1,67 +1,72 @@
-import 'package:dst_helper/models/dst_object.dart';
+import 'package:dst_helper/farm_page/farm_plant/farm_plant_data.dart';
+import 'package:dst_helper/farm_page/farm_plant/plant_cell.dart';
 import 'package:flutter/material.dart';
 
-enum FarmPlantStyle {
-  /// (top) 3 : 3 : 3 (bottom)
-  basic,
-
-  /// (top) 2 : 3 : 2 : 3 (bottom)
-  dense,
-
-  /// (top) 3 : 2 : 3 : 2 (bottom)
-  reverseDense;
-
-  int get countOfPlants {
-    switch (this) {
-      case FarmPlantStyle.basic:
-        return 9;
-      case FarmPlantStyle.dense:
-      case FarmPlantStyle.reverseDense:
-        return 10;
-    }
-  }
-}
-
-sealed class FarmPlant extends StatelessWidget {
+class FarmPlant extends StatelessWidget {
   const FarmPlant({
     super.key,
-    required this.style,
-    required this.darkTheme,
-    required this.plants,
+    required this.farmPlantData,
+    this.darkTheme = false,
+    this.onPressed,
   });
 
-  FarmPlant.empty({
-    super.key,
-    required this.style,
-    required this.darkTheme,
-  }) : plants = List<PlantObject?>.filled(style.countOfPlants, null, growable: false);
-
-  FarmPlant copyWith({bool? darkTheme});
-
-  final FarmPlantStyle style;
+  final FarmPlantData farmPlantData;
   final bool darkTheme;
-  final List<PlantObject?> plants;
+  final void Function(int index)? onPressed;
 
-  bool get hasBalancedNutrients {
-    var result = const Nutrient(compost: 0, growthFormula: 0, manure: 0);
-    for (var i = 0; i < style.countOfPlants; i++) {
-      var plant = plants[i];
-      if (plant != null) {
-        result += plant.nutrient;
-      }
-    }
-    return result.compost == 0 && result.growthFormula == 0 && result.manure == 0;
+  FarmPlant copyWith({bool? darkTheme}) {
+    return FarmPlant(
+      key: key,
+      farmPlantData: switch (farmPlantData) {
+        BasicFarmPlantData() => farmPlantData as BasicFarmPlantData,
+        DenseFarmPlantData() => farmPlantData as DenseFarmPlantData,
+        ReverseDenseFarmPlantData() => farmPlantData as ReverseDenseFarmPlantData,
+      },
+      darkTheme: darkTheme ?? this.darkTheme,
+      onPressed: onPressed,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return switch (farmPlantData) {
+      BasicFarmPlantData() => BasicFarmPlant(
+          key: key,
+          darkTheme: darkTheme,
+          onPressed: onPressed,
+          farmPlantData: farmPlantData as BasicFarmPlantData,
+        ),
+      DenseFarmPlantData() => DenseFarmPlant(
+          key: key,
+          darkTheme: darkTheme,
+          onPressed: onPressed,
+          farmPlantData: farmPlantData as DenseFarmPlantData,
+        ),
+      ReverseDenseFarmPlantData() => ReverseDenseFarmPlant(
+          key: key,
+          darkTheme: darkTheme,
+          onPressed: onPressed,
+          farmPlantData: farmPlantData as ReverseDenseFarmPlantData,
+        ),
+    };
   }
 }
 
 class BasicFarmPlant extends FarmPlant {
-  BasicFarmPlant(PlantObject? c1, PlantObject? c2, PlantObject? c3, PlantObject? c4, PlantObject? c5, PlantObject? c6,
-      PlantObject? c7, PlantObject? c8, PlantObject? c9,
-      {super.key, super.darkTheme = false})
-      : super(
-          style: FarmPlantStyle.basic,
-          plants: [c1, c2, c3, c4, c5, c6, c7, c8, c9],
-        );
+  const BasicFarmPlant({
+    super.key,
+    super.darkTheme,
+    super.onPressed,
+    required BasicFarmPlantData farmPlantData,
+  }) : super(farmPlantData: farmPlantData);
+
+  @override
+  BasicFarmPlant copyWith({bool? darkTheme}) {
+    return BasicFarmPlant(
+      farmPlantData: farmPlantData as BasicFarmPlantData,
+      darkTheme: darkTheme ?? this.darkTheme,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,55 +77,82 @@ class BasicFarmPlant extends FarmPlant {
         children: [
           Row(
             children: [
-              PlantCell(plant: plants[0], darkTheme: darkTheme),
-              PlantCell(plant: plants[1], darkTheme: darkTheme),
-              PlantCell(plant: plants[2], darkTheme: darkTheme),
+              PlantCell(
+                plant: farmPlantData.plants[0],
+                darkTheme: darkTheme,
+                onPressed: () => onPressed?.call(0),
+              ),
+              PlantCell(
+                plant: farmPlantData.plants[1],
+                darkTheme: darkTheme,
+                onPressed: () => onPressed?.call(1),
+              ),
+              PlantCell(
+                plant: farmPlantData.plants[2],
+                darkTheme: darkTheme,
+                onPressed: () => onPressed?.call(2),
+              ),
             ],
           ),
           Row(
             children: [
-              PlantCell(plant: plants[3], darkTheme: darkTheme),
-              PlantCell(plant: plants[4], darkTheme: darkTheme),
-              PlantCell(plant: plants[5], darkTheme: darkTheme),
+              PlantCell(
+                plant: farmPlantData.plants[3],
+                darkTheme: darkTheme,
+                onPressed: () => onPressed?.call(3),
+              ),
+              PlantCell(
+                plant: farmPlantData.plants[4],
+                darkTheme: darkTheme,
+                onPressed: () => onPressed?.call(4),
+              ),
+              PlantCell(
+                plant: farmPlantData.plants[5],
+                darkTheme: darkTheme,
+                onPressed: () => onPressed?.call(5),
+              ),
             ],
           ),
           Row(
             children: [
-              PlantCell(plant: plants[6], darkTheme: darkTheme),
-              PlantCell(plant: plants[7], darkTheme: darkTheme),
-              PlantCell(plant: plants[8], darkTheme: darkTheme),
+              PlantCell(
+                plant: farmPlantData.plants[6],
+                darkTheme: darkTheme,
+                onPressed: () => onPressed?.call(6),
+              ),
+              PlantCell(
+                plant: farmPlantData.plants[7],
+                darkTheme: darkTheme,
+                onPressed: () => onPressed?.call(7),
+              ),
+              PlantCell(
+                plant: farmPlantData.plants[8],
+                darkTheme: darkTheme,
+                onPressed: () => onPressed?.call(8),
+              ),
             ],
           ),
         ],
       ),
-    );
-  }
-
-  @override
-  FarmPlant copyWith({bool? darkTheme}) {
-    return BasicFarmPlant(
-      plants[0],
-      plants[1],
-      plants[2],
-      plants[3],
-      plants[4],
-      plants[5],
-      plants[6],
-      plants[7],
-      plants[8],
-      darkTheme: darkTheme ?? this.darkTheme,
     );
   }
 }
 
 class DenseFarmPlant extends FarmPlant {
-  DenseFarmPlant(PlantObject? c1, PlantObject? c2, PlantObject? c3, PlantObject? c4, PlantObject? c5, PlantObject? c6,
-      PlantObject? c7, PlantObject? c8, PlantObject? c9, PlantObject? c10,
-      {super.key, super.darkTheme = false})
-      : super(
-          style: FarmPlantStyle.dense,
-          plants: [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10],
-        );
+  const DenseFarmPlant({
+    super.key,
+    super.darkTheme,
+    super.onPressed,
+    required DenseFarmPlantData farmPlantData,
+  }) : super(farmPlantData: farmPlantData);
+
+  @override
+  DenseFarmPlant copyWith({bool? darkTheme}) {
+    return DenseFarmPlant(
+      farmPlantData: farmPlantData as DenseFarmPlantData,
+      darkTheme: darkTheme ?? this.darkTheme,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,68 +164,98 @@ class DenseFarmPlant extends FarmPlant {
           Flexible(
             child: Row(
               children: [
-                PlantCell(plant: plants[0], darkTheme: darkTheme),
-                PlantCell(plant: plants[1], darkTheme: darkTheme),
+                PlantCell(
+                  plant: farmPlantData.plants[0],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(0),
+                ),
+                PlantCell(
+                  plant: farmPlantData.plants[1],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(1),
+                ),
               ],
             ),
           ),
           Flexible(
             child: Row(
               children: [
-                PlantCell(plant: plants[2], darkTheme: darkTheme),
-                PlantCell(plant: plants[3], darkTheme: darkTheme),
-                PlantCell(plant: plants[4], darkTheme: darkTheme),
+                PlantCell(
+                  plant: farmPlantData.plants[2],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(2),
+                ),
+                PlantCell(
+                  plant: farmPlantData.plants[3],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(3),
+                ),
+                PlantCell(
+                  plant: farmPlantData.plants[4],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(4),
+                ),
               ],
             ),
           ),
           Flexible(
             child: Row(
               children: [
-                PlantCell(plant: plants[5], darkTheme: darkTheme),
-                PlantCell(plant: plants[6], darkTheme: darkTheme),
+                PlantCell(
+                  plant: farmPlantData.plants[5],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(5),
+                ),
+                PlantCell(
+                  plant: farmPlantData.plants[6],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(6),
+                ),
               ],
             ),
           ),
           Flexible(
             child: Row(
               children: [
-                PlantCell(plant: plants[7], darkTheme: darkTheme),
-                PlantCell(plant: plants[8], darkTheme: darkTheme),
-                PlantCell(plant: plants[9], darkTheme: darkTheme),
+                PlantCell(
+                  plant: farmPlantData.plants[7],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(7),
+                ),
+                PlantCell(
+                  plant: farmPlantData.plants[8],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(8),
+                ),
+                PlantCell(
+                  plant: farmPlantData.plants[9],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(9),
+                ),
               ],
             ),
           ),
         ],
       ),
-    );
-  }
-
-  @override
-  FarmPlant copyWith({bool? darkTheme}) {
-    return DenseFarmPlant(
-      plants[0],
-      plants[1],
-      plants[2],
-      plants[3],
-      plants[4],
-      plants[5],
-      plants[6],
-      plants[7],
-      plants[8],
-      plants[9],
-      darkTheme: darkTheme ?? this.darkTheme,
     );
   }
 }
 
 class ReverseDenseFarmPlant extends FarmPlant {
-  ReverseDenseFarmPlant(PlantObject? c1, PlantObject? c2, PlantObject? c3, PlantObject? c4, PlantObject? c5,
-      PlantObject? c6, PlantObject? c7, PlantObject? c8, PlantObject? c9, PlantObject? c10,
-      {super.key, super.darkTheme = false})
-      : super(
-          style: FarmPlantStyle.reverseDense,
-          plants: [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10],
-        );
+  const ReverseDenseFarmPlant({
+    super.key,
+    super.darkTheme,
+    super.onPressed,
+    required ReverseDenseFarmPlantData farmPlantData,
+  }) : super(farmPlantData: farmPlantData);
+
+  @override
+  ReverseDenseFarmPlant copyWith({bool? darkTheme}) {
+    return ReverseDenseFarmPlant(
+      farmPlantData: farmPlantData as ReverseDenseFarmPlantData,
+      darkTheme: darkTheme ?? this.darkTheme,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -205,89 +267,79 @@ class ReverseDenseFarmPlant extends FarmPlant {
           Flexible(
             child: Row(
               children: [
-                PlantCell(plant: plants[0], darkTheme: darkTheme),
-                PlantCell(plant: plants[1], darkTheme: darkTheme),
-                PlantCell(plant: plants[2], darkTheme: darkTheme),
+                PlantCell(
+                  plant: farmPlantData.plants[0],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(0),
+                ),
+                PlantCell(
+                  plant: farmPlantData.plants[1],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(1),
+                ),
+                PlantCell(
+                  plant: farmPlantData.plants[2],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(2),
+                ),
               ],
             ),
           ),
           Flexible(
             child: Row(
               children: [
-                PlantCell(plant: plants[3], darkTheme: darkTheme),
-                PlantCell(plant: plants[4], darkTheme: darkTheme),
+                PlantCell(
+                  plant: farmPlantData.plants[3],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(3),
+                ),
+                PlantCell(
+                  plant: farmPlantData.plants[4],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(4),
+                ),
               ],
             ),
           ),
           Flexible(
             child: Row(
               children: [
-                PlantCell(plant: plants[5], darkTheme: darkTheme),
-                PlantCell(plant: plants[6], darkTheme: darkTheme),
-                PlantCell(plant: plants[7], darkTheme: darkTheme),
+                PlantCell(
+                  plant: farmPlantData.plants[5],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(5),
+                ),
+                PlantCell(
+                  plant: farmPlantData.plants[6],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(6),
+                ),
+                PlantCell(
+                  plant: farmPlantData.plants[7],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(7),
+                ),
               ],
             ),
           ),
           Flexible(
             child: Row(
               children: [
-                PlantCell(plant: plants[8], darkTheme: darkTheme),
-                PlantCell(plant: plants[9], darkTheme: darkTheme),
+                PlantCell(
+                  plant: farmPlantData.plants[8],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(8),
+                ),
+                PlantCell(
+                  plant: farmPlantData.plants[9],
+                  darkTheme: darkTheme,
+                  onPressed: () => onPressed?.call(9),
+                ),
               ],
             ),
           ),
         ],
       ),
     );
-  }
-
-  @override
-  FarmPlant copyWith({bool? darkTheme}) {
-    return ReverseDenseFarmPlant(
-      plants[0],
-      plants[1],
-      plants[2],
-      plants[3],
-      plants[4],
-      plants[5],
-      plants[6],
-      plants[7],
-      plants[8],
-      plants[9],
-      darkTheme: darkTheme ?? this.darkTheme,
-    );
-  }
-}
-
-class PlantCell extends StatelessWidget {
-  const PlantCell({
-    super.key,
-    required this.plant,
-    this.darkTheme = false,
-  });
-
-  final PlantObject? plant;
-  final bool darkTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Flexible(
-      fit: FlexFit.tight,
-      child: Container(
-        margin: const EdgeInsets.all(1),
-        padding: const EdgeInsets.all(6),
-        color: darkTheme ? colorScheme.surfaceContainerHighest.dark : colorScheme.surfaceContainerHighest,
-        child: plant != null ? Image.asset('assets/images/items/${plant!.assetName}.png') : const AspectRatio(aspectRatio: 1),
-      ),
-    );
-  }
-}
-
-extension on Color {
-  Color get dark {
-    const darkValue = -55;
-    return Color.fromRGBO(red + darkValue, green + darkValue, blue + darkValue, 1.0);
   }
 }
