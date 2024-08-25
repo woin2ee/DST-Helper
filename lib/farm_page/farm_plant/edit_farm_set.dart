@@ -3,6 +3,7 @@ import 'package:dst_helper/farm_page/farm_plant/farm_plant_set.dart';
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_set_data.dart';
 import 'package:dst_helper/farm_page/side_info_box/nutrients_info_box.dart';
 import 'package:dst_helper/models/dst_object.dart';
+import 'package:dst_helper/models/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -16,6 +17,7 @@ class EditFarmSet extends StatefulWidget {
 class _EditFarmSetState extends State<EditFarmSet> {
   CropObject? _selectedCrop;
   FertilizerObject? _selectedFertilizer;
+  final TextEditingController _titleTextEditingController = TextEditingController();
 
   FarmPlantSetData _farmPlantSetData = SingleFarmPlantSetData(
     farmPlantData: BasicFarmPlantData.empty(),
@@ -38,8 +40,6 @@ class _EditFarmSetState extends State<EditFarmSet> {
           borderRadius: BorderRadius.circular(18.0),
         ),
         padding: const EdgeInsets.all(18.0),
-        // width: 900,
-        // height: 400,
         child: Row(
           spacing: 26,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +65,8 @@ class _EditFarmSetState extends State<EditFarmSet> {
                     ),
                   ),
                 ),
-                if (_anyPlantIsPlaced) Text('적합 계절: ${_farmPlantSetData.suitableSeasons.map((season) => season.name)}'),
+                if (_anyPlantIsPlaced)
+                  Text('적합 계절: ${_farmPlantSetData.suitableSeasons.map((season) => season.localizedName(context))}'),
                 if (_everyFarmPlantHasBalancedNutrients && _anyPlantIsPlaced) const Text('영양소 충족!'),
               ],
             ),
@@ -76,10 +77,17 @@ class _EditFarmSetState extends State<EditFarmSet> {
                 Container(
                   padding: const EdgeInsets.only(left: 8.0),
                   width: 400,
-                  // height: 40,
-                  child: const TextField(
+                  child: TextField(
+                    controller: _titleTextEditingController,
                     decoration: InputDecoration(
-                      labelText: 'Title',
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      labelText: 'Name',
+                      hintText: (_anyPlantIsPlaced)
+                          ? '${_farmPlantSetData.suitableSeasons.map((season) => season.localizedName(context))}'
+                          : '',
+                      hintStyle: const TextStyle(
+                        color: Colors.grey,
+                      ),
                     ),
                   ),
                 ),
