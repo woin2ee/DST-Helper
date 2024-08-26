@@ -1,8 +1,15 @@
 import 'package:dst_helper/models/dst_object.dart';
 
+enum FarmPlantStyle {
+  basic,
+  dense,
+  reverseDense,
+}
+
 sealed class FarmPlantData {
   FarmPlantData({required this.plants});
 
+  FarmPlantStyle get farmPlantStyle;
   int get countOfPlants;
   final List<PlantObject?> plants;
 
@@ -33,6 +40,10 @@ class BasicFarmPlantData extends FarmPlantData {
 
   BasicFarmPlantData.empty() : super(plants: List.filled(9, null));
 
+  BasicFarmPlantData.withPlants(List<PlantObject?> plants)
+      : assert(plants.length == 9),
+        super(plants: plants);
+
   @override
   BasicFarmPlantData copyWith({
     List<PlantObject?>? plants,
@@ -52,6 +63,9 @@ class BasicFarmPlantData extends FarmPlantData {
 
   @override
   int get countOfPlants => 9;
+
+  @override
+  FarmPlantStyle get farmPlantStyle => FarmPlantStyle.basic;
 }
 
 /// (top) 2 : 3 : 2 : 3 (bottom)
@@ -91,6 +105,9 @@ class DenseFarmPlantData extends FarmPlantData {
 
   @override
   int get countOfPlants => 10;
+
+  @override
+  FarmPlantStyle get farmPlantStyle => FarmPlantStyle.dense;
 }
 
 /// (top) 3 : 2 : 3 : 2 (bottom)
@@ -130,4 +147,7 @@ class ReverseDenseFarmPlantData extends FarmPlantData {
 
   @override
   int get countOfPlants => 10;
+
+  @override
+  FarmPlantStyle get farmPlantStyle => FarmPlantStyle.reverseDense;
 }

@@ -19,7 +19,8 @@ class _EditFarmSetState extends State<EditFarmSet> {
   CropObject? _selectedCrop;
   FertilizerObject? _selectedFertilizer;
   final TextEditingController _titleTextEditingController = TextEditingController();
-
+  FarmPlantSetStyle _selectedFarmPlantSetStyle = FarmPlantSetStyle.single;
+  FarmPlantStyle _selectedFarmPlantStyle = FarmPlantStyle.basic;
   FarmPlantSetData _farmPlantSetData = SingleFarmPlantSetData(
     farmPlantData: BasicFarmPlantData.empty(),
   );
@@ -164,6 +165,133 @@ class _EditFarmSetState extends State<EditFarmSet> {
 
   @override
   Widget build(BuildContext context) {
+    final farmPlantSetStyleSelectionBox = Row(
+      spacing: 10.0,
+      children: [
+        ...FarmPlantSetStyle.values.map((style) => OutlinedButton(
+              onPressed: () {
+                switch (style) {
+                  case FarmPlantSetStyle.single:
+                    setState(() {
+                      _selectedFarmPlantSetStyle = FarmPlantSetStyle.single;
+                      _farmPlantSetData = SingleFarmPlantSetData(
+                        farmPlantData: _farmPlantSetData.farmPlantDataList[0],
+                      );
+                    });
+                  case FarmPlantSetStyle.double:
+                    setState(() {
+                      _selectedFarmPlantSetStyle = FarmPlantSetStyle.double;
+                      _farmPlantSetData = DoubleFarmPlantSetData(
+                        left: _farmPlantSetData.farmPlantDataList[0],
+                        right:
+                            _farmPlantSetData.farmPlantDataList.elementAtOrNull(1) ?? _selectedFarmPlantStyle.emptyData,
+                      );
+                    });
+                  case FarmPlantSetStyle.square:
+                    setState(() {
+                      _selectedFarmPlantSetStyle = FarmPlantSetStyle.square;
+
+                      if (_selectedFarmPlantStyle == FarmPlantStyle.basic) {
+                        _farmPlantSetData = SquareFarmPlantSetData(
+                          topLeft: BasicFarmPlantData.withPlants(_farmPlantSetData.farmPlantDataList[0].plants),
+                          topRight: BasicFarmPlantData.withPlants(
+                              _farmPlantSetData.farmPlantDataList.elementAtOrNull(1)?.plants ??
+                                  _selectedFarmPlantStyle.emptyData.plants),
+                          bottomLeft: BasicFarmPlantData.withPlants(
+                              _farmPlantSetData.farmPlantDataList.elementAtOrNull(2)?.plants ??
+                                  _selectedFarmPlantStyle.emptyData.plants),
+                          bottomRight: BasicFarmPlantData.withPlants(
+                              _farmPlantSetData.farmPlantDataList.elementAtOrNull(3)?.plants ??
+                                  _selectedFarmPlantStyle.emptyData.plants),
+                        );
+                      } else {
+                        _selectedFarmPlantStyle = FarmPlantStyle.basic;
+                        _farmPlantSetData = SquareFarmPlantSetData(
+                          topLeft: BasicFarmPlantData.empty(),
+                          topRight: BasicFarmPlantData.empty(),
+                          bottomLeft: BasicFarmPlantData.empty(),
+                          bottomRight: BasicFarmPlantData.empty(),
+                        );
+                      }
+                    });
+                }
+              },
+              child: Text(style.name),
+            )),
+      ],
+    );
+
+    final farmPlantStyleSelectionBox = Row(
+      spacing: 10,
+      children: <Widget>[
+        ...FarmPlantStyle.values.map((style) => OutlinedButton(
+              onPressed: switch (_selectedFarmPlantSetStyle) {
+                FarmPlantSetStyle.single => switch (style) {
+                    FarmPlantStyle.basic => () {
+                        setState(() {
+                          if (_selectedFarmPlantStyle == style) return;
+                          _selectedFarmPlantStyle = style;
+                          _farmPlantSetData = SingleFarmPlantSetData(farmPlantData: BasicFarmPlantData.empty());
+                        });
+                      },
+                    FarmPlantStyle.dense => () {
+                        setState(() {
+                          if (_selectedFarmPlantStyle == style) return;
+                          _selectedFarmPlantStyle = style;
+                          _farmPlantSetData = SingleFarmPlantSetData(farmPlantData: DenseFarmPlantData.empty());
+                        });
+                      },
+                    FarmPlantStyle.reverseDense => () {
+                        setState(() {
+                          if (_selectedFarmPlantStyle == style) return;
+                          _selectedFarmPlantStyle = style;
+                          _farmPlantSetData = SingleFarmPlantSetData(farmPlantData: ReverseDenseFarmPlantData.empty());
+                        });
+                      },
+                  },
+                FarmPlantSetStyle.double => switch (style) {
+                    FarmPlantStyle.basic => () {
+                        setState(() {
+                          if (_selectedFarmPlantStyle == style) return;
+                          _selectedFarmPlantStyle = style;
+                          _farmPlantSetData = DoubleFarmPlantSetData(
+                            left: BasicFarmPlantData.empty(),
+                            right: BasicFarmPlantData.empty(),
+                          );
+                        });
+                      },
+                    FarmPlantStyle.dense => () {
+                        setState(() {
+                          if (_selectedFarmPlantStyle == style) return;
+                          _selectedFarmPlantStyle = style;
+                          _farmPlantSetData = DoubleFarmPlantSetData(
+                            left: DenseFarmPlantData.empty(),
+                            right: DenseFarmPlantData.empty(),
+                          );
+                        });
+                      },
+                    FarmPlantStyle.reverseDense => () {
+                        setState(() {
+                          if (_selectedFarmPlantStyle == style) return;
+                          _selectedFarmPlantStyle = style;
+                          _farmPlantSetData = DoubleFarmPlantSetData(
+                            left: ReverseDenseFarmPlantData.empty(),
+                            right: ReverseDenseFarmPlantData.empty(),
+                          );
+                        });
+                      },
+                  },
+                FarmPlantSetStyle.square => switch (style) {
+                    FarmPlantStyle.basic => () {},
+                    FarmPlantStyle.dense => null,
+                    FarmPlantStyle.reverseDense => null,
+                  },
+              },
+              child: Text(style.name),
+            )),
+      ],
+    );
+
     return FittedBox(
       child: Container(
         decoration: BoxDecoration(
@@ -230,44 +358,8 @@ class _EditFarmSetState extends State<EditFarmSet> {
                     ),
                   ),
                 ),
-                Row(
-                  spacing: 10.0,
-                  children: [
-                    ...FarmPlantSetStyle.values.map((style) => OutlinedButton(
-                          onPressed: () {
-                            switch (style) {
-                              case FarmPlantSetStyle.single:
-                                setState(() {
-                                  _farmPlantSetData = SingleFarmPlantSetData(
-                                    farmPlantData: _farmPlantSetData.farmPlantDataList[0],
-                                  );
-                                });
-                              case FarmPlantSetStyle.double:
-                                setState(() {
-                                  _farmPlantSetData = DoubleFarmPlantSetData(
-                                    left: _farmPlantSetData.farmPlantDataList[0],
-                                    right: _farmPlantSetData.farmPlantDataList.elementAtOrNull(1) ??
-                                        BasicFarmPlantData.empty(),
-                                  );
-                                });
-                              case FarmPlantSetStyle.square:
-                                setState(() {
-                                  _farmPlantSetData = SquareFarmPlantSetData(
-                                    topLeft: _farmPlantSetData.farmPlantDataList[0],
-                                    topRight: _farmPlantSetData.farmPlantDataList.elementAtOrNull(1) ??
-                                        BasicFarmPlantData.empty(),
-                                    bottomLeft: _farmPlantSetData.farmPlantDataList.elementAtOrNull(2) ??
-                                        BasicFarmPlantData.empty(),
-                                    bottomRight: _farmPlantSetData.farmPlantDataList.elementAtOrNull(3) ??
-                                        BasicFarmPlantData.empty(),
-                                  );
-                                });
-                            }
-                          },
-                          child: Text(style.name),
-                        )),
-                  ],
-                ),
+                farmPlantStyleSelectionBox,
+                farmPlantSetStyleSelectionBox,
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -344,5 +436,18 @@ class _EditFarmSetState extends State<EditFarmSet> {
         ),
       ),
     );
+  }
+}
+
+extension on FarmPlantStyle {
+  FarmPlantData get emptyData {
+    switch (this) {
+      case FarmPlantStyle.basic:
+        return BasicFarmPlantData.empty();
+      case FarmPlantStyle.dense:
+        return DenseFarmPlantData.empty();
+      case FarmPlantStyle.reverseDense:
+        return ReverseDenseFarmPlantData.empty();
+    }
   }
 }
