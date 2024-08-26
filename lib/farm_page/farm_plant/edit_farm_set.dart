@@ -2,7 +2,7 @@ import 'package:dst_helper/farm_page/farm_plant/farm_plant_data.dart';
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_set.dart';
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_set_data.dart';
 import 'package:dst_helper/farm_page/side_info_box/fertilizers_info_box.dart';
-import 'package:dst_helper/farm_page/side_info_box/nutrients_info_box.dart';
+import 'package:dst_helper/farm_page/side_info_box/crops_info_box.dart';
 import 'package:dst_helper/models/dst_object.dart';
 import 'package:dst_helper/models/localization.dart';
 import 'package:flutter/material.dart';
@@ -308,7 +308,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 FertilizersInfoBox(),
-                NutrientsInfoBox(),
+                CropsInfoBox(),
               ],
             ),
             Column(

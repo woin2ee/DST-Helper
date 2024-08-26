@@ -1,5 +1,5 @@
 import 'package:dst_helper/farm_page/side_info_box/fertilizers_info_box.dart';
-import 'package:dst_helper/farm_page/side_info_box/nutrients_info_box.dart';
+import 'package:dst_helper/farm_page/side_info_box/crops_info_box.dart';
 import 'package:dst_helper/farm_page/side_info_box/seeds_info_box.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +20,7 @@ enum SideInfoMenu {
           onPressed: onPressed,
           color: Colors.brown.shade200,
         ),
-      SideInfoMenu.nutrients => NutrientsInfoBoxTag(
+      SideInfoMenu.nutrients => CropsInfoBoxTag(
           size: SideInfoBox.tagSize,
           onPressed: onPressed,
           color: Colors.orange.shade50,
@@ -104,7 +104,7 @@ class _SideInfoBoxState extends State<SideInfoBox> {
                   color: Colors.orange.shade50,
                   boxShadow: kElevationToShadow[2],
                 ),
-                child: const NutrientsInfoBox(),
+                child: const CropsInfoBox(),
               ),
             ),
           ],
