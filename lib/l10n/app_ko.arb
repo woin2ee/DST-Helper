@@ -1,6 +1,9 @@
 {
     "@@locale": "ko",
     "add": "추가",
+    "name": "이름",
+    "crops": "작물",
+    "fertilizers": "비료",
     "asparagus_seeds_assumed_name": "관모양 씨앗",
     "autumn": "가을",
     "butterflymuffin": "버터 머핀",

@@ -7,14 +7,11 @@ sealed class FarmPlantData {
   final List<PlantObject?> plants;
 
   bool get hasBalancedNutrients {
-    var result = const Nutrient(compost: 0, growthFormula: 0, manure: 0);
-    for (var i = 0; i < countOfPlants; i++) {
-      var plant = plants[i];
-      if (plant != null) {
-        result += plant.nutrient;
-      }
-    }
-    return result.compost == 0 && result.growthFormula == 0 && result.manure == 0;
+    return totalNutrient.equalsOfValue(Nutrient.zero());
+  }
+
+  Nutrient get totalNutrient {
+    return plants.fold(Nutrient.zero(), (partial, next) => partial + (next?.nutrient ?? Nutrient.zero()));
   }
 
   FarmPlantData copyWith({List<PlantObject?>? plants});

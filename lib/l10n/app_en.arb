@@ -1,6 +1,9 @@
 {
     "@@locale": "en",
     "add": "Add",
+    "name": "name",
+    "crops": "Crops",
+    "fertilizers": "Fertilizers",
     "asparagus_seeds_assumed_name": "Tubular Seeds",
     "autumn": "Autumn",
     "butterflymuffin": "Butter Muffin",

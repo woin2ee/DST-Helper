@@ -112,11 +112,20 @@ class Nutrient {
     required this.manure,
   });
 
+  Nutrient.zero()
+      : compost = 0,
+        growthFormula = 0,
+        manure = 0;
+
   Nutrient operator +(Nutrient right) => Nutrient(
         compost: compost + right.compost,
         growthFormula: growthFormula + right.growthFormula,
         manure: manure + right.manure,
       );
+
+  bool equalsOfValue(Nutrient other) {
+    return (compost == other.compost) && (growthFormula == other.growthFormula) && (manure == other.manure);
+  }
 }
 
 /// It represents all of items cookable through the crock pot.
