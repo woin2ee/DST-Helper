@@ -1,5 +1,5 @@
-import 'package:dst_helper/models/dst_object.dart';
-import 'package:dst_helper/models/ingredients_analyser.dart';
+import 'package:dst_helper/models/v1/item/dst_object.dart';
+import 'package:dst_helper/models/v1/item/ingredients_analyser.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

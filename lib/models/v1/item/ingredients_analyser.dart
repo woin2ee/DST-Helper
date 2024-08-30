@@ -1,5 +1,5 @@
-import 'package:dst_helper/models/dst_object.dart';
-import 'package:dst_helper/models/food_value.dart';
+import 'package:dst_helper/models/v1/item/dst_object.dart';
+import 'package:dst_helper/models/v1/item/food_value.dart';
 
 typedef Ingredients = Iterable<IngredientObject>;
 

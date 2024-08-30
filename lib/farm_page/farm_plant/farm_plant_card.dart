@@ -1,5 +1,5 @@
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_set.dart';
-import 'package:dst_helper/models/localization.dart';
+import 'package:dst_helper/models/v1/localization/season_localization.dart';
 import 'package:flutter/material.dart';
 
 class FarmPlantCard extends StatelessWidget {

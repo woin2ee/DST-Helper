@@ -1,12 +1,15 @@
+import 'dart:convert';
+
 import 'package:dst_helper/farm_page/farm_plant/edit_farm_set.dart';
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_card.dart';
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_set.dart';
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_set_data.dart';
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_set_data_sample.dart';
 import 'package:dst_helper/farm_page/side_info_box/side_info_box.dart';
-import 'package:dst_helper/models/localization.dart';
-import 'package:dst_helper/models/season.dart';
+import 'package:dst_helper/models/v1/localization/season_localization.dart';
+import 'package:dst_helper/models/v1/season.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FarmPage extends StatefulWidget {
   const FarmPage({super.key});
@@ -16,6 +19,15 @@ class FarmPage extends StatefulWidget {
 }
 
 class _FarmPageState extends State<FarmPage> {
+  final Future<SharedPreferencesWithCache> _prefs = SharedPreferencesWithCache.create(
+    cacheOptions: const SharedPreferencesWithCacheOptions(
+      allowList: {
+        'selectedSeasonStateJson',
+        'farmPlantSetDataListJson',
+      },
+    ),
+  );
+
   final List<(Season, bool)> _selectedSeasonState = [
     (Season.spring, true),
     (Season.summer, false),
@@ -23,9 +35,7 @@ class _FarmPageState extends State<FarmPage> {
     (Season.winter, false),
   ];
 
-  Season get selectedSeason => _selectedSeasonState.firstWhere((element) => element.$2 == true).$1;
-
-  final List<FarmPlantSetData> _farmPlantSetDataList = [
+  List<FarmPlantSetData> _farmPlantSetDataList = [
     FarmPlantSetDataSample.preDefined1,
     FarmPlantSetDataSample.preDefined2,
     FarmPlantSetDataSample.preDefined3,
@@ -46,98 +56,44 @@ class _FarmPageState extends State<FarmPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    Iterable<FarmPlantSetData> springFarmPlantSetDataList = _farmPlantSetDataList.where((farmPlantSetData) {
-      return farmPlantSetData.suitableSeasons.contains(Season.spring);
+  void initState() {
+    super.initState();
+    _prefs.then((prefs) {
+      final farmPlantSetDataListJson = prefs.getString('farmPlantSetDataListJson');
+      if (farmPlantSetDataListJson == null) {
+        _farmPlantSetDataList = FarmPlantSetDataSample.preDefinedList;
+        return;
+      }
+      final jsonObject = jsonDecode(farmPlantSetDataListJson) as Map<String, dynamic>;
+
+      throw UnimplementedError();
     });
 
-    return Theme(
-      data: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: selectedSeason.personalColor),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: WeatherSelectionButton(
-                        onSelected: (index) {
-                          setState(() {
-                            for (var i = 0; i < Season.values.length; i++) {
-                              _selectedSeasonState[i] = (_selectedSeasonState[i].$1, i == index);
-                            }
-                          });
-                        },
-                        selectedSeasonState: _selectedSeasonState.map((element) => element.$2).toList(),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        final result = showDialog(
-                          barrierColor: Colors.black.withOpacity(0.35),
-                          // barrierDismissible: false,
-                          context: context,
-                          builder: (context) => const Dialog(
-                            child: EditFarmSet(),
-                          ),
-                        );
-                        result.then((farmPlantSetData) {
-                          // farmPlantSetData as FarmPlantSetData;
-                          setState(() {
-                            _farmPlantSetDataList.add(farmPlantSetData);
-                          });
-                        });
-                      },
-                      child: const Text('New'),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                    child: FarmList(
-                      farmPlantSetDataList: _farmPlantSetDataListForSuitableSeason(selectedSeason),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          const SideInfoBox(),
-        ],
-      ),
-    );
+    // List<FarmPlantSetData>;
+
+    // List.fromJson
+
+    // [1, 2, 3].to
   }
-}
-
-class WeatherSelectionButton extends StatelessWidget {
-  const WeatherSelectionButton({
-    super.key,
-    required this.onSelected,
-    required this.selectedSeasonState,
-  });
-
-  final Function(int) onSelected;
-  final List<bool> selectedSeasonState;
 
   @override
   Widget build(BuildContext context) {
-    return ToggleButtons(
+    Season selectedSeason = _selectedSeasonState.firstWhere((element) => element.$2 == true).$1;
+
+    final seasonSelectionBox = ToggleButtons(
       borderRadius: BorderRadius.circular(10),
       constraints: const BoxConstraints(
         minWidth: 70,
         minHeight: 40,
       ),
-      isSelected: selectedSeasonState,
-      onPressed: onSelected,
+      isSelected: _selectedSeasonState.map((element) => element.$2).toList(),
+      onPressed: (index) {
+        setState(() {
+          for (var i = 0; i < Season.values.length; i++) {
+            _selectedSeasonState[i] = (_selectedSeasonState[i].$1, i == index);
+          }
+        });
+      },
       children: [
         ...Season.values.map((season) => Padding(
               padding: const EdgeInsets.only(
@@ -153,17 +109,72 @@ class WeatherSelectionButton extends StatelessWidget {
             )),
       ],
     );
+
+    final newButton = ElevatedButton(
+      onPressed: () {
+        final result = showDialog(
+          barrierColor: Colors.black.withOpacity(0.35),
+          // barrierDismissible: false,
+          context: context,
+          builder: (context) => const Dialog(
+            child: EditFarmSet(),
+          ),
+        );
+        result.then((farmPlantSetData) {
+          setState(() {
+            _farmPlantSetDataList.add(farmPlantSetData);
+          });
+        });
+      },
+      child: const Text('New'),
+    );
+
+    return Theme(
+      data: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: selectedSeason.personalColor),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Row(
+                    spacing: 12,
+                    children: [
+                      seasonSelectionBox,
+                      newButton,
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8, right: 8),
+                    child: FarmList(
+                      farmPlantSetDataList: _farmPlantSetDataListForSuitableSeason(selectedSeason),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SideInfoBox(),
+        ],
+      ),
+    );
   }
 }
 
 class FarmList extends StatelessWidget {
   const FarmList({
     super.key,
-    // required this.selectedSeason,
     required this.farmPlantSetDataList,
   });
 
-  // final Season selectedSeason;
   final List<FarmPlantSetData> farmPlantSetDataList;
 
   @override
@@ -179,96 +190,6 @@ class FarmList extends StatelessWidget {
                   child: FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: farmPlantSetData)),
                 )),
           ],
-          // switch (selectedSeason) {
-          //   Season.spring => [
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined1)),
-          //       ),
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined1)),
-          //       ),
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined2)),
-          //       ),
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined4)),
-          //       ),
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined5)),
-          //       ),
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined6)),
-          //       ),
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined8)),
-          //       ),
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined11)),
-          //       ),
-          //     ],
-          //   Season.summer => [
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined2)),
-          //       ),
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined4)),
-          //       ),
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined5)),
-          //       ),
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined9)),
-          //       ),
-          //     ],
-          //   Season.autumn => [
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined1)),
-          //       ),
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined3)),
-          //       ),
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined6)),
-          //       ),
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined9)),
-          //       ),
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined10)),
-          //       ),
-          //     ],
-          //   Season.winter => [
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined3)),
-          //       ),
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined7)),
-          //       ),
-          //       FittedBox(
-          //         child:
-          //             FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: FarmPlantSetDataSample.preDefined10)),
-          //       ),
-          //     ],
-          // },
         ),
       ),
     );

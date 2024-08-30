@@ -1,5 +1,5 @@
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_data.dart';
-import 'package:dst_helper/models/season.dart';
+import 'package:dst_helper/models/v1/season.dart';
 
 enum FarmPlantSetStyle {
   single,
@@ -10,9 +10,10 @@ enum FarmPlantSetStyle {
 sealed class FarmPlantSetData {
   FarmPlantSetData({required this.farmPlantDataList});
 
+  final List<FarmPlantData> farmPlantDataList;
+
   FarmPlantSetStyle get farmPlantSetStyle;
   int get farmPlantsCount;
-  final List<FarmPlantData> farmPlantDataList;
 
   FarmPlantSetData copyWith({List<FarmPlantData>? farmPlantDataList});
 
@@ -31,14 +32,22 @@ sealed class FarmPlantSetData {
     }
     return seasons;
   }
+
+  Map<String, dynamic> toJson();
 }
 
 class SingleFarmPlantSetData extends FarmPlantSetData {
   SingleFarmPlantSetData({required FarmPlantData farmPlantData}) : super(farmPlantDataList: [farmPlantData]);
 
-  // SingleFarmPlantSetData copyWith({required FarmPlantData farmPlantData}) {
-  //   return SingleFarmPlantSetData(farmPlantData: farmPlantData);
-  // }
+  SingleFarmPlantSetData.fromJson(Map<String, dynamic> json)
+      : super(
+          farmPlantDataList: json['farmPlantDataList'] as List<FarmPlantData>,
+        );
+
+  @override
+  FarmPlantSetData copyWith({List<FarmPlantData>? farmPlantDataList}) {
+    return SingleFarmPlantSetData(farmPlantData: farmPlantDataList?[0] ?? farmPlantData);
+  }
 
   @override
   int get farmPlantsCount => 1;
@@ -49,9 +58,9 @@ class SingleFarmPlantSetData extends FarmPlantSetData {
   FarmPlantData get farmPlantData => farmPlantDataList[0];
 
   @override
-  FarmPlantSetData copyWith({List<FarmPlantData>? farmPlantDataList}) {
-    return SingleFarmPlantSetData(farmPlantData: farmPlantDataList?[0] ?? farmPlantData);
-  }
+  Map<String, dynamic> toJson() => {
+        'farmPlantDataList': farmPlantDataList,
+      };
 }
 
 class DoubleFarmPlantSetData extends FarmPlantSetData {
@@ -75,6 +84,12 @@ class DoubleFarmPlantSetData extends FarmPlantSetData {
       left: farmPlantDataList?[0] ?? this.farmPlantDataList[0],
       right: farmPlantDataList?[1] ?? this.farmPlantDataList[1],
     );
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    // TODO: implement toJson
+    throw UnimplementedError();
   }
 }
 
@@ -105,5 +120,11 @@ class SquareFarmPlantSetData extends FarmPlantSetData {
       bottomLeft: farmPlantDataList?[2] ?? this.farmPlantDataList[2],
       bottomRight: farmPlantDataList?[3] ?? this.farmPlantDataList[3],
     );
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    // TODO: implement toJson
+    throw UnimplementedError();
   }
 }

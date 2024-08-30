@@ -1,8 +1,29 @@
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_data.dart';
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_set_data.dart';
-import 'package:dst_helper/models/dst_object.dart';
+import 'package:dst_helper/models/v1/item/dst_object.dart';
 
 class FarmPlantSetDataSample {
+  static List<FarmPlantSetData> get preDefinedList {
+    return [
+      preDefined1,
+      preDefined2,
+      preDefined3,
+      preDefined4,
+      preDefined5,
+      preDefined6,
+      preDefined7,
+      preDefined8,
+      preDefined9,
+      preDefined10,
+      preDefined11,
+      // preDefined12,
+      // preDefined13,
+      // preDefined14,
+      // preDefined15,
+      // preDefined16,
+    ];
+  }
+
   static FarmPlantSetData get preDefined1 {
     return SingleFarmPlantSetData(
       farmPlantData: BasicFarmPlantData(

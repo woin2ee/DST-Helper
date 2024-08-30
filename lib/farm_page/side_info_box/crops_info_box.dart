@@ -1,5 +1,5 @@
-import 'package:dst_helper/models/dst_object.dart';
-import 'package:dst_helper/models/season.dart';
+import 'package:dst_helper/models/v1/item/dst_object.dart';
+import 'package:dst_helper/models/v1/season.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

@@ -1,10 +1,11 @@
 import 'package:dst_helper/farm_page/farm_plant/farm_plant.dart';
-import 'package:dst_helper/models/dst_object.dart';
+import 'package:dst_helper/farm_page/farm_plant/farm_plant_data.dart';
+import 'package:dst_helper/models/v1/item/dst_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (style: basic)', () {
-    var farmPlant = BasicFarmPlant(
+    final farmPlantData = BasicFarmPlantData(
       const Potato(),
       const Potato(),
       const Potato(),
@@ -15,11 +16,11 @@ void main() {
       const TomaRoot(),
       const TomaRoot(),
     );
-    expect(farmPlant.hasBalancedNutrients, true);
+    expect(farmPlantData.hasBalancedNutrients, true);
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (style: basic, null 포함)', () {
-    var farmPlant = BasicFarmPlant(
+    var farmPlantData = BasicFarmPlantData(
       null,
       null,
       const Carrot(),
@@ -30,11 +31,11 @@ void main() {
       const Corn(),
       const DragonFruit(),
     );
-    expect(farmPlant.hasBalancedNutrients, true);
+    expect(farmPlantData.hasBalancedNutrients, true);
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (style: dense)', () {
-    var farmPlant = DenseFarmPlant(
+    var farmPlantData = DenseFarmPlantData(
       const Pumpkin(),
       const Garlic(),
       const Pumpkin(),
@@ -46,11 +47,11 @@ void main() {
       const Potato(),
       const Potato(),
     );
-    expect(farmPlant.hasBalancedNutrients, true);
+    expect(farmPlantData.hasBalancedNutrients, true);
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (style: reverseDense)', () {
-    var farmPlant = ReverseDenseFarmPlant(
+    var farmPlantData = ReverseDenseFarmPlantData(
       const Asparagus(),
       const Potato(),
       const Potato(),
@@ -62,11 +63,11 @@ void main() {
       const Onion(),
       const Asparagus(),
     );
-    expect(farmPlant.hasBalancedNutrients, true);
+    expect(farmPlantData.hasBalancedNutrients, true);
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (불균형 Plant)', () {
-    var farmPlant = BasicFarmPlant(
+    var farmPlantData = BasicFarmPlantData(
       const Potato(),
       null,
       null,
@@ -77,11 +78,11 @@ void main() {
       null,
       null,
     );
-    expect(farmPlant.hasBalancedNutrients, false);
+    expect(farmPlantData.hasBalancedNutrients, false);
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (균형 Plant, 잡초 포함)', () {
-    var farmPlant = BasicFarmPlant(
+    var farmPlantData = BasicFarmPlantData(
       const ForgetMeLots(),
       null,
       const Carrot(),
@@ -92,6 +93,6 @@ void main() {
       const Corn(),
       const DragonFruit(),
     );
-    expect(farmPlant.hasBalancedNutrients, false);
+    expect(farmPlantData.hasBalancedNutrients, false);
   });
 }

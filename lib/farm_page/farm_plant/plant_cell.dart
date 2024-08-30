@@ -1,4 +1,4 @@
-import 'package:dst_helper/models/dst_object.dart';
+import 'package:dst_helper/models/v1/item/dst_object.dart';
 import 'package:flutter/material.dart';
 
 class PlantCell extends StatelessWidget {

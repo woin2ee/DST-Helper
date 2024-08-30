@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import 'package:dst_helper/models/food_value.dart';
-import 'package:dst_helper/models/ingredients_analyser.dart';
-import 'package:dst_helper/models/requirement.dart';
-import 'package:dst_helper/models/season.dart';
+import 'package:dst_helper/models/v1/item/food_value.dart';
+import 'package:dst_helper/models/v1/item/ingredients_analyser.dart';
+import 'package:dst_helper/models/v1/item/requirement.dart';
+import 'package:dst_helper/models/v1/season.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
@@ -36,6 +36,7 @@ sealed class FoodObject extends DSTObject {
   final FoodType type;
 }
 
+/// 불에 구울 수 있는 아이템(다른 아이템으로 변함)
 sealed class CookableFood extends FoodObject {
   const CookableFood({
     required super.code,

@@ -1,5 +1,6 @@
-import 'package:dst_helper/models/dst_object.dart';
-import 'package:dst_helper/models/localization.dart';
+// import 'package:dst_helper/models/v2/item/item.dart';
+import 'package:dst_helper/models/v1/item/dst_object.dart';
+import 'package:dst_helper/models/v1/localization/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -134,6 +135,7 @@ class SeedsInfoBoxTag extends StatelessWidget {
         onPressed: onPressed,
         icon: Image.asset(
           "assets/images/items/${const Seeds().assetName}.png",
+          // "assets/images/items/${Seeds.seeds.assetName}.png",
           width: 50,
         ),
       ),

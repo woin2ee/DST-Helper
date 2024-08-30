@@ -1,4 +1,4 @@
-import 'package:dst_helper/models/dst_object.dart';
+import 'package:dst_helper/models/v1/item/dst_object.dart';
 
 enum FarmPlantStyle {
   basic,
@@ -9,19 +9,17 @@ enum FarmPlantStyle {
 sealed class FarmPlantData {
   FarmPlantData({required this.plants});
 
-  FarmPlantStyle get farmPlantStyle;
-  int get countOfPlants;
   final List<PlantObject?> plants;
 
-  bool get hasBalancedNutrients {
-    return totalNutrient.equalsOfValue(Nutrient.zero());
-  }
-
-  Nutrient get totalNutrient {
-    return plants.fold(Nutrient.zero(), (partial, next) => partial + (next?.nutrient ?? Nutrient.zero()));
-  }
+  FarmPlantStyle get farmPlantStyle;
+  int get countOfPlants;
+  bool get hasBalancedNutrients => totalNutrient.equalsOfValue(Nutrient.zero());
+  Nutrient get totalNutrient =>
+      plants.fold(Nutrient.zero(), (partial, next) => partial + (next?.nutrient ?? Nutrient.zero()));
 
   FarmPlantData copyWith({List<PlantObject?>? plants});
+
+  FarmPlantData toJson();
 }
 
 /// (top) 3 : 3 : 3 (bottom)
@@ -43,6 +41,11 @@ class BasicFarmPlantData extends FarmPlantData {
   BasicFarmPlantData.withPlants(List<PlantObject?> plants)
       : assert(plants.length == 9),
         super(plants: plants);
+
+  BasicFarmPlantData.fromJson(Map<String, dynamic> json)
+      : super(
+          plants: json['plants'] as List<PlantObject?>,
+        );
 
   @override
   BasicFarmPlantData copyWith({
@@ -66,6 +69,12 @@ class BasicFarmPlantData extends FarmPlantData {
 
   @override
   FarmPlantStyle get farmPlantStyle => FarmPlantStyle.basic;
+
+  @override
+  FarmPlantData toJson() {
+    // TODO: implement toJson
+    throw UnimplementedError();
+  }
 }
 
 /// (top) 2 : 3 : 2 : 3 (bottom)
@@ -108,6 +117,12 @@ class DenseFarmPlantData extends FarmPlantData {
 
   @override
   FarmPlantStyle get farmPlantStyle => FarmPlantStyle.dense;
+
+  @override
+  FarmPlantData toJson() {
+    // TODO: implement toJson
+    throw UnimplementedError();
+  }
 }
 
 /// (top) 3 : 2 : 3 : 2 (bottom)
@@ -150,4 +165,10 @@ class ReverseDenseFarmPlantData extends FarmPlantData {
 
   @override
   FarmPlantStyle get farmPlantStyle => FarmPlantStyle.reverseDense;
+
+  @override
+  FarmPlantData toJson() {
+    // TODO: implement toJson
+    throw UnimplementedError();
+  }
 }
