@@ -1,8 +1,7 @@
-import 'package:universal_io/io.dart';
-
 import 'package:dst_helper/app/home_page.dart';
+import 'package:dst_helper/localization/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:universal_io/io.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
