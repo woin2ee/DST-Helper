@@ -100,11 +100,11 @@ class __$$FoodValueImplCopyWithImpl<$Res>
     Object? quantifiedValue = null,
   }) {
     return _then(_$FoodValueImpl(
-      category: null == category
+      null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as FoodValueCategory,
-      quantifiedValue: null == quantifiedValue
+      null == quantifiedValue
           ? _value.quantifiedValue
           : quantifiedValue // ignore: cast_nullable_to_non_nullable
               as double,
@@ -115,8 +115,7 @@ class __$$FoodValueImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$FoodValueImpl implements _FoodValue {
-  const _$FoodValueImpl(
-      {required this.category, required this.quantifiedValue});
+  const _$FoodValueImpl(this.category, this.quantifiedValue);
 
   factory _$FoodValueImpl.fromJson(Map<String, dynamic> json) =>
       _$$FoodValueImplFromJson(json);
@@ -164,8 +163,8 @@ class _$FoodValueImpl implements _FoodValue {
 
 abstract class _FoodValue implements FoodValue {
   const factory _FoodValue(
-      {required final FoodValueCategory category,
-      required final double quantifiedValue}) = _$FoodValueImpl;
+          final FoodValueCategory category, final double quantifiedValue) =
+      _$FoodValueImpl;
 
   factory _FoodValue.fromJson(Map<String, dynamic> json) =
       _$FoodValueImpl.fromJson;

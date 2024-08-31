@@ -8,8 +8,8 @@ part of 'food_value.dart';
 
 _$FoodValueImpl _$$FoodValueImplFromJson(Map<String, dynamic> json) =>
     _$FoodValueImpl(
-      category: $enumDecode(_$FoodValueCategoryEnumMap, json['category']),
-      quantifiedValue: (json['quantifiedValue'] as num).toDouble(),
+      $enumDecode(_$FoodValueCategoryEnumMap, json['category']),
+      (json['quantifiedValue'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$FoodValueImplToJson(_$FoodValueImpl instance) =>

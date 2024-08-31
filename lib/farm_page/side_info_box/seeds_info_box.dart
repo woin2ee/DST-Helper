@@ -1,8 +1,7 @@
-// import 'package:dst_helper/models/v2/item/item.dart';
-import 'package:dst_helper/models/v1/item/dst_object.dart';
-import 'package:dst_helper/models/v1/localization/localization.dart';
+import 'package:dst_helper/localization/text_localizations.dart';
+import 'package:dst_helper/models/v2/item/item.dart';
+import 'package:dst_helper/models/v2/localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum SettingItem {
   displayingSeedName;
@@ -11,7 +10,7 @@ enum SettingItem {
   String description(BuildContext context) {
     switch (this) {
       case SettingItem.displayingSeedName:
-        return AppLocalizations.of(context)!.show_seeds_alias;
+        return TextLocalizations.of(context)!.localized('show_seeds_alias');
       // case SettingItem.displayingCropName:
       //   return '작물 이름 표시';
     }
@@ -40,7 +39,7 @@ class _SeedsInfoBoxState extends State<SeedsInfoBox> {
           Row(
             children: [
               Text(
-                AppLocalizations.of(context)!.seeds,
+                TextLocalizations.of(context)!.localized('seeds'),
                 style: const TextStyle(
                   fontSize: 20,
                   color: Colors.white,
@@ -68,7 +67,7 @@ class _SeedsInfoBoxState extends State<SeedsInfoBox> {
               ),
             ],
           ),
-          ...Plants.crops.map((crop) => SizedBox(
+          ...Crops.crops.map((crop) => SizedBox(
                 height: 46,
                 child: Row(
                   children: [
@@ -76,7 +75,7 @@ class _SeedsInfoBoxState extends State<SeedsInfoBox> {
                       Padding(
                         padding: const EdgeInsets.only(left: 6.0, right: 10.0),
                         child: Text(
-                          crop.seeds.localizedAssumedName(context),
+                          crop.seed.localizedAssumedName(context),
                           style: const TextStyle(
                             fontSize: 16,
                             color: Colors.white,
@@ -84,7 +83,7 @@ class _SeedsInfoBoxState extends State<SeedsInfoBox> {
                         ),
                       ),
                     Image.asset(
-                      'assets/images/items/${crop.seeds.assetName}.png',
+                      'assets/images/items/${crop.seed.assetName}.png',
                     ),
                     const Text(
                       "=",
@@ -134,8 +133,7 @@ class SeedsInfoBoxTag extends StatelessWidget {
         iconSize: 20,
         onPressed: onPressed,
         icon: Image.asset(
-          "assets/images/items/${const Seeds().assetName}.png",
-          // "assets/images/items/${Seeds.seeds.assetName}.png",
+          "assets/images/items/${Seeds.seeds.assetName}.png",
           width: 50,
         ),
       ),

@@ -43,10 +43,10 @@ enum FoodValueCategory {
 
 @freezed
 class FoodValue with _$FoodValue {
-  const factory FoodValue({
-    required FoodValueCategory category,
-    required double quantifiedValue,
-  }) = _FoodValue;
+  const factory FoodValue(
+    FoodValueCategory category,
+    double quantifiedValue,
+  ) = _FoodValue;
 
   factory FoodValue.fromJson(Map<String, Object?> json) => _$FoodValueFromJson(json);
 }

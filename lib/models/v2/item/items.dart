@@ -22,184 +22,173 @@ extension Crops on Crop {
   static Crop potato = Crop(
     code: 'potato',
     assetName: 'potato',
-    foodValues: FoodValues({const FoodValue(category: FoodValueCategory.vegetable, quantifiedValue: 1.0)}),
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}),
     nutrient: const Nutrient(compost: 2, growthFormula: 2, manure: -4),
     seasons: {Season.spring, Season.autumn, Season.winter},
     type: FoodType.veggie,
     seed: Seeds.potatoSeed,
   );
 
-  // TODO: Implementation is not checked
-  static Crop carrot = const Crop(
-    code: 'code',
-    assetName: 'assetName',
-    foodValues: FoodValues({}),
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
-    seasons: {},
+  static Crop carrot = Crop(
+    code: 'carrot',
+    assetName: 'carrot',
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}),
+    nutrient: const Nutrient(compost: 2, growthFormula: -4, manure: 2),
+    seasons: {Season.spring, Season.autumn, Season.winter},
     type: FoodType.veggie,
-    seed: Seeds.potatoSeed,
+    seed: Seeds.carrotSeed,
   );
 
-  // TODO: Implementation is not checked
-  static Crop corn = const Crop(
-    code: 'code',
-    assetName: 'assetName',
-    foodValues: FoodValues({}),
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
-    seasons: {},
+  static Crop corn = Crop(
+    code: 'corn',
+    assetName: 'corn',
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}),
+    nutrient: const Nutrient(compost: -4, growthFormula: 2, manure: 2),
+    seasons: {Season.spring, Season.summer, Season.autumn},
     type: FoodType.veggie,
-    seed: Seeds.potatoSeed,
+    seed: Seeds.cornSeed,
   );
 
-  // TODO: Implementation is not checked
-  static Crop tomaRoot = const Crop(
-    code: 'code',
-    assetName: 'assetName',
-    foodValues: FoodValues({}),
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
-    seasons: {},
+  static Crop tomaRoot = Crop(
+    code: 'tomato',
+    assetName: 'toma_root',
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}),
+    nutrient: const Nutrient(compost: -2, growthFormula: -2, manure: 4),
+    seasons: {Season.spring, Season.summer, Season.autumn},
     type: FoodType.veggie,
-    seed: Seeds.potatoSeed,
+    seed: Seeds.tomaRootSeed,
   );
 
-  // TODO: Implementation is not checked
-  static Crop asparagus = const Crop(
-    code: 'code',
-    assetName: 'assetName',
-    foodValues: FoodValues({}),
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
-    seasons: {},
+  static Crop asparagus = Crop(
+    code: 'asparagus',
+    assetName: 'asparagus',
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}),
+    nutrient: const Nutrient(compost: -4, growthFormula: 2, manure: 2),
+    seasons: {Season.spring, Season.winter},
     type: FoodType.veggie,
-    seed: Seeds.potatoSeed,
+    seed: Seeds.asparagusSeed,
   );
 
-  // TODO: Implementation is not checked
-  static Crop watermelon = const Crop(
-    code: 'code',
-    assetName: 'assetName',
-    foodValues: FoodValues({}),
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
-    seasons: {},
+  static Crop watermelon = Crop(
+    code: 'watermelon',
+    assetName: 'watermelon',
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.fruit, 1.0)}),
+    nutrient: const Nutrient(compost: -2, growthFormula: 4, manure: -2),
+    seasons: {Season.spring, Season.summer},
     type: FoodType.veggie,
-    seed: Seeds.potatoSeed,
+    seed: Seeds.watermelonSeed,
   );
 
-  // TODO: Implementation is not checked
-  static Crop pumpkin = const Crop(
-    code: 'code',
-    assetName: 'assetName',
-    foodValues: FoodValues({}),
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
-    seasons: {},
+  static Crop pumpkin = Crop(
+    code: 'pumpkin',
+    assetName: 'pumpkin',
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}),
+    nutrient: const Nutrient(compost: 2, growthFormula: -4, manure: 2),
+    seasons: {Season.autumn, Season.winter},
     type: FoodType.veggie,
-    seed: Seeds.potatoSeed,
+    seed: Seeds.pumpkinSeed,
   );
 
-  // TODO: Implementation is not checked
-  static Crop eggplant = const Crop(
-    code: 'code',
-    assetName: 'assetName',
-    foodValues: FoodValues({}),
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
-    seasons: {},
+  static Crop eggplant = Crop(
+    code: 'eggplant',
+    assetName: 'eggplant',
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}),
+    nutrient: const Nutrient(compost: 2, growthFormula: 2, manure: -4),
+    seasons: {Season.spring, Season.autumn},
     type: FoodType.veggie,
-    seed: Seeds.potatoSeed,
+    seed: Seeds.eggplantSeed,
   );
 
-  // TODO: Implementation is not checked
-  static Crop garlic = const Crop(
-    code: 'code',
-    assetName: 'assetName',
-    foodValues: FoodValues({}),
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
-    seasons: {},
+  static Crop garlic = Crop(
+    code: 'garlic',
+    assetName: 'garlic',
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}),
+    nutrient: const Nutrient(compost: -8, growthFormula: 4, manure: 4),
+    seasons: {Season.spring, Season.summer, Season.autumn, Season.winter},
     type: FoodType.veggie,
-    seed: Seeds.potatoSeed,
+    seed: Seeds.garlicSeed,
   );
 
-  // TODO: Implementation is not checked
-  static Crop onion = const Crop(
-    code: 'code',
-    assetName: 'assetName',
-    foodValues: FoodValues({}),
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
-    seasons: {},
+  static Crop onion = Crop(
+    code: 'onion',
+    assetName: 'onion',
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}),
+    nutrient: const Nutrient(compost: 4, growthFormula: -8, manure: 4),
+    seasons: {Season.spring, Season.summer, Season.autumn},
     type: FoodType.veggie,
-    seed: Seeds.potatoSeed,
+    seed: Seeds.onionSeed,
   );
 
-  // TODO: Implementation is not checked
-  static Crop pepper = const Crop(
-    code: 'code',
-    assetName: 'assetName',
-    foodValues: FoodValues({}),
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
-    seasons: {},
+  static Crop pepper = Crop(
+    code: 'pepper',
+    assetName: 'pepper',
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}),
+    nutrient: const Nutrient(compost: 4, growthFormula: 4, manure: -8),
+    seasons: {Season.summer, Season.autumn},
     type: FoodType.veggie,
-    seed: Seeds.potatoSeed,
+    seed: Seeds.pepperSeed,
   );
 
-  // TODO: Implementation is not checked
-  static Crop pomegranate = const Crop(
-    code: 'code',
-    assetName: 'assetName',
-    foodValues: FoodValues({}),
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
-    seasons: {},
+  static Crop pomegranate = Crop(
+    code: 'pomegranate',
+    assetName: 'pomegranate',
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.fruit, 1.0)}),
+    nutrient: const Nutrient(compost: 4, growthFormula: -8, manure: 4),
+    seasons: {Season.spring, Season.summer},
     type: FoodType.veggie,
-    seed: Seeds.potatoSeed,
+    seed: Seeds.pomegranateSeed,
   );
 
-  // TODO: Implementation is not checked
-  static Crop dragonFruit = const Crop(
-    code: 'code',
-    assetName: 'assetName',
-    foodValues: FoodValues({}),
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
-    seasons: {},
+  static Crop dragonFruit = Crop(
+    code: 'dragonfruit',
+    assetName: 'dragon_fruit',
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.fruit, 1.0)}),
+    nutrient: const Nutrient(compost: 4, growthFormula: 4, manure: -8),
+    seasons: {Season.spring, Season.summer},
     type: FoodType.veggie,
-    seed: Seeds.potatoSeed,
+    seed: Seeds.dragonFruitSeed,
   );
 
-  // TODO: Implementation is not checked
-  static Crop durian = const Crop(
-    code: 'code',
-    assetName: 'assetName',
-    foodValues: FoodValues({}),
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
-    seasons: {},
+  static Crop durian = Crop(
+    code: 'durian',
+    assetName: 'durian',
+    foodValues: FoodValues({
+      const FoodValue(FoodValueCategory.fruit, 1.0),
+      const FoodValue(FoodValueCategory.monster, 1.0),
+    }),
+    nutrient: const Nutrient(compost: -8, growthFormula: 4, manure: 4),
+    seasons: {Season.spring},
     type: FoodType.veggie,
-    seed: Seeds.potatoSeed,
+    seed: Seeds.durianSeed,
   );
 }
 
 extension Weeds on Weed {
-  // TODO: Implementation is not checked
   static Weed forgetMeLots = const Weed.forgetMeLots(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'forgetmelots',
+    assetName: 'forget_me_lots',
     nutrient: Nutrient(compost: -2, growthFormula: -2, manure: -2),
     seasons: {},
     foodValues: null,
   );
-  // TODO: Implementation is not checked
+
   static Weed fireNettleFronds = const Weed(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'firenettles',
+    assetName: 'fire_nettle_fronds',
     nutrient: Nutrient(compost: -2, growthFormula: -2, manure: -2),
     seasons: {},
   );
-  // TODO: Implementation is not checked
+
   static Weed tillweeds = const Weed(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'tillweed',
+    assetName: 'tillweeds',
     nutrient: Nutrient(compost: -2, growthFormula: -2, manure: -2),
     seasons: {},
   );
-  // TODO: Implementation is not checked
+
   static Weed spinyBindweed = const Weed(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'weed_ivy',
+    assetName: '',
     nutrient: Nutrient(compost: -2, growthFormula: -2, manure: -2),
     seasons: {},
   );
@@ -222,118 +211,105 @@ extension Seeds on Seed {
     cookedAssetName: 'toasted_seeds',
   );
 
-// TODO: Implementation is not checked
   static const Seed carrotSeed = Seed(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'carrot_seeds',
+    assetName: 'carrot_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
     cookedAssetName: 'toasted_seeds',
   );
 
-// TODO: Implementation is not checked
   static const Seed cornSeed = Seed(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'corn_seeds',
+    assetName: 'corn_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
     cookedAssetName: 'toasted_seeds',
   );
 
-// TODO: Implementation is not checked
   static const Seed tomaRootSeed = Seed(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'tomato_seeds',
+    assetName: 'toma_root_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
     cookedAssetName: 'toasted_seeds',
   );
 
-// TODO: Implementation is not checked
   static const Seed asparagusSeed = Seed(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'asparagus_seeds',
+    assetName: 'asparagus_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
     cookedAssetName: 'toasted_seeds',
   );
 
-// TODO: Implementation is not checked
   static const Seed watermelonSeed = Seed(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'watermelon_seeds',
+    assetName: 'watermelon_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
     cookedAssetName: 'toasted_seeds',
   );
 
-// TODO: Implementation is not checked
   static const Seed pumpkinSeed = Seed(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'pumpkin_seeds',
+    assetName: 'pumpkin_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
     cookedAssetName: 'toasted_seeds',
   );
 
-// TODO: Implementation is not checked
   static const Seed eggplantSeed = Seed(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'eggplant_seeds',
+    assetName: 'eggplant_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
     cookedAssetName: 'toasted_seeds',
   );
 
-// TODO: Implementation is not checked
   static const Seed garlicSeed = Seed(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'garlic_seeds',
+    assetName: 'garlic_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
     cookedAssetName: 'toasted_seeds',
   );
 
-// TODO: Implementation is not checked
   static const Seed onionSeed = Seed(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'onion_seeds',
+    assetName: 'onion_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
     cookedAssetName: 'toasted_seeds',
   );
 
-// TODO: Implementation is not checked
   static const Seed pepperSeed = Seed(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'pepper_seeds',
+    assetName: 'pepper_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
     cookedAssetName: 'toasted_seeds',
   );
 
-// TODO: Implementation is not checked
   static const Seed pomegranateSeed = Seed(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'pomegranate_seeds',
+    assetName: 'pomegranate_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
     cookedAssetName: 'toasted_seeds',
   );
 
-// TODO: Implementation is not checked
   static const Seed dragonFruitSeed = Seed(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'dragonfruit_seeds',
+    assetName: 'dragon_fruit_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
     cookedAssetName: 'toasted_seeds',
   );
 
-// TODO: Implementation is not checked
   static const Seed durianSeed = Seed(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'durian_seeds',
+    assetName: 'durian_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
     cookedAssetName: 'toasted_seeds',
