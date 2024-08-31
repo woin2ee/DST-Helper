@@ -21,6 +21,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
   final TextEditingController _titleTextEditingController = TextEditingController();
   FarmPlantSetStyle _selectedFarmPlantSetStyle = FarmPlantSetStyle.single;
   FarmPlantStyle _selectedFarmPlantStyle = FarmPlantStyle.basic;
+  bool hasChanges = false;
 
   FarmPlantSetData _farmPlantSetData =
       FarmPlantSetData.single(farmPlantData: FarmPlantData.empty(FarmPlantStyle.basic));
@@ -163,6 +164,53 @@ class _EditFarmSetState extends State<EditFarmSet> {
     return null;
   }
 
+  /// Shows a dialog and resolves to true when the user has indicated that they
+  /// want to pop.
+  ///
+  /// A return value of null indicates a desire not to pop, such as when the
+  /// user has dismissed the modal without tapping a button.
+  Future<bool?> _showBackDialog() {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Are you sure?'),
+          content: const Text(
+            'Are you sure you want to leave this page?',
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Nevermind'),
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Leave'),
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _titleTextEditingController.addListener(() {
+      hasChanges = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final farmPlantSetStyleSelectionBox = Row(
@@ -225,63 +273,22 @@ class _EditFarmSetState extends State<EditFarmSet> {
       children: <Widget>[
         ...FarmPlantStyle.values.map((style) => OutlinedButton(
               onPressed: switch (_selectedFarmPlantSetStyle) {
-                FarmPlantSetStyle.single => switch (style) {
-                    FarmPlantStyle.basic => () {
-                        setState(() {
-                          if (_selectedFarmPlantStyle == style) return;
-                          _selectedFarmPlantStyle = style;
-                          _farmPlantSetData =
-                              FarmPlantSetData.single(farmPlantData: FarmPlantData.empty(FarmPlantStyle.basic));
-                        });
-                      },
-                    FarmPlantStyle.dense => () {
-                        setState(() {
-                          if (_selectedFarmPlantStyle == style) return;
-                          _selectedFarmPlantStyle = style;
-                          _farmPlantSetData =
-                              FarmPlantSetData.single(farmPlantData: FarmPlantData.empty(FarmPlantStyle.dense));
-                        });
-                      },
-                    FarmPlantStyle.reverseDense => () {
-                        setState(() {
-                          if (_selectedFarmPlantStyle == style) return;
-                          _selectedFarmPlantStyle = style;
-                          _farmPlantSetData =
-                              FarmPlantSetData.single(farmPlantData: FarmPlantData.empty(FarmPlantStyle.reverseDense));
-                        });
-                      },
+                FarmPlantSetStyle.single => () {
+                    setState(() {
+                      if (_selectedFarmPlantStyle == style) return;
+                      _selectedFarmPlantStyle = style;
+                      _farmPlantSetData = FarmPlantSetData.single(farmPlantData: FarmPlantData.empty(style));
+                    });
                   },
-                FarmPlantSetStyle.double => switch (style) {
-                    FarmPlantStyle.basic => () {
-                        setState(() {
-                          if (_selectedFarmPlantStyle == style) return;
-                          _selectedFarmPlantStyle = style;
-                          _farmPlantSetData = FarmPlantSetData.double(
-                            left: FarmPlantData.empty(FarmPlantStyle.basic),
-                            right: FarmPlantData.empty(FarmPlantStyle.basic),
-                          );
-                        });
-                      },
-                    FarmPlantStyle.dense => () {
-                        setState(() {
-                          if (_selectedFarmPlantStyle == style) return;
-                          _selectedFarmPlantStyle = style;
-                          _farmPlantSetData = FarmPlantSetData.double(
-                            left: FarmPlantData.empty(FarmPlantStyle.dense),
-                            right: FarmPlantData.empty(FarmPlantStyle.dense),
-                          );
-                        });
-                      },
-                    FarmPlantStyle.reverseDense => () {
-                        setState(() {
-                          if (_selectedFarmPlantStyle == style) return;
-                          _selectedFarmPlantStyle = style;
-                          _farmPlantSetData = FarmPlantSetData.double(
-                            left: FarmPlantData.empty(FarmPlantStyle.reverseDense),
-                            right: FarmPlantData.empty(FarmPlantStyle.reverseDense),
-                          );
-                        });
-                      },
+                FarmPlantSetStyle.double => () {
+                    setState(() {
+                      if (_selectedFarmPlantStyle == style) return;
+                      _selectedFarmPlantStyle = style;
+                      _farmPlantSetData = FarmPlantSetData.double(
+                        left: FarmPlantData.empty(style),
+                        right: FarmPlantData.empty(style),
+                      );
+                    });
                   },
                 FarmPlantSetStyle.square => switch (style) {
                     FarmPlantStyle.basic => () {},
@@ -326,6 +333,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                       onPressed: (farmPlantIndex, plantIndex) {
                         final Plant? currentPlant =
                             _farmPlantSetData.farmPlantDataList[farmPlantIndex].plants[plantIndex];
+                        hasChanges = true;
                         setState(() {
                           _farmPlantSetData.farmPlantDataList[farmPlantIndex].plants[plantIndex] =
                               currentPlant == _selectedCrop ? null : _selectedCrop;
@@ -410,15 +418,25 @@ class _EditFarmSetState extends State<EditFarmSet> {
                   spacing: 18,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    ElevatedButton(
-                      style: const ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(Colors.red),
-                        foregroundColor: WidgetStatePropertyAll(Colors.white),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
+                    PopScope(
+                      canPop: !hasChanges,
+                      onPopInvokedWithResult: (didPop, result) async {
+                        if (didPop) return;
+                        final bool shouldPop = await _showBackDialog() ?? false;
+                        if (context.mounted && shouldPop) {
+                          Navigator.pop(context);
+                        }
                       },
-                      child: Text(AppLocalizations.of(context)!.cancel),
+                      child: ElevatedButton(
+                        style: const ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(Colors.red),
+                          foregroundColor: WidgetStatePropertyAll(Colors.white),
+                        ),
+                        onPressed: () {
+                          hasChanges ? Navigator.maybePop(context) : Navigator.pop(context);
+                        },
+                        child: Text(AppLocalizations.of(context)!.cancel),
+                      ),
                     ),
                     ElevatedButton(
                       style: const ButtonStyle(

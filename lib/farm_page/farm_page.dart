@@ -113,15 +113,13 @@ class _FarmPageState extends State<FarmPage> {
 
     final newButton = ElevatedButton(
       onPressed: () {
-        final result = showDialog(
+        showDialog(
           barrierColor: Colors.black.withOpacity(0.35),
-          // barrierDismissible: false,
           context: context,
           builder: (context) => const Dialog(
             child: EditFarmSet(),
           ),
-        );
-        result.then((farmPlantSetData) {
+        ).then((farmPlantSetData) {
           if (farmPlantSetData is FarmPlantSetData) {
             _addNewFarmPlantSetData(farmPlantSetData);
           }
