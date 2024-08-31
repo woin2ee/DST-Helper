@@ -26,18 +26,18 @@ class FarmPlantSet extends StatelessWidget {
     return switch (farmPlantSetData.farmPlantSetStyle) {
       FarmPlantSetStyle.single => FarmPlant(
           farmPlantData: farmPlantSetData.farmPlantDataList[0],
-          onPressed: (plantIndex) => onPressed?.call(0, plantIndex),
+          onPressed: onPressed == null ? null : (plantIndex) => onPressed!(0, plantIndex),
         ),
       FarmPlantSetStyle.double => Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             FarmPlant(
               farmPlantData: farmPlantSetData.farmPlantDataList[0],
-              onPressed: (plantIndex) => onPressed?.call(0, plantIndex),
+              onPressed: onPressed == null ? null : (plantIndex) => onPressed!(0, plantIndex),
             ),
             FarmPlant(
               farmPlantData: farmPlantSetData.farmPlantDataList[1],
-              onPressed: (plantIndex) => onPressed?.call(1, plantIndex),
+              onPressed: onPressed == null ? null : (plantIndex) => onPressed!(1, plantIndex),
             ).copyWith(darkTheme: true),
           ],
         ),
@@ -49,11 +49,11 @@ class FarmPlantSet extends StatelessWidget {
               children: [
                 FarmPlant(
                   farmPlantData: farmPlantSetData.farmPlantDataList[0],
-                  onPressed: (plantIndex) => onPressed?.call(0, plantIndex),
+                  onPressed: onPressed == null ? null : (plantIndex) => onPressed!(0, plantIndex),
                 ),
                 FarmPlant(
                   farmPlantData: farmPlantSetData.farmPlantDataList[1],
-                  onPressed: (plantIndex) => onPressed?.call(1, plantIndex),
+                  onPressed: onPressed == null ? null : (plantIndex) => onPressed!(1, plantIndex),
                 ).copyWith(darkTheme: true),
               ],
             ),
@@ -62,11 +62,11 @@ class FarmPlantSet extends StatelessWidget {
               children: [
                 FarmPlant(
                   farmPlantData: farmPlantSetData.farmPlantDataList[2],
-                  onPressed: (plantIndex) => onPressed?.call(2, plantIndex),
+                  onPressed: onPressed == null ? null : (plantIndex) => onPressed!(2, plantIndex),
                 ).copyWith(darkTheme: true),
                 FarmPlant(
                   farmPlantData: farmPlantSetData.farmPlantDataList[3],
-                  onPressed: (plantIndex) => onPressed?.call(3, plantIndex),
+                  onPressed: onPressed == null ? null : (plantIndex) => onPressed!(3, plantIndex),
                 ),
               ],
             ),
