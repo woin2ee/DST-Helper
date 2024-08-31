@@ -21,11 +21,14 @@ class FarmPlantCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Text(
-            '${title != null ? title! : farmPlantSet.farmPlantSetData.suitableSeasons.map((season) => season.localizedName(context))} ★',
-            maxLines: 1,
-            style: theme.textTheme.titleMedium?.copyWith(
-              color: theme.colorScheme.surfaceBright,
+          Padding(
+            padding: const EdgeInsets.only(left: 4, right: 4),
+            child: Text(
+              '${title != null ? title! : farmPlantSet.farmPlantSetData.suitableSeasons.map((season) => season.localizedName(context))} ★',
+              maxLines: 1,
+              style: theme.textTheme.titleMedium?.copyWith(
+                color: theme.colorScheme.surfaceBright,
+              ),
             ),
           ),
           farmPlantSet

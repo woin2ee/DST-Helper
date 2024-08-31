@@ -122,7 +122,9 @@ class _FarmPageState extends State<FarmPage> {
           ),
         );
         result.then((farmPlantSetData) {
-          _addNewFarmPlantSetData(farmPlantSetData);
+          if (farmPlantSetData is FarmPlantSetData) {
+            _addNewFarmPlantSetData(farmPlantSetData);
+          }
         });
       },
       child: const Text('New'),
