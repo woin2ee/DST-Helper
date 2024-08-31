@@ -1,6 +1,7 @@
 import 'package:dst_helper/app/models/menu.dart';
 import 'package:dst_helper/cook_page/cook_page.dart';
 import 'package:dst_helper/farm_page/farm_page.dart';
+import 'package:dst_helper/utils/custom_icon/custom_icon_icons.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -39,9 +40,107 @@ class _HomePageState extends State<HomePage> {
 
     final selectedMenu = _selectedMenuState.firstWhere((element) => element.$2 == true).$1;
 
-    final languagePopupMenuButton = PopupMenuButton<AvailableLanguage>(
+    return Scaffold(
+      backgroundColor: colorScheme.surfaceContainerLowest,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        actions: [
+          IconButton(
+            onPressed: () {
+              final Uri url = Uri.parse('https://github.com/woin2ee/DST-Helper');
+              launchUrl(url);
+            },
+            icon: const Icon(
+              CustomIcon.github,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(width: 20),
+          LanguagePopupMenuButton(
+            selectedLocaleName: widget.selectedLocale.localizedName,
+            onSelected: (AvailableLanguage item) {
+              widget.onSelectedLocale(Locale(item.name));
+            },
+          ),
+          const SizedBox(width: 30),
+        ],
+        title: Row(
+          children: [
+            Image.asset(
+              'assets/images/bg_loading_loading_charlie2.png',
+              height: 100,
+            ),
+            const SizedBox(width: 30),
+            ...Menu.values.asMap().entries.map((menu) => Padding(
+                  padding: const EdgeInsets.all(6),
+                  child: TextButton(
+                    onPressed: () {
+                      switch (menu.value) {
+                        case Menu.farm:
+                        case Menu.cook:
+                          setState(() {
+                            for (var i = 0; i < _selectedMenuState.length; i++) {
+                              _selectedMenuState[i] = (_selectedMenuState[i].$1, i == menu.key);
+                            }
+                          });
+                      }
+                    },
+                    child: Text(
+                      menu.value.localized(context),
+                      style: TextStyle(
+                        color: selectedMenu == menu.value ? Colors.white : Colors.grey,
+                      ),
+                    ),
+                  ),
+                )),
+          ],
+        ),
+        titleSpacing: 0,
+      ),
+      body: Row(
+        children: [
+          Expanded(
+            child: IndexedStack(
+              index: selectedMenu.index,
+              children: const [
+                FarmPage(),
+                CookPage(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class LanguagePopupMenuButton extends StatelessWidget {
+  const LanguagePopupMenuButton({
+    super.key,
+    required this.selectedLocaleName,
+    required this.onSelected,
+  });
+
+  final String selectedLocaleName;
+  final Null Function(AvailableLanguage item) onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton<AvailableLanguage>(
+      tooltip: 'Show languages',
       position: PopupMenuPosition.under,
       color: Colors.white,
+      onSelected: onSelected,
+      itemBuilder: (BuildContext context) => [
+        const PopupMenuItem(
+          value: AvailableLanguage.en,
+          child: Text('English'),
+        ),
+        const PopupMenuItem(
+          value: AvailableLanguage.ko,
+          child: Text('한국어'),
+        ),
+      ],
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
@@ -58,7 +157,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Text(
-              widget.selectedLocale.localizedName,
+              selectedLocaleName,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16.0,
@@ -70,91 +169,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-      ),
-      onSelected: (AvailableLanguage item) {
-        widget.onSelectedLocale(Locale(item.name));
-      },
-      itemBuilder: (BuildContext context) => [
-        const PopupMenuItem(
-          value: AvailableLanguage.en,
-          child: Text('English'),
-        ),
-        const PopupMenuItem(
-          value: AvailableLanguage.ko,
-          child: Text('한국어'),
-        ),
-      ],
-    );
-
-    final sideTabBar = SizedBox(
-      width: 170,
-      child: NavigationRail(
-        onDestinationSelected: (index) {
-          setState(() {
-            if (_selectedMenuState[index].$1 == Menu.github) {
-              final Uri url = Uri.parse('https://github.com/woin2ee/DST-Helper');
-              launchUrl(url);
-              return;
-            }
-            for (var i = 0; i < _selectedMenuState.length; i++) {
-              _selectedMenuState[i] = (_selectedMenuState[i].$1, i == index);
-            }
-          });
-        },
-        elevation: 4,
-        extended: true,
-        destinations: [
-          NavigationRailDestination(
-            icon: Menu.farm.icon,
-            label: Text(Menu.farm.localized(context)),
-          ),
-          NavigationRailDestination(
-            icon: Menu.cook.icon,
-            label: Text(Menu.cook.localized(context)),
-          ),
-          NavigationRailDestination(
-            icon: Menu.github.icon,
-            label: Text(Menu.github.localized(context)),
-            padding: const EdgeInsets.only(top: 20.0),
-          ),
-        ],
-        selectedIndex: selectedMenu.index,
-      ),
-    );
-
-    return Scaffold(
-      backgroundColor: colorScheme.surfaceContainerLowest,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset(
-              'assets/images/bg_loading_loading_charlie2.png',
-              height: 100,
-            ),
-            Row(
-              children: [
-                languagePopupMenuButton,
-                const SizedBox(width: 80),
-              ],
-            ),
-          ],
-        ),
-      ),
-      body: Row(
-        children: [
-          sideTabBar,
-          Expanded(
-            child: IndexedStack(
-              index: selectedMenu.index,
-              children: const [
-                FarmPage(),
-                CookPage(),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

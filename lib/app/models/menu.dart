@@ -1,21 +1,17 @@
-import 'package:dst_helper/utils/custom_icon/custom_icon_icons.dart';
+import 'package:dst_helper/localization/text_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum Menu {
   farm,
-  cook,
-  github;
+  cook;
 
   String localized(BuildContext context) {
     switch (this) {
       case Menu.farm:
-        return AppLocalizations.of(context)!.sideBar_farm;
+        return TextLocalizations.of(context)!.localized('menu_farm');
       case Menu.cook:
-        return AppLocalizations.of(context)!.sideBar_cook;
-      case Menu.github:
-        return 'Github';
+        return TextLocalizations.of(context)!.localized('menu_cook');
     }
   }
 
@@ -25,8 +21,6 @@ enum Menu {
         return const Icon(Icons.grid_4x4);
       case Menu.cook:
         return const Icon(Symbols.cooking);
-      case Menu.github:
-        return const Icon(CustomIcon.github);
     }
   }
 }
