@@ -3,10 +3,10 @@ import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_data.dart';
 import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_set_data.dart';
 import 'package:dst_helper/farm_page/side_info_box/crops_info_box.dart';
 import 'package:dst_helper/farm_page/side_info_box/fertilizers_info_box.dart';
+import 'package:dst_helper/localization/text_localizations.dart';
 import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:dst_helper/models/v2/localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditFarmSet extends StatefulWidget {
   const EditFarmSet({super.key});
@@ -153,7 +153,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
 
   Text? get nutrientsText {
     if (_everyFarmPlantHasBalancedNutrients && _anyPlantIsPlaced) {
-      return const Text('영양소 충족!');
+      return Text('${TextLocalizations.of(context)!.localized('balanced_nutrients')}!');
     }
 
     final countOfFertilizerNeeded = _calculateCountOfFertilizerNeeded();
@@ -343,7 +343,8 @@ class _EditFarmSetState extends State<EditFarmSet> {
                   ),
                 ),
                 if (_anyPlantIsPlaced)
-                  Text('적합 계절: ${_farmPlantSetData.suitableSeasons.map((season) => season.localizedName(context))}'),
+                  Text(
+                      '${TextLocalizations.of(context)!.localized('suitable_seasons')}: ${_farmPlantSetData.suitableSeasons.map((season) => season.localizedName(context))}'),
                 if (nutrientsText != null) nutrientsText!,
               ],
             ),
@@ -376,7 +377,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                     Padding(
                       padding: const EdgeInsets.only(left: 4),
                       child: Text(
-                        AppLocalizations.of(context)!.crops,
+                        TextLocalizations.of(context)!.localized('crops'),
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
@@ -395,7 +396,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         spacing: 10,
                         children: [
                           Text(
-                            AppLocalizations.of(context)!.fertilizers,
+                            TextLocalizations.of(context)!.localized('fertilizers'),
                             style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 15,
@@ -435,7 +436,9 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         onPressed: () {
                           hasChanges ? Navigator.maybePop(context) : Navigator.pop(context);
                         },
-                        child: Text(AppLocalizations.of(context)!.cancel),
+                        child: Text(
+                          TextLocalizations.of(context)!.localized('cancel'),
+                        ),
                       ),
                     ),
                     ElevatedButton(
@@ -446,7 +449,9 @@ class _EditFarmSetState extends State<EditFarmSet> {
                       onPressed: () {
                         Navigator.pop(context, _farmPlantSetData);
                       },
-                      child: Text(AppLocalizations.of(context)!.add),
+                      child: Text(
+                        TextLocalizations.of(context)!.localized('add'),
+                      ),
                     ),
                   ],
                 ),
