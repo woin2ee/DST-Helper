@@ -938,108 +938,93 @@ extension Fertilizers on Fertilizer {
     compostWrap,
   ];
 
-  // TODO: Implementation is not checked
   static const Fertilizer manure = Fertilizer(
-    code: 'code',
-    assetName: 'assetName',
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
+    code: 'poop',
+    assetName: 'manure',
+    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 8),
   );
 
-  // TODO: Implementation is not checked
   static const Fertilizer fertilizer = Fertilizer(
-    code: 'code',
-    assetName: 'assetName',
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
+    code: 'fertilizer',
+    assetName: 'bucket-o-poop',
+    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 16),
   );
 
-  // TODO: Implementation is not checked
   static const Fertilizer guano = Fertilizer(
-    code: 'code',
-    assetName: 'assetName',
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
+    code: 'guano',
+    assetName: 'guano',
+    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 16),
   );
 
-  // TODO: Implementation is not checked
   static const Fertilizer compost = Fertilizer(
-    code: 'code',
-    assetName: 'assetName',
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
+    code: 'compost',
+    assetName: 'compost',
+    nutrient: Nutrient(compost: 24, growthFormula: 0, manure: 0),
   );
 
-  // TODO: Implementation is not checked
   static const Fertilizer rottenEgg = Fertilizer(
-    code: 'code',
-    assetName: 'assetName',
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
+    code: 'rottenegg',
+    assetName: 'rotten_egg',
+    nutrient: Nutrient(compost: 16, growthFormula: 0, manure: 0),
   );
 
-  // TODO: Implementation is not checked
   static const Fertilizer rot = Fertilizer(
-    code: 'code',
-    assetName: 'assetName',
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
+    code: 'spoiled_food',
+    assetName: 'rot',
+    nutrient: Nutrient(compost: 8, growthFormula: 0, manure: 0),
   );
 
-  // TODO: Implementation is not checked
   static const Fertilizer growthFormulaStarter = Fertilizer(
-    code: 'code',
-    assetName: 'assetName',
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
+    code: 'soil_amender',
+    assetName: 'growth_formula_starter',
+    nutrient: Nutrient(compost: 0, growthFormula: 8, manure: 0),
   );
 
-  // TODO: Implementation is not checked
   static const Fertilizer fermentingGrowthFormula = Fertilizer(
-    code: 'code',
-    assetName: 'assetName',
+    code: 'soil_amender',
+    assetName: 'fermenting_growth_formula',
     nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
   );
 
-  // TODO: Implementation is not checked
   static const Fertilizer fermentedGrowthFormula = Fertilizer(
-    code: 'code',
-    assetName: 'assetName',
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
+    code: 'soil_amender',
+    assetName: 'fermented_growth_formula',
+    nutrient: Nutrient(compost: 0, growthFormula: 32, manure: 0),
   );
 
-  // TODO: Implementation is not checked
   static const Fertilizer superGrowthFormula = Fertilizer(
-    code: 'code',
-    assetName: 'assetName',
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
+    code: 'soil_amender',
+    assetName: 'super_growth_formula',
+    nutrient: Nutrient(compost: 0, growthFormula: 32, manure: 0),
   );
 
-  // TODO: Implementation is not checked
   static const Fertilizer spoiledFish = Fertilizer(
-    code: 'code',
-    assetName: 'assetName',
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
+    code: 'spoiled_fish',
+    assetName: 'spoiled_fish',
+    nutrient: Nutrient(compost: 0, growthFormula: 16, manure: 0),
   );
 
-  // TODO: Implementation is not checked
   static const Fertilizer spoiledFishMorsel = Fertilizer(
-    code: 'code',
-    assetName: 'assetName',
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
+    code: 'spoiled_fish_small',
+    assetName: 'spoiled_fish_morsel',
+    nutrient: Nutrient(compost: 0, growthFormula: 8, manure: 0),
   );
 
-  // TODO: Implementation is not checked
   static const Fertilizer compostWrap = Fertilizer(
-    code: 'code',
-    assetName: 'assetName',
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
+    code: 'compostwrap',
+    assetName: 'compost_wrap',
+    nutrient: Nutrient(compost: 32, growthFormula: 24, manure: 24),
   );
 
-  // TODO: Implementation is not checked
   static const Fertilizer glommerFuel = Fertilizer(
-    code: 'code',
-    assetName: 'assetName',
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
+    code: 'glommerfuel',
+    assetName: 'glommer_fuel',
+    nutrient: Nutrient(compost: 8, growthFormula: 8, manure: 8),
   );
 
-  // TODO: Implementation is not checked
   static const Fertilizer treeJam = Fertilizer(
-    code: 'code',
-    assetName: 'assetName',
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
+    code: 'treegrowthsolution',
+    assetName: 'tree_jam',
+    nutrient: Nutrient(compost: 32, growthFormula: 8, manure: 8),
   );
 }

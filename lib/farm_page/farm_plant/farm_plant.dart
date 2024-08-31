@@ -1,4 +1,4 @@
-import 'package:dst_helper/farm_page/farm_plant/farm_plant_data.dart';
+import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_data.dart';
 import 'package:dst_helper/farm_page/farm_plant/plant_cell.dart';
 import 'package:flutter/material.dart';
 
@@ -17,11 +17,7 @@ class FarmPlant extends StatelessWidget {
   FarmPlant copyWith({bool? darkTheme}) {
     return FarmPlant(
       key: key,
-      farmPlantData: switch (farmPlantData) {
-        BasicFarmPlantData() => farmPlantData as BasicFarmPlantData,
-        DenseFarmPlantData() => farmPlantData as DenseFarmPlantData,
-        ReverseDenseFarmPlantData() => farmPlantData as ReverseDenseFarmPlantData,
-      },
+      farmPlantData: farmPlantData,
       darkTheme: darkTheme ?? this.darkTheme,
       onPressed: onPressed,
     );
@@ -29,24 +25,24 @@ class FarmPlant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return switch (farmPlantData) {
-      BasicFarmPlantData() => BasicFarmPlant(
+    return switch (farmPlantData.farmPlantStyle) {
+      FarmPlantStyle.basic => BasicFarmPlant(
           key: key,
           darkTheme: darkTheme,
           onPressed: onPressed,
-          farmPlantData: farmPlantData as BasicFarmPlantData,
+          farmPlantData: farmPlantData,
         ),
-      DenseFarmPlantData() => DenseFarmPlant(
+      FarmPlantStyle.dense => DenseFarmPlant(
           key: key,
           darkTheme: darkTheme,
           onPressed: onPressed,
-          farmPlantData: farmPlantData as DenseFarmPlantData,
+          farmPlantData: farmPlantData,
         ),
-      ReverseDenseFarmPlantData() => ReverseDenseFarmPlant(
+      FarmPlantStyle.reverseDense => ReverseDenseFarmPlant(
           key: key,
           darkTheme: darkTheme,
           onPressed: onPressed,
-          farmPlantData: farmPlantData as ReverseDenseFarmPlantData,
+          farmPlantData: farmPlantData,
         ),
     };
   }
@@ -57,13 +53,13 @@ class BasicFarmPlant extends FarmPlant {
     super.key,
     super.darkTheme,
     super.onPressed,
-    required BasicFarmPlantData farmPlantData,
-  }) : super(farmPlantData: farmPlantData);
+    required super.farmPlantData,
+  });
 
   @override
   BasicFarmPlant copyWith({bool? darkTheme}) {
     return BasicFarmPlant(
-      farmPlantData: farmPlantData as BasicFarmPlantData,
+      farmPlantData: farmPlantData,
       darkTheme: darkTheme ?? this.darkTheme,
     );
   }
@@ -143,13 +139,13 @@ class DenseFarmPlant extends FarmPlant {
     super.key,
     super.darkTheme,
     super.onPressed,
-    required DenseFarmPlantData farmPlantData,
-  }) : super(farmPlantData: farmPlantData);
+    required super.farmPlantData,
+  });
 
   @override
   DenseFarmPlant copyWith({bool? darkTheme}) {
     return DenseFarmPlant(
-      farmPlantData: farmPlantData as DenseFarmPlantData,
+      farmPlantData: farmPlantData,
       darkTheme: darkTheme ?? this.darkTheme,
     );
   }
@@ -246,13 +242,13 @@ class ReverseDenseFarmPlant extends FarmPlant {
     super.key,
     super.darkTheme,
     super.onPressed,
-    required ReverseDenseFarmPlantData farmPlantData,
-  }) : super(farmPlantData: farmPlantData);
+    required super.farmPlantData,
+  });
 
   @override
   ReverseDenseFarmPlant copyWith({bool? darkTheme}) {
     return ReverseDenseFarmPlant(
-      farmPlantData: farmPlantData as ReverseDenseFarmPlantData,
+      farmPlantData: farmPlantData,
       darkTheme: darkTheme ?? this.darkTheme,
     );
   }

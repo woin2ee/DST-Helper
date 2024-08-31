@@ -1,4 +1,4 @@
-import 'package:dst_helper/models/v1/item/dst_object.dart';
+import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter/material.dart';
 
 class PlantCell extends StatelessWidget {
@@ -9,7 +9,7 @@ class PlantCell extends StatelessWidget {
     this.onPressed,
   });
 
-  final PlantObject? plant;
+  final Plant? plant;
   final bool darkTheme;
   final void Function()? onPressed;
 
@@ -39,7 +39,7 @@ class PlantCell extends StatelessWidget {
     );
   }
 
-  Widget plantImageOf(PlantObject? plant) {
+  Widget plantImageOf(Plant? plant) {
     return plant != null
         ? Image.asset('assets/images/items/${plant.assetName}.png')
         : const AspectRatio(aspectRatio: 1);

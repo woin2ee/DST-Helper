@@ -1,5 +1,5 @@
 import 'package:dst_helper/farm_page/farm_plant/farm_plant.dart';
-import 'package:dst_helper/farm_page/farm_plant/farm_plant_data.dart';
+import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_data.dart';
 import 'package:dst_helper/models/v1/item/dst_object.dart';
 import 'package:flutter_test/flutter_test.dart';
 

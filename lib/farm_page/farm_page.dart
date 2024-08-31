@@ -1,10 +1,11 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dst_helper/farm_page/farm_plant/edit_farm_set.dart';
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_card.dart';
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_set.dart';
-import 'package:dst_helper/farm_page/farm_plant/farm_plant_set_data.dart';
-import 'package:dst_helper/farm_page/farm_plant/farm_plant_set_data_sample.dart';
+import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_set_data.dart';
+import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_set_data_sample.dart';
 import 'package:dst_helper/farm_page/side_info_box/side_info_box.dart';
 import 'package:dst_helper/models/v1/localization/season_localization.dart';
 import 'package:dst_helper/models/v1/season.dart';
@@ -35,24 +36,28 @@ class _FarmPageState extends State<FarmPage> {
     (Season.winter, false),
   ];
 
-  List<FarmPlantSetData> _farmPlantSetDataList = [
-    FarmPlantSetDataSample.preDefined1,
-    FarmPlantSetDataSample.preDefined2,
-    FarmPlantSetDataSample.preDefined3,
-    FarmPlantSetDataSample.preDefined4,
-    FarmPlantSetDataSample.preDefined5,
-    FarmPlantSetDataSample.preDefined6,
-    FarmPlantSetDataSample.preDefined7,
-    FarmPlantSetDataSample.preDefined8,
-    FarmPlantSetDataSample.preDefined9,
-    FarmPlantSetDataSample.preDefined10,
-    FarmPlantSetDataSample.preDefined11,
-  ];
+  Future<List<FarmPlantSetData>> _farmPlantSetDataList = Future.value([]);
 
-  List<FarmPlantSetData> _farmPlantSetDataListForSuitableSeason(Season season) {
-    return _farmPlantSetDataList.where((farmPlantSetData) {
-      return farmPlantSetData.suitableSeasons.contains(season);
-    }).toList();
+  void _addNewFarmPlantSetData(FarmPlantSetData data) async {
+    final prefs = await _prefs;
+    final farmPlantSetDataList = await _farmPlantSetDataList;
+    List<FarmPlantSetData> copy = List.from(farmPlantSetDataList);
+    copy.add(data);
+    final jsonString = jsonEncode(copy);
+    await prefs.setString('farmPlantSetDataListJson', jsonString);
+    setState(() {
+      _farmPlantSetDataList = Future.value(copy);
+    });
+  }
+
+  Future<void> _resetFarmPlantSetDataList() async {
+    final prefs = await _prefs;
+    setState(() {
+      _farmPlantSetDataList = Future.value(FarmPlantSetDataSample.preDefinedList);
+    });
+    final farmPlantSetDataList = await _farmPlantSetDataList;
+    final jsonString = jsonEncode(farmPlantSetDataList);
+    return prefs.setString('farmPlantSetDataListJson', jsonString);
   }
 
   @override
@@ -61,19 +66,15 @@ class _FarmPageState extends State<FarmPage> {
     _prefs.then((prefs) {
       final farmPlantSetDataListJson = prefs.getString('farmPlantSetDataListJson');
       if (farmPlantSetDataListJson == null) {
-        _farmPlantSetDataList = FarmPlantSetDataSample.preDefinedList;
+        _resetFarmPlantSetDataList();
         return;
       }
-      final jsonObject = jsonDecode(farmPlantSetDataListJson) as Map<String, dynamic>;
-
-      throw UnimplementedError();
+      final List<dynamic> decodedList = jsonDecode(farmPlantSetDataListJson);
+      final loadedData = List<FarmPlantSetData>.of(decodedList.map((e) => FarmPlantSetData.fromJson(e)));
+      setState(() {
+        _farmPlantSetDataList = Future.value(loadedData);
+      });
     });
-
-    // List<FarmPlantSetData>;
-
-    // List.fromJson
-
-    // [1, 2, 3].to
   }
 
   @override
@@ -121,9 +122,7 @@ class _FarmPageState extends State<FarmPage> {
           ),
         );
         result.then((farmPlantSetData) {
-          setState(() {
-            _farmPlantSetDataList.add(farmPlantSetData);
-          });
+          _addNewFarmPlantSetData(farmPlantSetData);
         });
       },
       child: const Text('New'),
@@ -154,8 +153,28 @@ class _FarmPageState extends State<FarmPage> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8, right: 8),
-                    child: FarmList(
-                      farmPlantSetDataList: _farmPlantSetDataListForSuitableSeason(selectedSeason),
+                    child: FutureBuilder(
+                      future: _farmPlantSetDataList,
+                      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                          case ConnectionState.waiting:
+                            return const Center(child: Text('Loading...'));
+                          case ConnectionState.active:
+                          case ConnectionState.done:
+                            if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            }
+                            if (snapshot.hasData) {
+                              final data = snapshot.data as List<FarmPlantSetData>;
+                              final selectedSeasonData = data.where((farmPlantSetData) {
+                                return farmPlantSetData.suitableSeasons.contains(selectedSeason);
+                              });
+                              return FarmList(farmPlantSetDataList: selectedSeasonData.toList());
+                            }
+                            return const Text('There is no data');
+                        }
+                      },
                     ),
                   ),
                 ),

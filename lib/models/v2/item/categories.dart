@@ -55,6 +55,20 @@ class Plant with _$Plant, Item, Plantable {
     required Set<Season> seasons,
     required Nutrient nutrient,
   }) = _Plant;
+
+  @With<Edible>()
+  @With<UsingInCrockPot>()
+  const factory Plant.crop({
+    required String code,
+    required String assetName,
+    required FoodValues? foodValues,
+    required Nutrient nutrient,
+    required Set<Season> seasons,
+    required FoodType type,
+    required Seed seed,
+  }) = Crop;
+
+  factory Plant.fromJson(Map<String, dynamic> json) => _$PlantFromJson(json);
 }
 
 @freezed
@@ -70,20 +84,20 @@ class Seed with _$Seed, Item, Edible, Cookable {
   factory Seed.fromJson(Map<String, Object?> json) => _$SeedFromJson(json);
 }
 
-@freezed
-class Crop with _$Crop, Item, Edible, Plantable, UsingInCrockPot {
-  const factory Crop({
-    required String code,
-    required String assetName,
-    required FoodValues? foodValues,
-    required Nutrient nutrient,
-    required Set<Season> seasons,
-    required FoodType type,
-    required Seed seed,
-  }) = _Crop;
+// @freezed
+// class Crop with _$Crop, Item, Edible, Plantable, UsingInCrockPot {
+//   const factory Crop({
+//     required String code,
+//     required String assetName,
+//     required FoodValues? foodValues,
+//     required Nutrient nutrient,
+//     required Set<Season> seasons,
+//     required FoodType type,
+//     required Seed seed,
+//   }) = _Crop;
 
-  factory Crop.fromJson(Map<String, Object?> json) => _$CropFromJson(json);
-}
+//   factory Crop.fromJson(Map<String, Object?> json) => _$CropFromJson(json);
+// }
 
 @freezed
 class Weed with _$Weed, Item, Plantable {
