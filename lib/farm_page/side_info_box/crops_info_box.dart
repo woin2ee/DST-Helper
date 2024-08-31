@@ -33,7 +33,7 @@ class CropsInfoBox extends StatelessWidget {
           ),
           SizedBox(
             width: seasonWidth,
-            child: const FittedBox(child: Text('Season')),
+            child: Center(child: Text(AppLocalizations.of(context)!.season)),
           ),
         ],
       ),
