@@ -28,11 +28,11 @@ class SideBar extends StatelessWidget {
             icon: Menu.cook.icon,
             label: Text(Menu.cook.localized(context)),
           ),
-          NavigationRailDestination(
-            icon: Menu.github.icon,
-            label: Text(Menu.github.localized(context)),
-            padding: const EdgeInsets.only(top: 20.0),
-          ),
+          // NavigationRailDestination(
+          //   icon: Menu.github.icon,
+          //   label: Text(Menu.github.localized(context)),
+          //   padding: const EdgeInsets.only(top: 20.0),
+          // ),
         ],
         selectedIndex: selectedIndex,
       ),

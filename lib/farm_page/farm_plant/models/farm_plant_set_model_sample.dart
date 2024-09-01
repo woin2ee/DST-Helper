@@ -1,9 +1,9 @@
-import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_data.dart';
-import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_set_data.dart';
+import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_model.dart';
+import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_set_model.dart';
 import 'package:dst_helper/models/v2/item/items.dart';
 
-class FarmPlantSetDataSample {
-  static List<FarmPlantSetData> get preDefinedList {
+class FarmPlantSetModelSample {
+  static List<FarmPlantSetModel> get preDefinedList {
     return [
       preDefined1,
       preDefined2,
@@ -24,9 +24,9 @@ class FarmPlantSetDataSample {
     ];
   }
 
-  static FarmPlantSetData get preDefined1 {
-    return FarmPlantSetData.single(
-      farmPlantData: FarmPlantData.basic(
+  static FarmPlantSetModel get preDefined1 {
+    return FarmPlantSetModel.single(
+      farmPlantModel: FarmPlantModel.basic(
         Crops.potato,
         Crops.potato,
         Crops.potato,
@@ -40,9 +40,9 @@ class FarmPlantSetDataSample {
     );
   }
 
-  static FarmPlantSetData get preDefined2 {
-    return FarmPlantSetData.double(
-      left: FarmPlantData.basic(
+  static FarmPlantSetModel get preDefined2 {
+    return FarmPlantSetModel.double(
+      left: FarmPlantModel.basic(
         Crops.dragonFruit,
         Crops.dragonFruit,
         Crops.dragonFruit,
@@ -53,7 +53,7 @@ class FarmPlantSetDataSample {
         Crops.tomaRoot,
         Crops.tomaRoot,
       ),
-      right: FarmPlantData.basic(
+      right: FarmPlantModel.basic(
         Crops.dragonFruit,
         Crops.dragonFruit,
         Crops.dragonFruit,
@@ -63,42 +63,42 @@ class FarmPlantSetDataSample {
         Crops.tomaRoot,
         Crops.tomaRoot,
         Crops.tomaRoot,
-      ),
-    );
-  }
-
-  static FarmPlantSetData get preDefined3 {
-    return FarmPlantSetData.double(
-      left: FarmPlantData.dense(
-        Crops.pumpkin,
-        Crops.garlic,
-        Crops.pumpkin,
-        Crops.pumpkin,
-        Crops.garlic,
-        Crops.pumpkin,
-        Crops.potato,
-        Crops.potato,
-        Crops.potato,
-        Crops.potato,
-      ),
-      right: FarmPlantData.reverseDense(
-        Crops.garlic,
-        Crops.pumpkin,
-        Crops.pumpkin,
-        Crops.garlic,
-        Crops.pumpkin,
-        Crops.potato,
-        Crops.potato,
-        Crops.pumpkin,
-        Crops.potato,
-        Crops.potato,
       ),
     );
   }
 
-  static FarmPlantSetData get preDefined4 {
-    return FarmPlantSetData.double(
-      left: FarmPlantData.basic(
+  static FarmPlantSetModel get preDefined3 {
+    return FarmPlantSetModel.double(
+      left: FarmPlantModel.dense(
+        Crops.pumpkin,
+        Crops.garlic,
+        Crops.pumpkin,
+        Crops.pumpkin,
+        Crops.garlic,
+        Crops.pumpkin,
+        Crops.potato,
+        Crops.potato,
+        Crops.potato,
+        Crops.potato,
+      ),
+      right: FarmPlantModel.reverseDense(
+        Crops.garlic,
+        Crops.pumpkin,
+        Crops.pumpkin,
+        Crops.garlic,
+        Crops.pumpkin,
+        Crops.potato,
+        Crops.potato,
+        Crops.pumpkin,
+        Crops.potato,
+        Crops.potato,
+      ),
+    );
+  }
+
+  static FarmPlantSetModel get preDefined4 {
+    return FarmPlantSetModel.double(
+      left: FarmPlantModel.basic(
         Crops.onion,
         Crops.onion,
         Crops.onion,
@@ -109,7 +109,7 @@ class FarmPlantSetDataSample {
         Crops.dragonFruit,
         Crops.dragonFruit,
       ),
-      right: FarmPlantData.basic(
+      right: FarmPlantModel.basic(
         Crops.onion,
         Crops.onion,
         Crops.onion,
@@ -123,9 +123,9 @@ class FarmPlantSetDataSample {
     );
   }
 
-  static FarmPlantSetData get preDefined5 {
-    return FarmPlantSetData.double(
-      left: FarmPlantData.basic(
+  static FarmPlantSetModel get preDefined5 {
+    return FarmPlantSetModel.double(
+      left: FarmPlantModel.basic(
         Crops.onion,
         Crops.onion,
         Crops.onion,
@@ -136,7 +136,7 @@ class FarmPlantSetDataSample {
         Crops.watermelon,
         Crops.watermelon,
       ),
-      right: FarmPlantData.basic(
+      right: FarmPlantModel.basic(
         Crops.onion,
         Crops.onion,
         Crops.onion,
@@ -150,9 +150,9 @@ class FarmPlantSetDataSample {
     );
   }
 
-  static FarmPlantSetData get preDefined6 {
-    return FarmPlantSetData.double(
-      left: FarmPlantData.basic(
+  static FarmPlantSetModel get preDefined6 {
+    return FarmPlantSetModel.double(
+      left: FarmPlantModel.basic(
         Crops.potato,
         Crops.potato,
         Crops.garlic,
@@ -163,7 +163,7 @@ class FarmPlantSetDataSample {
         Crops.onion,
         Crops.onion,
       ),
-      right: FarmPlantData.basic(
+      right: FarmPlantModel.basic(
         Crops.garlic,
         Crops.potato,
         Crops.potato,
@@ -177,9 +177,9 @@ class FarmPlantSetDataSample {
     );
   }
 
-  static FarmPlantSetData get preDefined7 {
-    return FarmPlantSetData.double(
-      left: FarmPlantData.basic(
+  static FarmPlantSetModel get preDefined7 {
+    return FarmPlantSetModel.double(
+      left: FarmPlantModel.basic(
         Crops.asparagus,
         Crops.asparagus,
         Crops.asparagus,
@@ -190,7 +190,7 @@ class FarmPlantSetDataSample {
         Crops.pumpkin,
         Crops.pumpkin,
       ),
-      right: FarmPlantData.basic(
+      right: FarmPlantModel.basic(
         Crops.asparagus,
         Crops.asparagus,
         Crops.asparagus,
@@ -204,9 +204,9 @@ class FarmPlantSetDataSample {
     );
   }
 
-  static FarmPlantSetData get preDefined8 {
-    return FarmPlantSetData.single(
-      farmPlantData: FarmPlantData.basic(
+  static FarmPlantSetModel get preDefined8 {
+    return FarmPlantSetModel.single(
+      farmPlantModel: FarmPlantModel.basic(
         Crops.watermelon,
         Crops.watermelon,
         Crops.watermelon,
@@ -220,9 +220,9 @@ class FarmPlantSetDataSample {
     );
   }
 
-  static FarmPlantSetData get preDefined9 {
-    return FarmPlantSetData.single(
-      farmPlantData: FarmPlantData.basic(
+  static FarmPlantSetModel get preDefined9 {
+    return FarmPlantSetModel.single(
+      farmPlantModel: FarmPlantModel.basic(
         Crops.onion,
         Crops.onion,
         Crops.onion,
@@ -236,9 +236,9 @@ class FarmPlantSetDataSample {
     );
   }
 
-  static FarmPlantSetData get preDefined10 {
-    return FarmPlantSetData.square(
-      topLeft: FarmPlantData.basic(
+  static FarmPlantSetModel get preDefined10 {
+    return FarmPlantSetModel.square(
+      topLeft: FarmPlantModel.basic(
         null,
         null,
         Crops.potato,
@@ -249,7 +249,7 @@ class FarmPlantSetDataSample {
         Crops.pumpkin,
         Crops.garlic,
       ),
-      topRight: FarmPlantData.basic(
+      topRight: FarmPlantModel.basic(
         Crops.potato,
         null,
         null,
@@ -260,7 +260,7 @@ class FarmPlantSetDataSample {
         Crops.pumpkin,
         Crops.pumpkin,
       ),
-      bottomLeft: FarmPlantData.basic(
+      bottomLeft: FarmPlantModel.basic(
         Crops.pumpkin,
         Crops.pumpkin,
         Crops.garlic,
@@ -271,7 +271,7 @@ class FarmPlantSetDataSample {
         null,
         Crops.potato,
       ),
-      bottomRight: FarmPlantData.basic(
+      bottomRight: FarmPlantModel.basic(
         Crops.garlic,
         Crops.pumpkin,
         Crops.pumpkin,
@@ -285,9 +285,9 @@ class FarmPlantSetDataSample {
     );
   }
 
-  static FarmPlantSetData get preDefined11 {
-    return FarmPlantSetData.square(
-      topLeft: FarmPlantData.basic(
+  static FarmPlantSetModel get preDefined11 {
+    return FarmPlantSetModel.square(
+      topLeft: FarmPlantModel.basic(
         Crops.potato,
         Crops.potato,
         Crops.onion,
@@ -298,7 +298,7 @@ class FarmPlantSetDataSample {
         Crops.asparagus,
         Crops.garlic,
       ),
-      topRight: FarmPlantData.basic(
+      topRight: FarmPlantModel.basic(
         Crops.onion,
         Crops.potato,
         Crops.potato,
@@ -309,7 +309,7 @@ class FarmPlantSetDataSample {
         Crops.asparagus,
         Crops.asparagus,
       ),
-      bottomLeft: FarmPlantData.basic(
+      bottomLeft: FarmPlantModel.basic(
         Crops.asparagus,
         Crops.asparagus,
         Crops.garlic,
@@ -320,7 +320,7 @@ class FarmPlantSetDataSample {
         Crops.potato,
         Crops.onion,
       ),
-      bottomRight: FarmPlantData.basic(
+      bottomRight: FarmPlantModel.basic(
         Crops.garlic,
         Crops.asparagus,
         Crops.asparagus,

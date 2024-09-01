@@ -1,74 +1,73 @@
-import 'package:dst_helper/farm_page/farm_plant/farm_plant.dart';
-import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_data.dart';
-import 'package:dst_helper/models/v1/item/dst_object.dart';
+import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_model.dart';
+import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (style: basic)', () {
-    final farmPlantData = BasicFarmPlantData(
-      const Potato(),
-      const Potato(),
-      const Potato(),
-      const Potato(),
+    final farmPlantModel = FarmPlantModel.basic(
+      Crops.potato,
+      Crops.potato,
+      Crops.potato,
+      Crops.potato,
       null,
-      const TomaRoot(),
-      const TomaRoot(),
-      const TomaRoot(),
-      const TomaRoot(),
+      Crops.tomaRoot,
+      Crops.tomaRoot,
+      Crops.tomaRoot,
+      Crops.tomaRoot,
     );
-    expect(farmPlantData.hasBalancedNutrients, true);
+    expect(farmPlantModel.hasBalancedNutrients, true);
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (style: basic, null 포함)', () {
-    var farmPlantData = BasicFarmPlantData(
+    var farmPlantModel = FarmPlantModel.basic(
       null,
       null,
-      const Carrot(),
+      Crops.carrot,
       null,
       null,
-      const Carrot(),
-      const Corn(),
-      const Corn(),
-      const DragonFruit(),
+      Crops.carrot,
+      Crops.corn,
+      Crops.corn,
+      Crops.dragonFruit,
     );
-    expect(farmPlantData.hasBalancedNutrients, true);
+    expect(farmPlantModel.hasBalancedNutrients, true);
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (style: dense)', () {
-    var farmPlantData = DenseFarmPlantData(
-      const Pumpkin(),
-      const Garlic(),
-      const Pumpkin(),
-      const Pumpkin(),
-      const Garlic(),
-      const Pumpkin(),
-      const Potato(),
-      const Potato(),
-      const Potato(),
-      const Potato(),
+    var farmPlantModel = FarmPlantModel.dense(
+      Crops.pumpkin,
+      Crops.garlic,
+      Crops.pumpkin,
+      Crops.pumpkin,
+      Crops.garlic,
+      Crops.pumpkin,
+      Crops.potato,
+      Crops.potato,
+      Crops.potato,
+      Crops.potato,
     );
-    expect(farmPlantData.hasBalancedNutrients, true);
+    expect(farmPlantModel.hasBalancedNutrients, true);
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (style: reverseDense)', () {
-    var farmPlantData = ReverseDenseFarmPlantData(
-      const Asparagus(),
-      const Potato(),
-      const Potato(),
-      const Asparagus(),
-      const Potato(),
-      const Onion(),
-      const Asparagus(),
-      const Potato(),
-      const Onion(),
-      const Asparagus(),
+    var farmPlantModel = FarmPlantModel.reverseDense(
+      Crops.asparagus,
+      Crops.potato,
+      Crops.potato,
+      Crops.asparagus,
+      Crops.potato,
+      Crops.onion,
+      Crops.asparagus,
+      Crops.potato,
+      Crops.onion,
+      Crops.asparagus,
     );
-    expect(farmPlantData.hasBalancedNutrients, true);
+    expect(farmPlantModel.hasBalancedNutrients, true);
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (불균형 Plant)', () {
-    var farmPlantData = BasicFarmPlantData(
-      const Potato(),
+    var farmPlantModel = FarmPlantModel.basic(
+      Crops.potato,
       null,
       null,
       null,
@@ -78,21 +77,21 @@ void main() {
       null,
       null,
     );
-    expect(farmPlantData.hasBalancedNutrients, false);
+    expect(farmPlantModel.hasBalancedNutrients, false);
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (균형 Plant, 잡초 포함)', () {
-    var farmPlantData = BasicFarmPlantData(
-      const ForgetMeLots(),
+    var farmPlantModel = FarmPlantModel.basic(
+      Weeds.forgetMeLots,
       null,
-      const Carrot(),
+      Crops.carrot,
       null,
       null,
-      const Carrot(),
-      const Corn(),
-      const Corn(),
-      const DragonFruit(),
+      Crops.carrot,
+      Crops.corn,
+      Crops.corn,
+      Crops.dragonFruit,
     );
-    expect(farmPlantData.hasBalancedNutrients, false);
+    expect(farmPlantModel.hasBalancedNutrients, false);
   });
 }

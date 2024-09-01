@@ -1,5 +1,5 @@
 import 'package:dst_helper/farm_page/farm_plant/farm_plant.dart';
-import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_set_data.dart';
+import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_set_model.dart';
 import 'package:flutter/material.dart';
 
 class FarmPlantSet extends StatelessWidget {
@@ -9,7 +9,7 @@ class FarmPlantSet extends StatelessWidget {
     this.onPressed,
   });
 
-  final FarmPlantSetData farmPlantSetData;
+  final FarmPlantSetModel farmPlantSetData;
   final void Function(int farmPlantIndex, int plantIndex)? onPressed;
 
   // bool get canBecomeGiant {
@@ -25,18 +25,18 @@ class FarmPlantSet extends StatelessWidget {
   Widget build(BuildContext context) {
     return switch (farmPlantSetData.farmPlantSetStyle) {
       FarmPlantSetStyle.single => FarmPlant(
-          farmPlantData: farmPlantSetData.farmPlantDataList[0],
+          farmPlantData: farmPlantSetData.farmPlantModelList[0],
           onPressed: onPressed == null ? null : (plantIndex) => onPressed!(0, plantIndex),
         ),
       FarmPlantSetStyle.double => Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             FarmPlant(
-              farmPlantData: farmPlantSetData.farmPlantDataList[0],
+              farmPlantData: farmPlantSetData.farmPlantModelList[0],
               onPressed: onPressed == null ? null : (plantIndex) => onPressed!(0, plantIndex),
             ),
             FarmPlant(
-              farmPlantData: farmPlantSetData.farmPlantDataList[1],
+              farmPlantData: farmPlantSetData.farmPlantModelList[1],
               onPressed: onPressed == null ? null : (plantIndex) => onPressed!(1, plantIndex),
             ).copyWith(darkTheme: true),
           ],
@@ -48,11 +48,11 @@ class FarmPlantSet extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FarmPlant(
-                  farmPlantData: farmPlantSetData.farmPlantDataList[0],
+                  farmPlantData: farmPlantSetData.farmPlantModelList[0],
                   onPressed: onPressed == null ? null : (plantIndex) => onPressed!(0, plantIndex),
                 ),
                 FarmPlant(
-                  farmPlantData: farmPlantSetData.farmPlantDataList[1],
+                  farmPlantData: farmPlantSetData.farmPlantModelList[1],
                   onPressed: onPressed == null ? null : (plantIndex) => onPressed!(1, plantIndex),
                 ).copyWith(darkTheme: true),
               ],
@@ -61,11 +61,11 @@ class FarmPlantSet extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FarmPlant(
-                  farmPlantData: farmPlantSetData.farmPlantDataList[2],
+                  farmPlantData: farmPlantSetData.farmPlantModelList[2],
                   onPressed: onPressed == null ? null : (plantIndex) => onPressed!(2, plantIndex),
                 ).copyWith(darkTheme: true),
                 FarmPlant(
-                  farmPlantData: farmPlantSetData.farmPlantDataList[3],
+                  farmPlantData: farmPlantSetData.farmPlantModelList[3],
                   onPressed: onPressed == null ? null : (plantIndex) => onPressed!(3, plantIndex),
                 ),
               ],

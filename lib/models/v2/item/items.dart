@@ -164,7 +164,7 @@ extension Crops on Crop {
 }
 
 extension Weeds on Weed {
-  static Weed forgetMeLots = const Weed.forgetMeLots(
+  static Plant forgetMeLots = const Plant.forgetMeLots(
     code: 'forgetmelots',
     assetName: 'forget_me_lots',
     nutrient: Nutrient(compost: -2, growthFormula: -2, manure: -2),

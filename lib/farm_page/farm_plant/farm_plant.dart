@@ -1,4 +1,4 @@
-import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_data.dart';
+import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_model.dart';
 import 'package:dst_helper/farm_page/farm_plant/plant_cell.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +10,7 @@ class FarmPlant extends StatelessWidget {
     this.onPressed,
   });
 
-  final FarmPlantData farmPlantData;
+  final FarmPlantModel farmPlantData;
   final bool darkTheme;
   final void Function(int index)? onPressed;
 

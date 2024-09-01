@@ -68,6 +68,22 @@ class Plant with _$Plant, Item, Plantable {
     required Seed seed,
   }) = Crop;
 
+  const factory Plant.weed({
+    required String code,
+    required String assetName,
+    required Nutrient nutrient,
+    required Set<Season> seasons,
+  }) = Weed;
+
+  @With<UsingInCrockPot>()
+  const factory Plant.forgetMeLots({
+    required String code,
+    required String assetName,
+    required Nutrient nutrient,
+    required Set<Season> seasons,
+    required FoodValues? foodValues,
+  }) = ForgetMeLots;
+
   factory Plant.fromJson(Map<String, dynamic> json) => _$PlantFromJson(json);
 }
 
@@ -85,46 +101,31 @@ class Seed with _$Seed, Item, Edible, Cookable {
 }
 
 // @freezed
-// class Crop with _$Crop, Item, Edible, Plantable, UsingInCrockPot {
-//   const factory Crop({
+// class Weed with _$Weed, Item, Plantable {
+//   const factory Weed({
 //     required String code,
 //     required String assetName,
-//     required FoodValues? foodValues,
 //     required Nutrient nutrient,
 //     required Set<Season> seasons,
-//     required FoodType type,
-//     required Seed seed,
-//   }) = _Crop;
+//   }) = _Weed;
 
-//   factory Crop.fromJson(Map<String, Object?> json) => _$CropFromJson(json);
+//   // This is for `Forget-Me-Lots` only.
+//   @With<UsingInCrockPot>()
+//   const factory Weed.forgetMeLots({
+//     required String code,
+//     required String assetName,
+//     required Nutrient nutrient,
+//     required Set<Season> seasons,
+//     required FoodValues? foodValues,
+//   }) = ForgetMeLots;
+
+//   const factory Weed.fireNettleFronds({
+//     required String code,
+//     required String assetName,
+//     required Nutrient nutrient,
+//     required Set<Season> seasons,
+//   }) = FireNettleFronds;
 // }
-
-@freezed
-class Weed with _$Weed, Item, Plantable {
-  const factory Weed({
-    required String code,
-    required String assetName,
-    required Nutrient nutrient,
-    required Set<Season> seasons,
-  }) = _Weed;
-
-  // This is for `Forget-Me-Lots` only.
-  @With<UsingInCrockPot>()
-  const factory Weed.forgetMeLots({
-    required String code,
-    required String assetName,
-    required Nutrient nutrient,
-    required Set<Season> seasons,
-    required FoodValues? foodValues,
-  }) = ForgetMeLots;
-
-  const factory Weed.fireNettleFronds({
-    required String code,
-    required String assetName,
-    required Nutrient nutrient,
-    required Set<Season> seasons,
-  }) = FireNettleFronds;
-}
 
 @freezed
 class Recipe with _$Recipe, Item, CookableInCrockPot {

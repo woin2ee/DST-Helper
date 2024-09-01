@@ -2,7 +2,7 @@ import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'farm_plant_data.g.dart';
+part 'farm_plant_model.g.dart';
 
 enum FarmPlantStyle {
   basic,
@@ -11,9 +11,9 @@ enum FarmPlantStyle {
 }
 
 @JsonSerializable()
-class FarmPlantData {
+class FarmPlantModel {
   @visibleForTesting
-  FarmPlantData({
+  FarmPlantModel({
     required this.plants,
     required this.farmPlantStyle,
     required this.countOfPlants,
@@ -24,7 +24,7 @@ class FarmPlantData {
   final int countOfPlants;
 
   /// (top) 3 : 3 : 3 (bottom)
-  factory FarmPlantData.basic(
+  factory FarmPlantModel.basic(
     Plant? c1,
     Plant? c2,
     Plant? c3,
@@ -35,7 +35,7 @@ class FarmPlantData {
     Plant? c8,
     Plant? c9,
   ) {
-    return FarmPlantData(
+    return FarmPlantModel(
       plants: [c1, c2, c3, c4, c5, c6, c7, c8, c9],
       farmPlantStyle: FarmPlantStyle.basic,
       countOfPlants: 9,
@@ -43,7 +43,7 @@ class FarmPlantData {
   }
 
   /// (top) 2 : 3 : 2 : 3 (bottom)
-  factory FarmPlantData.dense(
+  factory FarmPlantModel.dense(
     Plant? c1,
     Plant? c2,
     Plant? c3,
@@ -55,7 +55,7 @@ class FarmPlantData {
     Plant? c9,
     Plant? c10,
   ) {
-    return FarmPlantData(
+    return FarmPlantModel(
       plants: [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10],
       farmPlantStyle: FarmPlantStyle.dense,
       countOfPlants: 10,
@@ -63,7 +63,7 @@ class FarmPlantData {
   }
 
   /// (top) 3 : 2 : 3 : 2 (bottom)
-  factory FarmPlantData.reverseDense(
+  factory FarmPlantModel.reverseDense(
     Plant? c1,
     Plant? c2,
     Plant? c3,
@@ -75,38 +75,38 @@ class FarmPlantData {
     Plant? c9,
     Plant? c10,
   ) {
-    return FarmPlantData(
+    return FarmPlantModel(
       plants: [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10],
       farmPlantStyle: FarmPlantStyle.reverseDense,
       countOfPlants: 10,
     );
   }
 
-  factory FarmPlantData.empty(FarmPlantStyle farmPlantStyle) {
+  factory FarmPlantModel.empty(FarmPlantStyle farmPlantStyle) {
     final countOfPlants = switch (farmPlantStyle) {
       FarmPlantStyle.basic => 9,
       FarmPlantStyle.dense || FarmPlantStyle.reverseDense => 10,
     };
-    return FarmPlantData(
+    return FarmPlantModel(
       plants: List.filled(countOfPlants, null),
       farmPlantStyle: farmPlantStyle,
       countOfPlants: countOfPlants,
     );
   }
 
-  factory FarmPlantData.basicWithPlants(List<Plant?> plants) {
-    return FarmPlantData(
+  factory FarmPlantModel.basicWithPlants(List<Plant?> plants) {
+    return FarmPlantModel(
       plants: plants,
       farmPlantStyle: FarmPlantStyle.basic,
       countOfPlants: 9,
     );
   }
 
-  factory FarmPlantData.fromJson(Map<String, dynamic> json) => _$FarmPlantDataFromJson(json);
+  factory FarmPlantModel.fromJson(Map<String, dynamic> json) => _$FarmPlantModelFromJson(json);
 
   bool get hasBalancedNutrients => totalNutrient.equalsOfValue(Nutrient.zero());
   Nutrient get totalNutrient =>
       plants.fold(Nutrient.zero(), (partial, next) => partial + (next?.nutrient ?? Nutrient.zero()));
 
-  Map<String, dynamic> toJson() => _$FarmPlantDataToJson(this);
+  Map<String, dynamic> toJson() => _$FarmPlantModelToJson(this);
 }

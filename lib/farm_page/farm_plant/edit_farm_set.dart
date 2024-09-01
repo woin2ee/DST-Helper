@@ -1,6 +1,7 @@
 import 'package:dst_helper/farm_page/farm_plant/farm_plant_set.dart';
-import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_data.dart';
-import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_set_data.dart';
+import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_card_model.dart';
+import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_model.dart';
+import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_set_model.dart';
 import 'package:dst_helper/farm_page/side_info_box/crops_info_box.dart';
 import 'package:dst_helper/farm_page/side_info_box/fertilizers_info_box.dart';
 import 'package:dst_helper/localization/text_localizations.dart';
@@ -21,17 +22,17 @@ class _EditFarmSetState extends State<EditFarmSet> {
   final TextEditingController _titleTextEditingController = TextEditingController();
   FarmPlantSetStyle _selectedFarmPlantSetStyle = FarmPlantSetStyle.single;
   FarmPlantStyle _selectedFarmPlantStyle = FarmPlantStyle.basic;
-  bool hasChanges = false;
+  bool _hasChanges = false;
 
-  FarmPlantSetData _farmPlantSetData =
-      FarmPlantSetData.single(farmPlantData: FarmPlantData.empty(FarmPlantStyle.basic));
+  FarmPlantSetModel _farmPlantSetData =
+      FarmPlantSetModel.single(farmPlantModel: FarmPlantModel.empty(FarmPlantStyle.basic));
 
   bool get _anyPlantIsPlaced {
-    return _farmPlantSetData.farmPlantDataList.any((e) => e.plants.any((plant) => plant is Crop));
+    return _farmPlantSetData.farmPlantModelList.any((e) => e.plants.any((plant) => plant is Crop));
   }
 
   bool get _everyFarmPlantHasBalancedNutrients {
-    return _farmPlantSetData.farmPlantDataList.every((farmPlant) => farmPlant.hasBalancedNutrients);
+    return _farmPlantSetData.farmPlantModelList.every((farmPlant) => farmPlant.hasBalancedNutrients);
   }
 
   int? _calculateCountOfFertilizerNeeded() {
@@ -39,7 +40,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
     if (selectedFertilizer == null) return null;
 
     var totalNutrientsByFarmPlant =
-        _farmPlantSetData.farmPlantDataList.map((farmPlantData) => farmPlantData.totalNutrient);
+        _farmPlantSetData.farmPlantModelList.map((farmPlantData) => farmPlantData.totalNutrient);
 
     bool allNutrientsValid() {
       return totalNutrientsByFarmPlant
@@ -207,7 +208,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
   void initState() {
     super.initState();
     _titleTextEditingController.addListener(() {
-      hasChanges = true;
+      _hasChanges = true;
     });
   }
 
@@ -223,15 +224,15 @@ class _EditFarmSetState extends State<EditFarmSet> {
                     setState(() {
                       _selectedFarmPlantSetStyle = FarmPlantSetStyle.single;
                       _farmPlantSetData =
-                          FarmPlantSetData.single(farmPlantData: _farmPlantSetData.farmPlantDataList[0]);
+                          FarmPlantSetModel.single(farmPlantModel: _farmPlantSetData.farmPlantModelList[0]);
                     });
                   case FarmPlantSetStyle.double:
                     setState(() {
                       _selectedFarmPlantSetStyle = FarmPlantSetStyle.double;
-                      _farmPlantSetData = FarmPlantSetData.double(
-                        left: _farmPlantSetData.farmPlantDataList[0],
-                        right:
-                            _farmPlantSetData.farmPlantDataList.elementAtOrNull(1) ?? _selectedFarmPlantStyle.emptyData,
+                      _farmPlantSetData = FarmPlantSetModel.double(
+                        left: _farmPlantSetData.farmPlantModelList[0],
+                        right: _farmPlantSetData.farmPlantModelList.elementAtOrNull(1) ??
+                            _selectedFarmPlantStyle.emptyData,
                       );
                     });
                   case FarmPlantSetStyle.square:
@@ -239,25 +240,25 @@ class _EditFarmSetState extends State<EditFarmSet> {
                       _selectedFarmPlantSetStyle = FarmPlantSetStyle.square;
 
                       if (_selectedFarmPlantStyle == FarmPlantStyle.basic) {
-                        _farmPlantSetData = FarmPlantSetData.square(
-                          topLeft: FarmPlantData.basicWithPlants(_farmPlantSetData.farmPlantDataList[0].plants),
-                          topRight: FarmPlantData.basicWithPlants(
-                              _farmPlantSetData.farmPlantDataList.elementAtOrNull(1)?.plants ??
+                        _farmPlantSetData = FarmPlantSetModel.square(
+                          topLeft: FarmPlantModel.basicWithPlants(_farmPlantSetData.farmPlantModelList[0].plants),
+                          topRight: FarmPlantModel.basicWithPlants(
+                              _farmPlantSetData.farmPlantModelList.elementAtOrNull(1)?.plants ??
                                   _selectedFarmPlantStyle.emptyData.plants),
-                          bottomLeft: FarmPlantData.basicWithPlants(
-                              _farmPlantSetData.farmPlantDataList.elementAtOrNull(2)?.plants ??
+                          bottomLeft: FarmPlantModel.basicWithPlants(
+                              _farmPlantSetData.farmPlantModelList.elementAtOrNull(2)?.plants ??
                                   _selectedFarmPlantStyle.emptyData.plants),
-                          bottomRight: FarmPlantData.basicWithPlants(
-                              _farmPlantSetData.farmPlantDataList.elementAtOrNull(3)?.plants ??
+                          bottomRight: FarmPlantModel.basicWithPlants(
+                              _farmPlantSetData.farmPlantModelList.elementAtOrNull(3)?.plants ??
                                   _selectedFarmPlantStyle.emptyData.plants),
                         );
                       } else {
                         _selectedFarmPlantStyle = FarmPlantStyle.basic;
-                        _farmPlantSetData = FarmPlantSetData.square(
-                          topLeft: FarmPlantData.empty(FarmPlantStyle.basic),
-                          topRight: FarmPlantData.empty(FarmPlantStyle.basic),
-                          bottomLeft: FarmPlantData.empty(FarmPlantStyle.basic),
-                          bottomRight: FarmPlantData.empty(FarmPlantStyle.basic),
+                        _farmPlantSetData = FarmPlantSetModel.square(
+                          topLeft: FarmPlantModel.empty(FarmPlantStyle.basic),
+                          topRight: FarmPlantModel.empty(FarmPlantStyle.basic),
+                          bottomLeft: FarmPlantModel.empty(FarmPlantStyle.basic),
+                          bottomRight: FarmPlantModel.empty(FarmPlantStyle.basic),
                         );
                       }
                     });
@@ -277,16 +278,16 @@ class _EditFarmSetState extends State<EditFarmSet> {
                     setState(() {
                       if (_selectedFarmPlantStyle == style) return;
                       _selectedFarmPlantStyle = style;
-                      _farmPlantSetData = FarmPlantSetData.single(farmPlantData: FarmPlantData.empty(style));
+                      _farmPlantSetData = FarmPlantSetModel.single(farmPlantModel: FarmPlantModel.empty(style));
                     });
                   },
                 FarmPlantSetStyle.double => () {
                     setState(() {
                       if (_selectedFarmPlantStyle == style) return;
                       _selectedFarmPlantStyle = style;
-                      _farmPlantSetData = FarmPlantSetData.double(
-                        left: FarmPlantData.empty(style),
-                        right: FarmPlantData.empty(style),
+                      _farmPlantSetData = FarmPlantSetModel.double(
+                        left: FarmPlantModel.empty(style),
+                        right: FarmPlantModel.empty(style),
                       );
                     });
                   },
@@ -332,10 +333,10 @@ class _EditFarmSetState extends State<EditFarmSet> {
                       farmPlantSetData: _farmPlantSetData,
                       onPressed: (farmPlantIndex, plantIndex) {
                         final Plant? currentPlant =
-                            _farmPlantSetData.farmPlantDataList[farmPlantIndex].plants[plantIndex];
-                        hasChanges = true;
+                            _farmPlantSetData.farmPlantModelList[farmPlantIndex].plants[plantIndex];
+                        _hasChanges = true;
                         setState(() {
-                          _farmPlantSetData.farmPlantDataList[farmPlantIndex].plants[plantIndex] =
+                          _farmPlantSetData.farmPlantModelList[farmPlantIndex].plants[plantIndex] =
                               currentPlant == _selectedCrop ? null : _selectedCrop;
                         });
                       },
@@ -420,7 +421,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     PopScope(
-                      canPop: !hasChanges,
+                      canPop: !_hasChanges,
                       onPopInvokedWithResult: (didPop, result) async {
                         if (didPop) return;
                         final bool shouldPop = await _showBackDialog() ?? false;
@@ -434,7 +435,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                           foregroundColor: WidgetStatePropertyAll(Colors.white),
                         ),
                         onPressed: () {
-                          hasChanges ? Navigator.maybePop(context) : Navigator.pop(context);
+                          _hasChanges ? Navigator.maybePop(context) : Navigator.pop(context);
                         },
                         child: Text(
                           TextLocalizations.of(context)!.localized('cancel'),
@@ -447,7 +448,13 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         foregroundColor: WidgetStatePropertyAll(Colors.white),
                       ),
                       onPressed: () {
-                        Navigator.pop(context, _farmPlantSetData);
+                        final model = FarmPlantCardModel(
+                          title: _titleTextEditingController.text.isNotEmpty
+                              ? _titleTextEditingController.text
+                              : '${_farmPlantSetData.suitableSeasons.map((season) => season.localizedName(context))}',
+                          farmPlantSetModel: _farmPlantSetData,
+                        );
+                        Navigator.pop(context, model);
                       },
                       child: Text(
                         TextLocalizations.of(context)!.localized('add'),
@@ -465,14 +472,14 @@ class _EditFarmSetState extends State<EditFarmSet> {
 }
 
 extension on FarmPlantStyle {
-  FarmPlantData get emptyData {
+  FarmPlantModel get emptyData {
     switch (this) {
       case FarmPlantStyle.basic:
-        return FarmPlantData.empty(FarmPlantStyle.basic);
+        return FarmPlantModel.empty(FarmPlantStyle.basic);
       case FarmPlantStyle.dense:
-        return FarmPlantData.empty(FarmPlantStyle.dense);
+        return FarmPlantModel.empty(FarmPlantStyle.dense);
       case FarmPlantStyle.reverseDense:
-        return FarmPlantData.empty(FarmPlantStyle.dense);
+        return FarmPlantModel.empty(FarmPlantStyle.dense);
     }
   }
 }
