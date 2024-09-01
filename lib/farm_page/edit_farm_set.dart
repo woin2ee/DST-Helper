@@ -1,7 +1,7 @@
-import 'package:dst_helper/farm_page/farm_plant/farm_plant_set.dart';
-import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_card_model.dart';
-import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_model.dart';
-import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_set_model.dart';
+import 'package:dst_helper/farm_page/farm_list/farm_plant_set.dart';
+import 'package:dst_helper/farm_page/farm_list/models/farm_plant_card_model.dart';
+import 'package:dst_helper/farm_page/farm_list/models/farm_plant_model.dart';
+import 'package:dst_helper/farm_page/farm_list/models/farm_plant_set_model.dart';
 import 'package:dst_helper/farm_page/side_info_box/crops_info_box.dart';
 import 'package:dst_helper/farm_page/side_info_box/fertilizers_info_box.dart';
 import 'package:dst_helper/localization/text_localizations.dart';

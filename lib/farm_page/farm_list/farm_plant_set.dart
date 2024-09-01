@@ -1,5 +1,5 @@
-import 'package:dst_helper/farm_page/farm_plant/farm_plant.dart';
-import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_set_model.dart';
+import 'package:dst_helper/farm_page/farm_list/farm_plant.dart';
+import 'package:dst_helper/farm_page/farm_list/models/farm_plant_set_model.dart';
 import 'package:flutter/material.dart';
 
 class FarmPlantSet extends StatelessWidget {

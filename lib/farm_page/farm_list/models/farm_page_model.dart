@@ -1,4 +1,4 @@
-import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_card_model.dart';
+import 'package:dst_helper/farm_page/farm_list/models/farm_plant_card_model.dart';
 import 'package:dst_helper/models/v1/season.dart';
 import 'package:flutter/material.dart';
 

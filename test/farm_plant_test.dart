@@ -1,4 +1,4 @@
-import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_model.dart';
+import 'package:dst_helper/farm_page/farm_list/models/farm_plant_model.dart';
 import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter_test/flutter_test.dart';
 

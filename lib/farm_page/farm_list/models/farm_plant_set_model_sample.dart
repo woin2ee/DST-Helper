@@ -1,5 +1,5 @@
-import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_model.dart';
-import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_set_model.dart';
+import 'package:dst_helper/farm_page/farm_list/models/farm_plant_model.dart';
+import 'package:dst_helper/farm_page/farm_list/models/farm_plant_set_model.dart';
 import 'package:dst_helper/models/v2/item/items.dart';
 
 class FarmPlantSetModelSample {

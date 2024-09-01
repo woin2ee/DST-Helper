@@ -1,6 +1,6 @@
-import 'package:dst_helper/farm_page/farm_plant/farm_plant_card.dart';
-import 'package:dst_helper/farm_page/farm_plant/models/farm_page_model.dart';
-import 'package:dst_helper/farm_page/farm_plant/models/farm_plant_card_model.dart';
+import 'package:dst_helper/farm_page/farm_list/farm_plant_card.dart';
+import 'package:dst_helper/farm_page/farm_list/models/farm_page_model.dart';
+import 'package:dst_helper/farm_page/farm_list/models/farm_plant_card_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
