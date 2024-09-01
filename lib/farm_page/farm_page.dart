@@ -205,8 +205,10 @@ class FarmList extends StatelessWidget {
           spacing: 10.0,
           runSpacing: 10.0,
           children: [
-            ...farmPlantSetDataList.map((farmPlantSetData) => FittedBox(
-                  child: FarmPlantCard(farmPlantSet: FarmPlantSet(farmPlantSetData: farmPlantSetData)),
+            ...farmPlantSetDataList.map((farmPlantSetData) => IntrinsicWidth(
+                  child: FarmPlantCard(
+                    farmPlantSet: FarmPlantSet(farmPlantSetData: farmPlantSetData),
+                  ),
                 )),
           ],
         ),
