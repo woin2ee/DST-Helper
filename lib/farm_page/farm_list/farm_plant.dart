@@ -2,34 +2,21 @@ import 'package:dst_helper/farm_page/farm_list/models/farm_plant_model.dart';
 import 'package:dst_helper/farm_page/farm_list/plant_cell.dart';
 import 'package:flutter/material.dart';
 
+export 'package:dst_helper/farm_page/farm_list/models/farm_plant_model.dart';
+
 class FarmPlant extends StatelessWidget {
-  const FarmPlant({
+  FarmPlant({
     super.key,
-    required this.farmPlantData,
-    this.darkTheme = false,
-    this.onPressed,
-  });
+    FarmPlantModel? model,
+    this.onPressedByIndex,
+  }) : model = model ?? FarmPlantModel.empty(FarmPlantStyle.basic);
 
-  final FarmPlantModel farmPlantData;
-  final bool darkTheme;
-  final void Function(int index)? onPressed;
-
-  FarmPlant copyWith({bool? darkTheme}) {
-    return FarmPlant(
-      key: key,
-      farmPlantData: farmPlantData,
-      darkTheme: darkTheme ?? this.darkTheme,
-      onPressed: onPressed,
-    );
-  }
+  final FarmPlantModel model;
+  final PlantCallBack Function(int index)? onPressedByIndex;
 
   @override
   Widget build(BuildContext context) {
-    void Function()? onPressedByIndex(int index) {
-      return onPressed == null ? null : () => onPressed!(index);
-    }
-
-    return switch (farmPlantData.farmPlantStyle) {
+    return switch (model.farmPlantStyle) {
       FarmPlantStyle.basic => SizedBox(
           width: 180,
           height: 180,
@@ -38,57 +25,48 @@ class FarmPlant extends StatelessWidget {
               Row(
                 children: [
                   PlantCell(
-                    plant: farmPlantData.plants[0],
-                    darkTheme: darkTheme,
-                    onPressed: onPressedByIndex(0),
+                    model: model.plantCellModels[0],
+                    onPressed: onPressedByIndex?.call(0),
                   ),
                   PlantCell(
-                    plant: farmPlantData.plants[1],
-                    darkTheme: darkTheme,
-                    onPressed: onPressedByIndex(1),
+                    model: model.plantCellModels[1],
+                    onPressed: onPressedByIndex?.call(1),
                   ),
                   PlantCell(
-                    plant: farmPlantData.plants[2],
-                    darkTheme: darkTheme,
-                    onPressed: onPressedByIndex(2),
+                    model: model.plantCellModels[2],
+                    onPressed: onPressedByIndex?.call(2),
                   ),
                 ],
               ),
               Row(
                 children: [
                   PlantCell(
-                    plant: farmPlantData.plants[3],
-                    darkTheme: darkTheme,
-                    onPressed: onPressedByIndex(3),
+                    model: model.plantCellModels[3],
+                    onPressed: onPressedByIndex?.call(3),
                   ),
                   PlantCell(
-                    plant: farmPlantData.plants[4],
-                    darkTheme: darkTheme,
-                    onPressed: onPressedByIndex(4),
+                    model: model.plantCellModels[4],
+                    onPressed: onPressedByIndex?.call(4),
                   ),
                   PlantCell(
-                    plant: farmPlantData.plants[5],
-                    darkTheme: darkTheme,
-                    onPressed: onPressedByIndex(5),
+                    model: model.plantCellModels[5],
+                    onPressed: onPressedByIndex?.call(5),
                   ),
                 ],
               ),
               Row(
                 children: [
                   PlantCell(
-                    plant: farmPlantData.plants[6],
-                    darkTheme: darkTheme,
-                    onPressed: onPressedByIndex(6),
+                    model: model.plantCellModels[6],
+                    onPressed: onPressedByIndex?.call(6),
                   ),
                   PlantCell(
-                    plant: farmPlantData.plants[7],
-                    darkTheme: darkTheme,
-                    onPressed: onPressedByIndex(7),
+                    model: model.plantCellModels[7],
+                    onPressed: onPressedByIndex?.call(7),
                   ),
                   PlantCell(
-                    plant: farmPlantData.plants[8],
-                    darkTheme: darkTheme,
-                    onPressed: onPressedByIndex(8),
+                    model: model.plantCellModels[8],
+                    onPressed: onPressedByIndex?.call(8),
                   ),
                 ],
               ),
@@ -104,14 +82,12 @@ class FarmPlant extends StatelessWidget {
                 child: Row(
                   children: [
                     PlantCell(
-                      plant: farmPlantData.plants[0],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(0),
+                      model: model.plantCellModels[0],
+                      onPressed: onPressedByIndex?.call(0),
                     ),
                     PlantCell(
-                      plant: farmPlantData.plants[1],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(1),
+                      model: model.plantCellModels[1],
+                      onPressed: onPressedByIndex?.call(1),
                     ),
                   ],
                 ),
@@ -120,19 +96,16 @@ class FarmPlant extends StatelessWidget {
                 child: Row(
                   children: [
                     PlantCell(
-                      plant: farmPlantData.plants[2],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(2),
+                      model: model.plantCellModels[2],
+                      onPressed: onPressedByIndex?.call(2),
                     ),
                     PlantCell(
-                      plant: farmPlantData.plants[3],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(3),
+                      model: model.plantCellModels[3],
+                      onPressed: onPressedByIndex?.call(3),
                     ),
                     PlantCell(
-                      plant: farmPlantData.plants[4],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(4),
+                      model: model.plantCellModels[4],
+                      onPressed: onPressedByIndex?.call(4),
                     ),
                   ],
                 ),
@@ -141,14 +114,12 @@ class FarmPlant extends StatelessWidget {
                 child: Row(
                   children: [
                     PlantCell(
-                      plant: farmPlantData.plants[5],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(5),
+                      model: model.plantCellModels[5],
+                      onPressed: onPressedByIndex?.call(5),
                     ),
                     PlantCell(
-                      plant: farmPlantData.plants[6],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(6),
+                      model: model.plantCellModels[6],
+                      onPressed: onPressedByIndex?.call(6),
                     ),
                   ],
                 ),
@@ -157,19 +128,16 @@ class FarmPlant extends StatelessWidget {
                 child: Row(
                   children: [
                     PlantCell(
-                      plant: farmPlantData.plants[7],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(7),
+                      model: model.plantCellModels[7],
+                      onPressed: onPressedByIndex?.call(7),
                     ),
                     PlantCell(
-                      plant: farmPlantData.plants[8],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(8),
+                      model: model.plantCellModels[8],
+                      onPressed: onPressedByIndex?.call(8),
                     ),
                     PlantCell(
-                      plant: farmPlantData.plants[9],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(9),
+                      model: model.plantCellModels[9],
+                      onPressed: onPressedByIndex?.call(9),
                     ),
                   ],
                 ),
@@ -186,19 +154,16 @@ class FarmPlant extends StatelessWidget {
                 child: Row(
                   children: [
                     PlantCell(
-                      plant: farmPlantData.plants[0],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(0),
+                      model: model.plantCellModels[0],
+                      onPressed: onPressedByIndex?.call(0),
                     ),
                     PlantCell(
-                      plant: farmPlantData.plants[1],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(1),
+                      model: model.plantCellModels[1],
+                      onPressed: onPressedByIndex?.call(1),
                     ),
                     PlantCell(
-                      plant: farmPlantData.plants[2],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(2),
+                      model: model.plantCellModels[2],
+                      onPressed: onPressedByIndex?.call(2),
                     ),
                   ],
                 ),
@@ -207,14 +172,12 @@ class FarmPlant extends StatelessWidget {
                 child: Row(
                   children: [
                     PlantCell(
-                      plant: farmPlantData.plants[3],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(3),
+                      model: model.plantCellModels[3],
+                      onPressed: onPressedByIndex?.call(3),
                     ),
                     PlantCell(
-                      plant: farmPlantData.plants[4],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(4),
+                      model: model.plantCellModels[4],
+                      onPressed: onPressedByIndex?.call(4),
                     ),
                   ],
                 ),
@@ -223,19 +186,16 @@ class FarmPlant extends StatelessWidget {
                 child: Row(
                   children: [
                     PlantCell(
-                      plant: farmPlantData.plants[5],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(5),
+                      model: model.plantCellModels[5],
+                      onPressed: onPressedByIndex?.call(5),
                     ),
                     PlantCell(
-                      plant: farmPlantData.plants[6],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(6),
+                      model: model.plantCellModels[6],
+                      onPressed: onPressedByIndex?.call(6),
                     ),
                     PlantCell(
-                      plant: farmPlantData.plants[7],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(7),
+                      model: model.plantCellModels[7],
+                      onPressed: onPressedByIndex?.call(7),
                     ),
                   ],
                 ),
@@ -244,14 +204,12 @@ class FarmPlant extends StatelessWidget {
                 child: Row(
                   children: [
                     PlantCell(
-                      plant: farmPlantData.plants[8],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(8),
+                      model: model.plantCellModels[8],
+                      onPressed: onPressedByIndex?.call(8),
                     ),
                     PlantCell(
-                      plant: farmPlantData.plants[9],
-                      darkTheme: darkTheme,
-                      onPressed: onPressedByIndex(9),
+                      model: model.plantCellModels[9],
+                      onPressed: onPressedByIndex?.call(9),
                     ),
                   ],
                 ),

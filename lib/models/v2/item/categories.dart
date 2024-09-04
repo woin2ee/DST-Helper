@@ -93,9 +93,12 @@ class Seed with _$Seed, Item, Edible, Cookable {
     required String code,
     required String assetName,
     required FoodType type,
-    required String cookedAssetName,
     required String? compositeAssetName,
   }) = _Seed;
+  const Seed._();
+
+  @override
+  String get cookedAssetName => 'toasted_seeds';
 
   factory Seed.fromJson(Map<String, Object?> json) => _$SeedFromJson(json);
 }

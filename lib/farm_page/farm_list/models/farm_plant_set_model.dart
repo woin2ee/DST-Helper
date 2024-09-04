@@ -1,6 +1,6 @@
 import 'package:dst_helper/farm_page/farm_list/models/farm_plant_model.dart';
 import 'package:dst_helper/models/v1/season.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'farm_plant_set_model.g.dart';
@@ -12,7 +12,7 @@ enum FarmPlantSetStyle {
 }
 
 @JsonSerializable()
-class FarmPlantSetModel {
+class FarmPlantSetModel extends ChangeNotifier {
   @visibleForTesting
   FarmPlantSetModel({
     required this.farmPlantSetStyle,
@@ -61,8 +61,6 @@ class FarmPlantSetModel {
     );
   }
 
-  factory FarmPlantSetModel.fromJson(Map<String, dynamic> json) => _$FarmPlantSetModelFromJson(json);
-
   Seasons get suitableSeasons {
     Seasons seasons = {
       Season.spring,
@@ -71,7 +69,7 @@ class FarmPlantSetModel {
       Season.winter,
     };
     for (final farmPlant in farmPlantModelList) {
-      for (final plant in farmPlant.plants) {
+      for (final plant in farmPlant.plantCellModels.map((e) => e.plant)) {
         if (plant == null) continue;
         seasons = seasons.intersection(plant.seasons);
       }
@@ -79,5 +77,21 @@ class FarmPlantSetModel {
     return seasons;
   }
 
+  factory FarmPlantSetModel.fromJson(Map<String, dynamic> json) => _$FarmPlantSetModelFromJson(json);
   Map<String, dynamic> toJson() => _$FarmPlantSetModelToJson(this);
+
+  @override
+  bool operator ==(Object other) {
+    return other is FarmPlantSetModel &&
+        farmPlantSetStyle == other.farmPlantSetStyle &&
+        farmPlantsCount == other.farmPlantsCount &&
+        listEquals(farmPlantModelList, other.farmPlantModelList);
+  }
+
+  @override
+  int get hashCode => Object.hash(
+        farmPlantSetStyle,
+        farmPlantsCount,
+        farmPlantModelList,
+      );
 }

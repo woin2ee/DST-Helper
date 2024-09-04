@@ -1,22 +1,21 @@
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set.dart';
+import 'package:dst_helper/farm_page/farm_list/models/farm_page_model.dart';
 import 'package:dst_helper/farm_page/farm_list/models/farm_plant_card_model.dart';
 import 'package:dst_helper/models/v2/localization.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FarmPlantCard extends StatelessWidget {
   const FarmPlantCard({
     super.key,
     required this.model,
-    required this.onStarPressed,
   });
 
   final FarmPlantCardModel model;
-  final void Function(bool) onStarPressed;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
     return Card(
       shape: const BeveledRectangleBorder(),
       color: theme.colorScheme.onSurfaceVariant,
@@ -41,24 +40,32 @@ class FarmPlantCard extends StatelessWidget {
                 ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: IconButton(
-                    padding: const EdgeInsets.all(0),
-                    onPressed: () => onStarPressed(!model.favorite),
-                    icon: model.favorite
-                        ? const Icon(
-                            Icons.star_rounded,
-                            color: Colors.yellow,
-                          )
-                        : const Icon(
-                            Icons.star_border_rounded,
-                            color: Colors.grey,
-                          ),
+                  child: ValueListenableBuilder(
+                    valueListenable: model.favorite,
+                    builder: (BuildContext context, bool favorite, Widget? child) {
+                      return IconButton(
+                        padding: const EdgeInsets.all(0),
+                        onPressed: () {
+                          model.favorite.value = !favorite;
+                          context.read<FarmPageModel>().save();
+                        },
+                        icon: favorite
+                            ? const Icon(
+                                Icons.star_rounded,
+                                color: Colors.yellow,
+                              )
+                            : const Icon(
+                                Icons.star_border_rounded,
+                                color: Colors.grey,
+                              ),
+                      );
+                    },
                   ),
                 ),
               ],
             ),
           ),
-          FarmPlantSet(farmPlantSetData: model.farmPlantSetModel),
+          FarmPlantSet(farmPlantSetModel: model.farmPlantSetModel),
         ],
       ),
     );

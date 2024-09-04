@@ -199,7 +199,6 @@ extension Seeds on Seed {
     code: 'seeds',
     assetName: 'seeds',
     type: FoodType.seeds,
-    cookedAssetName: 'toasted_seeds',
     compositeAssetName: null,
   );
 
@@ -208,7 +207,6 @@ extension Seeds on Seed {
     assetName: 'potato_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
-    cookedAssetName: 'toasted_seeds',
   );
 
   static const Seed carrotSeed = Seed(
@@ -216,7 +214,6 @@ extension Seeds on Seed {
     assetName: 'carrot_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
-    cookedAssetName: 'toasted_seeds',
   );
 
   static const Seed cornSeed = Seed(
@@ -224,7 +221,6 @@ extension Seeds on Seed {
     assetName: 'corn_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
-    cookedAssetName: 'toasted_seeds',
   );
 
   static const Seed tomaRootSeed = Seed(
@@ -232,7 +228,6 @@ extension Seeds on Seed {
     assetName: 'toma_root_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
-    cookedAssetName: 'toasted_seeds',
   );
 
   static const Seed asparagusSeed = Seed(
@@ -240,7 +235,6 @@ extension Seeds on Seed {
     assetName: 'asparagus_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
-    cookedAssetName: 'toasted_seeds',
   );
 
   static const Seed watermelonSeed = Seed(
@@ -248,7 +242,6 @@ extension Seeds on Seed {
     assetName: 'watermelon_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
-    cookedAssetName: 'toasted_seeds',
   );
 
   static const Seed pumpkinSeed = Seed(
@@ -256,7 +249,6 @@ extension Seeds on Seed {
     assetName: 'pumpkin_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
-    cookedAssetName: 'toasted_seeds',
   );
 
   static const Seed eggplantSeed = Seed(
@@ -264,7 +256,6 @@ extension Seeds on Seed {
     assetName: 'eggplant_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
-    cookedAssetName: 'toasted_seeds',
   );
 
   static const Seed garlicSeed = Seed(
@@ -272,7 +263,6 @@ extension Seeds on Seed {
     assetName: 'garlic_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
-    cookedAssetName: 'toasted_seeds',
   );
 
   static const Seed onionSeed = Seed(
@@ -280,7 +270,6 @@ extension Seeds on Seed {
     assetName: 'onion_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
-    cookedAssetName: 'toasted_seeds',
   );
 
   static const Seed pepperSeed = Seed(
@@ -288,7 +277,6 @@ extension Seeds on Seed {
     assetName: 'pepper_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
-    cookedAssetName: 'toasted_seeds',
   );
 
   static const Seed pomegranateSeed = Seed(
@@ -296,7 +284,6 @@ extension Seeds on Seed {
     assetName: 'pomegranate_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
-    cookedAssetName: 'toasted_seeds',
   );
 
   static const Seed dragonFruitSeed = Seed(
@@ -304,7 +291,6 @@ extension Seeds on Seed {
     assetName: 'dragon_fruit_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
-    cookedAssetName: 'toasted_seeds',
   );
 
   static const Seed durianSeed = Seed(
@@ -312,7 +298,6 @@ extension Seeds on Seed {
     assetName: 'durian_seeds',
     type: FoodType.seeds,
     compositeAssetName: null,
-    cookedAssetName: 'toasted_seeds',
   );
 }
 

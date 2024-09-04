@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:dst_helper/models/v2/item/category_mixins.dart';
-import 'package:dst_helper/models/v2/item/food_value.dart';
-import 'package:dst_helper/models/v2/item/categories.dart';
-import 'package:dst_helper/models/v2/item/nutrient.dart';
 import 'package:dst_helper/models/v1/item/requirement.dart';
 import 'package:dst_helper/models/v1/season.dart';
+import 'package:dst_helper/models/v2/item/categories.dart';
+import 'package:dst_helper/models/v2/item/category_mixins.dart';
+import 'package:dst_helper/models/v2/item/food_value.dart';
+import 'package:dst_helper/models/v2/item/nutrient.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,7 +20,7 @@ void main() {
     final potato1 = Crop(
       code: 'potato',
       assetName: 'potato',
-      foodValues: FoodValues({const FoodValue(category: FoodValueCategory.vegetable, quantifiedValue: 1.0)}),
+      foodValues: FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}),
       nutrient: const Nutrient(compost: 2, growthFormula: 2, manure: -4),
       seasons: {Season.spring, Season.autumn, Season.winter},
       type: FoodType.veggie,
@@ -29,7 +29,7 @@ void main() {
     final potato2 = Crop(
       code: 'potato',
       assetName: 'potato',
-      foodValues: FoodValues({const FoodValue(category: FoodValueCategory.vegetable, quantifiedValue: 1.0)}),
+      foodValues: FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}),
       nutrient: const Nutrient(compost: 2, growthFormula: 2, manure: -4),
       seasons: {Season.spring, Season.autumn, Season.winter},
       type: FoodType.veggie,
@@ -43,8 +43,7 @@ void main() {
 
     expect(potato1.code, 'potato');
     expect(potato1.assetName, 'potato');
-    expect(
-        potato1.foodValues, FoodValues({const FoodValue(category: FoodValueCategory.vegetable, quantifiedValue: 1.0)}));
+    expect(potato1.foodValues, FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}));
     expect(potato1.nutrient, const Nutrient(compost: 2, growthFormula: 2, manure: -4));
     expect(potato1.seasons, const {Season.spring, Season.autumn, Season.winter});
     expect(potato1.type, FoodType.veggie);
@@ -66,7 +65,7 @@ void main() {
     final potato = Crop(
       code: 'potato',
       assetName: 'potato',
-      foodValues: FoodValues({const FoodValue(category: FoodValueCategory.vegetable, quantifiedValue: 1.0)}),
+      foodValues: FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}),
       nutrient: const Nutrient(compost: 2, growthFormula: 2, manure: -4),
       seasons: {Season.spring, Season.autumn, Season.winter},
       type: FoodType.veggie,

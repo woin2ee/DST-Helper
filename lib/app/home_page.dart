@@ -102,9 +102,9 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: IndexedStack(
               index: selectedMenu.index,
-              children: const [
+              children: [
                 FarmPage(),
-                CookPage(),
+                const CookPage(),
               ],
             ),
           ),

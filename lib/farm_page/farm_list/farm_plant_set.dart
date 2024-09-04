@@ -1,17 +1,19 @@
 import 'package:dst_helper/farm_page/farm_list/farm_plant.dart';
 import 'package:dst_helper/farm_page/farm_list/models/farm_plant_set_model.dart';
+import 'package:dst_helper/farm_page/farm_list/plant_cell.dart';
 import 'package:flutter/material.dart';
 
 class FarmPlantSet extends StatelessWidget {
   const FarmPlantSet({
     super.key,
-    required this.farmPlantSetData,
+    required this.farmPlantSetModel,
     this.onPressed,
   });
 
-  final FarmPlantSetModel farmPlantSetData;
-  final void Function(int farmPlantIndex, int plantIndex)? onPressed;
+  final FarmPlantSetModel farmPlantSetModel;
+  final PlantCallBack Function(int plantIndex) Function(int farmPlantIndex)? onPressed;
 
+// TODO: 구현해야됨!
   // bool get canBecomeGiant {
   //   for (var farmPlant in farmPlants) {
   //     for (var crop in farmPlant.crops) {
@@ -23,22 +25,22 @@ class FarmPlantSet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return switch (farmPlantSetData.farmPlantSetStyle) {
+    return switch (farmPlantSetModel.farmPlantSetStyle) {
       FarmPlantSetStyle.single => FarmPlant(
-          farmPlantData: farmPlantSetData.farmPlantModelList[0],
-          onPressed: onPressed == null ? null : (plantIndex) => onPressed!(0, plantIndex),
+          model: farmPlantSetModel.farmPlantModelList[0],
+          onPressedByIndex: onPressed?.call(0),
         ),
       FarmPlantSetStyle.double => Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             FarmPlant(
-              farmPlantData: farmPlantSetData.farmPlantModelList[0],
-              onPressed: onPressed == null ? null : (plantIndex) => onPressed!(0, plantIndex),
+              model: farmPlantSetModel.farmPlantModelList[0],
+              onPressedByIndex: onPressed?.call(0),
             ),
             FarmPlant(
-              farmPlantData: farmPlantSetData.farmPlantModelList[1],
-              onPressed: onPressed == null ? null : (plantIndex) => onPressed!(1, plantIndex),
-            ).copyWith(darkTheme: true),
+              model: farmPlantSetModel.farmPlantModelList[1].copyWith(darkTheme: true),
+              onPressedByIndex: onPressed?.call(1),
+            ),
           ],
         ),
       FarmPlantSetStyle.square => Column(
@@ -48,25 +50,25 @@ class FarmPlantSet extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FarmPlant(
-                  farmPlantData: farmPlantSetData.farmPlantModelList[0],
-                  onPressed: onPressed == null ? null : (plantIndex) => onPressed!(0, plantIndex),
+                  model: farmPlantSetModel.farmPlantModelList[0],
+                  onPressedByIndex: onPressed?.call(0),
                 ),
                 FarmPlant(
-                  farmPlantData: farmPlantSetData.farmPlantModelList[1],
-                  onPressed: onPressed == null ? null : (plantIndex) => onPressed!(1, plantIndex),
-                ).copyWith(darkTheme: true),
+                  model: farmPlantSetModel.farmPlantModelList[1].copyWith(darkTheme: true),
+                  onPressedByIndex: onPressed?.call(1),
+                ),
               ],
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 FarmPlant(
-                  farmPlantData: farmPlantSetData.farmPlantModelList[2],
-                  onPressed: onPressed == null ? null : (plantIndex) => onPressed!(2, plantIndex),
-                ).copyWith(darkTheme: true),
+                  model: farmPlantSetModel.farmPlantModelList[2].copyWith(darkTheme: true),
+                  onPressedByIndex: onPressed?.call(2),
+                ),
                 FarmPlant(
-                  farmPlantData: farmPlantSetData.farmPlantModelList[3],
-                  onPressed: onPressed == null ? null : (plantIndex) => onPressed!(3, plantIndex),
+                  model: farmPlantSetModel.farmPlantModelList[3],
+                  onPressedByIndex: onPressed?.call(3),
                 ),
               ],
             ),
