@@ -1,7 +1,7 @@
 import 'package:dst_helper/farm_page/edit_farm_set.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_list.dart';
-import 'package:dst_helper/farm_page/farm_list/models/farm_page_model.dart';
-import 'package:dst_helper/farm_page/farm_list/models/farm_plant_card_model.dart';
+import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_model.dart';
+import 'package:dst_helper/farm_page/farm_page_model.dart';
 import 'package:dst_helper/farm_page/season_selection_box.dart';
 import 'package:dst_helper/farm_page/side_info_box/side_info_box.dart';
 import 'package:flutter/material.dart';

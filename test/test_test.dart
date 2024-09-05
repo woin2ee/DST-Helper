@@ -1,6 +1,6 @@
-import 'package:dst_helper/farm_page/farm_list/models/farm_plant_card_model.dart';
-import 'package:dst_helper/farm_page/farm_list/models/farm_plant_model.dart';
-import 'package:dst_helper/farm_page/farm_list/models/farm_plant_set_model.dart';
+import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
+import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_model.dart';
+import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set_model.dart';
 import 'package:dst_helper/models/v2/item/items.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -19,7 +19,6 @@ void main() {
     );
     var farmPlantSetModel1 = FarmPlantSetModel.single(farmPlantModel: farmPlantModel1);
     final model1 = FarmPlantCardModel(farmPlantSetModel: farmPlantSetModel1);
-
 
     var farmPlantModel2 = FarmPlantModel.basic(
       Crops.potato,

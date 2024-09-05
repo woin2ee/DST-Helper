@@ -1,8 +1,9 @@
-import 'package:dst_helper/farm_page/farm_list/models/plant_cell_model.dart';
 import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter/material.dart';
 
-export 'package:dst_helper/farm_page/farm_list/models/plant_cell_model.dart';
+import 'plant_cell_model.dart';
+
+export 'plant_cell_model.dart';
 
 typedef PlantCallBack = Plant? Function();
 

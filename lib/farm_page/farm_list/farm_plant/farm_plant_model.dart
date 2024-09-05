@@ -1,4 +1,4 @@
-import 'package:dst_helper/farm_page/farm_list/models/plant_cell_model.dart';
+import 'package:dst_helper/farm_page/farm_list/plant_cell/plant_cell_model.dart';
 import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:dst_helper/models/v2/item/nutrient.dart';
 import 'package:flutter/foundation.dart';

@@ -1,8 +1,8 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:dst_helper/farm_page/farm_list/models/farm_plant_card_model.dart';
-import 'package:dst_helper/farm_page/farm_list/models/farm_plant_set_model_sample.dart';
+import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_model.dart';
+import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set_model_sample.dart';
 import 'package:dst_helper/models/v1/season.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';

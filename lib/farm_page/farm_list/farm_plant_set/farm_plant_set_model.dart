@@ -1,4 +1,4 @@
-import 'package:dst_helper/farm_page/farm_list/models/farm_plant_model.dart';
+import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
 import 'package:dst_helper/models/v1/season.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';

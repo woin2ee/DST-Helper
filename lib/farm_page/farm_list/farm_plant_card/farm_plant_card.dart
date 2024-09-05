@@ -1,9 +1,12 @@
-import 'package:dst_helper/farm_page/farm_list/farm_plant_set.dart';
-import 'package:dst_helper/farm_page/farm_list/models/farm_page_model.dart';
-import 'package:dst_helper/farm_page/farm_list/models/farm_plant_card_model.dart';
+import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
+import 'package:dst_helper/farm_page/farm_page_model.dart';
 import 'package:dst_helper/models/v2/localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'farm_plant_card_model.dart';
+
+export 'farm_plant_card_model.dart';
 
 class FarmPlantCard extends StatelessWidget {
   const FarmPlantCard({
