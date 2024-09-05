@@ -28,21 +28,14 @@ class PlantCell extends StatelessWidget {
           return Container(
             margin: const EdgeInsets.all(1),
             color: model.darkTheme ? colorScheme.surfaceContainerHighest.dark : colorScheme.surfaceContainerHighest,
-            child: onPressed == null
-                ? Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: plantImageOf(model.plant),
-                  )
-                : IconButton(
-                    onPressed: () {
-                      model.plant = onPressed?.call();
-                    },
-                    icon: plantImageOf(model.plant),
-                    style: IconButton.styleFrom(
-                      padding: const EdgeInsets.all(6.0),
-                      shape: const RoundedRectangleBorder(),
-                    ),
-                  ),
+            child: IconButton(
+              onPressed: onPressed == null ? null : () => model.plant = onPressed?.call(),
+              icon: plantImageOf(model.plant),
+              style: IconButton.styleFrom(
+                padding: const EdgeInsets.all(6.0),
+                shape: const RoundedRectangleBorder(),
+              ),
+            ),
           );
         },
       ),
