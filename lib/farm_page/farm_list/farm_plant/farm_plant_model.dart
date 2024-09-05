@@ -33,19 +33,20 @@ class FarmPlantModel extends ChangeNotifier {
     Plant? c6,
     Plant? c7,
     Plant? c8,
-    Plant? c9,
-  ) {
+    Plant? c9, {
+    bool darkTheme = false,
+  }) {
     return FarmPlantModel(
       plantCellModels: [
-        PlantCellModel(plant: c1),
-        PlantCellModel(plant: c2),
-        PlantCellModel(plant: c3),
-        PlantCellModel(plant: c4),
-        PlantCellModel(plant: c5),
-        PlantCellModel(plant: c6),
-        PlantCellModel(plant: c7),
-        PlantCellModel(plant: c8),
-        PlantCellModel(plant: c9),
+        PlantCellModel(plant: c1, darkTheme: darkTheme),
+        PlantCellModel(plant: c2, darkTheme: darkTheme),
+        PlantCellModel(plant: c3, darkTheme: darkTheme),
+        PlantCellModel(plant: c4, darkTheme: darkTheme),
+        PlantCellModel(plant: c5, darkTheme: darkTheme),
+        PlantCellModel(plant: c6, darkTheme: darkTheme),
+        PlantCellModel(plant: c7, darkTheme: darkTheme),
+        PlantCellModel(plant: c8, darkTheme: darkTheme),
+        PlantCellModel(plant: c9, darkTheme: darkTheme),
       ],
       farmPlantStyle: FarmPlantStyle.basic,
       countOfPlants: 9,
@@ -63,20 +64,21 @@ class FarmPlantModel extends ChangeNotifier {
     Plant? c7,
     Plant? c8,
     Plant? c9,
-    Plant? c10,
-  ) {
+    Plant? c10, {
+    bool darkTheme = false,
+  }) {
     return FarmPlantModel(
       plantCellModels: [
-        PlantCellModel(plant: c1),
-        PlantCellModel(plant: c2),
-        PlantCellModel(plant: c3),
-        PlantCellModel(plant: c4),
-        PlantCellModel(plant: c5),
-        PlantCellModel(plant: c6),
-        PlantCellModel(plant: c7),
-        PlantCellModel(plant: c8),
-        PlantCellModel(plant: c9),
-        PlantCellModel(plant: c10),
+        PlantCellModel(plant: c1, darkTheme: darkTheme),
+        PlantCellModel(plant: c2, darkTheme: darkTheme),
+        PlantCellModel(plant: c3, darkTheme: darkTheme),
+        PlantCellModel(plant: c4, darkTheme: darkTheme),
+        PlantCellModel(plant: c5, darkTheme: darkTheme),
+        PlantCellModel(plant: c6, darkTheme: darkTheme),
+        PlantCellModel(plant: c7, darkTheme: darkTheme),
+        PlantCellModel(plant: c8, darkTheme: darkTheme),
+        PlantCellModel(plant: c9, darkTheme: darkTheme),
+        PlantCellModel(plant: c10, darkTheme: darkTheme),
       ],
       farmPlantStyle: FarmPlantStyle.dense,
       countOfPlants: 10,
@@ -94,41 +96,42 @@ class FarmPlantModel extends ChangeNotifier {
     Plant? c7,
     Plant? c8,
     Plant? c9,
-    Plant? c10,
-  ) {
+    Plant? c10, {
+    bool darkTheme = false,
+  }) {
     return FarmPlantModel(
       plantCellModels: [
-        PlantCellModel(plant: c1),
-        PlantCellModel(plant: c2),
-        PlantCellModel(plant: c3),
-        PlantCellModel(plant: c4),
-        PlantCellModel(plant: c5),
-        PlantCellModel(plant: c6),
-        PlantCellModel(plant: c7),
-        PlantCellModel(plant: c8),
-        PlantCellModel(plant: c9),
-        PlantCellModel(plant: c10),
+        PlantCellModel(plant: c1, darkTheme: darkTheme),
+        PlantCellModel(plant: c2, darkTheme: darkTheme),
+        PlantCellModel(plant: c3, darkTheme: darkTheme),
+        PlantCellModel(plant: c4, darkTheme: darkTheme),
+        PlantCellModel(plant: c5, darkTheme: darkTheme),
+        PlantCellModel(plant: c6, darkTheme: darkTheme),
+        PlantCellModel(plant: c7, darkTheme: darkTheme),
+        PlantCellModel(plant: c8, darkTheme: darkTheme),
+        PlantCellModel(plant: c9, darkTheme: darkTheme),
+        PlantCellModel(plant: c10, darkTheme: darkTheme),
       ],
       farmPlantStyle: FarmPlantStyle.reverseDense,
       countOfPlants: 10,
     );
   }
 
-  factory FarmPlantModel.empty(FarmPlantStyle farmPlantStyle) {
+  factory FarmPlantModel.empty(FarmPlantStyle farmPlantStyle, {bool darkTheme = false}) {
     final countOfPlants = switch (farmPlantStyle) {
       FarmPlantStyle.basic => 9,
       FarmPlantStyle.dense || FarmPlantStyle.reverseDense => 10,
     };
     return FarmPlantModel(
-      plantCellModels: List.generate(countOfPlants, (_) => PlantCellModel(plant: null)),
+      plantCellModels: List.generate(countOfPlants, (_) => PlantCellModel(plant: null, darkTheme: darkTheme)),
       farmPlantStyle: farmPlantStyle,
       countOfPlants: countOfPlants,
     );
   }
 
-  factory FarmPlantModel.basicWithPlants(List<Plant?> plants) {
+  factory FarmPlantModel.basicWithPlants(List<Plant?> plants, {bool darkTheme = false}) {
     return FarmPlantModel(
-      plantCellModels: plants.map((plant) => PlantCellModel(plant: plant)).toList(),
+      plantCellModels: plants.map((plant) => PlantCellModel(plant: plant, darkTheme: darkTheme)).toList(),
       farmPlantStyle: FarmPlantStyle.basic,
       countOfPlants: 9,
     );

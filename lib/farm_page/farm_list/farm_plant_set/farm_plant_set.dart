@@ -40,7 +40,7 @@ class FarmPlantSet extends StatelessWidget {
               onPressedByIndex: onPressed?.call(0),
             ),
             FarmPlant(
-              model: farmPlantSetModel.farmPlantModelList[1].copyWith(darkTheme: true),
+              model: farmPlantSetModel.farmPlantModelList[1],
               onPressedByIndex: onPressed?.call(1),
             ),
           ],
@@ -56,7 +56,7 @@ class FarmPlantSet extends StatelessWidget {
                   onPressedByIndex: onPressed?.call(0),
                 ),
                 FarmPlant(
-                  model: farmPlantSetModel.farmPlantModelList[1].copyWith(darkTheme: true),
+                  model: farmPlantSetModel.farmPlantModelList[1],
                   onPressedByIndex: onPressed?.call(1),
                 ),
               ],
@@ -65,7 +65,7 @@ class FarmPlantSet extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FarmPlant(
-                  model: farmPlantSetModel.farmPlantModelList[2].copyWith(darkTheme: true),
+                  model: farmPlantSetModel.farmPlantModelList[2],
                   onPressedByIndex: onPressed?.call(2),
                 ),
                 FarmPlant(

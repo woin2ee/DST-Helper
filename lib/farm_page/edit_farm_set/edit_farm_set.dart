@@ -48,10 +48,9 @@ class _EditFarmSetState extends State<EditFarmSet> {
                     setState(() {
                       controller.selectedFarmPlantSetStyle = FarmPlantSetStyle.double;
                       controller.farmPlantSetModel = FarmPlantSetModel.double(
-                        left: controller.farmPlantSetModel.farmPlantModelList[0],
-                        right: controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(1) ??
-                            controller.selectedFarmPlantStyle.toEmptyModel(),
-                      );
+                          left: controller.farmPlantSetModel.farmPlantModelList[0],
+                          right: controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(1) ??
+                              FarmPlantModel.empty(controller.selectedFarmPlantStyle, darkTheme: true));
                     });
                   case FarmPlantSetStyle.square:
                     setState(() {
@@ -62,22 +61,26 @@ class _EditFarmSetState extends State<EditFarmSet> {
                           topLeft:
                               FarmPlantModel.basicWithPlants(controller.farmPlantSetModel.farmPlantModelList[0].plants),
                           topRight: FarmPlantModel.basicWithPlants(
-                              controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(1)?.plants ??
-                                  controller.selectedFarmPlantStyle.toEmptyModel().plants),
+                            controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(1)?.plants ??
+                                FarmPlantModel.empty(FarmPlantStyle.basic).plants,
+                            darkTheme: true,
+                          ),
                           bottomLeft: FarmPlantModel.basicWithPlants(
-                              controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(2)?.plants ??
-                                  controller.selectedFarmPlantStyle.toEmptyModel().plants),
+                            controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(2)?.plants ??
+                                FarmPlantModel.empty(FarmPlantStyle.basic).plants,
+                            darkTheme: true,
+                          ),
                           bottomRight: FarmPlantModel.basicWithPlants(
                               controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(3)?.plants ??
-                                  controller.selectedFarmPlantStyle.toEmptyModel().plants),
+                                  FarmPlantModel.empty(FarmPlantStyle.basic).plants),
                         );
                       } else {
                         controller.selectedFarmPlantStyle = FarmPlantStyle.basic;
                         controller.farmPlantSetModel = FarmPlantSetModel.square(
                           topLeft: FarmPlantModel.empty(FarmPlantStyle.basic),
-                          topRight: FarmPlantModel.empty(FarmPlantStyle.basic),
+                          topRight: FarmPlantModel.empty(FarmPlantStyle.basic, darkTheme: true),
                           bottomLeft: FarmPlantModel.empty(FarmPlantStyle.basic),
-                          bottomRight: FarmPlantModel.empty(FarmPlantStyle.basic),
+                          bottomRight: FarmPlantModel.empty(FarmPlantStyle.basic, darkTheme: true),
                         );
                       }
                     });
@@ -107,7 +110,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                       controller.selectedFarmPlantStyle = style;
                       controller.farmPlantSetModel = FarmPlantSetModel.double(
                         left: FarmPlantModel.empty(style),
-                        right: FarmPlantModel.empty(style),
+                        right: FarmPlantModel.empty(style, darkTheme: true),
                       );
                     });
                   },
@@ -290,19 +293,6 @@ class _EditFarmSetState extends State<EditFarmSet> {
         ),
       ),
     );
-  }
-}
-
-extension on FarmPlantStyle {
-  FarmPlantModel toEmptyModel() {
-    switch (this) {
-      case FarmPlantStyle.basic:
-        return FarmPlantModel.empty(FarmPlantStyle.basic);
-      case FarmPlantStyle.dense:
-        return FarmPlantModel.empty(FarmPlantStyle.dense);
-      case FarmPlantStyle.reverseDense:
-        return FarmPlantModel.empty(FarmPlantStyle.dense);
-    }
   }
 }
 
