@@ -5,8 +5,6 @@ import 'plant_cell_model.dart';
 
 export 'plant_cell_model.dart';
 
-typedef PlantCallBack = Plant? Function();
-
 class PlantCell extends StatelessWidget {
   PlantCell({
     super.key,
@@ -14,7 +12,7 @@ class PlantCell extends StatelessWidget {
     PlantCellModel? model,
   }) : model = model ?? PlantCellModel(plant: null);
 
-  final PlantCallBack? onPressed;
+  final VoidCallback? onPressed;
   final PlantCellModel model;
 
   @override
@@ -29,7 +27,7 @@ class PlantCell extends StatelessWidget {
             margin: const EdgeInsets.all(1),
             color: model.darkTheme ? colorScheme.surfaceContainerHighest.dark : colorScheme.surfaceContainerHighest,
             child: IconButton(
-              onPressed: onPressed == null ? null : () => model.plant = onPressed?.call(),
+              onPressed: onPressed,
               icon: plantImageOf(model.plant),
               style: IconButton.styleFrom(
                 padding: const EdgeInsets.all(6.0),

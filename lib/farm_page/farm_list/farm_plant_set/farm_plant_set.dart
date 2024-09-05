@@ -1,5 +1,4 @@
 import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant.dart';
-import 'package:dst_helper/farm_page/farm_list/plant_cell/plant_cell.dart';
 import 'package:flutter/material.dart';
 
 import 'farm_plant_set_model.dart';
@@ -14,7 +13,7 @@ class FarmPlantSet extends StatelessWidget {
   });
 
   final FarmPlantSetModel farmPlantSetModel;
-  final PlantCallBack Function(int plantIndex) Function(int farmPlantIndex)? onPressed;
+  final VoidCallback Function(int plantIndex) Function(int farmPlantIndex)? onPressed;
 
 // TODO: 구현해야됨!
   // bool get canBecomeGiant {

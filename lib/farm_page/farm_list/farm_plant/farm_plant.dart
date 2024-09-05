@@ -13,7 +13,7 @@ class FarmPlant extends StatelessWidget {
   }) : model = model ?? FarmPlantModel.empty(FarmPlantStyle.basic);
 
   final FarmPlantModel model;
-  final PlantCallBack Function(int index)? onPressedByIndex;
+  final VoidCallback Function(int index)? onPressedByIndex;
 
   @override
   Widget build(BuildContext context) {

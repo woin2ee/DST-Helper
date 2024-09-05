@@ -1,5 +1,6 @@
 import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
 import 'package:dst_helper/models/v1/season.dart';
+import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -75,6 +76,19 @@ class FarmPlantSetModel extends ChangeNotifier {
       }
     }
     return seasons;
+  }
+
+  bool get hasAnyPlant {
+    return farmPlantModelList.any((model) => model.plants.any((plant) => plant != null));
+  }
+
+  bool get hasBalancedNutrients {
+    return farmPlantModelList.every((model) => model.hasBalancedNutrients);
+  }
+
+  void setPlant(Plant? plant, {required int farmPlantIndex, required int plantIndex}) {
+    farmPlantModelList[farmPlantIndex].plantCellModels[plantIndex].plant = plant;
+    notifyListeners();
   }
 
   factory FarmPlantSetModel.fromJson(Map<String, dynamic> json) => _$FarmPlantSetModelFromJson(json);
