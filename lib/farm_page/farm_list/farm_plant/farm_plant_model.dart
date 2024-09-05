@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:dst_helper/farm_page/farm_list/plant_cell/plant_cell_model.dart';
 import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:dst_helper/models/v2/item/nutrient.dart';
@@ -118,7 +120,7 @@ class FarmPlantModel extends ChangeNotifier {
       FarmPlantStyle.dense || FarmPlantStyle.reverseDense => 10,
     };
     return FarmPlantModel(
-      plantCellModels: List.filled(countOfPlants, PlantCellModel(plant: null)),
+      plantCellModels: List.generate(countOfPlants, (_) => PlantCellModel(plant: null)),
       farmPlantStyle: farmPlantStyle,
       countOfPlants: countOfPlants,
     );
@@ -140,7 +142,7 @@ class FarmPlantModel extends ChangeNotifier {
   Nutrient get totalNutrient => plantCellModels
       .map((e) => e.plant)
       .fold(Nutrient.zero(), (partial, next) => partial + (next?.nutrient ?? Nutrient.zero()));
-  List<Plant?> get plants => plantCellModels.map((model) => model.plant).toList();
+  UnmodifiableListView<Plant?> get plants => UnmodifiableListView(plantCellModels.map((model) => model.plant));
 
   void setPlant(Plant? plant, {required int index}) {
     assert(index <= plantCellModels.length);

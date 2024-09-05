@@ -62,95 +62,6 @@ class _EditFarmSetState extends State<EditFarmSet> {
     return null;
   }
 
-  Column buildCropSelectionTable() {
-    const int countOfRow = 7;
-    final int countOfColumn = (Crops.crops.length / countOfRow).ceil();
-    const double spacing = 4;
-
-    final cropSelectionTable = Column(
-      spacing: spacing,
-      children: [
-        for (int column = 0; column < countOfColumn; column++)
-          Row(
-            spacing: spacing,
-            children: [
-              for (int row = 0; row < countOfRow; row++)
-                if (Crops.crops.elementAtOrNull(countOfRow * column + row) != null)
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _selectedCrop = Crops.crops[countOfRow * column + row];
-                      });
-                    },
-                    icon: Image(
-                      image: AssetImage('assets/images/items/${Crops.crops[countOfRow * column + row].assetName}.png'),
-                      width: 40,
-                      height: 40,
-                    ),
-                    style: IconButton.styleFrom(
-                      backgroundColor: _selectedCrop == Crops.crops[countOfRow * column + row]
-                          ? Colors.blue.shade100
-                          : Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          color: _selectedCrop == Crops.crops[countOfRow * column + row]
-                              ? Colors.blue
-                              : Colors.grey.shade400,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                  ),
-            ],
-          ),
-      ],
-    );
-    return cropSelectionTable;
-  }
-
-  Column buildFertilizerSelectionTable() {
-    const double spacing = 4;
-    const List<List<Fertilizer>> fertilizerList = [
-      Fertilizers.compostList,
-      Fertilizers.growthFormulaList,
-      Fertilizers.manureList,
-      Fertilizers.mixList,
-    ];
-    return Column(
-      spacing: spacing,
-      children: [
-        ...fertilizerList.map((fertilizers) => Row(
-              spacing: spacing,
-              children: [
-                ...fertilizers.map((fertilizer) => IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _selectedFertilizer = (_selectedFertilizer == fertilizer) ? null : fertilizer;
-                        });
-                      },
-                      icon: Image(
-                        image: AssetImage('assets/images/items/${fertilizer.assetName}.png'),
-                        width: 40,
-                        height: 40,
-                      ),
-                      style: IconButton.styleFrom(
-                        backgroundColor: _selectedFertilizer == fertilizer ? Colors.blue.shade100 : Colors.transparent,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            color: _selectedFertilizer == fertilizer ? Colors.blue : Colors.grey.shade400,
-                            width: 2.0,
-                          ),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    )),
-              ],
-            )),
-      ],
-    );
-  }
-
   Text? get nutrientsText {
     if (_everyFarmPlantHasBalancedNutrients && _anyPlantIsPlaced) {
       return Text('${TextLocalizations.of(context)!.localized('balanced_nutrients')}!');
@@ -389,7 +300,11 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         ),
                       ),
                     ),
-                    buildCropSelectionTable(),
+                    CropSelectionTable(
+                      onPressed: (crop) {
+                        _selectedCrop = crop;
+                      },
+                    ),
                   ],
                 ),
                 Column(
@@ -417,7 +332,11 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         ],
                       ),
                     ),
-                    buildFertilizerSelectionTable(),
+                    FertilizerSelectionTable(
+                      onPressed: (fertilizer) {
+                        _selectedFertilizer = fertilizer;
+                      },
+                    ),
                   ],
                 ),
                 Row(
@@ -471,6 +390,134 @@ class _EditFarmSetState extends State<EditFarmSet> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class CropSelectionTable extends StatefulWidget {
+  const CropSelectionTable({
+    super.key,
+    required this.onPressed,
+  });
+
+  final int countOfRow = 7;
+  int get countOfColumn => (Crops.crops.length / countOfRow).ceil();
+  final double spacing = 4;
+
+  final void Function(Crop) onPressed;
+
+  @override
+  State<CropSelectionTable> createState() => _CropSelectionTableState();
+}
+
+class _CropSelectionTableState extends State<CropSelectionTable> {
+  Crop? _selectedCrop;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: widget.spacing,
+      children: [
+        for (int column = 0; column < widget.countOfColumn; column++)
+          Row(
+            spacing: widget.spacing,
+            children: [
+              for (int row = 0; row < widget.countOfRow; row++)
+                if (Crops.crops.elementAtOrNull(widget.countOfRow * column + row) != null)
+                  IconButton(
+                    onPressed: () {
+                      final selectedCrop = Crops.crops[widget.countOfRow * column + row];
+                      setState(() {
+                        _selectedCrop = selectedCrop;
+                      });
+                      widget.onPressed(selectedCrop);
+                    },
+                    icon: Image(
+                      image: AssetImage(
+                          'assets/images/items/${Crops.crops[widget.countOfRow * column + row].assetName}.png'),
+                      width: 40,
+                      height: 40,
+                    ),
+                    style: IconButton.styleFrom(
+                      backgroundColor: _selectedCrop == Crops.crops[widget.countOfRow * column + row]
+                          ? Colors.blue.shade100
+                          : Colors.transparent,
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          color: _selectedCrop == Crops.crops[widget.countOfRow * column + row]
+                              ? Colors.blue
+                              : Colors.grey.shade400,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+            ],
+          ),
+      ],
+    );
+  }
+}
+
+class FertilizerSelectionTable extends StatefulWidget {
+  const FertilizerSelectionTable({
+    super.key,
+    required this.onPressed,
+  });
+
+  final double spacing = 4;
+  final List<List<Fertilizer>> fertilizerList = const [
+    Fertilizers.compostList,
+    Fertilizers.growthFormulaList,
+    Fertilizers.manureList,
+    Fertilizers.mixList,
+  ];
+
+  final void Function(Fertilizer?) onPressed;
+
+  @override
+  State<FertilizerSelectionTable> createState() => _FertilizerSelectionTableState();
+}
+
+class _FertilizerSelectionTableState extends State<FertilizerSelectionTable> {
+  Fertilizer? _selectedFertilizer;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: widget.spacing,
+      children: [
+        ...widget.fertilizerList.map((fertilizers) => Row(
+              spacing: widget.spacing,
+              children: [
+                ...fertilizers.map((fertilizer) => IconButton(
+                      onPressed: () {
+                        final selectedFertilizer = (_selectedFertilizer == fertilizer) ? null : fertilizer;
+                        setState(() {
+                          _selectedFertilizer = selectedFertilizer;
+                        });
+                        widget.onPressed(selectedFertilizer);
+                      },
+                      icon: Image(
+                        image: AssetImage('assets/images/items/${fertilizer.assetName}.png'),
+                        width: 40,
+                        height: 40,
+                      ),
+                      style: IconButton.styleFrom(
+                        backgroundColor: _selectedFertilizer == fertilizer ? Colors.blue.shade100 : Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: _selectedFertilizer == fertilizer ? Colors.blue : Colors.grey.shade400,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    )),
+              ],
+            )),
+      ],
     );
   }
 }

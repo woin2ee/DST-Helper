@@ -3,14 +3,16 @@ import 'dart:math';
 import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
+import 'package:dst_helper/farm_page/farm_page_model.dart';
 import 'package:dst_helper/models/v2/item/items.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // For examples
 void main() {
   runApp(
     MaterialApp(
-      home: StreamExample(),
+      home: TestingContainer(),
     ),
   );
 }
@@ -94,7 +96,20 @@ class TestingContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final farmPlantSetModel = FarmPlantSetModel.double(
+    final farmPlantSetModelSingle = FarmPlantSetModel.single(
+      farmPlantModel: FarmPlantModel.basic(
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+      ),
+    );
+    final farmPlantSetModelDouble = FarmPlantSetModel.double(
       left: FarmPlantModel.basic(
         Crops.potato,
         Crops.potato,
@@ -119,22 +134,27 @@ class TestingContainer extends StatelessWidget {
       ).copyWith(darkTheme: true),
     );
     final farmPlantSet = FarmPlantSet(
-      farmPlantSetModel: farmPlantSetModel,
+      farmPlantSetModel: farmPlantSetModelSingle,
       onPressed: (farmPlantIndex) => (plantIndex) => () => Crops.crops[Random().nextInt(Crops.crops.length)],
     );
 
     final FarmPlantCard farmPlantCard = FarmPlantCard(
       model: FarmPlantCardModel(
         title: 'Example',
-        farmPlantSetModel: farmPlantSetModel,
+        farmPlantSetModel: farmPlantSetModelDouble,
       ),
     );
 
-    return Container(
-      color: Colors.white54,
-      child: Center(
-        child: IntrinsicWidth(child: farmPlantCard),
-      ),
+    return ChangeNotifierProvider(
+      create: (context) => FarmPageModel(),
+      child: Builder(builder: (context) {
+        return Container(
+          color: Colors.white54,
+          child: Center(
+            child: IntrinsicWidth(child: farmPlantSet),
+          ),
+        );
+      }),
     );
   }
 }
