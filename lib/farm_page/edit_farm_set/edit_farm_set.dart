@@ -32,99 +32,6 @@ class _EditFarmSetState extends State<EditFarmSet> {
 
   @override
   Widget build(BuildContext context) {
-    final farmPlantSetStyleSelectionBox = Row(
-      spacing: 10.0,
-      children: [
-        ...FarmPlantSetStyle.values.map((style) => OutlinedButton(
-              onPressed: () {
-                switch (style) {
-                  case FarmPlantSetStyle.single:
-                    setState(() {
-                      controller.selectedFarmPlantSetStyle = FarmPlantSetStyle.single;
-                      controller.farmPlantSetModel =
-                          FarmPlantSetModel.single(farmPlantModel: controller.farmPlantSetModel.farmPlantModelList[0]);
-                    });
-                  case FarmPlantSetStyle.double:
-                    setState(() {
-                      controller.selectedFarmPlantSetStyle = FarmPlantSetStyle.double;
-                      controller.farmPlantSetModel = FarmPlantSetModel.double(
-                          left: controller.farmPlantSetModel.farmPlantModelList[0],
-                          right: controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(1) ??
-                              FarmPlantModel.empty(controller.selectedFarmPlantStyle, darkTheme: true));
-                    });
-                  case FarmPlantSetStyle.square:
-                    setState(() {
-                      controller.selectedFarmPlantSetStyle = FarmPlantSetStyle.square;
-
-                      if (controller.selectedFarmPlantStyle == FarmPlantStyle.basic) {
-                        controller.farmPlantSetModel = FarmPlantSetModel.square(
-                          topLeft:
-                              FarmPlantModel.basicWithPlants(controller.farmPlantSetModel.farmPlantModelList[0].plants),
-                          topRight: FarmPlantModel.basicWithPlants(
-                            controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(1)?.plants ??
-                                FarmPlantModel.empty(FarmPlantStyle.basic).plants,
-                            darkTheme: true,
-                          ),
-                          bottomLeft: FarmPlantModel.basicWithPlants(
-                            controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(2)?.plants ??
-                                FarmPlantModel.empty(FarmPlantStyle.basic).plants,
-                            darkTheme: true,
-                          ),
-                          bottomRight: FarmPlantModel.basicWithPlants(
-                              controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(3)?.plants ??
-                                  FarmPlantModel.empty(FarmPlantStyle.basic).plants),
-                        );
-                      } else {
-                        controller.selectedFarmPlantStyle = FarmPlantStyle.basic;
-                        controller.farmPlantSetModel = FarmPlantSetModel.square(
-                          topLeft: FarmPlantModel.empty(FarmPlantStyle.basic),
-                          topRight: FarmPlantModel.empty(FarmPlantStyle.basic, darkTheme: true),
-                          bottomLeft: FarmPlantModel.empty(FarmPlantStyle.basic),
-                          bottomRight: FarmPlantModel.empty(FarmPlantStyle.basic, darkTheme: true),
-                        );
-                      }
-                    });
-                }
-              },
-              child: Text(style.name),
-            )),
-      ],
-    );
-
-    final farmPlantStyleSelectionBox = Row(
-      spacing: 10,
-      children: <Widget>[
-        ...FarmPlantStyle.values.map((style) => OutlinedButton(
-              onPressed: switch (controller.selectedFarmPlantSetStyle) {
-                FarmPlantSetStyle.single => () {
-                    setState(() {
-                      if (controller.selectedFarmPlantStyle == style) return;
-                      controller.selectedFarmPlantStyle = style;
-                      controller.farmPlantSetModel =
-                          FarmPlantSetModel.single(farmPlantModel: FarmPlantModel.empty(style));
-                    });
-                  },
-                FarmPlantSetStyle.double => () {
-                    setState(() {
-                      if (controller.selectedFarmPlantStyle == style) return;
-                      controller.selectedFarmPlantStyle = style;
-                      controller.farmPlantSetModel = FarmPlantSetModel.double(
-                        left: FarmPlantModel.empty(style),
-                        right: FarmPlantModel.empty(style, darkTheme: true),
-                      );
-                    });
-                  },
-                FarmPlantSetStyle.square => switch (style) {
-                    FarmPlantStyle.basic => () {},
-                    FarmPlantStyle.dense => null,
-                    FarmPlantStyle.reverseDense => null,
-                  },
-              },
-              child: Text(style.name),
-            )),
-      ],
-    );
-
     return FittedBox(
       child: Container(
         decoration: BoxDecoration(
@@ -195,8 +102,8 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         );
                       }),
                 ),
-                farmPlantStyleSelectionBox,
-                farmPlantSetStyleSelectionBox,
+                _buildFarmPlantStyleSelectionBox(),
+                _buildFarmPlantSetStyleSelectionBox(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -292,6 +199,105 @@ class _EditFarmSetState extends State<EditFarmSet> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildFarmPlantStyleSelectionBox() {
+    return Builder(builder: (context) {
+      return Row(
+        spacing: 10,
+        children: <Widget>[
+          ...FarmPlantStyle.values.map((style) => OutlinedButton(
+                onPressed: switch (controller.selectedFarmPlantSetStyle) {
+                  FarmPlantSetStyle.single => () {
+                      setState(() {
+                        if (controller.selectedFarmPlantStyle == style) return;
+                        controller.selectedFarmPlantStyle = style;
+                        controller.farmPlantSetModel =
+                            FarmPlantSetModel.single(farmPlantModel: FarmPlantModel.empty(style));
+                      });
+                    },
+                  FarmPlantSetStyle.double => () {
+                      setState(() {
+                        if (controller.selectedFarmPlantStyle == style) return;
+                        controller.selectedFarmPlantStyle = style;
+                        controller.farmPlantSetModel = FarmPlantSetModel.double(
+                          left: FarmPlantModel.empty(style),
+                          right: FarmPlantModel.empty(style, darkTheme: true),
+                        );
+                      });
+                    },
+                  FarmPlantSetStyle.square => switch (style) {
+                      FarmPlantStyle.basic => () {},
+                      FarmPlantStyle.dense => null,
+                      FarmPlantStyle.reverseDense => null,
+                    },
+                },
+                child: Text(style.localizedName(context)),
+              )),
+        ],
+      );
+    });
+  }
+
+  Widget _buildFarmPlantSetStyleSelectionBox() {
+    return Row(
+      spacing: 10.0,
+      children: [
+        ...FarmPlantSetStyle.values.map((style) => OutlinedButton(
+              onPressed: () {
+                switch (style) {
+                  case FarmPlantSetStyle.single:
+                    setState(() {
+                      controller.selectedFarmPlantSetStyle = FarmPlantSetStyle.single;
+                      controller.farmPlantSetModel =
+                          FarmPlantSetModel.single(farmPlantModel: controller.farmPlantSetModel.farmPlantModelList[0]);
+                    });
+                  case FarmPlantSetStyle.double:
+                    setState(() {
+                      controller.selectedFarmPlantSetStyle = FarmPlantSetStyle.double;
+                      controller.farmPlantSetModel = FarmPlantSetModel.double(
+                          left: controller.farmPlantSetModel.farmPlantModelList[0],
+                          right: controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(1) ??
+                              FarmPlantModel.empty(controller.selectedFarmPlantStyle, darkTheme: true));
+                    });
+                  case FarmPlantSetStyle.square:
+                    setState(() {
+                      controller.selectedFarmPlantSetStyle = FarmPlantSetStyle.square;
+
+                      if (controller.selectedFarmPlantStyle == FarmPlantStyle.basic) {
+                        controller.farmPlantSetModel = FarmPlantSetModel.square(
+                          topLeft:
+                              FarmPlantModel.basicWithPlants(controller.farmPlantSetModel.farmPlantModelList[0].plants),
+                          topRight: FarmPlantModel.basicWithPlants(
+                            controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(1)?.plants ??
+                                FarmPlantModel.empty(FarmPlantStyle.basic).plants,
+                            darkTheme: true,
+                          ),
+                          bottomLeft: FarmPlantModel.basicWithPlants(
+                            controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(2)?.plants ??
+                                FarmPlantModel.empty(FarmPlantStyle.basic).plants,
+                            darkTheme: true,
+                          ),
+                          bottomRight: FarmPlantModel.basicWithPlants(
+                              controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(3)?.plants ??
+                                  FarmPlantModel.empty(FarmPlantStyle.basic).plants),
+                        );
+                      } else {
+                        controller.selectedFarmPlantStyle = FarmPlantStyle.basic;
+                        controller.farmPlantSetModel = FarmPlantSetModel.square(
+                          topLeft: FarmPlantModel.empty(FarmPlantStyle.basic),
+                          topRight: FarmPlantModel.empty(FarmPlantStyle.basic, darkTheme: true),
+                          bottomLeft: FarmPlantModel.empty(FarmPlantStyle.basic, darkTheme: true),
+                          bottomRight: FarmPlantModel.empty(FarmPlantStyle.basic),
+                        );
+                      }
+                    });
+                }
+              },
+              child: Text(style.name),
+            )),
+      ],
     );
   }
 }

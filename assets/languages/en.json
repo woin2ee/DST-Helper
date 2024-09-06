@@ -43,5 +43,8 @@
     "tomato_seeds_assumed_name": "Spiky Seeds",
     "treegrowthsolution": "Tree Jam",
     "watermelon_seeds_assumed_name": "Square Seeds",
+    "basic": "Basic",
+    "dense": "Dense",
+    "reverse_dense": "Dense(flip)",
     "winter": "Winter"
 }

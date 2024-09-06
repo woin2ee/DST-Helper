@@ -1,9 +1,11 @@
 import 'dart:collection';
 
 import 'package:dst_helper/farm_page/farm_list/plant_cell/plant_cell_model.dart';
+import 'package:dst_helper/localization/text_localizations.dart';
 import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:dst_helper/models/v2/item/nutrient.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'farm_plant_model.g.dart';
@@ -11,7 +13,18 @@ part 'farm_plant_model.g.dart';
 enum FarmPlantStyle {
   basic,
   dense,
-  reverseDense,
+  reverseDense;
+
+  String localizedName(BuildContext context) {
+    switch (this) {
+      case FarmPlantStyle.basic:
+        return TextLocalizations.of(context)!.localized('basic');
+      case FarmPlantStyle.dense:
+        return TextLocalizations.of(context)!.localized('dense');
+      case FarmPlantStyle.reverseDense:
+        return TextLocalizations.of(context)!.localized('reverse_dense');
+    }
+  }
 }
 
 @JsonSerializable()

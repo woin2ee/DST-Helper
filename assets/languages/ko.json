@@ -43,5 +43,8 @@
     "tomato_seeds_assumed_name": "삐죽삐죽한 씨앗",
     "treegrowthsolution": "나무 잼",
     "watermelon_seeds_assumed_name": "정사각형 씨앗",
+    "basic": "기본",
+    "dense": "밀집",
+    "reverse_dense": "밀집(반전)",
     "winter": "겨울"
 }
