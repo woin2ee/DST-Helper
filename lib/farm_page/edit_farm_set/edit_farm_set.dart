@@ -25,9 +25,13 @@ class _EditFarmSetState extends State<EditFarmSet> {
   @override
   void initState() {
     super.initState();
-    controller.titleEditingController.addListener(() {
-      controller.hasChanges = true;
-    });
+
+    Iterable<Listenable> controllers = [controller, controller.titleEditingController];
+    for (final e in controllers) {
+      e.addListener(() {
+        controller.hasChanges = true;
+      });
+    }
   }
 
   @override
@@ -68,7 +72,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                                   final Plant? placedPlant = controller
                                       .farmPlantSetModel.farmPlantModelList[farmPlantIndex].plants[plantIndex];
                                   final selectedCrop = controller.selectedCrop;
-                                  controller.farmPlantSetModel.setPlant(
+                                  controller.setPlant(
                                     placedPlant == selectedCrop ? null : selectedCrop,
                                     farmPlantIndex: farmPlantIndex,
                                     plantIndex: plantIndex,
@@ -165,7 +169,10 @@ class _EditFarmSetState extends State<EditFarmSet> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ListenableBuilder(
-                        listenable: controller.titleEditingController,
+                        listenable: Listenable.merge([
+                          controller,
+                          controller.titleEditingController,
+                        ]),
                         builder: (context, child) {
                           return PopScope(
                             canPop: !controller.hasChanges,

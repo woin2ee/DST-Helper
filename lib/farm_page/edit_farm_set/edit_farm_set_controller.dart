@@ -93,6 +93,7 @@ class EditFarmSetController extends ChangeNotifier {
           );
         }
     }
+    notifyListeners();
   }
 
   void setSelectedFarmPlantStyle(FarmPlantStyle style) {
@@ -109,5 +110,11 @@ class EditFarmSetController extends ChangeNotifier {
       case FarmPlantSetStyle.square:
         assert(style != FarmPlantStyle.dense && style != FarmPlantStyle.reverseDense);
     }
+    notifyListeners();
+  }
+
+  void setPlant(Plant? plant, {required int farmPlantIndex, required int plantIndex}) {
+    farmPlantSetModel.setPlant(plant, farmPlantIndex: farmPlantIndex, plantIndex: plantIndex);
+    notifyListeners();
   }
 }
