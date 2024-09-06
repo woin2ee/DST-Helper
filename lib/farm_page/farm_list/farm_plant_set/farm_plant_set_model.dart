@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
 import 'package:dst_helper/models/v1/season.dart';
 import 'package:dst_helper/models/v2/item/categories.dart';
@@ -18,12 +19,15 @@ class FarmPlantSetModel extends ChangeNotifier {
   FarmPlantSetModel({
     required this.farmPlantSetStyle,
     required this.farmPlantsCount,
-    required this.farmPlantModelList,
-  });
+    required List<FarmPlantModel> farmPlantModelList,
+  }) : _farmPlantModelList = farmPlantModelList;
 
   final FarmPlantSetStyle farmPlantSetStyle;
+
   final int farmPlantsCount;
-  List<FarmPlantModel> farmPlantModelList;
+
+  List<FarmPlantModel> _farmPlantModelList;
+  BuiltList<FarmPlantModel> get farmPlantModelList => BuiltList(_farmPlantModelList);
 
   factory FarmPlantSetModel.single({required FarmPlantModel farmPlantModel}) {
     return FarmPlantSetModel(
@@ -99,7 +103,7 @@ class FarmPlantSetModel extends ChangeNotifier {
     return other is FarmPlantSetModel &&
         farmPlantSetStyle == other.farmPlantSetStyle &&
         farmPlantsCount == other.farmPlantsCount &&
-        listEquals(farmPlantModelList, other.farmPlantModelList);
+        listEquals(_farmPlantModelList, other._farmPlantModelList);
   }
 
   @override

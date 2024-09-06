@@ -59,22 +59,30 @@ class _EditFarmSetState extends State<EditFarmSet> {
                   width: 380,
                   height: 380,
                   child: Center(
-                    child: FarmPlantSet(
-                      farmPlantSetModel: controller.farmPlantSetModel,
-                      onPressed: (farmPlantIndex) => (plantIndex) => () {
-                            final Plant? placedPlant =
-                                controller.farmPlantSetModel.farmPlantModelList[farmPlantIndex].plants[plantIndex];
-                            final selectedCrop = controller.selectedCropController.value;
-                            controller.farmPlantSetModel.setPlant(
-                              placedPlant == selectedCrop ? null : selectedCrop,
-                              farmPlantIndex: farmPlantIndex,
-                              plantIndex: plantIndex,
-                            );
-                          },
-                    ),
+                    child: ListenableBuilder(
+                        listenable: controller.farmPlantSetModelController,
+                        builder: (context, child) {
+                          return FarmPlantSet(
+                            farmPlantSetModel: controller.farmPlantSetModel,
+                            onPressed: (farmPlantIndex) => (plantIndex) => () {
+                                  final Plant? placedPlant = controller
+                                      .farmPlantSetModel.farmPlantModelList[farmPlantIndex].plants[plantIndex];
+                                  final selectedCrop = controller.selectedCrop;
+                                  controller.farmPlantSetModel.setPlant(
+                                    placedPlant == selectedCrop ? null : selectedCrop,
+                                    farmPlantIndex: farmPlantIndex,
+                                    plantIndex: plantIndex,
+                                  );
+                                },
+                          );
+                        }),
                   ),
                 ),
-                AnalysisView(controller: controller),
+                ValueListenableBuilder(
+                    valueListenable: controller.farmPlantSetModelController,
+                    builder: (context, value, child) {
+                      return AnalysisView(controller: controller);
+                    }),
               ],
             ),
             Column(
@@ -102,7 +110,11 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         );
                       }),
                 ),
-                _buildFarmPlantStyleSelectionBox(),
+                ValueListenableBuilder(
+                    valueListenable: controller.selectedFarmPlantSetStyleController,
+                    builder: (context, value, child) {
+                      return _buildFarmPlantStyleSelectionBox();
+                    }),
                 _buildFarmPlantSetStyleSelectionBox(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,28 +164,32 @@ class _EditFarmSetState extends State<EditFarmSet> {
                   spacing: 18,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    PopScope(
-                      canPop: !controller.hasChanges,
-                      onPopInvokedWithResult: (didPop, result) async {
-                        if (didPop) return;
-                        final bool shouldPop = await showBackDialog() ?? false;
-                        if (context.mounted && shouldPop) {
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: ElevatedButton(
-                        style: const ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll(Colors.red),
-                          foregroundColor: WidgetStatePropertyAll(Colors.white),
-                        ),
-                        onPressed: () {
-                          controller.hasChanges ? Navigator.maybePop(context) : Navigator.pop(context);
-                        },
-                        child: Text(
-                          TextLocalizations.of(context)!.localized('cancel'),
-                        ),
-                      ),
-                    ),
+                    ListenableBuilder(
+                        listenable: controller.titleEditingController,
+                        builder: (context, child) {
+                          return PopScope(
+                            canPop: !controller.hasChanges,
+                            onPopInvokedWithResult: (didPop, result) async {
+                              if (didPop) return;
+                              final bool shouldPop = await showBackDialog() ?? false;
+                              if (context.mounted && shouldPop) {
+                                Navigator.pop(context);
+                              }
+                            },
+                            child: ElevatedButton(
+                              style: const ButtonStyle(
+                                backgroundColor: WidgetStatePropertyAll(Colors.red),
+                                foregroundColor: WidgetStatePropertyAll(Colors.white),
+                              ),
+                              onPressed: () {
+                                controller.hasChanges ? Navigator.maybePop(context) : Navigator.pop(context);
+                              },
+                              child: Text(
+                                TextLocalizations.of(context)!.localized('cancel'),
+                              ),
+                            ),
+                          );
+                        }),
                     ElevatedButton(
                       style: const ButtonStyle(
                         backgroundColor: WidgetStatePropertyAll(Colors.blue),
@@ -209,23 +225,8 @@ class _EditFarmSetState extends State<EditFarmSet> {
         children: <Widget>[
           ...FarmPlantStyle.values.map((style) => OutlinedButton(
                 onPressed: switch (controller.selectedFarmPlantSetStyle) {
-                  FarmPlantSetStyle.single => () {
-                      setState(() {
-                        if (controller.selectedFarmPlantStyle == style) return;
-                        controller.selectedFarmPlantStyle = style;
-                        controller.farmPlantSetModel =
-                            FarmPlantSetModel.single(farmPlantModel: FarmPlantModel.empty(style));
-                      });
-                    },
-                  FarmPlantSetStyle.double => () {
-                      setState(() {
-                        if (controller.selectedFarmPlantStyle == style) return;
-                        controller.selectedFarmPlantStyle = style;
-                        controller.farmPlantSetModel = FarmPlantSetModel.double(
-                          left: FarmPlantModel.empty(style),
-                          right: FarmPlantModel.empty(style, darkTheme: true),
-                        );
-                      });
+                  FarmPlantSetStyle.single || FarmPlantSetStyle.double => () {
+                      controller.setSelectedFarmPlantStyle(style);
                     },
                   FarmPlantSetStyle.square => switch (style) {
                       FarmPlantStyle.basic => () {},
@@ -245,56 +246,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
       spacing: 10.0,
       children: [
         ...FarmPlantSetStyle.values.map((style) => OutlinedButton(
-              onPressed: () {
-                switch (style) {
-                  case FarmPlantSetStyle.single:
-                    setState(() {
-                      controller.selectedFarmPlantSetStyle = FarmPlantSetStyle.single;
-                      controller.farmPlantSetModel =
-                          FarmPlantSetModel.single(farmPlantModel: controller.farmPlantSetModel.farmPlantModelList[0]);
-                    });
-                  case FarmPlantSetStyle.double:
-                    setState(() {
-                      controller.selectedFarmPlantSetStyle = FarmPlantSetStyle.double;
-                      controller.farmPlantSetModel = FarmPlantSetModel.double(
-                          left: controller.farmPlantSetModel.farmPlantModelList[0],
-                          right: controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(1) ??
-                              FarmPlantModel.empty(controller.selectedFarmPlantStyle, darkTheme: true));
-                    });
-                  case FarmPlantSetStyle.square:
-                    setState(() {
-                      controller.selectedFarmPlantSetStyle = FarmPlantSetStyle.square;
-
-                      if (controller.selectedFarmPlantStyle == FarmPlantStyle.basic) {
-                        controller.farmPlantSetModel = FarmPlantSetModel.square(
-                          topLeft:
-                              FarmPlantModel.basicWithPlants(controller.farmPlantSetModel.farmPlantModelList[0].plants),
-                          topRight: FarmPlantModel.basicWithPlants(
-                            controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(1)?.plants ??
-                                FarmPlantModel.empty(FarmPlantStyle.basic).plants,
-                            darkTheme: true,
-                          ),
-                          bottomLeft: FarmPlantModel.basicWithPlants(
-                            controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(2)?.plants ??
-                                FarmPlantModel.empty(FarmPlantStyle.basic).plants,
-                            darkTheme: true,
-                          ),
-                          bottomRight: FarmPlantModel.basicWithPlants(
-                              controller.farmPlantSetModel.farmPlantModelList.elementAtOrNull(3)?.plants ??
-                                  FarmPlantModel.empty(FarmPlantStyle.basic).plants),
-                        );
-                      } else {
-                        controller.selectedFarmPlantStyle = FarmPlantStyle.basic;
-                        controller.farmPlantSetModel = FarmPlantSetModel.square(
-                          topLeft: FarmPlantModel.empty(FarmPlantStyle.basic),
-                          topRight: FarmPlantModel.empty(FarmPlantStyle.basic, darkTheme: true),
-                          bottomLeft: FarmPlantModel.empty(FarmPlantStyle.basic, darkTheme: true),
-                          bottomRight: FarmPlantModel.empty(FarmPlantStyle.basic),
-                        );
-                      }
-                    });
-                }
-              },
+              onPressed: () => controller.setSelectedFarmPlantSetStyle(style),
               child: Text(style.name),
             )),
       ],
