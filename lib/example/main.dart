@@ -142,6 +142,7 @@ class TestingContainer extends StatelessWidget {
       model: FarmPlantCardModel(
         title: 'Example',
         farmPlantSetModel: farmPlantSetModelDouble,
+        createType: CreateType.userCustom,
       ),
     );
 

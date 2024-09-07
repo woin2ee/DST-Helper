@@ -208,6 +208,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                               ? controller.titleEditingController.text
                               : null,
                           farmPlantSetModel: controller.farmPlantSetModel,
+                          createType: CreateType.userCustom,
                         );
                         Navigator.pop(context, model);
                       },

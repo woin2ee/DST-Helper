@@ -4,12 +4,18 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'farm_plant_card_model.g.dart';
 
+enum CreateType {
+  sample,
+  userCustom,
+}
+
 @JsonSerializable()
 class FarmPlantCardModel {
   FarmPlantCardModel({
     this.title,
     required this.farmPlantSetModel,
     bool favorite = false,
+    required this.createType,
   }) : favorite = ValueNotifier(favorite);
 
   final String? title;
@@ -18,13 +24,15 @@ class FarmPlantCardModel {
   @BooleanValueNotifierConverter()
   final ValueNotifier<bool> favorite;
 
+  final CreateType createType;
+
   FarmPlantCardModel copyWith(bool? favorite) {
     return FarmPlantCardModel(
       title: title,
       farmPlantSetModel: farmPlantSetModel,
       favorite: favorite ?? this.favorite.value,
+      createType: createType,
     );
-  
   }
 
   factory FarmPlantCardModel.fromJson(Map<String, dynamic> json) => _$FarmPlantCardModelFromJson(json);
@@ -35,7 +43,8 @@ class FarmPlantCardModel {
     return other is FarmPlantCardModel &&
         title == other.title &&
         farmPlantSetModel == other.farmPlantSetModel &&
-        favorite.value == other.favorite.value;
+        favorite.value == other.favorite.value &&
+        createType == other.createType;
   }
 
   @override
@@ -43,6 +52,7 @@ class FarmPlantCardModel {
         title,
         farmPlantSetModel,
         favorite.value,
+        createType,
       );
 }
 

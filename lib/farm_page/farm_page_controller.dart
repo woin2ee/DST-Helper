@@ -62,8 +62,10 @@ class FarmPageController extends ChangeNotifier {
     final prefs = await _prefs;
     final jsonString = prefs.getString(_CacheKey.farmPlantCardModelList.name);
     if (jsonString == null) {
-      final sampleData = FarmPlantSetModelSample.preDefinedList
-          .map((sampleModel) => FarmPlantCardModel(farmPlantSetModel: sampleModel));
+      final sampleData = FarmPlantSetModelSample.preDefinedList.map((sampleModel) => FarmPlantCardModel(
+            farmPlantSetModel: sampleModel,
+            createType: CreateType.sample,
+          ));
       farmPlantCardModelList = sampleData.toList();
       return;
     }
