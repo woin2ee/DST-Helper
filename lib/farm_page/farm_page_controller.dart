@@ -1,29 +1,26 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_model.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set_model_sample.dart';
 import 'package:dst_helper/models/v1/season.dart';
 import 'package:flutter/material.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-part 'farm_page_model.g.dart';
 
 enum _CacheKey {
   farmPlantCardModelList,
 }
 
-@JsonSerializable()
-class FarmPageModel extends ChangeNotifier {
-  FarmPageModel._({
+class FarmPageController extends ChangeNotifier {
+  FarmPageController._({
     required List<FarmPlantCardModel> farmPlantCardModelList,
     required Season initSeason,
   })  : _selectedSeason = initSeason,
         _farmPlantCardModelList = farmPlantCardModelList;
 
-  factory FarmPageModel() {
-    final farmPageModel = FarmPageModel._(
+  factory FarmPageController() {
+    final farmPageModel = FarmPageController._(
       farmPlantCardModelList: const [],
       initSeason: Season.spring,
     );
@@ -41,10 +38,9 @@ class FarmPageModel extends ChangeNotifier {
 
   List<FarmPlantCardModel> _farmPlantCardModelList;
 
-  @JsonKey(includeToJson: false, includeFromJson: false)
-  UnmodifiableListView<FarmPlantCardModel> get farmPlantCardModelList => UnmodifiableListView(_farmPlantCardModelList);
-  set farmPlantCardModelList(List<FarmPlantCardModel> value) {
-    _farmPlantCardModelList = value;
+  BuiltList<FarmPlantCardModel> get farmPlantCardModelList => BuiltList(_farmPlantCardModelList);
+  set farmPlantCardModelList(Iterable<FarmPlantCardModel> value) {
+    _farmPlantCardModelList = value.toList();
     notifyListeners();
   }
 
@@ -83,6 +79,7 @@ class FarmPageModel extends ChangeNotifier {
     final jsonString = jsonEncode(copy);
     await prefs.setString(_CacheKey.farmPlantCardModelList.name, jsonString);
     farmPlantCardModelList = copy;
+    notifyListeners();
   }
 
   void save() async {
@@ -90,7 +87,4 @@ class FarmPageModel extends ChangeNotifier {
     final jsonString = jsonEncode(farmPlantCardModelList);
     await prefs.setString(_CacheKey.farmPlantCardModelList.name, jsonString);
   }
-
-  factory FarmPageModel.fromJson(Map<String, dynamic> json) => _$FarmPageModelFromJson(json);
-  Map<String, dynamic> toJson() => _$FarmPageModelToJson(this);
 }

@@ -1,7 +1,7 @@
 import 'package:dst_helper/farm_page/edit_farm_set/edit_farm_set.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_list.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_model.dart';
-import 'package:dst_helper/farm_page/farm_page_model.dart';
+import 'package:dst_helper/farm_page/farm_page_controller.dart';
 import 'package:dst_helper/farm_page/season_selection_box.dart';
 import 'package:dst_helper/farm_page/side_info_box/side_info_box.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +13,11 @@ class FarmPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => FarmPageModel(),
+      create: (_) => FarmPageController(),
       builder: (context, child) => Builder(
         builder: (context) {
-          final initResult = context.read<FarmPageModel>().initFromPrefs();
-          return Consumer<FarmPageModel>(
+          final initResult = context.read<FarmPageController>().initFromPrefs();
+          return Consumer<FarmPageController>(
             builder: (context, model, child) => Theme(
               data: ThemeData(
                 useMaterial3: true,
@@ -90,7 +90,7 @@ class NewButton extends StatelessWidget {
           ),
         );
         if (result is FarmPlantCardModel && context.mounted) {
-          context.read<FarmPageModel>().addFarmPlantCard(result);
+          context.read<FarmPageController>().addFarmPlantCard(result);
         }
       },
       child: const Text('New'),

@@ -206,7 +206,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         final model = FarmPlantCardModel(
                           title: controller.titleEditingController.text.isNotEmpty
                               ? controller.titleEditingController.text
-                              : '${controller.farmPlantSetModel.suitableSeasons.map((season) => season.localizedName(context))}',
+                              : null,
                           farmPlantSetModel: controller.farmPlantSetModel,
                         );
                         Navigator.pop(context, model);

@@ -35,14 +35,14 @@ class FarmPlantCardModel {
     return other is FarmPlantCardModel &&
         title == other.title &&
         farmPlantSetModel == other.farmPlantSetModel &&
-        favorite == other.favorite;
+        favorite.value == other.favorite.value;
   }
 
   @override
   int get hashCode => Object.hash(
         title,
         farmPlantSetModel,
-        favorite,
+        favorite.value,
       );
 }
 

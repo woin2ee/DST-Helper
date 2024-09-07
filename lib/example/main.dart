@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
-import 'package:dst_helper/farm_page/farm_page_model.dart';
+import 'package:dst_helper/farm_page/farm_page_controller.dart';
 import 'package:dst_helper/models/v2/item/items.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -146,7 +146,7 @@ class TestingContainer extends StatelessWidget {
     );
 
     return ChangeNotifierProvider(
-      create: (context) => FarmPageModel(),
+      create: (context) => FarmPageController(),
       child: Builder(builder: (context) {
         return Container(
           color: Colors.white54,

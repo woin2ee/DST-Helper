@@ -1,4 +1,4 @@
-import 'package:dst_helper/farm_page/farm_page_model.dart';
+import 'package:dst_helper/farm_page/farm_page_controller.dart';
 import 'package:dst_helper/models/v1/localization/season_localization.dart';
 import 'package:dst_helper/models/v1/season.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class SeasonSelectionBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FarmPageModel>(
+    return Consumer<FarmPageController>(
       builder: (context, model, child) => ToggleButtons(
         borderRadius: BorderRadius.circular(10),
         constraints: const BoxConstraints(
