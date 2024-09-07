@@ -86,7 +86,7 @@ class FarmPageController extends ChangeNotifier {
 
   void save() async {
     final prefs = await _prefs;
-    final jsonString = jsonEncode(farmPlantCardModelList);
+    final jsonString = jsonEncode(_farmPlantCardModelList);
     await prefs.setString(_CacheKey.farmPlantCardModelList.name, jsonString);
   }
 }
