@@ -1,6 +1,7 @@
 import 'package:dst_helper/farm_page/farm_page_controller.dart';
 import 'package:dst_helper/models/v1/localization/season_localization.dart';
 import 'package:dst_helper/models/v1/season.dart';
+import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,6 +38,10 @@ class SeasonSelectionBox extends StatelessWidget {
                   season.localizedName(context),
                   style: const TextStyle(
                     fontSize: 18,
+                    fontFamily: FontFamily.pretendard,
+                    fontVariations: [
+                      FontVariation.weight(500),
+                    ],
                   ),
                 ),
               )),

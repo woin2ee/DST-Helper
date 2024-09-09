@@ -1,5 +1,6 @@
 import 'package:dst_helper/models/v1/item/dst_object.dart';
 import 'package:dst_helper/models/v1/localization/localization.dart';
+import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -60,6 +61,7 @@ class _NutrientTypeTitle extends StatelessWidget {
             child: Text(
               type.name(context),
               style: const TextStyle(
+                fontFamily: FontFamily.pretendard,
                 color: Colors.black87,
               ),
             ),
@@ -142,6 +144,7 @@ class FertilizersInfoBox extends StatelessWidget {
                                         fertilizer.localizedName(context),
                                         style: const TextStyle(
                                           fontSize: 13,
+                                          fontFamily: FontFamily.pretendard,
                                           color: Colors.black87,
                                         ),
                                       ),

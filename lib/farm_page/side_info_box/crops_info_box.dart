@@ -1,5 +1,6 @@
 import 'package:dst_helper/models/v1/item/dst_object.dart';
 import 'package:dst_helper/models/v1/season.dart';
+import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -33,7 +34,17 @@ class CropsInfoBox extends StatelessWidget {
           ),
           SizedBox(
             width: seasonWidth,
-            child: Center(child: Text(AppLocalizations.of(context)!.season)),
+            child: Center(
+              child: FittedBox(
+                child: Text(
+                  AppLocalizations.of(context)!.season,
+                  style: const TextStyle(
+                    fontFamily: FontFamily.pretendard,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
           ),
         ],
       ),
@@ -48,6 +59,9 @@ class CropsInfoBox extends StatelessWidget {
             child: FittedBox(
               child: Text(
                 AppLocalizations.of(context)!.compost,
+                style: const TextStyle(
+                  fontFamily: FontFamily.pretendard,
+                ),
               ),
             ),
           ),
@@ -58,6 +72,9 @@ class CropsInfoBox extends StatelessWidget {
             child: FittedBox(
               child: Text(
                 AppLocalizations.of(context)!.growthFormula,
+                style: const TextStyle(
+                  fontFamily: FontFamily.pretendard,
+                ),
               ),
             ),
           ),
@@ -68,6 +85,9 @@ class CropsInfoBox extends StatelessWidget {
             child: FittedBox(
               child: Text(
                 AppLocalizations.of(context)!.manure,
+                style: const TextStyle(
+                  fontFamily: FontFamily.pretendard,
+                ),
               ),
             ),
           ),
@@ -103,6 +123,9 @@ class CropsInfoBox extends StatelessWidget {
                                     nutrient > 0 ? '+${nutrient.toString()}' : nutrient.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
+                                      fontFamily: FontFamily.pretendard,
+                                      fontVariations: const [FontVariation.weight(550)],
+                                      fontSize: 15,
                                       color: nutrient > 0 ? Colors.green.shade700 : Colors.red,
                                     ),
                                   ),

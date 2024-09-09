@@ -1,6 +1,7 @@
 import 'package:dst_helper/localization/text_localizations.dart';
 import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:dst_helper/models/v2/localization.dart';
+import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 
 enum SettingItem {
@@ -61,7 +62,12 @@ class _SeedsInfoBoxState extends State<SeedsInfoBox> {
                   ...SettingItem.values.map((settingItem) => CheckedPopupMenuItem(
                         value: settingItem,
                         checked: _settings[settingItem] ?? false,
-                        child: Text(settingItem.description(context)),
+                        child: Text(
+                          settingItem.description(context),
+                          style: const TextStyle(
+                            fontFamily: FontFamily.pretendard,
+                          ),
+                        ),
                       ))
                 ],
               ),
@@ -78,6 +84,7 @@ class _SeedsInfoBoxState extends State<SeedsInfoBox> {
                           crop.seed.localizedAssumedName(context),
                           style: const TextStyle(
                             fontSize: 16,
+                            fontFamily: FontFamily.pretendard,
                             color: Colors.white,
                           ),
                         ),

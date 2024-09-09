@@ -101,6 +101,9 @@ flutter:
     - family: CustomIcon
       fonts: 
         - asset: assets/custom_icon/CustomIcon.ttf
+    - family: Pretendard
+      fonts:
+        - asset: assets/fonts/PretendardVariable.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

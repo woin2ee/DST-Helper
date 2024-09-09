@@ -10,6 +10,7 @@ import 'package:dst_helper/farm_page/side_info_box/fertilizers_info_box.dart';
 import 'package:dst_helper/localization/text_localizations.dart';
 import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:dst_helper/models/v2/localization.dart';
+import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 
 class EditFarmSet extends StatefulWidget {
@@ -108,6 +109,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                                 ? '${controller.farmPlantSetModel.suitableSeasons.map((season) => season.localizedName(context))}'
                                 : '',
                             hintStyle: const TextStyle(
+                              fontFamily: FontFamily.pretendard,
                               color: Colors.grey,
                             ),
                           ),
@@ -128,7 +130,8 @@ class _EditFarmSetState extends State<EditFarmSet> {
                       child: Text(
                         TextLocalizations.of(context)!.localized('crops'),
                         style: const TextStyle(
-                          fontWeight: FontWeight.w600,
+                          fontFamily: FontFamily.pretendard,
+                          fontVariations: [FontVariation.weight(500)],
                           fontSize: 15,
                         ),
                       ),
@@ -147,14 +150,16 @@ class _EditFarmSetState extends State<EditFarmSet> {
                           Text(
                             TextLocalizations.of(context)!.localized('fertilizers'),
                             style: const TextStyle(
-                              fontWeight: FontWeight.w600,
+                              fontFamily: FontFamily.pretendard,
+                              fontVariations: [FontVariation.weight(500)],
                               fontSize: 15,
                             ),
                           ),
                           const Text(
                             '(모든 밭에 같은 비료를 사용한다고 가정합니다.)',
                             style: TextStyle(
-                              fontWeight: FontWeight.w400,
+                              fontFamily: FontFamily.pretendard,
+                              fontVariations: [FontVariation.weight(400)],
                               fontSize: 12,
                             ),
                           ),
@@ -193,6 +198,10 @@ class _EditFarmSetState extends State<EditFarmSet> {
                               },
                               child: Text(
                                 TextLocalizations.of(context)!.localized('cancel'),
+                                style: const TextStyle(
+                                  fontFamily: FontFamily.pretendard,
+                                  fontSize: 15,
+                                ),
                               ),
                             ),
                           );
@@ -214,6 +223,10 @@ class _EditFarmSetState extends State<EditFarmSet> {
                       },
                       child: Text(
                         TextLocalizations.of(context)!.localized('add'),
+                        style: const TextStyle(
+                          fontFamily: FontFamily.pretendard,
+                          fontSize: 15,
+                        ),
                       ),
                     ),
                   ],
@@ -242,7 +255,12 @@ class _EditFarmSetState extends State<EditFarmSet> {
                       FarmPlantStyle.reverseDense => null,
                     },
                 },
-                child: Text(style.localizedName(context)),
+                child: Text(
+                  style.localizedName(context),
+                  style: const TextStyle(
+                    fontFamily: FontFamily.pretendard,
+                  ),
+                ),
               )),
         ],
       );
@@ -255,7 +273,12 @@ class _EditFarmSetState extends State<EditFarmSet> {
       children: [
         ...FarmPlantSetStyle.values.map((style) => OutlinedButton(
               onPressed: () => controller.setSelectedFarmPlantSetStyle(style),
-              child: Text(style.name),
+              child: Text(
+                style.name,
+                style: const TextStyle(
+                  fontFamily: FontFamily.pretendard,
+                ),
+              ),
             )),
       ],
     );

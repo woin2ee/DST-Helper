@@ -1,6 +1,7 @@
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
 import 'package:dst_helper/farm_page/farm_page_controller.dart';
 import 'package:dst_helper/models/v2/localization.dart';
+import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +36,9 @@ class FarmPlantCard extends StatelessWidget {
                     child: Text(
                       '${model.title != null ? model.title! : model.farmPlantSetModel.suitableSeasons.map((season) => season.localizedName(context))}',
                       maxLines: 1,
-                      style: theme.textTheme.titleMedium?.copyWith(
+                      style: TextStyle(
+                        fontFamily: FontFamily.pretendard,
+                        fontSize: 17,
                         color: theme.colorScheme.surfaceBright,
                       ),
                     ),

@@ -2,6 +2,7 @@ import 'package:dst_helper/app/models/menu.dart';
 import 'package:dst_helper/cook_page/cook_page.dart';
 import 'package:dst_helper/farm_page/farm_page.dart';
 import 'package:dst_helper/utils/custom_icon/custom_icon_icons.dart';
+import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -88,6 +89,8 @@ class _HomePageState extends State<HomePage> {
                     child: Text(
                       menu.value.localized(context),
                       style: TextStyle(
+                        fontFamily: FontFamily.pretendard,
+                        fontSize: 15,
                         color: selectedMenu == menu.value ? Colors.white : Colors.grey,
                       ),
                     ),
@@ -134,11 +137,21 @@ class LanguagePopupMenuButton extends StatelessWidget {
       itemBuilder: (BuildContext context) => [
         const PopupMenuItem(
           value: AvailableLanguage.en,
-          child: Text('English'),
+          child: Text(
+            'English',
+            style: TextStyle(
+              fontFamily: FontFamily.pretendard,
+            ),
+          ),
         ),
         const PopupMenuItem(
           value: AvailableLanguage.ko,
-          child: Text('한국어'),
+          child: Text(
+            '한국어',
+            style: TextStyle(
+              fontFamily: FontFamily.pretendard,
+            ),
+          ),
         ),
       ],
       child: Container(
