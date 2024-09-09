@@ -296,25 +296,43 @@ extension on _EditFarmSetState {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Are you sure?'),
-          content: const Text(
-            'Are you sure you want to leave this page?',
+          backgroundColor: Colors.white,
+          title: Text(
+            TextLocalizations.of(context)!.localized('back_dialog_title'),
+            style: const TextStyle(
+              fontFamily: FontFamily.pretendard,
+            ),
+          ),
+          content: Text(
+            TextLocalizations.of(context)!.localized('back_dialog_message'),
+            style: const TextStyle(
+              fontFamily: FontFamily.pretendard,
+            ),
           ),
           actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
+            FilledButton(
+              onPressed: () => Navigator.pop(context, false),
+              style: FilledButton.styleFrom(
+                backgroundColor: Colors.grey.shade100,
               ),
-              child: const Text('Nevermind'),
-              onPressed: () {
-                Navigator.pop(context, false);
-              },
+              child: Text(
+                TextLocalizations.of(context)!.localized('cancel'),
+                style: const TextStyle(
+                  fontFamily: FontFamily.pretendard,
+                  fontVariations: [FontVariation.weight(500)],
+                  color: Colors.black54,
+                ),
+              ),
             ),
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
+            FilledButton(
+              child: Text(
+                TextLocalizations.of(context)!.localized('confirm'),
+                style: const TextStyle(
+                  fontFamily: FontFamily.pretendard,
+                  fontVariations: [FontVariation.weight(500)],
+                  color: Colors.white,
+                ),
               ),
-              child: const Text('Leave'),
               onPressed: () {
                 Navigator.pop(context, true);
               },
