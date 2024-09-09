@@ -1,22 +1,17 @@
 # DST Helper
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+It is an application that can give a help when you play the _Don't Starve Together_.
 
 ## Shortcut links
 
 ### Web
-- Product:
+- Product: https://woin2ee.github.io/DST-Helper-web/
 - Github: https://github.com/woin2ee/DST-Helper-web
+
+## ❗️Important
+
+This application is not official app for **Klei Entertainment**.
+
+It is a `Player Creation` according to the [Player Creation Guidelines](https://support.klei.com/hc/en-us/articles/360029880791-Player-Creation-Guidelines).
+
+If you want to see the more games of **Klei**, check out [Here!](https://www.klei.com/)
