@@ -17,12 +17,31 @@ Future<void> _clearPrefsIfNeeds() async {
   final prefs = await SharedPreferencesWithCache.create(cacheOptions: const SharedPreferencesWithCacheOptions());
 
   // 버전 명시
-  const int currentVersion = 5;
+  const currentVersion = _PrefsVersion(
+    description: 'Add id(UUID) to `FarmPlantCardModel`',
+    number: 7,
+  );
 
-  final version = prefs.getInt('prefs_version');
-  if (version == null || version != currentVersion) {
+  clearAndSet() async {
     await prefs.clear();
-    prefs.setInt('prefs_version', currentVersion);
+    prefs.setInt('prefs_version', currentVersion.number);
+  }
+
+  final existingVersion = prefs.getInt('prefs_version');
+  if (existingVersion == null) {
+    clearAndSet();
     return;
   }
+  assert(existingVersion <= currentVersion.number);
+  if (existingVersion < currentVersion.number) {
+    clearAndSet();
+    return;
+  }
+}
+
+class _PrefsVersion {
+  final String description;
+  final int number;
+
+  const _PrefsVersion({required this.description, required this.number});
 }

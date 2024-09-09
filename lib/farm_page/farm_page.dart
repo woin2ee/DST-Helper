@@ -4,6 +4,8 @@ import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_m
 import 'package:dst_helper/farm_page/farm_page_controller.dart';
 import 'package:dst_helper/farm_page/season_selection_box.dart';
 import 'package:dst_helper/farm_page/side_info_box/side_info_box.dart';
+import 'package:dst_helper/localization/text_localizations.dart';
+import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,10 +20,10 @@ class FarmPage extends StatelessWidget {
         builder: (context) {
           final initResult = context.read<FarmPageController>().initFromPrefs();
           return Consumer<FarmPageController>(
-            builder: (context, model, child) => Theme(
+            builder: (context, controller, child) => Theme(
               data: ThemeData(
                 useMaterial3: true,
-                colorScheme: ColorScheme.fromSeed(seedColor: model.selectedSeason.personalColor),
+                colorScheme: ColorScheme.fromSeed(seedColor: controller.selectedSeason.personalColor),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,6 +39,8 @@ class FarmPage extends StatelessWidget {
                             children: [
                               SeasonSelectionBox(),
                               const NewButton(),
+                              const SizedBox(width: 50),
+                              const ShowingHiddenItemsCheckbox(),
                             ],
                           ),
                         ),
@@ -70,6 +74,35 @@ class FarmPage extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class ShowingHiddenItemsCheckbox extends StatelessWidget {
+  const ShowingHiddenItemsCheckbox({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<FarmPageController>(
+      builder: (BuildContext context, FarmPageController controller, Widget? checkboxLabel) {
+        return Row(
+          children: [
+            Checkbox(
+              value: controller.showHiddenItems,
+              onChanged: (bool? isChecked) {
+                controller.showHiddenItems = isChecked!;
+              },
+            ),
+            checkboxLabel!,
+          ],
+        );
+      },
+      child: Text(
+        TextLocalizations.of(context)!.localized('show_hidden_items'),
+        style: const TextStyle(
+          fontFamily: FontFamily.pretendard,
+        ),
       ),
     );
   }

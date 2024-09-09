@@ -16,13 +16,16 @@ class FarmPageController extends ChangeNotifier {
   FarmPageController._({
     required List<FarmPlantCardModel> farmPlantCardModelList,
     required Season initSeason,
-  })  : _selectedSeason = initSeason,
+    required bool showHiddenItems,
+  })  : _showHiddenItems = showHiddenItems,
+        _selectedSeason = initSeason,
         _farmPlantCardModelList = farmPlantCardModelList;
 
   factory FarmPageController() {
     final farmPageModel = FarmPageController._(
       farmPlantCardModelList: const [],
       initSeason: Season.spring,
+      showHiddenItems: false,
     );
     farmPageModel.initFromPrefs();
     return farmPageModel;
@@ -51,18 +54,30 @@ class FarmPageController extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _showHiddenItems;
+  bool get showHiddenItems => _showHiddenItems;
+  set showHiddenItems(bool value) {
+    _showHiddenItems = value;
+    notifyListeners();
+  }
+
   UnmodifiableListView<FarmPlantCardModel> get farmPlantCardModelListBySelectedSeason {
     final result = farmPlantCardModelList.where((farmPlantCardModel) {
       return farmPlantCardModel.farmPlantSetModel.suitableSeasons.contains(selectedSeason);
     });
-    return UnmodifiableListView(result);
+    if (showHiddenItems) {
+      return UnmodifiableListView(result);
+    } else {
+      final filteredResult = result.where((e) => !e.isHidden);
+      return UnmodifiableListView(filteredResult);
+    }
   }
 
   Future<void> initFromPrefs() async {
     final prefs = await _prefs;
     final jsonString = prefs.getString(_CacheKey.farmPlantCardModelList.name);
     if (jsonString == null) {
-      final sampleData = FarmPlantSetModelSample.preDefinedList.map((sampleModel) => FarmPlantCardModel(
+      final sampleData = FarmPlantSetModelSample.preDefinedList.map((sampleModel) => FarmPlantCardModel.create(
             farmPlantSetModel: sampleModel,
             createType: CreateType.sample,
           ));
@@ -84,7 +99,26 @@ class FarmPageController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void save() async {
+  void markCardAsFavorite(bool favorite, {required String id}) async {
+    final target = _farmPlantCardModelList.singleWhere((e) => e.id == id);
+    target.favorite.value = favorite;
+    _save();
+  }
+
+  void makeCardHidden(bool isHidden, {required String id}) {
+    final target = _farmPlantCardModelList.singleWhere((e) => e.id == id);
+    target.isHidden = isHidden;
+    notifyListeners();
+    _save();
+  }
+
+  void deleteCard({required String id}) {
+    _farmPlantCardModelList.removeWhere((model) => model.id == id);
+    notifyListeners();
+    _save();
+  }
+
+  Future<void> _save() async {
     final prefs = await _prefs;
     final jsonString = jsonEncode(_farmPlantCardModelList);
     await prefs.setString(_CacheKey.farmPlantCardModelList.name, jsonString);

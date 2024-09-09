@@ -212,7 +212,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         foregroundColor: WidgetStatePropertyAll(Colors.white),
                       ),
                       onPressed: () {
-                        final model = FarmPlantCardModel(
+                        final model = FarmPlantCardModel.create(
                           title: controller.titleEditingController.text.isNotEmpty
                               ? controller.titleEditingController.text
                               : null,
