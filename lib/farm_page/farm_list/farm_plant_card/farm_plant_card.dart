@@ -1,3 +1,4 @@
+import 'package:dst_helper/farm_page/edit_farm_set/edit_farm_set.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
 import 'package:dst_helper/farm_page/farm_page_controller.dart';
 import 'package:dst_helper/models/v2/localization.dart';
@@ -88,11 +89,22 @@ class _CardTitle extends StatelessWidget {
                   size: 22,
                 ),
                 position: PopupMenuPosition.under,
-                onSelected: (_CardActionEntry action) {
+                onSelected: (_CardActionEntry action) async {
                   switch (action) {
                     case _CardActionEntry.edit:
-                      farmPageController;
-                      throw UnimplementedError();
+                      final result = await showDialog(
+                        barrierColor: Colors.black.withOpacity(0.35),
+                        context: context,
+                        builder: (context) => Dialog(
+                          child: EditFarmSet(
+                            isEditingNew: false,
+                            originModel: model,
+                          ),
+                        ),
+                      );
+                      if (result is FarmPlantCardModel && context.mounted) {
+                        context.read<FarmPageController>().updateFarmPlantCard(result);
+                      }
                     case _CardActionEntry.hide:
                       farmPageController.makeCardHidden(true, id: model.id);
                     case _CardActionEntry.show:
@@ -103,13 +115,13 @@ class _CardTitle extends StatelessWidget {
                 },
                 itemBuilder: (context) {
                   return [
-                    // const PopupMenuItem(
-                    //   value: _CardActionEntry.edit,
-                    //   child: ListTile(
-                    //     leading: Icon(Icons.edit),
-                    //     title: Text('Edit'),
-                    //   ),
-                    // ),
+                    const PopupMenuItem(
+                      value: _CardActionEntry.edit,
+                      child: ListTile(
+                        leading: Icon(Icons.edit),
+                        title: Text('Edit'),
+                      ),
+                    ),
                     model.isHidden
                         ? const PopupMenuItem(
                             value: _CardActionEntry.show,

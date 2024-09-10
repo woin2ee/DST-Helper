@@ -99,6 +99,13 @@ class FarmPageController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateFarmPlantCard(FarmPlantCardModel model) {
+    final targetIndex = _farmPlantCardModelList.indexWhere((e) => e.id == model.id);
+    _farmPlantCardModelList[targetIndex] = model;
+    notifyListeners();
+    _save();
+  }
+
   void markCardAsFavorite(bool favorite, {required String id}) async {
     final target = _farmPlantCardModelList.singleWhere((e) => e.id == id);
     target.favorite.value = favorite;

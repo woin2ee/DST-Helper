@@ -112,4 +112,12 @@ class FarmPlantSetModel extends ChangeNotifier {
         farmPlantsCount,
         farmPlantModelList,
       );
+
+  FarmPlantSetModel copy() {
+    return FarmPlantSetModel(
+      farmPlantSetStyle: farmPlantSetStyle,
+      farmPlantsCount: farmPlantsCount,
+      farmPlantModelList: farmPlantModelList.map((e) => e.copyWith()).toList(),
+    );
+  }
 }

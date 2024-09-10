@@ -14,19 +14,27 @@ import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 
 class EditFarmSet extends StatefulWidget {
-  const EditFarmSet({super.key});
+  const EditFarmSet({
+    super.key,
+    required this.isEditingNew,
+    this.originModel,
+  }) : assert((isEditingNew == true && originModel == null) || (isEditingNew == false && originModel != null));
+
+  final bool isEditingNew;
+  final FarmPlantCardModel? originModel;
 
   @override
   State<EditFarmSet> createState() => _EditFarmSetState();
 }
 
 class _EditFarmSetState extends State<EditFarmSet> {
-  final controller = EditFarmSetController();
+  late final EditFarmSetController controller;
 
   @override
   void initState() {
     super.initState();
 
+    controller = EditFarmSetController(originModelCopy: widget.originModel);
     Iterable<Listenable> controllers = [controller, controller.titleEditingController];
     for (final e in controllers) {
       e.addListener(() {
@@ -212,17 +220,30 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         foregroundColor: WidgetStatePropertyAll(Colors.white),
                       ),
                       onPressed: () {
-                        final model = FarmPlantCardModel.create(
-                          title: controller.titleEditingController.text.isNotEmpty
-                              ? controller.titleEditingController.text
-                              : null,
-                          farmPlantSetModel: controller.farmPlantSetModel,
-                          createType: CreateType.userCustom,
-                        );
+                        final originModel = widget.originModel;
+                        final FarmPlantCardModel model;
+                        final title = controller.titleEditingController.text.isNotEmpty
+                            ? controller.titleEditingController.text
+                            : null;
+                        if (widget.isEditingNew == false && originModel != null) {
+                          model = originModel.copyWith(
+                            title: title,
+                            farmPlantSetModel: controller.farmPlantSetModel,
+                            createType: CreateType.userCustom,
+                          );
+                        } else {
+                          model = FarmPlantCardModel.create(
+                            title: title,
+                            farmPlantSetModel: controller.farmPlantSetModel,
+                            createType: CreateType.userCustom,
+                          );
+                        }
                         Navigator.pop(context, model);
                       },
                       child: Text(
-                        TextLocalizations.of(context)!.localized('add'),
+                        widget.isEditingNew
+                            ? TextLocalizations.of(context)!.localized('add')
+                            : TextLocalizations.of(context)!.localized('done'),
                         style: const TextStyle(
                           fontFamily: FontFamily.pretendard,
                           fontSize: 15,

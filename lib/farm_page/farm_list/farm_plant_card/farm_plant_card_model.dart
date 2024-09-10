@@ -57,6 +57,24 @@ class FarmPlantCardModel extends ChangeNotifier {
 
   factory FarmPlantCardModel.fromJson(Map<String, dynamic> json) => _$FarmPlantCardModelFromJson(json);
   Map<String, dynamic> toJson() => _$FarmPlantCardModelToJson(this);
+
+  FarmPlantCardModel copyWith({
+    String? id,
+    String? title,
+    FarmPlantSetModel? farmPlantSetModel,
+    bool? favorite,
+    CreateType? createType,
+    bool? isHidden,
+  }) {
+    return FarmPlantCardModel(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      farmPlantSetModel: farmPlantSetModel ?? this.farmPlantSetModel.copy(),
+      favorite: favorite != null ? ValueNotifier(favorite) : ValueNotifier(this.favorite.value),
+      createType: createType ?? this.createType,
+      isHidden: isHidden ?? this.isHidden,
+    );
+  }
 }
 
 class BooleanValueNotifierConverter implements JsonConverter<ValueNotifier<bool>, bool> {

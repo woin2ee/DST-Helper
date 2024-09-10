@@ -1,13 +1,31 @@
 import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
+import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_model.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
 import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter/material.dart';
 
 class EditFarmSetController extends ChangeNotifier {
-  final ValueNotifier<FarmPlantSetStyle> selectedFarmPlantSetStyleController = ValueNotifier(FarmPlantSetStyle.single);
+  EditFarmSetController({FarmPlantCardModel? originModelCopy})
+      : selectedFarmPlantSetStyleController = originModelCopy != null
+            ? ValueNotifier(originModelCopy.farmPlantSetModel.farmPlantSetStyle)
+            : ValueNotifier(FarmPlantSetStyle.single),
+        selectedFarmPlantStyle = originModelCopy != null
+            ? originModelCopy.farmPlantSetModel.farmPlantModelList[0].farmPlantStyle
+            : FarmPlantStyle.basic,
+        titleEditingController =
+            originModelCopy != null ? TextEditingController(text: originModelCopy.title) : TextEditingController(),
+        farmPlantSetModelController = originModelCopy != null
+            ? ValueNotifier(originModelCopy.farmPlantSetModel.copy())
+            : ValueNotifier(
+                FarmPlantSetModel.single(
+                  farmPlantModel: FarmPlantModel.empty(FarmPlantStyle.basic),
+                ),
+              );
+
+  final ValueNotifier<FarmPlantSetStyle> selectedFarmPlantSetStyleController;
   FarmPlantSetStyle get selectedFarmPlantSetStyle => selectedFarmPlantSetStyleController.value;
 
-  FarmPlantStyle selectedFarmPlantStyle = FarmPlantStyle.basic;
+  FarmPlantStyle selectedFarmPlantStyle;
 
   final ValueNotifier<Crop?> selectedCropController = ValueNotifier<Crop?>(null);
   Crop? get selectedCrop => selectedCropController.value;
@@ -15,13 +33,9 @@ class EditFarmSetController extends ChangeNotifier {
   final ValueNotifier<Fertilizer?> selectedFertilizerController = ValueNotifier<Fertilizer?>(null);
   Fertilizer? get selectedFertilizer => selectedFertilizerController.value;
 
-  final TextEditingController titleEditingController = TextEditingController();
+  final TextEditingController titleEditingController;
 
-  final ValueNotifier<FarmPlantSetModel> farmPlantSetModelController = ValueNotifier(
-    FarmPlantSetModel.single(
-      farmPlantModel: FarmPlantModel.empty(FarmPlantStyle.basic),
-    ),
-  );
+  final ValueNotifier<FarmPlantSetModel> farmPlantSetModelController;
   FarmPlantSetModel get farmPlantSetModel => farmPlantSetModelController.value;
 
   /// Dismiss dialog를 보여줄지 결정하는데 사용됩니다.

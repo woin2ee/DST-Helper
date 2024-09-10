@@ -119,7 +119,7 @@ class NewButton extends StatelessWidget {
           barrierColor: Colors.black.withOpacity(0.35),
           context: context,
           builder: (context) => const Dialog(
-            child: EditFarmSet(),
+            child: EditFarmSet(isEditingNew: true),
           ),
         );
         if (result is FarmPlantCardModel && context.mounted) {
