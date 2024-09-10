@@ -1,6 +1,7 @@
 import 'package:dst_helper/farm_page/edit_farm_set/edit_farm_set.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
 import 'package:dst_helper/farm_page/farm_page_controller.dart';
+import 'package:dst_helper/localization/text_localizations.dart';
 import 'package:dst_helper/models/v2/localization.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
@@ -115,36 +116,36 @@ class _CardTitle extends StatelessWidget {
                 },
                 itemBuilder: (context) {
                   return [
-                    const PopupMenuItem(
+                    PopupMenuItem(
                       value: _CardActionEntry.edit,
                       child: ListTile(
-                        leading: Icon(Icons.edit),
-                        title: Text('Edit'),
+                        leading: const Icon(Icons.edit),
+                        title: Text(TextLocalizations.of(context)!.localized('edit')),
                       ),
                     ),
                     model.isHidden
-                        ? const PopupMenuItem(
+                        ? PopupMenuItem(
                             value: _CardActionEntry.show,
                             child: ListTile(
-                              leading: Icon(Icons.visibility),
-                              title: Text('Show'),
+                              leading: const Icon(Icons.visibility),
+                              title: Text(TextLocalizations.of(context)!.localized('show')),
                             ),
                           )
-                        : const PopupMenuItem(
+                        : PopupMenuItem(
                             value: _CardActionEntry.hide,
                             child: ListTile(
-                              leading: Icon(Icons.visibility_off),
-                              title: Text('Hide'),
+                              leading: const Icon(Icons.visibility_off),
+                              title: Text(TextLocalizations.of(context)!.localized('hide')),
                             ),
                           ),
                     const PopupMenuDivider(),
-                    const PopupMenuItem(
+                    PopupMenuItem(
                       value: _CardActionEntry.delete,
                       child: ListTile(
                         iconColor: Colors.red,
                         textColor: Colors.red,
-                        leading: Icon(Icons.delete_forever_rounded),
-                        title: Text('Delete'),
+                        leading: const Icon(Icons.delete_forever_rounded),
+                        title: Text(TextLocalizations.of(context)!.localized('delete')),
                       ),
                     ),
                   ];
