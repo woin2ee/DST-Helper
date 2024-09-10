@@ -102,7 +102,7 @@ class _CardTitle extends StatelessWidget {
                   }
                 },
                 itemBuilder: (context) {
-                  List<PopupMenuEntry<_CardActionEntry>> items = [
+                  return [
                     // const PopupMenuItem(
                     //   value: _CardActionEntry.edit,
                     //   child: ListTile(
@@ -125,22 +125,17 @@ class _CardTitle extends StatelessWidget {
                               title: Text('Hide'),
                             ),
                           ),
-                  ];
-                  if (model.createType == CreateType.userCustom) {
-                    items += [
-                      const PopupMenuDivider(),
-                      const PopupMenuItem(
-                        value: _CardActionEntry.delete,
-                        child: ListTile(
-                          iconColor: Colors.red,
-                          textColor: Colors.red,
-                          leading: Icon(Icons.delete_forever_rounded),
-                          title: Text('Delete'),
-                        ),
+                    const PopupMenuDivider(),
+                    const PopupMenuItem(
+                      value: _CardActionEntry.delete,
+                      child: ListTile(
+                        iconColor: Colors.red,
+                        textColor: Colors.red,
+                        leading: Icon(Icons.delete_forever_rounded),
+                        title: Text('Delete'),
                       ),
-                    ];
-                  }
-                  return items;
+                    ),
+                  ];
                 },
               ),
             ),
