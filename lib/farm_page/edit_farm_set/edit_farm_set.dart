@@ -53,7 +53,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
         ),
         padding: const EdgeInsets.all(18.0),
         child: Row(
-          spacing: 26,
+          spacing: 34,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Row(
@@ -65,7 +65,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
               ],
             ),
             Column(
-              spacing: 30,
+              spacing: 34,
               children: [
                 Container(
                   color: Colors.black54,
@@ -99,7 +99,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
               ],
             ),
             Column(
-              spacing: 16.0,
+              spacing: 30.0,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
@@ -124,12 +124,18 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         );
                       }),
                 ),
-                ValueListenableBuilder(
-                    valueListenable: controller.selectedFarmPlantSetStyleController,
-                    builder: (context, value, child) {
-                      return _buildFarmPlantStyleSelectionBox();
-                    }),
-                _buildFarmPlantSetStyleSelectionBox(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 8,
+                  children: [
+                    ValueListenableBuilder(
+                        valueListenable: controller.selectedFarmPlantSetStyleController,
+                        builder: (context, value, child) {
+                          return _buildFarmPlantStyleSelectionBox();
+                        }),
+                    _buildFarmPlantSetStyleSelectionBox(),
+                  ],
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -178,7 +184,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                   ],
                 ),
                 Row(
-                  spacing: 18,
+                  spacing: 28,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ListenableBuilder(
