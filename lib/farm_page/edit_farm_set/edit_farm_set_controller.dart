@@ -129,6 +129,8 @@ class EditFarmSetController extends ChangeNotifier {
 
   void setPlant(Plant? plant, {required int farmPlantIndex, required int plantIndex}) {
     farmPlantSetModel.setPlant(plant, farmPlantIndex: farmPlantIndex, plantIndex: plantIndex);
+    // TODO: 거대 작물 조건 계산 후 satisfy 호출
+    
     notifyListeners();
   }
 }

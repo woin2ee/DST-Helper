@@ -1,14 +1,14 @@
-import 'package:dst_helper/farm_page/edit_farm_set/analysis_view.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/crop_selection_table.dart';
+import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/analysis_view.dart';
+import 'package:dst_helper/farm_page/edit_farm_set/components/crop_selection_table.dart';
+import 'package:dst_helper/farm_page/edit_farm_set/components/farm_plant_set_board.dart';
+import 'package:dst_helper/farm_page/edit_farm_set/components/fertilizer_selection_table.dart';
 import 'package:dst_helper/farm_page/edit_farm_set/edit_farm_set_controller.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/fertilizer_selection_table.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_model.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
 import 'package:dst_helper/farm_page/side_info_box/crops_info_box.dart';
 import 'package:dst_helper/farm_page/side_info_box/fertilizers_info_box.dart';
 import 'package:dst_helper/localization/text_localizations.dart';
-import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:dst_helper/models/v2/localization.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
@@ -67,34 +67,19 @@ class _EditFarmSetState extends State<EditFarmSet> {
             Column(
               spacing: 34,
               children: [
-                Container(
-                  color: Colors.black54,
-                  width: 380,
-                  height: 380,
-                  child: Center(
-                    child: ListenableBuilder(
-                        listenable: controller.farmPlantSetModelController,
-                        builder: (context, child) {
-                          return FarmPlantSet(
-                            farmPlantSetModel: controller.farmPlantSetModel,
-                            onPressed: (farmPlantIndex) => (plantIndex) => () {
-                                  final Plant? placedPlant = controller
-                                      .farmPlantSetModel.farmPlantModelList[farmPlantIndex].plants[plantIndex];
-                                  final selectedCrop = controller.selectedCrop;
-                                  controller.setPlant(
-                                    placedPlant == selectedCrop ? null : selectedCrop,
-                                    farmPlantIndex: farmPlantIndex,
-                                    plantIndex: plantIndex,
-                                  );
-                                },
-                          );
-                        }),
-                  ),
+                FarmPlantSetBoard(
+                  controller: controller,
+                  width: 384,
+                  height: 384,
                 ),
                 ValueListenableBuilder(
                     valueListenable: controller.farmPlantSetModelController,
                     builder: (context, value, child) {
-                      return AnalysisView(controller: controller);
+                      return AnalysisView(
+                        controller: controller,
+                        width: 400,
+                        height: 356,
+                      );
                     }),
               ],
             ),

@@ -4,6 +4,8 @@ import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set_mod
 import 'package:dst_helper/models/v2/item/items.dart';
 
 class FarmPlantSetModelSample {
+  FarmPlantSetModelSample._();
+
   static BuiltList<FarmPlantSetModel> get preDefinedList {
     return BuiltList.of([
       preDefined1,

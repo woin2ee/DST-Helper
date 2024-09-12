@@ -24,5 +24,15 @@
                 "macos",
             ]
         },
+        {
+            "name": "Flutter(example) for MacOS",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/example/main.dart",
+            "args": [
+                "-d",
+                "macos",
+            ]
+        },
     ]
 }
