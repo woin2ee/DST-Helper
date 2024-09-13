@@ -159,7 +159,7 @@ class FarmPlantModel extends ChangeNotifier {
 
   final int countOfPlants;
 
-  bool get hasBalancedNutrients => totalNutrient.equalsOfValue(Nutrient.zero());
+  bool get hasBalancedNutrients => totalNutrient == Nutrient.zero();
   Nutrient get totalNutrient => _plantCellModels
       .map((e) => e.plant)
       .fold(Nutrient.zero(), (partial, next) => partial + (next?.nutrient ?? Nutrient.zero()));

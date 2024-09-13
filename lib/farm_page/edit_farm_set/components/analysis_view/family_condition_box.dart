@@ -1,3 +1,4 @@
+import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
 import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
@@ -85,11 +86,19 @@ class FamilyConditionBox extends StatelessWidget {
 }
 
 class FamilyConditionBoxController extends ValueNotifier<FamilyConditionBoxModel> {
-  FamilyConditionBoxController()
-      : super(const FamilyConditionBoxModel(
-          isSatisfying: false,
-          issueCrops: {},
-        ));
+  FamilyConditionBoxController(super.value);
+
+  FamilyConditionBoxController.init()
+      : super(
+          const FamilyConditionBoxModel(
+            isSatisfying: false,
+            issueCrops: {},
+          ),
+        );
+
+  factory FamilyConditionBoxController.withModel(FarmPlantSetModel model) {
+    throw UnimplementedError();
+  }
 
   void satisfy() {
     value = value.copyWith(isSatisfying: true, issueCrops: {});

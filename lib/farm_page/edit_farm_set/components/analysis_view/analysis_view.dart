@@ -1,4 +1,6 @@
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/family_condition_box.dart';
+import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/nutrient_condition_box.dart';
+import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/season_condition_box.dart';
 import 'package:dst_helper/farm_page/edit_farm_set/edit_farm_set_controller.dart';
 import 'package:dst_helper/localization/text_localizations.dart';
 import 'package:dst_helper/utils/font_family.dart';
@@ -24,9 +26,9 @@ class AnalysisView extends StatelessWidget {
         return SizedBox(
           width: width,
           height: height,
-          child: const Card(
-            color: Color(0xffFAFAFA),
-            shape: RoundedRectangleBorder(
+          child: Card(
+            color: const Color(0xffFAFAFA),
+            shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(15)),
                 side: BorderSide(
                   color: Color(0xffCECECE),
@@ -34,12 +36,16 @@ class AnalysisView extends StatelessWidget {
                 )),
             elevation: 1,
             child: Padding(
-              padding: EdgeInsets.only(top: 21, left: 12.7, right: 12.7, bottom: 15),
+              padding: const EdgeInsets.only(top: 21, left: 12.7, right: 12.7, bottom: 15),
               child: Column(
                 spacing: 19,
                 children: [
-                  _Title(),
-                  _ConditionGroup(),
+                  const _Title(),
+                  _ConditionGroup(
+                    controller.seasonConditionBoxController,
+                    controller.nutrientConditionBoxController,
+                    controller.familyConditionBoxController,
+                  ),
                 ],
               ),
             ),
@@ -150,7 +156,15 @@ class _Title extends StatelessWidget {
 }
 
 class _ConditionGroup extends StatelessWidget {
-  const _ConditionGroup();
+  const _ConditionGroup(
+    this.seasonConditionBoxController,
+    this.nutrientConditionBoxController,
+    this.familyConditionBoxController,
+  );
+
+  final SeasonConditionBoxController seasonConditionBoxController;
+  final NutrientConditionBoxController nutrientConditionBoxController;
+  final FamilyConditionBoxController familyConditionBoxController;
 
   @override
   Widget build(BuildContext context) {
@@ -165,13 +179,11 @@ class _ConditionGroup extends StatelessWidget {
     const double mainTextSize = 15;
     const Color boxColor = Colors.white;
 
-    final familyConditionBoxController = FamilyConditionBoxController();
-    
     return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _SeasonConditionBox(
+          SeasonConditionBox(
             borderColor: borderColor,
             borderWidth: borderWidth,
             borderRadius: borderRadius,
@@ -182,8 +194,9 @@ class _ConditionGroup extends StatelessWidget {
             hintTextSize: hintTextSize,
             hintTextColor: hintTextColor,
             boxColor: boxColor,
+            controller: seasonConditionBoxController,
           ),
-          _NutrientConditionBox(
+          NutrientConditionBox(
             borderColor: borderColor,
             borderWidth: borderWidth,
             borderRadius: borderRadius,
@@ -194,6 +207,7 @@ class _ConditionGroup extends StatelessWidget {
             hintTextSize: hintTextSize,
             hintTextColor: hintTextColor,
             boxColor: boxColor,
+            controller: nutrientConditionBoxController,
           ),
           FamilyConditionBox(
             borderColor: borderColor,
@@ -209,148 +223,6 @@ class _ConditionGroup extends StatelessWidget {
             controller: familyConditionBoxController,
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _SeasonConditionBox extends StatelessWidget {
-  const _SeasonConditionBox({
-    required this.borderColor,
-    required this.borderWidth,
-    required this.borderRadius,
-    required this.boxHeight,
-    required this.horizontalTextPadding,
-    required this.textSpacing,
-    required this.mainTextSize,
-    required this.hintTextSize,
-    required this.hintTextColor,
-    required this.boxColor,
-  });
-
-  final Color borderColor;
-  final double borderWidth;
-  final BorderRadius borderRadius;
-  final double boxHeight;
-  final double horizontalTextPadding;
-  final double textSpacing;
-  final double mainTextSize;
-  final double hintTextSize;
-  final Color hintTextColor;
-  final Color boxColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      decoration: BoxDecoration(
-        color: boxColor,
-        border: Border.all(
-          color: borderColor,
-          width: borderWidth,
-        ),
-        borderRadius: borderRadius,
-      ),
-      height: boxHeight,
-      child: Padding(
-        padding: EdgeInsets.only(left: horizontalTextPadding, right: horizontalTextPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          spacing: textSpacing,
-          children: [
-            FittedBox(
-              child: Text(
-                '거대 작물이 될 수 있는 계절이 없습니다!',
-                style: TextStyle(
-                  fontFamily: FontFamily.pretendard,
-                  fontSize: mainTextSize,
-                ),
-              ),
-            ),
-            FittedBox(
-              child: Text(
-                '같은 계절의 작물들로 밭을 구성하세요.',
-                style: TextStyle(
-                  fontFamily: FontFamily.pretendard,
-                  fontSize: hintTextSize,
-                  color: hintTextColor,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _NutrientConditionBox extends StatelessWidget {
-  const _NutrientConditionBox({
-    required this.borderColor,
-    required this.borderWidth,
-    required this.borderRadius,
-    required this.boxHeight,
-    required this.horizontalTextPadding,
-    required this.textSpacing,
-    required this.mainTextSize,
-    required this.hintTextSize,
-    required this.hintTextColor,
-    required this.boxColor,
-  });
-
-  final Color borderColor;
-  final double borderWidth;
-  final BorderRadius borderRadius;
-  final double boxHeight;
-  final double horizontalTextPadding;
-  final double textSpacing;
-  final double mainTextSize;
-  final double hintTextSize;
-  final Color hintTextColor;
-  final Color boxColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      decoration: BoxDecoration(
-        color: boxColor,
-        border: Border.all(
-          color: borderColor,
-          width: borderWidth,
-        ),
-        borderRadius: borderRadius,
-      ),
-      height: boxHeight,
-      child: Padding(
-        padding: EdgeInsets.only(left: horizontalTextPadding, right: horizontalTextPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          spacing: textSpacing,
-          children: [
-            FittedBox(
-              child: Text(
-                '영양소가 불균형 합니다!',
-                style: TextStyle(
-                  fontFamily: FontFamily.pretendard,
-                  fontSize: mainTextSize,
-                ),
-              ),
-            ),
-            FittedBox(
-              child: Text(
-                '보완되는 영양소를 가진 작물을 선택하거나, 비료를 선택하세요.',
-                style: TextStyle(
-                  fontFamily: FontFamily.pretendard,
-                  fontSize: hintTextSize,
-                  color: hintTextColor,
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

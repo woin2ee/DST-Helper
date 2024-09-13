@@ -34,7 +34,12 @@ class _EditFarmSetState extends State<EditFarmSet> {
   void initState() {
     super.initState();
 
-    controller = EditFarmSetController(originModelCopy: widget.originModel);
+    final originModel = widget.originModel;
+    if (originModel == null) {
+      controller = EditFarmSetController.create();
+    } else {
+      controller = EditFarmSetController.withModel(originModel);
+    }
     Iterable<Listenable> controllers = [controller, controller.titleEditingController];
     for (final e in controllers) {
       e.addListener(() {
@@ -227,6 +232,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                             title: title,
                             farmPlantSetModel: controller.farmPlantSetModel,
                             createType: CreateType.userCustom,
+                            fertilizer: controller.selectedFertilizer,
                           );
                         }
                         Navigator.pop(context, model);

@@ -29,8 +29,4 @@ class Nutrient with _$Nutrient {
         growthFormula: growthFormula + right.growthFormula,
         manure: manure + right.manure,
       );
-
-  bool equalsOfValue(Nutrient other) {
-    return (compost == other.compost) && (growthFormula == other.growthFormula) && (manure == other.manure);
-  }
 }

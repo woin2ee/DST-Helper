@@ -156,4 +156,6 @@ class Fertilizer with _$Fertilizer, Item {
     required String assetName,
     required Nutrient nutrient,
   }) = _Fertilizer;
+
+  factory Fertilizer.fromJson(Map<String, dynamic> json) => _$FertilizerFromJson(json);
 }
