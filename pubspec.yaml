@@ -50,6 +50,7 @@ dependencies:
   provider: ^6.1.2
   built_collection: ^5.1.1
   uuid: ^4.5.0
+  intersperse: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -15,16 +15,6 @@ class FarmPlantSet extends StatelessWidget {
   final FarmPlantSetModel farmPlantSetModel;
   final VoidCallback Function(int plantIndex) Function(int farmPlantIndex)? onPressed;
 
-// TODO: 구현해야됨!
-  // bool get canBecomeGiant {
-  //   for (var farmPlant in farmPlants) {
-  //     for (var crop in farmPlant.crops) {
-  //       if (crop == null) continue;
-
-  //     }
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return switch (farmPlantSetModel.farmPlantSetStyle) {

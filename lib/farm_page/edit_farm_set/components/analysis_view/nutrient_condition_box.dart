@@ -1,5 +1,7 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_model.dart';
+import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set_model.dart';
 import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:dst_helper/models/v2/item/nutrient.dart';
 import 'package:dst_helper/utils/font_family.dart';
@@ -11,7 +13,8 @@ part 'nutrient_condition_box.freezed.dart';
 class NutrientConditionBox extends StatelessWidget {
   const NutrientConditionBox({
     super.key,
-    required this.borderColor,
+    required this.unsatisfiedBorderColor,
+    required this.satisfiedBorderColor,
     required this.borderWidth,
     required this.borderRadius,
     required this.boxHeight,
@@ -19,12 +22,14 @@ class NutrientConditionBox extends StatelessWidget {
     required this.textSpacing,
     required this.mainTextSize,
     required this.hintTextSize,
-    required this.hintTextColor,
-    required this.boxColor,
+    required this.secondaryTextColor,
+    required this.unsatisfiedBoxColor,
+    required this.satisfiedBoxColor,
     required this.controller,
   });
 
-  final Color borderColor;
+  final Color unsatisfiedBorderColor;
+  final Color satisfiedBorderColor;
   final double borderWidth;
   final BorderRadius borderRadius;
   final double boxHeight;
@@ -32,19 +37,34 @@ class NutrientConditionBox extends StatelessWidget {
   final double textSpacing;
   final double mainTextSize;
   final double hintTextSize;
-  final Color hintTextColor;
-  final Color boxColor;
+  final Color secondaryTextColor;
+  final Color unsatisfiedBoxColor;
+  final Color satisfiedBoxColor;
 
   final NutrientConditionBoxController controller;
 
   @override
   Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: controller,
+      builder: (context, value, child) {
+        if (value.isSatisfied) {
+          return _buildSatisfiedBox(value, context);
+        } else {
+          return child ?? _buildUnsatisfiedBox();
+        }
+      },
+      child: _buildUnsatisfiedBox(),
+    );
+  }
+
+  Container _buildUnsatisfiedBox() {
     return Container(
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
-        color: boxColor,
+        color: unsatisfiedBoxColor,
         border: Border.all(
-          color: borderColor,
+          color: unsatisfiedBorderColor,
           width: borderWidth,
         ),
         borderRadius: borderRadius,
@@ -72,7 +92,7 @@ class NutrientConditionBox extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontSize: hintTextSize,
-                  color: hintTextColor,
+                  color: secondaryTextColor,
                 ),
               ),
             ),
@@ -81,11 +101,64 @@ class NutrientConditionBox extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildSatisfiedBox(NutrientConditionBoxModel value, BuildContext context) {
+    final neededFertilizer = value.neededFertilizer;
+    final countOfNeededFertilizer = value.countOfNeededFertilizer;
+
+    var phrases = [
+      const FittedBox(
+        child: Text(
+          '영양소 균형!',
+          style: TextStyle(
+            fontFamily: FontFamily.pretendard,
+            fontSize: 17,
+            fontVariations: [FontVariation.weight(500)],
+          ),
+        ),
+      ),
+    ];
+    if (neededFertilizer != null && countOfNeededFertilizer != 0) {
+      phrases += [
+        FittedBox(
+          child: Text(
+            '각 성장마다 선택한 비료를 $countOfNeededFertilizer번 사용해야 합니다.',
+            style: TextStyle(
+              fontFamily: FontFamily.pretendard,
+              fontSize: 14,
+              color: secondaryTextColor,
+            ),
+          ),
+        ),
+      ];
+    }
+
+    return Container(
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: satisfiedBoxColor,
+        border: Border.all(
+          color: satisfiedBorderColor,
+          width: borderWidth,
+        ),
+        borderRadius: borderRadius,
+      ),
+      height: boxHeight,
+      child: Padding(
+        padding: EdgeInsets.only(left: horizontalTextPadding, right: horizontalTextPadding),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          spacing: 2,
+          children: phrases,
+        ),
+      ),
+    );
+  }
 }
 
 class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxModel> {
   NutrientConditionBoxController.init()
-      : _nutrientsByFarmPlant = [Nutrient.zero()].toBuiltList(),
+      : farmPlantSetModel = FarmPlantSetModel.single(farmPlantModel: FarmPlantModel.empty(FarmPlantStyle.basic)),
         super(
           const NutrientConditionBoxModel(
             isSatisfied: false,
@@ -96,28 +169,40 @@ class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxM
 
   factory NutrientConditionBoxController.withModel(FarmPlantCardModel model) {
     final controller = NutrientConditionBoxController.init();
-    controller._nutrientsByFarmPlant =
-        model.farmPlantSetModel.farmPlantModelList.map((e) => e.totalNutrient).toBuiltList();
+    controller.farmPlantSetModel = model.farmPlantSetModel;
     controller._selectedFertilizer = model.fertilizer;
     controller._updateValue();
     return controller;
   }
 
-  BuiltList<Nutrient> _nutrientsByFarmPlant;
+  BuiltList<Nutrient> get _nutrientsByFarmPlant =>
+      farmPlantSetModel.farmPlantModelList.map((e) => e.totalNutrient).toBuiltList();
   Fertilizer? _selectedFertilizer;
+  FarmPlantSetModel farmPlantSetModel;
 
-  void selectFertilizer(Fertilizer fertilizer) {
+  void selectFertilizer(Fertilizer? fertilizer) {
     _selectedFertilizer = fertilizer;
     _updateValue();
   }
 
-  void updateTotalNutrientByFarmPlant(BuiltList<Nutrient> nutrientsByFarmPlant) {
-    _nutrientsByFarmPlant = nutrientsByFarmPlant;
+  void updateFarmPlantSetModel(FarmPlantSetModel farmPlantSetModel) {
+    this.farmPlantSetModel = farmPlantSetModel;
     _updateValue();
   }
 
   void _updateValue() {
-    final bool isSatisfied = _verifyNutrientsBalance();
+    const unsatisfiedModel = NutrientConditionBoxModel(
+      isSatisfied: false,
+      neededFertilizer: null,
+      countOfNeededFertilizer: 0,
+    );
+
+    if (!farmPlantSetModel.hasAnyPlant) {
+      value = unsatisfiedModel;
+      return;
+    }
+
+    final bool isSatisfied = _verifyNutrientsBalance(nutrientsByFarmPlant: _nutrientsByFarmPlant);
     if (isSatisfied) {
       value = value.copyWith(
         isSatisfied: true,
@@ -129,21 +214,13 @@ class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxM
 
     final selectedFertilizer = _selectedFertilizer;
     if (selectedFertilizer == null) {
-      value = value.copyWith(
-        isSatisfied: false,
-        neededFertilizer: null,
-        countOfNeededFertilizer: 0,
-      );
+      value = unsatisfiedModel;
       return;
     }
 
     final neededCount = _calculateCountOfNeededFertilizer(selectedFertilizer);
     if (neededCount == null) {
-      value = value.copyWith(
-        isSatisfied: false,
-        neededFertilizer: null,
-        countOfNeededFertilizer: 0,
-      );
+      value = unsatisfiedModel;
       return;
     }
 
@@ -155,8 +232,8 @@ class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxM
     return;
   }
 
-  bool _verifyNutrientsBalance() {
-    return _nutrientsByFarmPlant
+  bool _verifyNutrientsBalance({required BuiltList<Nutrient> nutrientsByFarmPlant}) {
+    return nutrientsByFarmPlant
         .every((nutrient) => nutrient.compost >= 0 && nutrient.growthFormula >= 0 && nutrient.manure >= 0);
   }
 
@@ -164,7 +241,7 @@ class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxM
   ///
   /// 선택한 비료로 영양소 균형을 이루지 못할 경우 null 을 반환합니다.
   int? _calculateCountOfNeededFertilizer(Fertilizer selectedFertilizer) {
-    if (_verifyNutrientsBalance()) {
+    if (_verifyNutrientsBalance(nutrientsByFarmPlant: _nutrientsByFarmPlant)) {
       return 0;
     }
 
@@ -175,7 +252,7 @@ class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxM
     for (var i = 0; i < 10; i++) {
       adjustedNutrientsByFarmPlant =
           adjustedNutrientsByFarmPlant.map((nutrient) => nutrient + selectedFertilizer.nutrient).toList();
-      if (_verifyNutrientsBalance()) {
+      if (_verifyNutrientsBalance(nutrientsByFarmPlant: adjustedNutrientsByFarmPlant.toBuiltList())) {
         return i + 1;
       }
     }

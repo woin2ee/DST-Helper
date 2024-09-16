@@ -1,12 +1,15 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:dst_helper/models/v1/localization/season_localization.dart';
 import 'package:dst_helper/models/v1/season.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
+import 'package:intersperse/intersperse.dart';
 
 class SeasonConditionBox extends StatelessWidget {
   const SeasonConditionBox({
     super.key,
-    required this.borderColor,
+    required this.unsatisfiedBorderColor,
+    required this.satisfiedBorderColor,
     required this.borderWidth,
     required this.borderRadius,
     required this.boxHeight,
@@ -15,11 +18,13 @@ class SeasonConditionBox extends StatelessWidget {
     required this.mainTextSize,
     required this.hintTextSize,
     required this.hintTextColor,
-    required this.boxColor,
+    required this.unsatisfiedBoxColor,
+    required this.satisfiedBoxColor,
     required this.controller,
   });
 
-  final Color borderColor;
+  final Color unsatisfiedBorderColor;
+  final Color satisfiedBorderColor;
   final double borderWidth;
   final BorderRadius borderRadius;
   final double boxHeight;
@@ -28,18 +33,78 @@ class SeasonConditionBox extends StatelessWidget {
   final double mainTextSize;
   final double hintTextSize;
   final Color hintTextColor;
-  final Color boxColor;
+  final Color unsatisfiedBoxColor;
+  final Color satisfiedBoxColor;
 
   final SeasonConditionBoxController controller;
 
   @override
   Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: controller,
+      builder: (context, value, child) {
+        if (value.isEmpty) {
+          return child ?? _buildUnsatisfiedBox();
+        } else {
+          return _buildSatisfiedBox(value, context);
+        }
+      },
+      child: _buildUnsatisfiedBox(),
+    );
+  }
+
+  Container _buildSatisfiedBox(BuiltSet<Season> value, BuildContext context) {
+    const defaultTextStyle = TextStyle(
+      fontFamily: FontFamily.pretendard,
+      color: Colors.black,
+      fontSize: 17,
+      fontVariations: [FontVariation.weight(500)],
+    );
+    final partialSeasonTextSpans = value.map((season) => TextSpan(
+          text: season.localizedName(context),
+          style: defaultTextStyle.copyWith(color: season.personalColor),
+        ));
+    final seasonTextSpan = partialSeasonTextSpans.intersperse(
+      const TextSpan(
+        text: ', ',
+        style: defaultTextStyle,
+      ),
+    );
+    const remainingTextSpan = TextSpan(
+      text: '에 거대 작물이 됩니다!',
+      style: defaultTextStyle,
+    );
+    return Container(
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: satisfiedBoxColor,
+        border: Border.all(
+          color: satisfiedBorderColor,
+          width: borderWidth,
+        ),
+        borderRadius: borderRadius,
+      ),
+      height: boxHeight,
+      child: FittedBox(
+        child: RichText(
+          text: TextSpan(
+            children: [
+              ...seasonTextSpan,
+              remainingTextSpan,
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container _buildUnsatisfiedBox() {
     return Container(
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
-        color: boxColor,
+        color: unsatisfiedBoxColor,
         border: Border.all(
-          color: borderColor,
+          color: unsatisfiedBorderColor,
           width: borderWidth,
         ),
         borderRadius: borderRadius,

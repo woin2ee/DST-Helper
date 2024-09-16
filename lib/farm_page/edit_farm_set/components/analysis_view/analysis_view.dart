@@ -168,7 +168,8 @@ class _ConditionGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color borderColor = Color(0xffD8D8D8);
+    const Color unsatisfiedBorderColor = Color(0xffD8D8D8);
+    const Color satisfiedBorderColor = Color(0xff34C759);
     const double borderWidth = 1.5;
     final BorderRadius borderRadius = BorderRadius.circular(12);
     const double boxHeight = 64;
@@ -177,14 +178,16 @@ class _ConditionGroup extends StatelessWidget {
     const Color hintTextColor = Color(0xff767676);
     const double hintTextSize = 13;
     const double mainTextSize = 15;
-    const Color boxColor = Colors.white;
+    const Color unsatisfiedBoxColor = Colors.white;
+    const Color satisfiedBoxColor = Color(0xffECFFF1);
 
     return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SeasonConditionBox(
-            borderColor: borderColor,
+            unsatisfiedBorderColor: unsatisfiedBorderColor,
+            satisfiedBorderColor: satisfiedBorderColor,
             borderWidth: borderWidth,
             borderRadius: borderRadius,
             boxHeight: boxHeight,
@@ -193,11 +196,13 @@ class _ConditionGroup extends StatelessWidget {
             mainTextSize: mainTextSize,
             hintTextSize: hintTextSize,
             hintTextColor: hintTextColor,
-            boxColor: boxColor,
+            unsatisfiedBoxColor: unsatisfiedBoxColor,
+            satisfiedBoxColor: satisfiedBoxColor,
             controller: seasonConditionBoxController,
           ),
           NutrientConditionBox(
-            borderColor: borderColor,
+            unsatisfiedBorderColor: unsatisfiedBorderColor,
+            satisfiedBorderColor: satisfiedBorderColor,
             borderWidth: borderWidth,
             borderRadius: borderRadius,
             boxHeight: boxHeight,
@@ -205,12 +210,14 @@ class _ConditionGroup extends StatelessWidget {
             textSpacing: textSpacing,
             mainTextSize: mainTextSize,
             hintTextSize: hintTextSize,
-            hintTextColor: hintTextColor,
-            boxColor: boxColor,
+            secondaryTextColor: hintTextColor,
+            unsatisfiedBoxColor: unsatisfiedBoxColor,
+            satisfiedBoxColor: satisfiedBoxColor,
             controller: nutrientConditionBoxController,
           ),
           FamilyConditionBox(
-            borderColor: borderColor,
+            unsatisfiedBorderColor: unsatisfiedBorderColor,
+            satisfiedBorderColor: satisfiedBorderColor,
             borderWidth: borderWidth,
             borderRadius: borderRadius,
             boxHeight: boxHeight,
@@ -219,7 +226,8 @@ class _ConditionGroup extends StatelessWidget {
             mainTextSize: mainTextSize,
             hintTextSize: hintTextSize,
             hintTextColor: hintTextColor,
-            boxColor: boxColor,
+            unsatisfiedBoxColor: unsatisfiedBoxColor,
+            satisfiedBoxColor: satisfiedBoxColor,
             controller: familyConditionBoxController,
           ),
         ],

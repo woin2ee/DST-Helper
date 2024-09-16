@@ -46,6 +46,11 @@ class _EditFarmSetState extends State<EditFarmSet> {
         controller.hasChanges = true;
       });
     }
+
+    controller.fertilizerSelectionTableController.addListener(() {
+      final selectedFertilizer = controller.fertilizerSelectionTableController.selectedFertilizer;
+      controller.nutrientConditionBoxController.selectFertilizer(selectedFertilizer);
+    });
   }
 
   @override
@@ -170,7 +175,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         ],
                       ),
                     ),
-                    FertilizerSelectionTable(selectedFertilizerController: controller.selectedFertilizerController),
+                    FertilizerSelectionTable(controller: controller.fertilizerSelectionTableController),
                   ],
                 ),
                 Row(

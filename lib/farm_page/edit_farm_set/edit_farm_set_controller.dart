@@ -2,6 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/family_condition_box.dart';
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/nutrient_condition_box.dart';
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/season_condition_box.dart';
+import 'package:dst_helper/farm_page/edit_farm_set/components/fertilizer_selection_table.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_model.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
@@ -64,8 +65,9 @@ class EditFarmSetController extends ChangeNotifier {
   final ValueNotifier<Crop?> selectedCropController = ValueNotifier<Crop?>(null);
   Crop? get selectedCrop => selectedCropController.value;
 
-  final ValueNotifier<Fertilizer?> selectedFertilizerController = ValueNotifier<Fertilizer?>(null);
-  Fertilizer? get selectedFertilizer => selectedFertilizerController.value;
+  final FertilizerSelectionTableController fertilizerSelectionTableController =
+      FertilizerSelectionTableController(null);
+  Fertilizer? get selectedFertilizer => fertilizerSelectionTableController.selectedFertilizer;
 
   final TextEditingController titleEditingController;
 
@@ -117,6 +119,7 @@ class EditFarmSetController extends ChangeNotifier {
           );
         }
     }
+    _updateAnalysisControllers();
     notifyListeners();
   }
 
@@ -134,13 +137,19 @@ class EditFarmSetController extends ChangeNotifier {
       case FarmPlantSetStyle.square:
         assert(style != FarmPlantStyle.dense && style != FarmPlantStyle.reverseDense);
     }
+    _updateAnalysisControllers();
     notifyListeners();
   }
 
   void setPlant(Plant? plant, {required int farmPlantIndex, required int plantIndex}) {
     farmPlantSetModel.setPlant(plant, farmPlantIndex: farmPlantIndex, plantIndex: plantIndex);
-    // TODO: 거대 작물 조건 계산 후 satisfy 호출
-
+    _updateAnalysisControllers();
     notifyListeners();
+  }
+
+  void _updateAnalysisControllers() {
+    seasonConditionBoxController.suitableSeasons = farmPlantSetModel.suitableSeasons.toBuiltSet();
+    nutrientConditionBoxController.updateFarmPlantSetModel(farmPlantSetModel);
+    // familyConditionBoxController.satisfy();
   }
 }

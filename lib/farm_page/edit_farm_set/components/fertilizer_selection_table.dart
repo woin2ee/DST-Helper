@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class FertilizerSelectionTable extends StatelessWidget {
   FertilizerSelectionTable({
     super.key,
-    ValueNotifier<Fertilizer?>? selectedFertilizerController,
-  }) : selectedFertilizerController = selectedFertilizerController ?? ValueNotifier(null);
+    FertilizerSelectionTableController? controller,
+  }) : controller = controller ?? FertilizerSelectionTableController(null);
 
   final double spacing = 4;
   final List<List<Fertilizer>> fertilizerList = const [
@@ -15,7 +15,7 @@ class FertilizerSelectionTable extends StatelessWidget {
     Fertilizers.mixList,
   ];
 
-  final ValueNotifier<Fertilizer?> selectedFertilizerController;
+  final FertilizerSelectionTableController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +26,10 @@ class FertilizerSelectionTable extends StatelessWidget {
               spacing: spacing,
               children: [
                 ...fertilizers.map((fertilizer) => ValueListenableBuilder(
-                    valueListenable: selectedFertilizerController,
+                    valueListenable: controller,
                     builder: (context, selectedFertilizer, child) {
                       return IconButton(
-                        onPressed: () {
-                          final currentSelectedFertilizer = selectedFertilizerController.value;
-                          selectedFertilizerController.value =
-                              (currentSelectedFertilizer == fertilizer) ? null : fertilizer;
-                        },
+                        onPressed: () => controller.selectFertilizer(fertilizer),
                         icon: Image(
                           image: AssetImage('assets/images/items/${fertilizer.assetName}.png'),
                           width: 40,
@@ -55,5 +51,19 @@ class FertilizerSelectionTable extends StatelessWidget {
             )),
       ],
     );
+  }
+}
+
+class FertilizerSelectionTableController extends ValueNotifier<Fertilizer?> {
+  FertilizerSelectionTableController(super.value);
+
+  Fertilizer? get selectedFertilizer => value;
+
+  void selectFertilizer(Fertilizer fertilizer) {
+    if (fertilizer == value) {
+      value = null;
+    } else {
+      value = fertilizer;
+    }
   }
 }
