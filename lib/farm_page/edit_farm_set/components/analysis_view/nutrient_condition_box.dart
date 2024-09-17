@@ -2,6 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_model.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set_model.dart';
+import 'package:dst_helper/localization/text_localizations.dart';
 import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:dst_helper/models/v2/item/nutrient.dart';
 import 'package:dst_helper/utils/font_family.dart';
@@ -107,10 +108,10 @@ class NutrientConditionBox extends StatelessWidget {
     final countOfNeededFertilizer = value.countOfNeededFertilizer;
 
     var phrases = [
-      const FittedBox(
+      FittedBox(
         child: Text(
-          '영양소 균형!',
-          style: TextStyle(
+          '${TextLocalizations.of(context)!.localized('balanced_nutrients')}!',
+          style: const TextStyle(
             fontFamily: FontFamily.pretendard,
             fontSize: 17,
             fontVariations: [FontVariation.weight(500)],
