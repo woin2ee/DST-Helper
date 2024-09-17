@@ -19,7 +19,7 @@ class EditFarmSetController extends ChangeNotifier {
     required this.analysisViewController,
   });
 
-  factory EditFarmSetController.create() {
+  factory EditFarmSetController.init() {
     return EditFarmSetController._(
       selectedFarmPlantSetStyleController: ValueNotifier(FarmPlantSetStyle.single),
       selectedFarmPlantStyle: FarmPlantStyle.basic,
@@ -29,10 +29,11 @@ class EditFarmSetController extends ChangeNotifier {
           farmPlantModel: FarmPlantModel.empty(FarmPlantStyle.basic),
         ),
       ),
-      analysisViewController: AnalysisViewController.init(
+      analysisViewController: AnalysisViewController.create(
         seasonConditionBoxController: SeasonConditionBoxController.init(),
         nutrientConditionBoxController: NutrientConditionBoxController.init(),
         familyConditionBoxController: FamilyConditionBoxController.init(),
+        isPlacedAnyPlant: false,
       ),
     );
   }
@@ -46,17 +47,18 @@ class EditFarmSetController extends ChangeNotifier {
         SeasonConditionBoxController(suitableSeasons: originModel.farmPlantSetModel.suitableSeasons.toBuiltSet());
     final nutrientConditionBoxController = NutrientConditionBoxController.withModel(originModel);
     final familyConditionBoxController = FamilyConditionBoxController.withModel(originModel.farmPlantSetModel);
-
+    final analysisViewController = AnalysisViewController.create(
+      seasonConditionBoxController: seasonConditionBoxController,
+      nutrientConditionBoxController: nutrientConditionBoxController,
+      familyConditionBoxController: familyConditionBoxController,
+      isPlacedAnyPlant: originModel.farmPlantSetModel.hasAnyPlant,
+    );
     return EditFarmSetController._(
       selectedFarmPlantSetStyleController: selectedFarmPlantSetStyleController,
       selectedFarmPlantStyle: selectedFarmPlantStyle,
       titleEditingController: titleEditingController,
       farmPlantSetModelController: farmPlantSetModelController,
-      analysisViewController: AnalysisViewController.init(
-        seasonConditionBoxController: seasonConditionBoxController,
-        nutrientConditionBoxController: nutrientConditionBoxController,
-        familyConditionBoxController: familyConditionBoxController,
-      ),
+      analysisViewController: analysisViewController,
     );
   }
 
@@ -153,5 +155,6 @@ class EditFarmSetController extends ChangeNotifier {
         farmPlantSetModel.suitableSeasons.toBuiltSet();
     analysisViewController.nutrientConditionBoxController.updateFarmPlantSetModel(farmPlantSetModel);
     analysisViewController.familyConditionBoxController.updateFarmPlantSetModel(farmPlantSetModel);
+    analysisViewController.isPlacedAnyPlant.value = farmPlantSetModel.hasAnyPlant;
   }
 }

@@ -36,7 +36,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
 
     final originModel = widget.originModel;
     if (originModel == null) {
-      controller = EditFarmSetController.create();
+      controller = EditFarmSetController.init();
     } else {
       controller = EditFarmSetController.withModel(originModel);
     }

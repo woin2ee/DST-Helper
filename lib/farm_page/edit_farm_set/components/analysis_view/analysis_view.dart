@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/family_condition_box.dart';
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/nutrient_condition_box.dart';
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/season_condition_box.dart';
@@ -20,55 +22,104 @@ class AnalysisView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListenableBuilder(
-      listenable: controller,
-      builder: (context, child) {
-        return SizedBox(
-          width: width,
-          height: height,
-          child: Card(
+    const BorderRadius conditionGroupBorderRadius = BorderRadius.all(Radius.circular(12));
+    return SizedBox(
+      width: width,
+      height: height,
+      child: ValueListenableBuilder(
+        valueListenable: controller.isSatisfying,
+        builder: (context, isSatisfying, child) {
+          return Card(
             color: const Color(0xffFBFBFB),
             shape: RoundedRectangleBorder(
               borderRadius: const BorderRadius.all(Radius.circular(15)),
               side: BorderSide(
-                color: controller.isSatisfying ? const Color(0xff1CD44A) : const Color(0xffCECECE),
+                color: isSatisfying ? const Color(0xff1CD44A) : const Color(0xffCECECE),
                 width: 2.5,
               ),
             ),
             elevation: 6,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 21, left: 12.7, right: 12.7, bottom: 15),
-              child: Column(
-                spacing: 19,
-                children: [
-                  const _Title(),
-                  _ConditionGroup(
-                    controller.seasonConditionBoxController,
-                    controller.nutrientConditionBoxController,
-                    controller.familyConditionBoxController,
-                  ),
-                ],
+            child: child,
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(top: 21, left: 12.7, right: 12.7, bottom: 15),
+          child: Column(
+            spacing: 19,
+            children: [
+              const _Title(),
+              Expanded(
+                child: Stack(
+                  children: [
+                    _ConditionGroup(
+                      controller.seasonConditionBoxController,
+                      controller.nutrientConditionBoxController,
+                      controller.familyConditionBoxController,
+                      borderRadius: conditionGroupBorderRadius,
+                    ),
+                    ValueListenableBuilder(
+                      valueListenable: controller.isPlacedAnyPlant,
+                      builder: (context, isPlacedAnyPlant, child) {
+                        return Visibility(
+                          visible: !isPlacedAnyPlant,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              ClipRRect(
+                                borderRadius: conditionGroupBorderRadius,
+                                child: BackdropFilter(
+                                  filter: ImageFilter.blur(
+                                    sigmaX: 3,
+                                    sigmaY: 3,
+                                  ),
+                                  child: Container(color: Colors.white.withOpacity(0.8)),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: const Color(0xffD8D8D8), width: 1.5),
+                                  borderRadius: conditionGroupBorderRadius,
+                                ),
+                              ),
+                              const Text(
+                                '배치된 작물이 없습니다.',
+                                style: TextStyle(
+                                  fontFamily: FontFamily.pretendard,
+                                  fontSize: 26,
+                                  fontVariations: [FontVariation.weight(600)],
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
 
-class AnalysisViewController extends ValueNotifier<bool> {
-  AnalysisViewController._(
-    super.value, {
+class AnalysisViewController {
+  AnalysisViewController._({
+    required this.isSatisfying,
+    required this.isPlacedAnyPlant,
     required this.seasonConditionBoxController,
     required this.nutrientConditionBoxController,
     required this.familyConditionBoxController,
   });
 
-  factory AnalysisViewController.init({
+  factory AnalysisViewController.create({
     required SeasonConditionBoxController seasonConditionBoxController,
     required NutrientConditionBoxController nutrientConditionBoxController,
     required FamilyConditionBoxController familyConditionBoxController,
+    required bool isPlacedAnyPlant,
   }) {
     bool isSatisfying() {
       return seasonConditionBoxController.suitableSeasons.isNotEmpty &&
@@ -77,20 +128,21 @@ class AnalysisViewController extends ValueNotifier<bool> {
     }
 
     final analysisViewController = AnalysisViewController._(
-      isSatisfying(),
       seasonConditionBoxController: seasonConditionBoxController,
       nutrientConditionBoxController: nutrientConditionBoxController,
       familyConditionBoxController: familyConditionBoxController,
+      isSatisfying: ValueNotifier(isSatisfying()),
+      isPlacedAnyPlant: ValueNotifier(isPlacedAnyPlant),
     );
 
     seasonConditionBoxController.addListener(() {
-      analysisViewController.isSatisfying = isSatisfying();
+      analysisViewController.isSatisfying.value = isSatisfying();
     });
     nutrientConditionBoxController.addListener(() {
-      analysisViewController.isSatisfying = isSatisfying();
+      analysisViewController.isSatisfying.value = isSatisfying();
     });
     familyConditionBoxController.addListener(() {
-      analysisViewController.isSatisfying = isSatisfying();
+      analysisViewController.isSatisfying.value = isSatisfying();
     });
     return analysisViewController;
   }
@@ -99,10 +151,8 @@ class AnalysisViewController extends ValueNotifier<bool> {
   final NutrientConditionBoxController nutrientConditionBoxController;
   final FamilyConditionBoxController familyConditionBoxController;
 
-  bool get isSatisfying => value;
-  set isSatisfying(bool newValue) {
-    value = newValue;
-  }
+  ValueNotifier<bool> isSatisfying;
+  ValueNotifier<bool> isPlacedAnyPlant;
 }
 
 class _Title extends StatelessWidget {
@@ -168,19 +218,21 @@ class _ConditionGroup extends StatelessWidget {
   const _ConditionGroup(
     this.seasonConditionBoxController,
     this.nutrientConditionBoxController,
-    this.familyConditionBoxController,
-  );
+    this.familyConditionBoxController, {
+    required this.borderRadius,
+  });
 
   final SeasonConditionBoxController seasonConditionBoxController;
   final NutrientConditionBoxController nutrientConditionBoxController;
   final FamilyConditionBoxController familyConditionBoxController;
+
+  final BorderRadius borderRadius;
 
   @override
   Widget build(BuildContext context) {
     const Color unsatisfiedBorderColor = Color(0xffD8D8D8);
     const Color satisfiedBorderColor = Color(0xff34C759);
     const double borderWidth = 1.5;
-    final BorderRadius borderRadius = BorderRadius.circular(12);
     const double boxHeight = 64;
     const double textSpacing = 4;
     const double horizontalTextPadding = 12;
