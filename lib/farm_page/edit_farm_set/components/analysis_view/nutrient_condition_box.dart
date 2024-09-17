@@ -158,7 +158,7 @@ class NutrientConditionBox extends StatelessWidget {
 
 class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxModel> {
   NutrientConditionBoxController.init()
-      : farmPlantSetModel = FarmPlantSetModel.single(farmPlantModel: FarmPlantModel.empty(FarmPlantStyle.basic)),
+      : _farmPlantSetModel = FarmPlantSetModel.single(farmPlantModel: FarmPlantModel.empty(FarmPlantStyle.basic)),
         super(
           const NutrientConditionBoxModel(
             isSatisfied: false,
@@ -169,16 +169,16 @@ class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxM
 
   factory NutrientConditionBoxController.withModel(FarmPlantCardModel model) {
     final controller = NutrientConditionBoxController.init();
-    controller.farmPlantSetModel = model.farmPlantSetModel;
+    controller._farmPlantSetModel = model.farmPlantSetModel;
     controller._selectedFertilizer = model.fertilizer;
     controller._updateValue();
     return controller;
   }
 
   BuiltList<Nutrient> get _nutrientsByFarmPlant =>
-      farmPlantSetModel.farmPlantModelList.map((e) => e.totalNutrient).toBuiltList();
+      _farmPlantSetModel.farmPlantModelList.map((e) => e.totalNutrient).toBuiltList();
   Fertilizer? _selectedFertilizer;
-  FarmPlantSetModel farmPlantSetModel;
+  FarmPlantSetModel _farmPlantSetModel;
 
   void selectFertilizer(Fertilizer? fertilizer) {
     _selectedFertilizer = fertilizer;
@@ -186,7 +186,7 @@ class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxM
   }
 
   void updateFarmPlantSetModel(FarmPlantSetModel farmPlantSetModel) {
-    this.farmPlantSetModel = farmPlantSetModel;
+    _farmPlantSetModel = farmPlantSetModel;
     _updateValue();
   }
 
@@ -197,7 +197,7 @@ class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxM
       countOfNeededFertilizer: 0,
     );
 
-    if (!farmPlantSetModel.hasAnyPlant) {
+    if (!_farmPlantSetModel.hasAnyPlant) {
       value = unsatisfiedModel;
       return;
     }

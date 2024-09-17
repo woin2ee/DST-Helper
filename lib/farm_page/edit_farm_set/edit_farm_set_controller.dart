@@ -150,6 +150,6 @@ class EditFarmSetController extends ChangeNotifier {
   void _updateAnalysisControllers() {
     seasonConditionBoxController.suitableSeasons = farmPlantSetModel.suitableSeasons.toBuiltSet();
     nutrientConditionBoxController.updateFarmPlantSetModel(farmPlantSetModel);
-    // familyConditionBoxController.satisfy();
+    familyConditionBoxController.updateFarmPlantSetModel(farmPlantSetModel);
   }
 }
