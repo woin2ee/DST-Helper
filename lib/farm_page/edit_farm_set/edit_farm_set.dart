@@ -49,7 +49,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
 
     controller.fertilizerSelectionTableController.addListener(() {
       final selectedFertilizer = controller.fertilizerSelectionTableController.selectedFertilizer;
-      controller.nutrientConditionBoxController.selectFertilizer(selectedFertilizer);
+      controller.analysisViewController.nutrientConditionBoxController.selectFertilizer(selectedFertilizer);
     });
   }
 
@@ -86,7 +86,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                     valueListenable: controller.farmPlantSetModelController,
                     builder: (context, value, child) {
                       return AnalysisView(
-                        controller: controller,
+                        controller: controller.analysisViewController,
                         width: 400,
                         height: 356,
                       );

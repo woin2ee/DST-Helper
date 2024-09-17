@@ -1,4 +1,5 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/analysis_view.dart';
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/family_condition_box.dart';
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/nutrient_condition_box.dart';
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/season_condition_box.dart';
@@ -15,9 +16,7 @@ class EditFarmSetController extends ChangeNotifier {
     required this.selectedFarmPlantStyle,
     required this.titleEditingController,
     required this.farmPlantSetModelController,
-    required this.seasonConditionBoxController,
-    required this.nutrientConditionBoxController,
-    required this.familyConditionBoxController,
+    required this.analysisViewController,
   });
 
   factory EditFarmSetController.create() {
@@ -30,9 +29,11 @@ class EditFarmSetController extends ChangeNotifier {
           farmPlantModel: FarmPlantModel.empty(FarmPlantStyle.basic),
         ),
       ),
-      seasonConditionBoxController: SeasonConditionBoxController.init(),
-      nutrientConditionBoxController: NutrientConditionBoxController.init(),
-      familyConditionBoxController: FamilyConditionBoxController.init(),
+      analysisViewController: AnalysisViewController.init(
+        seasonConditionBoxController: SeasonConditionBoxController.init(),
+        nutrientConditionBoxController: NutrientConditionBoxController.init(),
+        familyConditionBoxController: FamilyConditionBoxController.init(),
+      ),
     );
   }
 
@@ -51,9 +52,11 @@ class EditFarmSetController extends ChangeNotifier {
       selectedFarmPlantStyle: selectedFarmPlantStyle,
       titleEditingController: titleEditingController,
       farmPlantSetModelController: farmPlantSetModelController,
-      seasonConditionBoxController: seasonConditionBoxController,
-      nutrientConditionBoxController: nutrientConditionBoxController,
-      familyConditionBoxController: familyConditionBoxController,
+      analysisViewController: AnalysisViewController.init(
+        seasonConditionBoxController: seasonConditionBoxController,
+        nutrientConditionBoxController: nutrientConditionBoxController,
+        familyConditionBoxController: familyConditionBoxController,
+      ),
     );
   }
 
@@ -77,9 +80,7 @@ class EditFarmSetController extends ChangeNotifier {
   /// Dismiss dialog를 보여줄지 결정하는데 사용됩니다.
   bool hasChanges = false;
 
-  final SeasonConditionBoxController seasonConditionBoxController;
-  final NutrientConditionBoxController nutrientConditionBoxController;
-  final FamilyConditionBoxController familyConditionBoxController;
+  final AnalysisViewController analysisViewController;
 
   void setSelectedFarmPlantSetStyle(FarmPlantSetStyle style) {
     if (selectedFarmPlantSetStyle == style) return;
@@ -148,8 +149,9 @@ class EditFarmSetController extends ChangeNotifier {
   }
 
   void _updateAnalysisControllers() {
-    seasonConditionBoxController.suitableSeasons = farmPlantSetModel.suitableSeasons.toBuiltSet();
-    nutrientConditionBoxController.updateFarmPlantSetModel(farmPlantSetModel);
-    familyConditionBoxController.updateFarmPlantSetModel(farmPlantSetModel);
+    analysisViewController.seasonConditionBoxController.suitableSeasons =
+        farmPlantSetModel.suitableSeasons.toBuiltSet();
+    analysisViewController.nutrientConditionBoxController.updateFarmPlantSetModel(farmPlantSetModel);
+    analysisViewController.familyConditionBoxController.updateFarmPlantSetModel(farmPlantSetModel);
   }
 }

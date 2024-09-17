@@ -49,7 +49,7 @@ class NutrientConditionBox extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: controller,
       builder: (context, value, child) {
-        if (value.isSatisfied) {
+        if (value.isSatisfying) {
           return _buildSatisfiedBox(value, context);
         } else {
           return child ?? _buildUnsatisfiedBox();
@@ -162,7 +162,7 @@ class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxM
       : _farmPlantSetModel = FarmPlantSetModel.single(farmPlantModel: FarmPlantModel.empty(FarmPlantStyle.basic)),
         super(
           const NutrientConditionBoxModel(
-            isSatisfied: false,
+            isSatisfying: false,
             neededFertilizer: null,
             countOfNeededFertilizer: 0,
           ),
@@ -193,7 +193,7 @@ class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxM
 
   void _updateValue() {
     const unsatisfiedModel = NutrientConditionBoxModel(
-      isSatisfied: false,
+      isSatisfying: false,
       neededFertilizer: null,
       countOfNeededFertilizer: 0,
     );
@@ -203,10 +203,10 @@ class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxM
       return;
     }
 
-    final bool isSatisfied = _verifyNutrientsBalance(nutrientsByFarmPlant: _nutrientsByFarmPlant);
-    if (isSatisfied) {
+    final bool isSatisfying = _verifyNutrientsBalance(nutrientsByFarmPlant: _nutrientsByFarmPlant);
+    if (isSatisfying) {
       value = value.copyWith(
-        isSatisfied: true,
+        isSatisfying: true,
         neededFertilizer: null,
         countOfNeededFertilizer: 0,
       );
@@ -226,7 +226,7 @@ class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxM
     }
 
     value = value.copyWith(
-      isSatisfied: true,
+      isSatisfying: true,
       neededFertilizer: selectedFertilizer,
       countOfNeededFertilizer: neededCount,
     );
@@ -265,7 +265,7 @@ class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxM
 @freezed
 class NutrientConditionBoxModel with _$NutrientConditionBoxModel {
   const factory NutrientConditionBoxModel({
-    required bool isSatisfied,
+    required bool isSatisfying,
     required Fertilizer? neededFertilizer,
     required int countOfNeededFertilizer,
   }) = _NutrientConditionBoxModel;

@@ -148,6 +148,7 @@ class SeasonConditionBoxController extends ValueNotifier<BuiltSet<Season>> {
 
   SeasonConditionBoxController.init() : super(BuiltSet());
 
+  BuiltSet<Season> get suitableSeasons => value;
   set suitableSeasons(BuiltSet<Season> newValue) {
     if (value == newValue) {
       return;

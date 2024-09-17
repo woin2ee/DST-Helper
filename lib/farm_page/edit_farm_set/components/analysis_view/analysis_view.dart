@@ -1,7 +1,6 @@
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/family_condition_box.dart';
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/nutrient_condition_box.dart';
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/season_condition_box.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/edit_farm_set_controller.dart';
 import 'package:dst_helper/localization/text_localizations.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
@@ -9,32 +8,34 @@ import 'package:flutter/material.dart';
 class AnalysisView extends StatelessWidget {
   const AnalysisView({
     super.key,
-    required this.controller,
     required this.width,
     required this.height,
+    required this.controller,
   });
 
-  final EditFarmSetController controller;
+  final AnalysisViewController controller;
+
   final double width;
   final double height;
 
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: controller.farmPlantSetModel,
+      listenable: controller,
       builder: (context, child) {
         return SizedBox(
           width: width,
           height: height,
           child: Card(
-            color: const Color(0xffFAFAFA),
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                side: BorderSide(
-                  color: Color(0xffCECECE),
-                  width: 1,
-                )),
-            elevation: 1,
+            color: const Color(0xffFBFBFB),
+            shape: RoundedRectangleBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
+              side: BorderSide(
+                color: controller.isSatisfying ? const Color(0xff1CD44A) : const Color(0xffCECECE),
+                width: 2.5,
+              ),
+            ),
+            elevation: 6,
             child: Padding(
               padding: const EdgeInsets.only(top: 21, left: 12.7, right: 12.7, bottom: 15),
               child: Column(
@@ -53,46 +54,54 @@ class AnalysisView extends StatelessWidget {
         );
       },
     );
+  }
+}
 
-    // return ListenableBuilder(
-    //   listenable: controller.farmPlantSetModel,
-    //   builder: (context, child) {
-    //     return Column(
-    //       spacing: 12,
-    //       children: [
-    //         if (controller.farmPlantSetModel.hasAnyPlant)
-    //           Text(
-    //             '${TextLocalizations.of(context)!.localized('suitable_seasons')}: ${controller.farmPlantSetModel.suitableSeasons.map((season) => season.localizedName(context))}',
-    //             style: const TextStyle(
-    //               fontFamily: FontFamily.pretendard,
-    //             ),
-    //           ),
-    //         Builder(
-    //           builder: (context) {
-    //             if (controller.farmPlantSetModel.hasBalancedNutrients && controller.farmPlantSetModel.hasAnyPlant) {
-    //               return Text(
-    //                 '${TextLocalizations.of(context)!.localized('balanced_nutrients')}!',
-    //                 style: const TextStyle(
-    //                   fontFamily: FontFamily.pretendard,
-    //                 ),
-    //               );
-    //             }
-    //             final countOfFertilizerNeeded = controller.calculateCountOfFertilizerNeeded();
-    //             if (countOfFertilizerNeeded != null) {
-    //               return Text(
-    //                 '영양소 충족! (성장 단계 마다 각 밭에 $countOfFertilizerNeeded번 비료를 줘야합니다.)',
-    //                 style: const TextStyle(
-    //                   fontFamily: FontFamily.pretendard,
-    //                 ),
-    //               );
-    //             }
-    //             return const SizedBox.shrink();
-    //           },
-    //         ),
-    //       ],
-    //     );
-    //   },
-    // );
+class AnalysisViewController extends ValueNotifier<bool> {
+  AnalysisViewController._(
+    super.value, {
+    required this.seasonConditionBoxController,
+    required this.nutrientConditionBoxController,
+    required this.familyConditionBoxController,
+  });
+
+  factory AnalysisViewController.init({
+    required SeasonConditionBoxController seasonConditionBoxController,
+    required NutrientConditionBoxController nutrientConditionBoxController,
+    required FamilyConditionBoxController familyConditionBoxController,
+  }) {
+    bool isSatisfying() {
+      return seasonConditionBoxController.suitableSeasons.isNotEmpty &&
+          nutrientConditionBoxController.value.isSatisfying &&
+          familyConditionBoxController.value.isSatisfying;
+    }
+
+    final analysisViewController = AnalysisViewController._(
+      isSatisfying(),
+      seasonConditionBoxController: seasonConditionBoxController,
+      nutrientConditionBoxController: nutrientConditionBoxController,
+      familyConditionBoxController: familyConditionBoxController,
+    );
+
+    seasonConditionBoxController.addListener(() {
+      analysisViewController.isSatisfying = isSatisfying();
+    });
+    nutrientConditionBoxController.addListener(() {
+      analysisViewController.isSatisfying = isSatisfying();
+    });
+    familyConditionBoxController.addListener(() {
+      analysisViewController.isSatisfying = isSatisfying();
+    });
+    return analysisViewController;
+  }
+
+  final SeasonConditionBoxController seasonConditionBoxController;
+  final NutrientConditionBoxController nutrientConditionBoxController;
+  final FamilyConditionBoxController familyConditionBoxController;
+
+  bool get isSatisfying => value;
+  set isSatisfying(bool newValue) {
+    value = newValue;
   }
 }
 
