@@ -140,6 +140,7 @@ class FamilyCondition {
         countByRoot.update(root, (value) => value + 1, ifAbsent: () => 1);
       }
     }
+    if (countByRoot.isEmpty) return false;
     return countByRoot.entries.every((entry) => entry.value >= 4);
   }
 }
