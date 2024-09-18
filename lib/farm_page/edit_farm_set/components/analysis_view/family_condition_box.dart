@@ -1,6 +1,7 @@
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/family_condition.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
+import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set_model.dart';
+import 'package:dst_helper/localization/text_localizations.dart';
 import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
@@ -47,15 +48,16 @@ class FamilyConditionBox extends StatelessWidget {
       valueListenable: controller,
       builder: (context, value, child) {
         if (value.isSatisfying) {
-          return _buildSatisfiedBox();
+          return child ?? _buildSatisfiedBox(context);
         } else {
-          return _buildUnsatisfiedBox(value);
+          return _buildUnsatisfiedBox(value, context);
         }
       },
+      child: _buildSatisfiedBox(context),
     );
   }
 
-  Widget _buildUnsatisfiedBox(FamilyConditionBoxModel value) {
+  Widget _buildUnsatisfiedBox(FamilyConditionBoxModel value, BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
@@ -78,7 +80,7 @@ class FamilyConditionBox extends StatelessWidget {
               child: Text(
                 // TODO: Utilize issue crops. (value.issueCrops)
                 // '일부 작물(감자)이 가족 조건을 만족하지 않습니다!',
-                '일부 작물이 가족 조건을 만족하지 않습니다!',
+                TextLocalizations.of(context)!.localized('family_condition_unsatisfying_first_text'),
                 style: TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontSize: mainTextSize,
@@ -87,7 +89,7 @@ class FamilyConditionBox extends StatelessWidget {
             ),
             FittedBox(
               child: Text(
-                '최소 4개 작물이 인접해 있어야 합니다.',
+                TextLocalizations.of(context)!.localized('family_condition_unsatisfying_secondary_text'),
                 style: TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontSize: hintTextSize,
@@ -101,7 +103,7 @@ class FamilyConditionBox extends StatelessWidget {
     );
   }
 
-  Widget _buildSatisfiedBox() {
+  Widget _buildSatisfiedBox(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
@@ -115,10 +117,10 @@ class FamilyConditionBox extends StatelessWidget {
       height: boxHeight,
       child: Padding(
         padding: EdgeInsets.only(left: horizontalTextPadding, right: horizontalTextPadding),
-        child: const FittedBox(
+        child: FittedBox(
           child: Text(
-            '모든 작물이 가족 조건을 만족합니다!',
-            style: TextStyle(
+            TextLocalizations.of(context)!.localized('family_condition_satisfying_text'),
+            style: const TextStyle(
               fontFamily: FontFamily.pretendard,
               fontSize: 17,
               fontVariations: [FontVariation.weight(500)],

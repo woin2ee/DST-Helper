@@ -1,4 +1,5 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:dst_helper/localization/text_localizations.dart';
 import 'package:dst_helper/models/v1/localization/season_localization.dart';
 import 'package:dst_helper/models/v1/season.dart';
 import 'package:dst_helper/utils/font_family.dart';
@@ -44,12 +45,12 @@ class SeasonConditionBox extends StatelessWidget {
       valueListenable: controller,
       builder: (context, value, child) {
         if (value.isEmpty) {
-          return child ?? _buildUnsatisfiedBox();
+          return child ?? _buildUnsatisfiedBox(context);
         } else {
           return _buildSatisfiedBox(value, context);
         }
       },
-      child: _buildUnsatisfiedBox(),
+      child: _buildUnsatisfiedBox(context),
     );
   }
 
@@ -98,7 +99,7 @@ class SeasonConditionBox extends StatelessWidget {
     );
   }
 
-  Container _buildUnsatisfiedBox() {
+  Container _buildUnsatisfiedBox(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
@@ -119,7 +120,7 @@ class SeasonConditionBox extends StatelessWidget {
           children: [
             FittedBox(
               child: Text(
-                '거대 작물이 될 수 있는 계절이 없습니다!',
+                TextLocalizations.of(context)!.localized('season_condition_unsatisfying_first_text'),
                 style: TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontSize: mainTextSize,
@@ -128,7 +129,7 @@ class SeasonConditionBox extends StatelessWidget {
             ),
             FittedBox(
               child: Text(
-                '같은 계절의 작물들로 밭을 구성하세요.',
+                TextLocalizations.of(context)!.localized('season_condition_unsatisfying_secondary_text'),
                 style: TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontSize: hintTextSize,

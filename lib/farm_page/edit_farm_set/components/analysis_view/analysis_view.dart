@@ -81,9 +81,9 @@ class AnalysisView extends StatelessWidget {
                                   borderRadius: conditionGroupBorderRadius,
                                 ),
                               ),
-                              const Text(
-                                '배치된 작물이 없습니다.',
-                                style: TextStyle(
+                              Text(
+                                TextLocalizations.of(context)!.localized('no_crops_message'),
+                                style: const TextStyle(
                                   fontFamily: FontFamily.pretendard,
                                   fontSize: 26,
                                   fontVariations: [FontVariation.weight(600)],

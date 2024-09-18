@@ -52,14 +52,14 @@ class NutrientConditionBox extends StatelessWidget {
         if (value.isSatisfying) {
           return _buildSatisfiedBox(value, context);
         } else {
-          return child ?? _buildUnsatisfiedBox();
+          return child ?? _buildUnsatisfiedBox(context);
         }
       },
-      child: _buildUnsatisfiedBox(),
+      child: _buildUnsatisfiedBox(context),
     );
   }
 
-  Container _buildUnsatisfiedBox() {
+  Container _buildUnsatisfiedBox(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
@@ -80,7 +80,7 @@ class NutrientConditionBox extends StatelessWidget {
           children: [
             FittedBox(
               child: Text(
-                '영양소가 불균형 합니다!',
+                TextLocalizations.of(context)!.localized('nutrient_condition_unsatisfying_first_text'),
                 style: TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontSize: mainTextSize,
@@ -89,7 +89,7 @@ class NutrientConditionBox extends StatelessWidget {
             ),
             FittedBox(
               child: Text(
-                '보완되는 영양소를 가진 작물을 선택하거나, 비료를 선택하세요.',
+                TextLocalizations.of(context)!.localized('nutrient_condition_unsatisfying_secondary_text'),
                 style: TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontSize: hintTextSize,
@@ -110,7 +110,7 @@ class NutrientConditionBox extends StatelessWidget {
     var phrases = [
       FittedBox(
         child: Text(
-          '${TextLocalizations.of(context)!.localized('balanced_nutrients')}!',
+          TextLocalizations.of(context)!.localized('nutrient_condition_satisfying_first_text'),
           style: const TextStyle(
             fontFamily: FontFamily.pretendard,
             fontSize: 17,
