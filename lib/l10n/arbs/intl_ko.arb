@@ -1,0 +1,339 @@
+{
+  "@@last_modified": "2024-09-19T00:21:02.962441",
+  "@@locale": "ko",
+  "add": "추가",
+  "@add": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "asparagus_seeds_assumed_name": "관모양 씨앗",
+  "@asparagus_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "autumn": "가을",
+  "@autumn": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "back_dialog_message": "작업 중인 내용은 저장되지 않습니다.",
+  "@back_dialog_message": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "back_dialog_title": "화면을 떠나시겠습니까?",
+  "@back_dialog_title": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "basic": "기본",
+  "@basic": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "butterflymuffin": "버터 머핀",
+  "@butterflymuffin": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "취소",
+  "@cancel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "carrot_seeds_assumed_name": "네모난 씨앗",
+  "@carrot_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "compost": "퇴비",
+  "@compost": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "compostwrap": "퇴비 쌈",
+  "@compostwrap": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirm": "확인",
+  "@confirm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "corn_seeds_assumed_name": "씨앗 뭉치",
+  "@corn_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "crops": "작물",
+  "@crops": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "delete": "삭제",
+  "@delete": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dense": "밀집",
+  "@dense": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "done": "완료",
+  "@done": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dragonfruit_seeds_assumed_name": "둥글 납작 씨앗",
+  "@dragonfruit_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "durian_seeds_assumed_name": "털난 씨앗 꼬투리",
+  "@durian_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "edit": "편집",
+  "@edit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eggplant_seeds_assumed_name": "회오리무늬 씨앗",
+  "@eggplant_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "family_condition_satisfying_text": "모든 작물이 가족 조건을 만족합니다!",
+  "@family_condition_satisfying_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "family_condition_unsatisfying_first_text": "일부 작물이 가족 조건을 만족하지 않습니다.",
+  "@family_condition_unsatisfying_first_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "family_condition_unsatisfying_secondary_text": "최소 4개 작물이 인접해 있어야 합니다.",
+  "@family_condition_unsatisfying_secondary_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fertilizer": "거름통",
+  "@fertilizer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fertilizers": "비료",
+  "@fertilizers": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "garlic_seeds_assumed_name": "씨앗 꼬투리",
+  "@garlic_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "giant_crop": "거대 작물",
+  "@giant_crop": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "glommerfuel": "글로머의 점액",
+  "@glommerfuel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "growthFormula": "성장 촉진제",
+  "@growthFormula": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "guano": "구아노",
+  "@guano": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hide": "숨기기",
+  "@hide": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "manure": "비료",
+  "@manure": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "menu_cook": "요리",
+  "@menu_cook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "menu_farm": "농사",
+  "@menu_farm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mix": "복합",
+  "@mix": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "name": "이름",
+  "@name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "no_crops_message": "배치된 작물이 없습니다.",
+  "@no_crops_message": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nutrient_condition_satisfying_first_text": "영양소 균형!",
+  "@nutrient_condition_satisfying_first_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nutrient_condition_unsatisfying_first_text": "영양소가 불균형 합니다.",
+  "@nutrient_condition_unsatisfying_first_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nutrient_condition_unsatisfying_secondary_text": "보완되는 영양소를 가진 작물을 심거나, 적절한 비료를 선택하세요.",
+  "@nutrient_condition_unsatisfying_secondary_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "onion_seeds_assumed_name": "뾰족한 씨앗들",
+  "@onion_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pepper_seeds_assumed_name": "혹투성이 씨앗",
+  "@pepper_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pomegranate_seeds_assumed_name": "솜털 달린 씨앗",
+  "@pomegranate_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "poop": "거름",
+  "@poop": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "potato_seeds_assumed_name": "솜털 씨앗",
+  "@potato_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pumpkin_seeds_assumed_name": "날카로운 씨앗",
+  "@pumpkin_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reverse_dense": "밀집(반전)",
+  "@reverse_dense": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "rottenegg": "썩은 알",
+  "@rottenegg": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "season_condition_unsatisfying_first_text": "거대 작물이 될 수 있는 계절이 없습니다.",
+  "@season_condition_unsatisfying_first_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "season_condition_unsatisfying_secondary_text": "같은 계절의 작물들로 밭을 구성하세요.",
+  "@season_condition_unsatisfying_secondary_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "seeds": "씨앗",
+  "@seeds": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "show": "보이기",
+  "@show": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "show_hidden_items": "숨김 항목 표시",
+  "@show_hidden_items": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "show_seeds_alias": "씨앗 별칭 표시",
+  "@show_seeds_alias": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "soil_amender": "성장 촉진제",
+  "@soil_amender": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "spoiled_fish": "썩은 생선",
+  "@spoiled_fish": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "spoiled_fish_small": "썩은 생선 조각",
+  "@spoiled_fish_small": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "spoiled_food": "부패물",
+  "@spoiled_food": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "spring": "봄",
+  "@spring": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "suitable_seasons": "적합 계절",
+  "@suitable_seasons": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "season": "계절",
+  "@season": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "summer": "여름",
+  "@summer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tomato_seeds_assumed_name": "삐죽삐죽한 씨앗",
+  "@tomato_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "treegrowthsolution": "나무 잼",
+  "@treegrowthsolution": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "watermelon_seeds_assumed_name": "정사각형 씨앗",
+  "@watermelon_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "winter": "겨울",
+  "@winter": {
+    "type": "text",
+    "placeholders": {}
+  }
+}

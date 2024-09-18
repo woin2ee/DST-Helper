@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/family_condition_box.dart';
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/nutrient_condition_box.dart';
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/season_condition_box.dart';
-import 'package:dst_helper/localization/text_localizations.dart';
+import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 
@@ -82,7 +82,7 @@ class AnalysisView extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                TextLocalizations.of(context)!.localized('no_crops_message'),
+                                L10ns.of(context).localized('no_crops_message'),
                                 style: const TextStyle(
                                   fontFamily: FontFamily.pretendard,
                                   fontSize: 26,
@@ -183,7 +183,7 @@ class _Title extends StatelessWidget {
                 child: Center(
                   child: FittedBox(
                     child: Text(
-                      TextLocalizations.of(context)!.localized('giant_crop'),
+                      L10ns.of(context).localized('giant_crop'),
                       style: const TextStyle(
                         fontFamily: FontFamily.pretendard,
                         fontSize: 36,

@@ -8,7 +8,7 @@ import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_m
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
 import 'package:dst_helper/farm_page/side_info_box/crops_info_box.dart';
 import 'package:dst_helper/farm_page/side_info_box/fertilizers_info_box.dart';
-import 'package:dst_helper/localization/text_localizations.dart';
+import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/models/v2/localization.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
@@ -137,7 +137,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                     Padding(
                       padding: const EdgeInsets.only(left: 4),
                       child: Text(
-                        TextLocalizations.of(context)!.localized('crops'),
+                        L10ns.of(context).localized('crops'),
                         style: const TextStyle(
                           fontFamily: FontFamily.pretendard,
                           fontVariations: [FontVariation.weight(500)],
@@ -157,7 +157,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         spacing: 10,
                         children: [
                           Text(
-                            TextLocalizations.of(context)!.localized('fertilizers'),
+                            L10ns.of(context).localized('fertilizers'),
                             style: const TextStyle(
                               fontFamily: FontFamily.pretendard,
                               fontVariations: [FontVariation.weight(500)],
@@ -206,7 +206,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                                 controller.hasChanges ? Navigator.maybePop(context) : Navigator.pop(context);
                               },
                               child: Text(
-                                TextLocalizations.of(context)!.localized('cancel'),
+                                L10ns.of(context).localized('cancel'),
                                 style: const TextStyle(
                                   fontFamily: FontFamily.pretendard,
                                   fontSize: 15,
@@ -243,9 +243,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         Navigator.pop(context, model);
                       },
                       child: Text(
-                        widget.isEditingNew
-                            ? TextLocalizations.of(context)!.localized('add')
-                            : TextLocalizations.of(context)!.localized('done'),
+                        widget.isEditingNew ? L10ns.of(context).localized('add') : L10ns.of(context).localized('done'),
                         style: const TextStyle(
                           fontFamily: FontFamily.pretendard,
                           fontSize: 15,
@@ -321,13 +319,13 @@ extension on _EditFarmSetState {
         return AlertDialog(
           backgroundColor: Colors.white,
           title: Text(
-            TextLocalizations.of(context)!.localized('back_dialog_title'),
+            L10ns.of(context).localized('back_dialog_title'),
             style: const TextStyle(
               fontFamily: FontFamily.pretendard,
             ),
           ),
           content: Text(
-            TextLocalizations.of(context)!.localized('back_dialog_message'),
+            L10ns.of(context).localized('back_dialog_message'),
             style: const TextStyle(
               fontFamily: FontFamily.pretendard,
             ),
@@ -339,7 +337,7 @@ extension on _EditFarmSetState {
                 backgroundColor: Colors.grey.shade100,
               ),
               child: Text(
-                TextLocalizations.of(context)!.localized('cancel'),
+                L10ns.of(context).localized('cancel'),
                 style: const TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontVariations: [FontVariation.weight(500)],
@@ -349,7 +347,7 @@ extension on _EditFarmSetState {
             ),
             FilledButton(
               child: Text(
-                TextLocalizations.of(context)!.localized('confirm'),
+                L10ns.of(context).localized('confirm'),
                 style: const TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontVariations: [FontVariation.weight(500)],

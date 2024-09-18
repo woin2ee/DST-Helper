@@ -1,4 +1,4 @@
-import 'package:dst_helper/localization/text_localizations.dart';
+import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
@@ -9,9 +9,9 @@ enum Menu {
   String localized(BuildContext context) {
     switch (this) {
       case Menu.farm:
-        return TextLocalizations.of(context)!.localized('menu_farm');
+        return L10ns.of(context).localized('menu_farm');
       case Menu.cook:
-        return TextLocalizations.of(context)!.localized('menu_cook');
+        return L10ns.of(context).localized('menu_cook');
     }
   }
 

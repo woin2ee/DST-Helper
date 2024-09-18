@@ -1,0 +1,339 @@
+{
+  "@@last_modified": "2024-09-19T00:30:03.137116",
+  "@@locale": "messages",
+  "add": "add",
+  "@add": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "asparagus_seeds_assumed_name": "asparagus_seeds_assumed_name",
+  "@asparagus_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "autumn": "autumn",
+  "@autumn": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "back_dialog_message": "back_dialog_message",
+  "@back_dialog_message": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "back_dialog_title": "back_dialog_title",
+  "@back_dialog_title": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "basic": "basic",
+  "@basic": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "butterflymuffin": "butterflymuffin",
+  "@butterflymuffin": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "cancel",
+  "@cancel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "carrot_seeds_assumed_name": "carrot_seeds_assumed_name",
+  "@carrot_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "compost": "compost",
+  "@compost": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "compostwrap": "compostwrap",
+  "@compostwrap": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirm": "confirm",
+  "@confirm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "corn_seeds_assumed_name": "corn_seeds_assumed_name",
+  "@corn_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "crops": "crops",
+  "@crops": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "delete": "delete",
+  "@delete": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dense": "dense",
+  "@dense": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "done": "done",
+  "@done": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dragonfruit_seeds_assumed_name": "dragonfruit_seeds_assumed_name",
+  "@dragonfruit_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "durian_seeds_assumed_name": "durian_seeds_assumed_name",
+  "@durian_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "edit": "edit",
+  "@edit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eggplant_seeds_assumed_name": "eggplant_seeds_assumed_name",
+  "@eggplant_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "family_condition_satisfying_text": "family_condition_satisfying_text",
+  "@family_condition_satisfying_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "family_condition_unsatisfying_first_text": "family_condition_unsatisfying_first_text",
+  "@family_condition_unsatisfying_first_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "family_condition_unsatisfying_secondary_text": "family_condition_unsatisfying_secondary_text",
+  "@family_condition_unsatisfying_secondary_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fertilizer": "fertilizer",
+  "@fertilizer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fertilizers": "fertilizers",
+  "@fertilizers": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "garlic_seeds_assumed_name": "garlic_seeds_assumed_name",
+  "@garlic_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "giant_crop": "giant_crop",
+  "@giant_crop": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "glommerfuel": "glommerfuel",
+  "@glommerfuel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "growthFormula": "growthFormula",
+  "@growthFormula": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "guano": "guano",
+  "@guano": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hide": "hide",
+  "@hide": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "manure": "manure",
+  "@manure": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "menu_cook": "menu_cook",
+  "@menu_cook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "menu_farm": "menu_farm",
+  "@menu_farm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mix": "mix",
+  "@mix": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "name": "name",
+  "@name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "no_crops_message": "no_crops_message",
+  "@no_crops_message": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nutrient_condition_satisfying_first_text": "nutrient_condition_satisfying_first_text",
+  "@nutrient_condition_satisfying_first_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nutrient_condition_unsatisfying_first_text": "nutrient_condition_unsatisfying_first_text",
+  "@nutrient_condition_unsatisfying_first_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nutrient_condition_unsatisfying_secondary_text": "nutrient_condition_unsatisfying_secondary_text",
+  "@nutrient_condition_unsatisfying_secondary_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "onion_seeds_assumed_name": "onion_seeds_assumed_name",
+  "@onion_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pepper_seeds_assumed_name": "pepper_seeds_assumed_name",
+  "@pepper_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pomegranate_seeds_assumed_name": "pomegranate_seeds_assumed_name",
+  "@pomegranate_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "poop": "poop",
+  "@poop": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "potato_seeds_assumed_name": "potato_seeds_assumed_name",
+  "@potato_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pumpkin_seeds_assumed_name": "pumpkin_seeds_assumed_name",
+  "@pumpkin_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reverse_dense": "reverse_dense",
+  "@reverse_dense": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "rottenegg": "rottenegg",
+  "@rottenegg": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "season_condition_unsatisfying_first_text": "season_condition_unsatisfying_first_text",
+  "@season_condition_unsatisfying_first_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "season_condition_unsatisfying_secondary_text": "season_condition_unsatisfying_secondary_text",
+  "@season_condition_unsatisfying_secondary_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "seeds": "seeds",
+  "@seeds": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "show": "show",
+  "@show": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "show_hidden_items": "show_hidden_items",
+  "@show_hidden_items": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "show_seeds_alias": "show_seeds_alias",
+  "@show_seeds_alias": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "soil_amender": "soil_amender",
+  "@soil_amender": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "spoiled_fish": "spoiled_fish",
+  "@spoiled_fish": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "spoiled_fish_small": "spoiled_fish_small",
+  "@spoiled_fish_small": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "spoiled_food": "spoiled_food",
+  "@spoiled_food": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "spring": "spring",
+  "@spring": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "suitable_seasons": "suitable_seasons",
+  "@suitable_seasons": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "season": "season",
+  "@season": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "summer": "summer",
+  "@summer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tomato_seeds_assumed_name": "tomato_seeds_assumed_name",
+  "@tomato_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "treegrowthsolution": "treegrowthsolution",
+  "@treegrowthsolution": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "watermelon_seeds_assumed_name": "watermelon_seeds_assumed_name",
+  "@watermelon_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "winter": "winter",
+  "@winter": {
+    "type": "text",
+    "placeholders": {}
+  }
+}

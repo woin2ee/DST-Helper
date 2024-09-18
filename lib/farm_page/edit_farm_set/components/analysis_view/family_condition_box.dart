@@ -1,7 +1,7 @@
 import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/family_condition.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set_model.dart';
-import 'package:dst_helper/localization/text_localizations.dart';
+import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +80,7 @@ class FamilyConditionBox extends StatelessWidget {
               child: Text(
                 // TODO: Utilize issue crops. (value.issueCrops)
                 // '일부 작물(감자)이 가족 조건을 만족하지 않습니다!',
-                TextLocalizations.of(context)!.localized('family_condition_unsatisfying_first_text'),
+                L10ns.of(context).localized('family_condition_unsatisfying_first_text'),
                 style: TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontSize: mainTextSize,
@@ -89,7 +89,7 @@ class FamilyConditionBox extends StatelessWidget {
             ),
             FittedBox(
               child: Text(
-                TextLocalizations.of(context)!.localized('family_condition_unsatisfying_secondary_text'),
+                L10ns.of(context).localized('family_condition_unsatisfying_secondary_text'),
                 style: TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontSize: hintTextSize,
@@ -119,7 +119,7 @@ class FamilyConditionBox extends StatelessWidget {
         padding: EdgeInsets.only(left: horizontalTextPadding, right: horizontalTextPadding),
         child: FittedBox(
           child: Text(
-            TextLocalizations.of(context)!.localized('family_condition_satisfying_text'),
+            L10ns.of(context).localized('family_condition_satisfying_text'),
             style: const TextStyle(
               fontFamily: FontFamily.pretendard,
               fontSize: 17,

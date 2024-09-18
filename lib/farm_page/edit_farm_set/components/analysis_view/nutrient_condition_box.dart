@@ -2,7 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_model.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set_model.dart';
-import 'package:dst_helper/localization/text_localizations.dart';
+import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:dst_helper/models/v2/item/nutrient.dart';
 import 'package:dst_helper/utils/font_family.dart';
@@ -80,7 +80,7 @@ class NutrientConditionBox extends StatelessWidget {
           children: [
             FittedBox(
               child: Text(
-                TextLocalizations.of(context)!.localized('nutrient_condition_unsatisfying_first_text'),
+                L10ns.of(context).localized('nutrient_condition_unsatisfying_first_text'),
                 style: TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontSize: mainTextSize,
@@ -89,7 +89,7 @@ class NutrientConditionBox extends StatelessWidget {
             ),
             FittedBox(
               child: Text(
-                TextLocalizations.of(context)!.localized('nutrient_condition_unsatisfying_secondary_text'),
+                L10ns.of(context).localized('nutrient_condition_unsatisfying_secondary_text'),
                 style: TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontSize: hintTextSize,
@@ -110,7 +110,7 @@ class NutrientConditionBox extends StatelessWidget {
     var phrases = [
       FittedBox(
         child: Text(
-          TextLocalizations.of(context)!.localized('nutrient_condition_satisfying_first_text'),
+          L10ns.of(context).localized('nutrient_condition_satisfying_first_text'),
           style: const TextStyle(
             fontFamily: FontFamily.pretendard,
             fontSize: 17,

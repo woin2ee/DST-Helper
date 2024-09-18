@@ -1,5 +1,5 @@
 import 'package:built_collection/built_collection.dart';
-import 'package:dst_helper/localization/text_localizations.dart';
+import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/models/v1/localization/season_localization.dart';
 import 'package:dst_helper/models/v1/season.dart';
 import 'package:dst_helper/utils/font_family.dart';
@@ -120,7 +120,7 @@ class SeasonConditionBox extends StatelessWidget {
           children: [
             FittedBox(
               child: Text(
-                TextLocalizations.of(context)!.localized('season_condition_unsatisfying_first_text'),
+                L10ns.of(context).localized('season_condition_unsatisfying_first_text'),
                 style: TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontSize: mainTextSize,
@@ -129,7 +129,7 @@ class SeasonConditionBox extends StatelessWidget {
             ),
             FittedBox(
               child: Text(
-                TextLocalizations.of(context)!.localized('season_condition_unsatisfying_secondary_text'),
+                L10ns.of(context).localized('season_condition_unsatisfying_secondary_text'),
                 style: TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontSize: hintTextSize,
