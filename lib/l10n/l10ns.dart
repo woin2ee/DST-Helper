@@ -53,13 +53,15 @@ class L10ns {
 
   final String localeName;
 
-  // String get title {
-  //   return Intl.message(
-  //     'Don\'t Starve Together Helper Application.',
-  //     name: 'title',
-  //     locale: localeName,
-  //   );
-  // }
+  String seasonConditionSatisfyingText(String seasonsText) {
+    return Intl.message(
+      'Becomes a giant crop in the $seasonsText!',
+      name: 'seasonConditionSatisfyingText',
+      args: [seasonsText],
+      examples: const {'seasonsText': '<spring>spring</spring>, <fall>fall</fall>'},
+      locale: localeName,
+    );
+  }
 
   String localized(String key) {
     return strings[key] as String;

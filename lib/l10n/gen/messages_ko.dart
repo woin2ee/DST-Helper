@@ -21,6 +21,8 @@ class MessageLookup extends MessageLookupByLibrary {
   @override
   String get localeName => 'ko';
 
+  static m0(seasonsText) => "${seasonsText}에 거대 작물이 됩니다!";
+
   @override
   final Map<String, dynamic> messages = _notInlinedMessages(_notInlinedMessages);
 
@@ -75,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
     'reverse_dense': MessageLookupByLibrary.simpleMessage('밀집(반전)'),
     'rottenegg': MessageLookupByLibrary.simpleMessage('썩은 알'),
     'season': MessageLookupByLibrary.simpleMessage('계절'),
+    'seasonConditionSatisfyingText': m0,
     'season_condition_unsatisfying_first_text': MessageLookupByLibrary.simpleMessage('거대 작물이 될 수 있는 계절이 없습니다.'),
     'season_condition_unsatisfying_secondary_text': MessageLookupByLibrary.simpleMessage('같은 계절의 작물들로 밭을 구성하세요.'),
     'seeds': MessageLookupByLibrary.simpleMessage('씨앗'),

@@ -1,10 +1,10 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/models/v1/localization/season_localization.dart';
 import 'package:dst_helper/models/v1/season.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 import 'package:intersperse/intersperse.dart';
+import 'package:styled_text/styled_text.dart';
 
 class SeasonConditionBox extends StatelessWidget {
   const SeasonConditionBox({
@@ -55,25 +55,22 @@ class SeasonConditionBox extends StatelessWidget {
   }
 
   Container _buildSatisfiedBox(BuiltSet<Season> value, BuildContext context) {
-    const defaultTextStyle = TextStyle(
-      fontFamily: FontFamily.pretendard,
-      color: Colors.black,
-      fontSize: 17,
-      fontVariations: [FontVariation.weight(500)],
-    );
-    final partialSeasonTextSpans = value.map((season) => TextSpan(
-          text: season.localizedName(context),
-          style: defaultTextStyle.copyWith(color: season.personalColor),
-        ));
-    final seasonTextSpan = partialSeasonTextSpans.intersperse(
-      const TextSpan(
-        text: ', ',
-        style: defaultTextStyle,
+    final String seasonsText = value
+        .map((season) => '<${season.name}>${L10ns.of(context).localized(season.name)}</${season.name}>')
+        .intersperse(', ')
+        .fold('', (text, element) => text += element);
+    final localizedText = L10ns.of(context).seasonConditionSatisfyingText(seasonsText);
+    final seasonConditionSatisfyingText = StyledText(
+      text: localizedText,
+      tags: {
+        for (final season in Season.values) season.name: StyledTextTag(style: TextStyle(color: season.personalColor)),
+      },
+      style: const TextStyle(
+        fontFamily: FontFamily.pretendard,
+        color: Colors.black,
+        fontSize: 17,
+        fontVariations: [FontVariation.weight(500)],
       ),
-    );
-    const remainingTextSpan = TextSpan(
-      text: '에 거대 작물이 됩니다!',
-      style: defaultTextStyle,
     );
     return Container(
       alignment: Alignment.center,
@@ -86,14 +83,10 @@ class SeasonConditionBox extends StatelessWidget {
         borderRadius: borderRadius,
       ),
       height: boxHeight,
-      child: FittedBox(
-        child: RichText(
-          text: TextSpan(
-            children: [
-              ...seasonTextSpan,
-              remainingTextSpan,
-            ],
-          ),
+      child: Padding(
+        padding: EdgeInsets.only(left: horizontalTextPadding, right: horizontalTextPadding),
+        child: FittedBox(
+          child: seasonConditionSatisfyingText,
         ),
       ),
     );

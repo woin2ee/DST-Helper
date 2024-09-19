@@ -21,6 +21,8 @@ class MessageLookup extends MessageLookupByLibrary {
   @override
   String get localeName => 'en';
 
+  static m0(seasonsText) => "Becomes a giant crop in the ${seasonsText}!";
+
   @override
   final Map<String, dynamic> messages = _notInlinedMessages(_notInlinedMessages);
 
@@ -75,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
     'reverse_dense': MessageLookupByLibrary.simpleMessage('Dense(flip)'),
     'rottenegg': MessageLookupByLibrary.simpleMessage('Rotten Egg'),
     'season': MessageLookupByLibrary.simpleMessage('Season'),
+    'seasonConditionSatisfyingText': m0,
     'season_condition_unsatisfying_first_text': MessageLookupByLibrary.simpleMessage('There are no seasons to be a giant crop.'),
     'season_condition_unsatisfying_secondary_text': MessageLookupByLibrary.simpleMessage('Compose the farm with crops sharing a season.'),
     'seeds': MessageLookupByLibrary.simpleMessage('Seeds'),

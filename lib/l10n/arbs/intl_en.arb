@@ -1,6 +1,16 @@
 {
   "@@last_modified": "2024-09-18T18:38:08.401012",
   "@@locale": "en",
+  "seasonConditionSatisfyingText": "Becomes a giant crop in the {seasonsText}!",
+  "@seasonConditionSatisfyingText": {
+    "type": "text",
+    "placeholders": {
+      "seasonsText": {
+        "type": "String",
+        "example": "<spring>spring</spring>, <fall>fall</fall>"
+      }
+    }
+  },
   "add": "Add",
   "@add": {
     "type": "text",
