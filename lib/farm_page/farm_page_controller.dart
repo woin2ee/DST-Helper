@@ -80,6 +80,7 @@ class FarmPageController extends ChangeNotifier {
       final sampleData = FarmPlantSetModelSample.preDefinedList.map((sampleModel) => FarmPlantCardModel.create(
             farmPlantSetModel: sampleModel,
             createType: CreateType.sample,
+            fertilizer: null,
           ));
       farmPlantCardModelList = sampleData.toList();
       return;

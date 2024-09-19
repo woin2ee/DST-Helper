@@ -1,8 +1,7 @@
-import 'package:dst_helper/models/v1/item/dst_object.dart';
-import 'package:dst_helper/models/v1/localization/localization.dart';
+import 'package:dst_helper/l10n/l10ns.dart';
+import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum _NutrientType {
   /// 퇴비
@@ -20,13 +19,13 @@ enum _NutrientType {
   String name(BuildContext context) {
     switch (this) {
       case _NutrientType.compost:
-        return AppLocalizations.of(context)!.compost;
+        return L10ns.of(context).localized('compost');
       case _NutrientType.growthFormula:
-        return AppLocalizations.of(context)!.growthFormula;
+        return L10ns.of(context).localized('growthFormula');
       case _NutrientType.manure:
-        return AppLocalizations.of(context)!.manure;
+        return L10ns.of(context).localized('manure');
       case _NutrientType.mix:
-        return AppLocalizations.of(context)!.mix;
+        return L10ns.of(context).localized('mix');
     }
   }
 
@@ -103,7 +102,7 @@ class _NutrientTypeTitle extends StatelessWidget {
 class FertilizersInfoBox extends StatelessWidget {
   const FertilizersInfoBox({super.key});
 
-  final List<(_NutrientType, List<FertilizerObject>)> _nutrientList = const [
+  final List<(_NutrientType, List<Fertilizer>)> _nutrientList = const [
     (_NutrientType.compost, Fertilizers.compostList),
     (_NutrientType.growthFormula, Fertilizers.growthFormulaList),
     (_NutrientType.manure, Fertilizers.manureList),
@@ -141,7 +140,7 @@ class FertilizersInfoBox extends StatelessWidget {
                                   children: [
                                     FittedBox(
                                       child: Text(
-                                        fertilizer.localizedName(context),
+                                        L10ns.of(context).localized(fertilizer.code),
                                         style: const TextStyle(
                                           fontSize: 13,
                                           fontFamily: FontFamily.pretendard,
@@ -164,7 +163,7 @@ class FertilizersInfoBox extends StatelessWidget {
     );
   }
 
-  TextSpan _nutrientAmountText(FertilizerObject fertilizer, {required _NutrientType type}) {
+  TextSpan _nutrientAmountText(Fertilizer fertilizer, {required _NutrientType type}) {
     const compostColor = Colors.yellow;
     const growthFormulaColor = Colors.blueAccent;
     const manureColor = Colors.purple;
@@ -182,7 +181,7 @@ class FertilizersInfoBox extends StatelessWidget {
           style: basicTextStyle.copyWith(color: compostColor),
         );
       case _NutrientType.growthFormula:
-        if (fertilizer is GrowthFormulaStarter) {
+        if (fertilizer.code == 'soil_amender') {
           return TextSpan(
             text: '8/16/32',
             style: basicTextStyle.copyWith(color: growthFormulaColor),
@@ -239,7 +238,7 @@ class FertilizersInfoBoxTag extends StatelessWidget {
       child: IconButton(
         padding: const EdgeInsets.only(top: 4, bottom: 2),
         onPressed: onPressed,
-        icon: Image.asset("assets/images/items/${const Fertilizer().assetName}.png"),
+        icon: Image.asset("assets/images/items/${Fertilizers.fertilizer.assetName}.png"),
       ),
     );
   }

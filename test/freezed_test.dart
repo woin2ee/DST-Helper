@@ -7,7 +7,10 @@ import 'package:dst_helper/models/v2/item/category_mixins.dart';
 import 'package:dst_helper/models/v2/item/food_value.dart';
 import 'package:dst_helper/models/v2/item/nutrient.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+part 'freezed_test.freezed.dart';
 
 void main() {
   test('freezed_equals', () {
@@ -109,4 +112,36 @@ void main() {
     List<Recipe> recipes = [steamedTwigs, meatballs];
     recipes[0].priority;
   });
+
+  test('equals_list', () {
+    final data = DataClass(elements: [
+      Element(rawValue: 1),
+      Element(rawValue: 2),
+      Element(rawValue: 3),
+    ]);
+    final copyData = data.copyWith(elements: data.elements.map((e) => e.copy()).toList());
+
+    data.elements[0].rawValue = 11;
+
+    expect(data.elements[0].rawValue != copyData.elements[0].rawValue, true);
+  });
+}
+
+@freezed
+class DataClass with _$DataClass {
+  const factory DataClass({
+    required List<Element> elements,
+  }) = _DataClass;
+}
+
+class Element {
+  Element({
+    required this.rawValue,
+  });
+
+  int rawValue;
+
+  Element copy() {
+    return Element(rawValue: rawValue);
+  }
 }

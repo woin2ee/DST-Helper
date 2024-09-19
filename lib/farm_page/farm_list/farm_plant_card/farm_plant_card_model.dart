@@ -1,4 +1,5 @@
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set_model.dart';
+import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:uuid/uuid.dart';
@@ -20,12 +21,14 @@ class FarmPlantCardModel extends ChangeNotifier {
     required this.favorite,
     required this.createType,
     required bool isHidden,
+    required this.fertilizer,
   }) : _isHidden = isHidden;
 
   factory FarmPlantCardModel.create({
     String? title,
     required FarmPlantSetModel farmPlantSetModel,
     required CreateType createType,
+    required Fertilizer? fertilizer,
   }) {
     return FarmPlantCardModel(
       id: const Uuid().v4(),
@@ -34,6 +37,7 @@ class FarmPlantCardModel extends ChangeNotifier {
       createType: createType,
       isHidden: false,
       favorite: ValueNotifier(false),
+      fertilizer: fertilizer,
     );
   }
 
@@ -55,6 +59,8 @@ class FarmPlantCardModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  final Fertilizer? fertilizer;
+
   factory FarmPlantCardModel.fromJson(Map<String, dynamic> json) => _$FarmPlantCardModelFromJson(json);
   Map<String, dynamic> toJson() => _$FarmPlantCardModelToJson(this);
 
@@ -65,6 +71,7 @@ class FarmPlantCardModel extends ChangeNotifier {
     bool? favorite,
     CreateType? createType,
     bool? isHidden,
+    Fertilizer? fertilizer,
   }) {
     return FarmPlantCardModel(
       id: id ?? this.id,
@@ -73,6 +80,7 @@ class FarmPlantCardModel extends ChangeNotifier {
       favorite: favorite != null ? ValueNotifier(favorite) : ValueNotifier(this.favorite.value),
       createType: createType ?? this.createType,
       isHidden: isHidden ?? this.isHidden,
+      fertilizer: fertilizer ?? this.fertilizer,
     );
   }
 }

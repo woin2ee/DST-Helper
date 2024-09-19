@@ -1,7 +1,7 @@
 import 'package:dst_helper/farm_page/edit_farm_set/edit_farm_set.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
 import 'package:dst_helper/farm_page/farm_page_controller.dart';
-import 'package:dst_helper/localization/text_localizations.dart';
+import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/models/v2/localization.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +120,7 @@ class _CardTitle extends StatelessWidget {
                       value: _CardActionEntry.edit,
                       child: ListTile(
                         leading: const Icon(Icons.edit),
-                        title: Text(TextLocalizations.of(context)!.localized('edit')),
+                        title: Text(L10ns.of(context).localized('edit')),
                       ),
                     ),
                     model.isHidden
@@ -128,14 +128,14 @@ class _CardTitle extends StatelessWidget {
                             value: _CardActionEntry.show,
                             child: ListTile(
                               leading: const Icon(Icons.visibility),
-                              title: Text(TextLocalizations.of(context)!.localized('show')),
+                              title: Text(L10ns.of(context).localized('show')),
                             ),
                           )
                         : PopupMenuItem(
                             value: _CardActionEntry.hide,
                             child: ListTile(
                               leading: const Icon(Icons.visibility_off),
-                              title: Text(TextLocalizations.of(context)!.localized('hide')),
+                              title: Text(L10ns.of(context).localized('hide')),
                             ),
                           ),
                     const PopupMenuDivider(),
@@ -145,7 +145,7 @@ class _CardTitle extends StatelessWidget {
                         iconColor: Colors.red,
                         textColor: Colors.red,
                         leading: const Icon(Icons.delete_forever_rounded),
-                        title: Text(TextLocalizations.of(context)!.localized('delete')),
+                        title: Text(L10ns.of(context).localized('delete')),
                       ),
                     ),
                   ];

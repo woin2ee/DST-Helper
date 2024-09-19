@@ -1,5 +1,5 @@
 import 'package:dst_helper/app/home_page.dart';
-import 'package:dst_helper/localization/app_localizations.dart';
+import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:flutter/material.dart';
 import 'package:universal_io/io.dart';
 
@@ -19,8 +19,8 @@ class _AppState extends State<App> {
       title: 'DST Helper',
       restorationScopeId: 'restoration_scope_id_dst_helper_0.0.1_0_debug',
       locale: _selectedLocale,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: L10ns.localizationsDelegates,
+      supportedLocales: L10ns.supportedLocales,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown.shade800),
         useMaterial3: true,

@@ -1,4 +1,4 @@
-import 'package:dst_helper/localization/text_localizations.dart';
+import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:dst_helper/models/v2/localization.dart';
 import 'package:dst_helper/utils/font_family.dart';
@@ -11,7 +11,7 @@ enum SettingItem {
   String description(BuildContext context) {
     switch (this) {
       case SettingItem.displayingSeedName:
-        return TextLocalizations.of(context)!.localized('show_seeds_alias');
+        return L10ns.of(context).localized('show_seeds_alias');
       // case SettingItem.displayingCropName:
       //   return '작물 이름 표시';
     }
@@ -40,7 +40,7 @@ class _SeedsInfoBoxState extends State<SeedsInfoBox> {
           Row(
             children: [
               Text(
-                TextLocalizations.of(context)!.localized('seeds'),
+                L10ns.of(context).localized('seeds'),
                 style: const TextStyle(
                   fontSize: 20,
                   color: Colors.white,

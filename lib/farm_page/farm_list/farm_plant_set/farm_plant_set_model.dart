@@ -67,6 +67,7 @@ class FarmPlantSetModel extends ChangeNotifier {
   }
 
   Seasons get suitableSeasons {
+    if (!hasAnyPlant) return {};
     Seasons seasons = {
       Season.spring,
       Season.summer,

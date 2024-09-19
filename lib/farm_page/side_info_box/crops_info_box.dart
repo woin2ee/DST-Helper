@@ -1,8 +1,8 @@
-import 'package:dst_helper/models/v1/item/dst_object.dart';
+import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/models/v1/season.dart';
+import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CropsInfoBox extends StatelessWidget {
   const CropsInfoBox({super.key});
@@ -37,7 +37,7 @@ class CropsInfoBox extends StatelessWidget {
             child: Center(
               child: FittedBox(
                 child: Text(
-                  AppLocalizations.of(context)!.season,
+                  L10ns.of(context).localized('season'),
                   style: const TextStyle(
                     fontFamily: FontFamily.pretendard,
                     fontSize: 16,
@@ -58,7 +58,7 @@ class CropsInfoBox extends StatelessWidget {
           child: Center(
             child: FittedBox(
               child: Text(
-                AppLocalizations.of(context)!.compost,
+                L10ns.of(context).localized('compost'),
                 style: const TextStyle(
                   fontFamily: FontFamily.pretendard,
                 ),
@@ -71,7 +71,7 @@ class CropsInfoBox extends StatelessWidget {
           child: Center(
             child: FittedBox(
               child: Text(
-                AppLocalizations.of(context)!.growthFormula,
+                L10ns.of(context).localized('growthFormula'),
                 style: const TextStyle(
                   fontFamily: FontFamily.pretendard,
                 ),
@@ -84,7 +84,7 @@ class CropsInfoBox extends StatelessWidget {
           child: Center(
             child: FittedBox(
               child: Text(
-                AppLocalizations.of(context)!.manure,
+                L10ns.of(context).localized('manure'),
                 style: const TextStyle(
                   fontFamily: FontFamily.pretendard,
                 ),
@@ -109,7 +109,7 @@ class CropsInfoBox extends StatelessWidget {
               context: context,
               color: Colors.transparent,
               tiles: <Widget>[
-                ...Plants.crops.map((crop) => Row(
+                ...Crops.crops.map((crop) => Row(
                       spacing: horizontalSpacing,
                       children: [
                         Image(

@@ -1,0 +1,354 @@
+{
+  "@@last_modified": "2024-09-18T18:38:08.401012",
+  "@@locale": "en",
+  "seasonConditionSatisfyingText": "Becomes a giant crop in the {seasonsText}!",
+  "@seasonConditionSatisfyingText": {
+    "type": "text",
+    "placeholders": {
+      "seasonsText": {
+        "type": "String",
+        "example": "<spring>spring</spring>, <fall>fall</fall>"
+      }
+    }
+  },
+  "fertilizer_selection_tooltip": "If you have multiple farms, assume that the same fertilizer is used for all of them.",
+  "@fertilizer_selection_tooltip": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "add": "Add",
+  "@add": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "asparagus_seeds_assumed_name": "Tubular Seeds",
+  "@asparagus_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "autumn": "Autumn",
+  "@autumn": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "season": "Season",
+  "@season": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "back_dialog_message": "You will lose what you are editing.",
+  "@back_dialog_message": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "back_dialog_title": "Do you want to leave?",
+  "@back_dialog_title": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "basic": "Basic",
+  "@basic": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "butterflymuffin": "Butter Muffin",
+  "@butterflymuffin": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "carrot_seeds_assumed_name": "Oblong Seeds",
+  "@carrot_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "compost": "Compost",
+  "@compost": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "compostwrap": "Compost Wrap",
+  "@compostwrap": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirm": "Confirm",
+  "@confirm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "corn_seeds_assumed_name": "Clustered Seeds",
+  "@corn_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "crops": "Crops",
+  "@crops": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "delete": "Delete",
+  "@delete": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dense": "Dense",
+  "@dense": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "done": "Done",
+  "@done": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dragonfruit_seeds_assumed_name": "Bulbous Seeds",
+  "@dragonfruit_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "durian_seeds_assumed_name": "Brittle Seed Pods",
+  "@durian_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "edit": "Edit",
+  "@edit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "eggplant_seeds_assumed_name": "Swirly Seeds",
+  "@eggplant_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "family_condition_satisfying_text": "All crops satisfy family conditions!",
+  "@family_condition_satisfying_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "family_condition_unsatisfying_first_text": "Some crops don't satisfy the family condition.",
+  "@family_condition_unsatisfying_first_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "family_condition_unsatisfying_secondary_text": "At least four crops must be adjacent.",
+  "@family_condition_unsatisfying_secondary_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fertilizer": "Bucket-o-poop",
+  "@fertilizer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fertilizers": "Fertilizers",
+  "@fertilizers": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "garlic_seeds_assumed_name": "Seed Pods",
+  "@garlic_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "giant_crop": "Giant Crop",
+  "@giant_crop": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "glommerfuel": "Glommer's Goop",
+  "@glommerfuel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "growthFormula": "Growth Formula",
+  "@growthFormula": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "guano": "Guano",
+  "@guano": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hide": "Hide",
+  "@hide": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "manure": "Manure",
+  "@manure": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "menu_cook": "Cook",
+  "@menu_cook": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "menu_farm": "Farm",
+  "@menu_farm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mix": "Mix",
+  "@mix": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "name": "name",
+  "@name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "no_crops_message": "There are no crops placed.",
+  "@no_crops_message": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nutrient_condition_satisfying_first_text": "Balanced nutrients!",
+  "@nutrient_condition_satisfying_first_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nutrient_condition_unsatisfying_first_text": "The nutrients are not balanced.",
+  "@nutrient_condition_unsatisfying_first_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "nutrient_condition_unsatisfying_secondary_text": "Plant complementary crops or choose the right fertilizer.",
+  "@nutrient_condition_unsatisfying_secondary_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "onion_seeds_assumed_name": "Pointy Seeds",
+  "@onion_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pepper_seeds_assumed_name": "Lumpy Seeds",
+  "@pepper_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pomegranate_seeds_assumed_name": "Windblown Seeds",
+  "@pomegranate_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "poop": "Manure",
+  "@poop": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "potato_seeds_assumed_name": "Fluffy Seeds",
+  "@potato_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pumpkin_seeds_assumed_name": "Sharp Seeds",
+  "@pumpkin_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reverse_dense": "Dense(flip)",
+  "@reverse_dense": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "rottenegg": "Rotten Egg",
+  "@rottenegg": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "season_condition_unsatisfying_first_text": "There are no seasons to be a giant crop.",
+  "@season_condition_unsatisfying_first_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "season_condition_unsatisfying_secondary_text": "Compose the farm with crops sharing a season.",
+  "@season_condition_unsatisfying_secondary_text": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "seeds": "Seeds",
+  "@seeds": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "show": "Show",
+  "@show": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "show_hidden_items": "Show hidden items",
+  "@show_hidden_items": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "show_seeds_alias": "Show seeds alias",
+  "@show_seeds_alias": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "soil_amender": "Growth Formula Starter",
+  "@soil_amender": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "spoiled_fish": "Spoiled Fish",
+  "@spoiled_fish": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "spoiled_fish_small": "Spoiled Fish Morsel",
+  "@spoiled_fish_small": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "spoiled_food": "Rot",
+  "@spoiled_food": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "spring": "Spring",
+  "@spring": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "suitable_seasons": "Suitable Seasons",
+  "@suitable_seasons": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "summer": "Summer",
+  "@summer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tomato_seeds_assumed_name": "Spiky Seeds",
+  "@tomato_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "treegrowthsolution": "Tree Jam",
+  "@treegrowthsolution": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "watermelon_seeds_assumed_name": "Square Seeds",
+  "@watermelon_seeds_assumed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "winter": "Winter",
+  "@winter": {
+    "type": "text",
+    "placeholders": {}
+  }
+}

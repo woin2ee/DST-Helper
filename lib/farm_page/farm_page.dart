@@ -4,7 +4,7 @@ import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_m
 import 'package:dst_helper/farm_page/farm_page_controller.dart';
 import 'package:dst_helper/farm_page/season_selection_box.dart';
 import 'package:dst_helper/farm_page/side_info_box/side_info_box.dart';
-import 'package:dst_helper/localization/text_localizations.dart';
+import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -99,7 +99,7 @@ class ShowingHiddenItemsCheckbox extends StatelessWidget {
         );
       },
       child: Text(
-        TextLocalizations.of(context)!.localized('show_hidden_items'),
+        L10ns.of(context).localized('show_hidden_items'),
         style: const TextStyle(
           fontFamily: FontFamily.pretendard,
         ),

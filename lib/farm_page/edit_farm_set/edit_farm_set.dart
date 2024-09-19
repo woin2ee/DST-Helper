@@ -1,14 +1,14 @@
-import 'package:dst_helper/farm_page/edit_farm_set/analysis_view.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/crop_selection_table.dart';
+import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/analysis_view.dart';
+import 'package:dst_helper/farm_page/edit_farm_set/components/crop_selection_table.dart';
+import 'package:dst_helper/farm_page/edit_farm_set/components/farm_plant_set_board.dart';
+import 'package:dst_helper/farm_page/edit_farm_set/components/fertilizer_selection_table.dart';
 import 'package:dst_helper/farm_page/edit_farm_set/edit_farm_set_controller.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/fertilizer_selection_table.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_model.dart';
 import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
 import 'package:dst_helper/farm_page/side_info_box/crops_info_box.dart';
 import 'package:dst_helper/farm_page/side_info_box/fertilizers_info_box.dart';
-import 'package:dst_helper/localization/text_localizations.dart';
-import 'package:dst_helper/models/v2/item/item.dart';
+import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/models/v2/localization.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
@@ -34,13 +34,23 @@ class _EditFarmSetState extends State<EditFarmSet> {
   void initState() {
     super.initState();
 
-    controller = EditFarmSetController(originModelCopy: widget.originModel);
+    final originModel = widget.originModel;
+    if (originModel == null) {
+      controller = EditFarmSetController.init();
+    } else {
+      controller = EditFarmSetController.withModel(originModel);
+    }
     Iterable<Listenable> controllers = [controller, controller.titleEditingController];
     for (final e in controllers) {
       e.addListener(() {
         controller.hasChanges = true;
       });
     }
+
+    controller.fertilizerSelectionTableController.addListener(() {
+      final selectedFertilizer = controller.fertilizerSelectionTableController.selectedFertilizer;
+      controller.analysisViewController.nutrientConditionBoxController.selectFertilizer(selectedFertilizer);
+    });
   }
 
   @override
@@ -67,34 +77,19 @@ class _EditFarmSetState extends State<EditFarmSet> {
             Column(
               spacing: 34,
               children: [
-                Container(
-                  color: Colors.black54,
-                  width: 380,
-                  height: 380,
-                  child: Center(
-                    child: ListenableBuilder(
-                        listenable: controller.farmPlantSetModelController,
-                        builder: (context, child) {
-                          return FarmPlantSet(
-                            farmPlantSetModel: controller.farmPlantSetModel,
-                            onPressed: (farmPlantIndex) => (plantIndex) => () {
-                                  final Plant? placedPlant = controller
-                                      .farmPlantSetModel.farmPlantModelList[farmPlantIndex].plants[plantIndex];
-                                  final selectedCrop = controller.selectedCrop;
-                                  controller.setPlant(
-                                    placedPlant == selectedCrop ? null : selectedCrop,
-                                    farmPlantIndex: farmPlantIndex,
-                                    plantIndex: plantIndex,
-                                  );
-                                },
-                          );
-                        }),
-                  ),
+                FarmPlantSetBoard(
+                  controller: controller,
+                  width: 384,
+                  height: 384,
                 ),
                 ValueListenableBuilder(
                     valueListenable: controller.farmPlantSetModelController,
                     builder: (context, value, child) {
-                      return AnalysisView(controller: controller);
+                      return AnalysisView(
+                        controller: controller.analysisViewController,
+                        width: 400,
+                        height: 356,
+                      );
                     }),
               ],
             ),
@@ -137,16 +132,17 @@ class _EditFarmSetState extends State<EditFarmSet> {
                   ],
                 ),
                 Column(
+                  spacing: 6,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 4),
                       child: Text(
-                        TextLocalizations.of(context)!.localized('crops'),
+                        L10ns.of(context).localized('crops'),
                         style: const TextStyle(
                           fontFamily: FontFamily.pretendard,
                           fontVariations: [FontVariation.weight(500)],
-                          fontSize: 15,
+                          fontSize: 16,
                         ),
                       ),
                     ),
@@ -154,6 +150,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                   ],
                 ),
                 Column(
+                  spacing: 6,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
@@ -162,25 +159,35 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         spacing: 10,
                         children: [
                           Text(
-                            TextLocalizations.of(context)!.localized('fertilizers'),
+                            L10ns.of(context).localized('fertilizers'),
                             style: const TextStyle(
                               fontFamily: FontFamily.pretendard,
                               fontVariations: [FontVariation.weight(500)],
-                              fontSize: 15,
+                              fontSize: 16,
                             ),
                           ),
-                          const Text(
-                            '(모든 밭에 같은 비료를 사용한다고 가정합니다.)',
-                            style: TextStyle(
+                          Tooltip(
+                            message: L10ns.of(context).localized('fertilizer_selection_tooltip'),
+                            textStyle: const TextStyle(
                               fontFamily: FontFamily.pretendard,
-                              fontVariations: [FontVariation.weight(400)],
-                              fontSize: 12,
+                              fontSize: 13,
+                              color: Colors.white,
                             ),
+                            decoration: const BoxDecoration(
+                              color: Colors.black87,
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                            ),
+                            verticalOffset: 15,
+                            padding: const EdgeInsets.only(top: 4, left: 10, right: 10, bottom: 4),
+                            enableTapToDismiss: false,
+                            preferBelow: false,
+                            waitDuration: const Duration(milliseconds: 200),
+                            child: const Icon(Icons.info_outline_rounded),
                           ),
                         ],
                       ),
                     ),
-                    FertilizerSelectionTable(selectedFertilizerController: controller.selectedFertilizerController),
+                    FertilizerSelectionTable(controller: controller.fertilizerSelectionTableController),
                   ],
                 ),
                 Row(
@@ -211,7 +218,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                                 controller.hasChanges ? Navigator.maybePop(context) : Navigator.pop(context);
                               },
                               child: Text(
-                                TextLocalizations.of(context)!.localized('cancel'),
+                                L10ns.of(context).localized('cancel'),
                                 style: const TextStyle(
                                   fontFamily: FontFamily.pretendard,
                                   fontSize: 15,
@@ -242,14 +249,13 @@ class _EditFarmSetState extends State<EditFarmSet> {
                             title: title,
                             farmPlantSetModel: controller.farmPlantSetModel,
                             createType: CreateType.userCustom,
+                            fertilizer: controller.selectedFertilizer,
                           );
                         }
                         Navigator.pop(context, model);
                       },
                       child: Text(
-                        widget.isEditingNew
-                            ? TextLocalizations.of(context)!.localized('add')
-                            : TextLocalizations.of(context)!.localized('done'),
+                        widget.isEditingNew ? L10ns.of(context).localized('add') : L10ns.of(context).localized('done'),
                         style: const TextStyle(
                           fontFamily: FontFamily.pretendard,
                           fontSize: 15,
@@ -325,13 +331,13 @@ extension on _EditFarmSetState {
         return AlertDialog(
           backgroundColor: Colors.white,
           title: Text(
-            TextLocalizations.of(context)!.localized('back_dialog_title'),
+            L10ns.of(context).localized('back_dialog_title'),
             style: const TextStyle(
               fontFamily: FontFamily.pretendard,
             ),
           ),
           content: Text(
-            TextLocalizations.of(context)!.localized('back_dialog_message'),
+            L10ns.of(context).localized('back_dialog_message'),
             style: const TextStyle(
               fontFamily: FontFamily.pretendard,
             ),
@@ -343,7 +349,7 @@ extension on _EditFarmSetState {
                 backgroundColor: Colors.grey.shade100,
               ),
               child: Text(
-                TextLocalizations.of(context)!.localized('cancel'),
+                L10ns.of(context).localized('cancel'),
                 style: const TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontVariations: [FontVariation.weight(500)],
@@ -353,7 +359,7 @@ extension on _EditFarmSetState {
             ),
             FilledButton(
               child: Text(
-                TextLocalizations.of(context)!.localized('confirm'),
+                L10ns.of(context).localized('confirm'),
                 style: const TextStyle(
                   fontFamily: FontFamily.pretendard,
                   fontVariations: [FontVariation.weight(500)],
