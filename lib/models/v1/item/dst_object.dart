@@ -1,3 +1,5 @@
+// ignore_for_file: override_on_non_overriding_member
+
 import 'dart:math';
 
 import 'package:dst_helper/models/v1/item/food_value.dart';
@@ -263,7 +265,6 @@ class PotatoSeeds extends SeedsObject {
   const PotatoSeeds() : super(crop: const Potato());
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 
   @override
@@ -302,7 +303,6 @@ class CarrotSeeds extends SeedsObject {
   const CarrotSeeds() : super(crop: const Carrot());
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 
   @override
@@ -341,11 +341,9 @@ class CornSeeds extends SeedsObject {
   const CornSeeds() : super(crop: const Corn());
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 
   @override
-  // TODO: implement code
   String get code => 'corn_seeds';
 }
 
@@ -374,7 +372,6 @@ class TomaRoot implements CropObject {
   FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.vegetable, 1.0)});
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 }
 
@@ -382,11 +379,9 @@ class TomaRootSeeds extends SeedsObject {
   const TomaRootSeeds() : super(crop: const TomaRoot());
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 }
 
@@ -415,7 +410,6 @@ class Asparagus implements CropObject {
   SeedsObject get seeds => const AsparagusSeeds();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 }
 
@@ -426,7 +420,6 @@ class AsparagusSeeds extends SeedsObject {
   String get name => 'Asparagus Seeds';
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 }
 
@@ -455,7 +448,6 @@ class Watermelon implements CropObject {
   SeedsObject get seeds => const WatermelonSeeds();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 }
 
@@ -466,7 +458,6 @@ class WatermelonSeeds extends SeedsObject {
   String get name => 'Watermelon Seeds';
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 }
 
@@ -489,14 +480,12 @@ class Pumpkin implements CropObject {
   FoodValues? get foodValues => throw UnimplementedError();
 
   @override
-  // TODO: implement type
   FoodType get type => throw UnimplementedError();
 
   @override
   SeedsObject get seeds => const PumpkinSeeds();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 }
 
@@ -504,11 +493,9 @@ class PumpkinSeeds extends SeedsObject {
   const PumpkinSeeds() : super(crop: const Pumpkin());
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 }
 
@@ -544,7 +531,6 @@ class EggplantSeeds extends SeedsObject {
   const EggplantSeeds() : super(crop: const Eggplant());
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 
   @override
@@ -583,7 +569,6 @@ class GarlicSeeds extends SeedsObject {
   const GarlicSeeds() : super(crop: const Garlic());
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 
   @override
@@ -609,14 +594,12 @@ class Onion implements CropObject {
   FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.vegetable, 1.0)});
 
   @override
-  // TODO: implement type
   FoodType get type => throw UnimplementedError();
 
   @override
   SeedsObject get seeds => const OnionSeeds();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 }
 
@@ -624,7 +607,6 @@ class OnionSeeds extends SeedsObject {
   const OnionSeeds() : super(crop: const Onion());
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 
   @override
@@ -663,7 +645,6 @@ class PepperSeeds extends SeedsObject {
   const PepperSeeds() : super(crop: const Pepper());
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 
   @override
@@ -702,7 +683,6 @@ class PomegranateSeeds extends SeedsObject {
   const PomegranateSeeds() : super(crop: const Pomegranate());
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 
   @override
@@ -744,7 +724,6 @@ class DragonFruitSeeds extends SeedsObject {
   String get code => 'dragonfruit_seeds';
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 }
 
@@ -786,7 +765,6 @@ class DurianSeeds extends SeedsObject {
   String get code => 'durian_seeds';
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 }
 
@@ -794,7 +772,6 @@ class ForgetMeLots implements WeedObject, FoodObject, IngredientObject {
   const ForgetMeLots();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -813,7 +790,6 @@ class ForgetMeLots implements WeedObject, FoodObject, IngredientObject {
   FoodValues? get foodValues => throw UnimplementedError();
 
   @override
-  // TODO: implement type
   FoodType get type => throw UnimplementedError();
 }
 
@@ -993,9 +969,7 @@ class ButterMuffin extends RecipeObject implements FoodObject {
 class Fishsticks extends RecipeObject {
   const Fishsticks()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 10,
           requirements: const Requirements({
@@ -1016,12 +990,9 @@ class Fishsticks extends RecipeObject {
 }
 
 class FroggleBunwich extends RecipeObject {
-  // TODO: implement
   const FroggleBunwich()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -1040,9 +1011,7 @@ class FroggleBunwich extends RecipeObject {
 class Taffy extends RecipeObject {
   const Taffy()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 10,
           requirements: const Requirements({
@@ -1064,7 +1033,6 @@ class Taffy extends RecipeObject {
 class PumpkinCookie extends RecipeObject {
   const PumpkinCookie()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'pumpkin_cookie',
           priority: 10,
@@ -1082,12 +1050,9 @@ class PumpkinCookie extends RecipeObject {
 }
 
 class StuffedEggplant extends RecipeObject {
-  // TODO: implement
   const StuffedEggplant()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -1106,9 +1071,7 @@ class StuffedEggplant extends RecipeObject {
 class HoneyNuggets extends RecipeObject {
   const HoneyNuggets()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -1127,9 +1090,7 @@ class HoneyNuggets extends RecipeObject {
 class HoneyHam extends RecipeObject {
   const HoneyHam()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 2,
           requirements: const Requirements({
@@ -1153,9 +1114,7 @@ class HoneyHam extends RecipeObject {
 class Dragonpie extends RecipeObject {
   const Dragonpie()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 1,
           requirements: const Requirements({
@@ -1177,9 +1136,7 @@ class Dragonpie extends RecipeObject {
 class Kabobs extends RecipeObject {
   const Kabobs()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 5,
           requirements: const Requirements({
@@ -1202,12 +1159,9 @@ class Kabobs extends RecipeObject {
 }
 
 class MandrakeSoup extends RecipeObject {
-  // TODO: implement
   const MandrakeSoup()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -1226,9 +1180,7 @@ class MandrakeSoup extends RecipeObject {
 class BaconAndEggs extends RecipeObject {
   const BaconAndEggs()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 10,
           requirements: const Requirements({
@@ -1272,9 +1224,7 @@ class Meatballs extends RecipeObject {
 class MeatyStew extends RecipeObject {
   const MeatyStew()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({
@@ -1308,7 +1258,6 @@ class MeatyStew extends RecipeObject {
 class Pierogi extends RecipeObject implements FoodObject {
   const Pierogi()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'pierogi',
           priority: 5,
@@ -1354,7 +1303,6 @@ class TurkeyDinner extends RecipeObject implements FoodObject {
 class Ratatouille extends RecipeObject implements FoodObject {
   const Ratatouille()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'ratatouille',
           priority: 0,
@@ -1417,12 +1365,9 @@ class FruitMedley extends RecipeObject implements FoodObject {
 }
 
 class FishTacos extends RecipeObject {
-  // TODO: implement
   const FishTacos()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -1461,7 +1406,6 @@ class Waffles extends RecipeObject implements FoodObject {
 class MonsterLasagna extends RecipeObject {
   const MonsterLasagna()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'monster_lasagna',
           priority: 10,
@@ -1481,7 +1425,6 @@ class MonsterLasagna extends RecipeObject {
 class Powdercake extends RecipeObject {
   const Powdercake()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'powdercake',
           priority: 10,
@@ -1503,10 +1446,8 @@ class Powdercake extends RecipeObject {
 }
 
 class Unagi extends RecipeObject {
-  // TODO: implement
   const Unagi()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'unagi',
           priority: 0,
@@ -1523,7 +1464,6 @@ class Unagi extends RecipeObject {
 class WetGoop extends RecipeObject {
   const WetGoop()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'wet_goop',
           priority: -2,
@@ -1538,10 +1478,8 @@ class WetGoop extends RecipeObject {
 }
 
 class FlowerSalad extends RecipeObject {
-  // TODO: implement
   const FlowerSalad()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'flower_salad',
           priority: 0,
@@ -1558,7 +1496,6 @@ class FlowerSalad extends RecipeObject {
 class IceCream extends RecipeObject {
   const IceCream()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'ice_cream',
           priority: 10,
@@ -1581,7 +1518,6 @@ class IceCream extends RecipeObject {
 class Melonsicle extends RecipeObject {
   const Melonsicle()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'melonsicle',
           priority: 10,
@@ -1607,7 +1543,6 @@ class Melonsicle extends RecipeObject {
 class TrailMix extends RecipeObject implements FoodObject {
   const TrailMix()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'trail_mix',
           priority: 10,
@@ -1635,12 +1570,9 @@ class TrailMix extends RecipeObject implements FoodObject {
 }
 
 class SpicyChili extends RecipeObject implements FoodObject {
-  // TODO: implement
   const SpicyChili()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -1657,12 +1589,9 @@ class SpicyChili extends RecipeObject implements FoodObject {
 }
 
 class Guacamole extends RecipeObject implements FoodObject {
-  // TODO: implement
   const Guacamole()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -1679,10 +1608,8 @@ class Guacamole extends RecipeObject implements FoodObject {
 }
 
 class BananaPop extends RecipeObject implements FoodObject {
-  // TODO: implement
   const BananaPop()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'banana_pop',
           priority: 0,
@@ -1697,10 +1624,8 @@ class BananaPop extends RecipeObject implements FoodObject {
 }
 
 class CaliforniaRoll extends RecipeObject implements FoodObject {
-  // TODO: implement
   const CaliforniaRoll()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'california_roll',
           priority: 0,
@@ -1715,10 +1640,8 @@ class CaliforniaRoll extends RecipeObject implements FoodObject {
 }
 
 class Ceviche extends RecipeObject {
-  // TODO: implement
   const Ceviche()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'ceviche',
           priority: 0,
@@ -1733,10 +1656,8 @@ class Ceviche extends RecipeObject {
 }
 
 class WobsterBisque extends RecipeObject {
-  // TODO: implement
   const WobsterBisque()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'wobster_bisque',
           priority: 0,
@@ -1751,10 +1672,8 @@ class WobsterBisque extends RecipeObject {
 }
 
 class WobsterDinner extends RecipeObject {
-  // TODO: implement
   const WobsterDinner()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'wobster_dinner',
           priority: 0,
@@ -1769,10 +1688,8 @@ class WobsterDinner extends RecipeObject {
 }
 
 class SeafoodGumbo extends RecipeObject {
-  // TODO: implement
   const SeafoodGumbo()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'seafood_gumbo',
           priority: 0,
@@ -1787,10 +1704,8 @@ class SeafoodGumbo extends RecipeObject {
 }
 
 class SurfNTurf extends RecipeObject {
-  // TODO: implement
   const SurfNTurf()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'surf_n_turf',
           priority: 0,
@@ -1807,7 +1722,6 @@ class SurfNTurf extends RecipeObject {
 class Jellybeans extends RecipeObject implements FoodObject {
   const Jellybeans()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'jellybeans',
           priority: 12,
@@ -1830,7 +1744,6 @@ class Jellybeans extends RecipeObject implements FoodObject {
 class VegetableStinger extends RecipeObject implements FoodObject {
   const VegetableStinger()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'vegetable_stinger',
           priority: 15,
@@ -1856,12 +1769,9 @@ class VegetableStinger extends RecipeObject implements FoodObject {
 }
 
 class AsparagusSoup extends RecipeObject implements FoodObject {
-  // TODO: implement
   const AsparagusSoup()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -1880,9 +1790,7 @@ class AsparagusSoup extends RecipeObject implements FoodObject {
 class StuffedPepperPoppers extends RecipeObject implements FoodObject {
   const StuffedPepperPoppers()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 20,
           requirements: const Requirements({
@@ -1906,7 +1814,6 @@ class StuffedPepperPoppers extends RecipeObject implements FoodObject {
 class SalsaFresca extends RecipeObject implements FoodObject {
   const SalsaFresca()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'salsa_fresca',
           priority: 20,
@@ -1931,9 +1838,7 @@ class SalsaFresca extends RecipeObject implements FoodObject {
 class FancySpiralledTubers extends RecipeObject implements FoodObject {
   const FancySpiralledTubers()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 10,
           requirements: const Requirements({
@@ -1955,12 +1860,9 @@ class FancySpiralledTubers extends RecipeObject implements FoodObject {
 }
 
 class BarnaclePita extends RecipeObject {
-  // TODO: implement
   const BarnaclePita()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -1977,12 +1879,9 @@ class BarnaclePita extends RecipeObject {
 }
 
 class BarnacleNigiri extends RecipeObject {
-  // TODO: implement
   const BarnacleNigiri()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -1999,12 +1898,9 @@ class BarnacleNigiri extends RecipeObject {
 }
 
 class BarnacleLinguine extends RecipeObject {
-  // TODO: implement
   const BarnacleLinguine()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -2021,12 +1917,9 @@ class BarnacleLinguine extends RecipeObject {
 }
 
 class StuffedFishHeads extends RecipeObject {
-  // TODO: implement
   const StuffedFishHeads()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -2043,12 +1936,9 @@ class StuffedFishHeads extends RecipeObject {
 }
 
 class MushyCake extends RecipeObject {
-  // TODO: implement
   const MushyCake()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -2067,9 +1957,7 @@ class MushyCake extends RecipeObject {
 class SoothingTea extends RecipeObject implements FoodObject {
   const SoothingTea()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 1,
           requirements: const Requirements({
@@ -2101,7 +1989,6 @@ class SoothingTea extends RecipeObject implements FoodObject {
 class FigStuffedTrunk extends RecipeObject implements FoodObject {
   const FigStuffedTrunk()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'fig_stuffed_trunk',
           priority: 40,
@@ -2124,7 +2011,6 @@ class FigStuffedTrunk extends RecipeObject implements FoodObject {
 class Figatoni extends RecipeObject implements FoodObject {
   const Figatoni()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'figatoni',
           priority: 30,
@@ -2145,9 +2031,7 @@ class Figatoni extends RecipeObject implements FoodObject {
 class Figkabab extends RecipeObject implements FoodObject {
   const Figkabab()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 30,
           requirements: const Requirements({
@@ -2170,9 +2054,7 @@ class Figkabab extends RecipeObject implements FoodObject {
 class FiggyFrogwich extends RecipeObject implements FoodObject {
   const FiggyFrogwich()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 1,
           requirements: const Requirements({
@@ -2192,12 +2074,9 @@ class FiggyFrogwich extends RecipeObject implements FoodObject {
 }
 
 class FrozenBananaDaiquiri extends RecipeObject implements FoodObject {
-  // TODO: implement
   const FrozenBananaDaiquiri()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -2216,9 +2095,7 @@ class FrozenBananaDaiquiri extends RecipeObject implements FoodObject {
 class BunnyStew extends RecipeObject {
   const BunnyStew()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 1,
           requirements: const Requirements({
@@ -2240,12 +2117,9 @@ class BunnyStew extends RecipeObject {
 }
 
 class BananaShake extends RecipeObject implements FoodObject {
-  // TODO: implement
   const BananaShake()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -2264,7 +2138,6 @@ class BananaShake extends RecipeObject implements FoodObject {
 class PlainOmelette extends RecipeObject implements FoodObject {
   const PlainOmelette()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'plain_omelette',
           priority: 1,
@@ -2281,12 +2154,9 @@ class PlainOmelette extends RecipeObject implements FoodObject {
 }
 
 class BreakfastSkillet extends RecipeObject implements FoodObject {
-  // TODO: implement
   const BreakfastSkillet()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -2303,12 +2173,9 @@ class BreakfastSkillet extends RecipeObject implements FoodObject {
 }
 
 class TallScotchEggs extends RecipeObject implements FoodObject {
-  // TODO: implement
   const TallScotchEggs()
       : super(
-          // TODO: Implement
           code: '',
-          // TODO: Implement
           assetName: '',
           priority: 0,
           requirements: const Requirements({}),
@@ -2327,7 +2194,6 @@ class TallScotchEggs extends RecipeObject implements FoodObject {
 class SteamedTwigs extends RecipeObject {
   const SteamedTwigs()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'steamed_twigs',
           priority: -5,
@@ -2352,10 +2218,8 @@ class SteamedTwigs extends RecipeObject {
 }
 
 class BeefaloTreats extends RecipeObject {
-  // TODO: implement
   const BeefaloTreats()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'beefalo_treats',
           priority: 0,
@@ -2372,7 +2236,6 @@ class BeefaloTreats extends RecipeObject {
 class LeafyMeatloaf extends RecipeObject {
   const LeafyMeatloaf()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'leafy_meatloaf',
           priority: 25,
@@ -2391,7 +2254,6 @@ class LeafyMeatloaf extends RecipeObject {
 class VeggieBurger extends RecipeObject {
   const VeggieBurger()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'veggie_burger',
           priority: 25,
@@ -2412,7 +2274,6 @@ class VeggieBurger extends RecipeObject {
 class JellySalad extends RecipeObject {
   const JellySalad()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'jelly_salad',
           priority: 50,
@@ -2430,10 +2291,8 @@ class JellySalad extends RecipeObject {
 }
 
 class BeefyGreens extends RecipeObject {
-  // TODO: implement
   const BeefyGreens()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'beefy_greens',
           priority: 0,
@@ -2448,10 +2307,8 @@ class BeefyGreens extends RecipeObject {
 }
 
 class MilkmadeHat extends RecipeObject {
-  // TODO: implement
   const MilkmadeHat()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'milkmade_hat',
           priority: 0,
@@ -2468,7 +2325,6 @@ class MilkmadeHat extends RecipeObject {
 class Amberosia extends RecipeObject {
   const Amberosia()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'amberosia',
           priority: 100,
@@ -2479,15 +2335,12 @@ class Amberosia extends RecipeObject {
   String get name => 'Amberosia';
 
   @override
-  // TODO: Not food checking
   FoodType get type => throw UnimplementedError();
 }
 
 class BeetSalho extends RecipeObject {
-  // TODO: implement
   const BeetSalho()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'beet_salho',
           priority: 0,
@@ -2502,10 +2355,8 @@ class BeetSalho extends RecipeObject {
 }
 
 class CricketCrackers extends RecipeObject {
-  // TODO: implement
   const CricketCrackers()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'cricket_crackers',
           priority: 0,
@@ -2520,10 +2371,8 @@ class CricketCrackers extends RecipeObject {
 }
 
 class LeafySalad extends RecipeObject {
-  // TODO: implement
   const LeafySalad()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'leafy_salad',
           priority: 0,
@@ -2538,10 +2387,8 @@ class LeafySalad extends RecipeObject {
 }
 
 class Leafloaf extends RecipeObject {
-  // TODO: implement
   const Leafloaf()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'leafloaf',
           priority: 0,
@@ -2556,10 +2403,8 @@ class Leafloaf extends RecipeObject {
 }
 
 class MixedVegetable extends RecipeObject {
-  // TODO: implement
   const MixedVegetable()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'mixed_vegetable',
           priority: 0,
@@ -2574,10 +2419,8 @@ class MixedVegetable extends RecipeObject {
 }
 
 class BoneBouillon extends RecipeObject {
-  // TODO: implement
   const BoneBouillon()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'bone_bouillon',
           priority: 0,
@@ -2592,10 +2435,8 @@ class BoneBouillon extends RecipeObject {
 }
 
 class Moqueca extends RecipeObject {
-  // TODO: implement
   const Moqueca()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'moqueca',
           priority: 0,
@@ -2610,10 +2451,8 @@ class Moqueca extends RecipeObject {
 }
 
 class MonsterTartare extends RecipeObject {
-  // TODO: implement
   const MonsterTartare()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'monster_tartare',
           priority: 0,
@@ -2628,10 +2467,8 @@ class MonsterTartare extends RecipeObject {
 }
 
 class CreamyFettuccine extends RecipeObject {
-  // TODO: implement
   const CreamyFettuccine()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'creamy_fettuccine',
           priority: 0,
@@ -2646,10 +2483,8 @@ class CreamyFettuccine extends RecipeObject {
 }
 
 class Fruitcake extends RecipeObject {
-  // TODO: implement
   const Fruitcake()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'fruitcake',
           priority: 0,
@@ -2664,10 +2499,8 @@ class Fruitcake extends RecipeObject {
 }
 
 class FreshFruitCrepes extends RecipeObject {
-  // TODO: implement
   const FreshFruitCrepes()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'fresh_fruit_crepes',
           priority: 0,
@@ -2682,10 +2515,8 @@ class FreshFruitCrepes extends RecipeObject {
 }
 
 class HotChili extends RecipeObject {
-  // TODO: implement
   const HotChili()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'hot_chili',
           priority: 0,
@@ -2700,10 +2531,8 @@ class HotChili extends RecipeObject {
 }
 
 class GlowBerryMousse extends RecipeObject {
-  // TODO: implement
   const GlowBerryMousse()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'glow_berry_mousse',
           priority: 0,
@@ -2720,7 +2549,6 @@ class GlowBerryMousse extends RecipeObject {
 class MashedPotatoes extends RecipeObject {
   const MashedPotatoes()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'mashedpotatoes',
           priority: 20,
@@ -2739,10 +2567,8 @@ class MashedPotatoes extends RecipeObject {
 }
 
 class GrimGalette extends RecipeObject {
-  // TODO: implement
   const GrimGalette()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'grim_galette',
           priority: 0,
@@ -2757,10 +2583,8 @@ class GrimGalette extends RecipeObject {
 }
 
 class VoltGoatChaudFroid extends RecipeObject {
-  // TODO: implement
   const VoltGoatChaudFroid()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'volt_goat_chaud_froid',
           priority: 0,
@@ -2775,10 +2599,8 @@ class VoltGoatChaudFroid extends RecipeObject {
 }
 
 class FishCordonBleu extends RecipeObject {
-  // TODO: implement
   const FishCordonBleu()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'fish_cordon_bleu',
           priority: 0,
@@ -2793,10 +2615,8 @@ class FishCordonBleu extends RecipeObject {
 }
 
 class HotDragonChiliSalad extends RecipeObject {
-  // TODO: implement
   const HotDragonChiliSalad()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'hot_dragon_chili_salad',
           priority: 0,
@@ -2811,10 +2631,8 @@ class HotDragonChiliSalad extends RecipeObject {
 }
 
 class Asparagazpacho extends RecipeObject {
-  // TODO: implement
   const Asparagazpacho()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'asparagazpacho',
           priority: 0,
@@ -2829,10 +2647,8 @@ class Asparagazpacho extends RecipeObject {
 }
 
 class PuffedPotatoSouffle extends RecipeObject {
-  // TODO: implement
   const PuffedPotatoSouffle()
       : super(
-          // TODO: Implement
           code: '',
           assetName: 'puffed_potato_souffle',
           priority: 0,
@@ -2854,7 +2670,6 @@ class Twigs implements IngredientObject {
   const Twigs();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -2886,7 +2701,6 @@ class Barnacles implements FoodObject, IngredientObject {
   const Barnacles();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -2911,7 +2725,6 @@ class BatiliskWing implements FoodObject, IngredientObject {
   const BatiliskWing();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -2933,23 +2746,18 @@ class Berries implements FoodObject, IngredientObject {
   const Berries();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
-  // TODO: implement assetName
   String get assetName => throw UnimplementedError();
 
   @override
-  // TODO: implement foodValue
   FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.meat, 0.5)});
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 
   @override
-  // TODO: implement type
   FoodType get type => FoodType.veggie;
 }
 
@@ -2959,7 +2767,6 @@ class RoastedBirchnut implements FoodObject, IngredientObject {
   const RoastedBirchnut();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -2991,7 +2798,6 @@ class ButterflyWings implements FoodObject, IngredientObject {
   const ButterflyWings();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -3033,23 +2839,18 @@ class Drumstick implements FoodObject, IngredientObject {
   const Drumstick();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
-  // TODO: implement assetName
   String get assetName => throw UnimplementedError();
 
   @override
-  // TODO: implement foodValue
   FoodValues? get foodValues => throw UnimplementedError();
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 
   @override
-  // TODO: implement type
   FoodType get type => throw UnimplementedError();
 }
 
@@ -3067,23 +2868,18 @@ class Egg implements FoodObject, IngredientObject {
   const Egg();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
-  // TODO: implement assetName
   String get assetName => throw UnimplementedError();
 
   @override
-  // TODO: implement foodValue
   FoodValues? get foodValues => throw UnimplementedError();
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 
   @override
-  // TODO: implement type
   FoodType get type => throw UnimplementedError();
 }
 
@@ -3095,7 +2891,6 @@ class Fig implements CookableFood, IngredientObject {
   const Fig();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -3130,7 +2925,6 @@ class FrogLegs implements FoodObject, IngredientObject {
   const FrogLegs();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -3158,7 +2952,6 @@ class Honey implements FoodObject, IngredientObject {
   const Honey();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -3178,7 +2971,6 @@ class Ice implements FoodObject, IngredientObject {
   const Ice();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -3191,7 +2983,6 @@ class Ice implements FoodObject, IngredientObject {
   String get name => "Ice";
 
   @override
-  // TODO: implement type
   FoodType get type => throw UnimplementedError();
 }
 
@@ -3199,7 +2990,6 @@ class JuicyBerries implements CookableFood, IngredientObject {
   const JuicyBerries();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -3230,7 +3020,6 @@ class KoalefantTrunk implements CookableFood, IngredientObject {
   const KoalefantTrunk();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -3253,7 +3042,6 @@ class WinterKoalefantTrunk implements CookableFood, IngredientObject {
   const WinterKoalefantTrunk();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -3278,7 +3066,6 @@ class LeafyMeat implements CookableFood, IngredientObject {
   const LeafyMeat();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -3309,7 +3096,6 @@ class Mandrake implements FoodObject, IngredientObject {
   const Mandrake();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -3331,7 +3117,6 @@ class Meat implements FoodObject, IngredientObject {
   const Meat();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -3357,7 +3142,6 @@ class MonsterMeat implements FoodObject, IngredientObject {
   const MonsterMeat();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -3388,23 +3172,18 @@ class MoonMothWings implements FoodObject, IngredientObject {
   const MoonMothWings();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
-  // TODO: implement assetName
   String get assetName => throw UnimplementedError();
 
   @override
-  // TODO: implement foodValues
   FoodValues? get foodValues => throw UnimplementedError();
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 
   @override
-  // TODO: implement type
   FoodType get type => throw UnimplementedError();
 }
 
@@ -3412,7 +3191,6 @@ class Morsel implements IngredientObject, FoodObject {
   const Morsel();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -3444,23 +3222,18 @@ class RedCap implements FoodObject, IngredientObject {
   const RedCap();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
-  // TODO: implement assetName
   String get assetName => throw UnimplementedError();
 
   @override
-  // TODO: implement foodValue
   FoodValues? get foodValues => throw UnimplementedError();
 
   @override
-  // TODO: implement name
   String get name => throw UnimplementedError();
 
   @override
-  // TODO: implement type
   FoodType get type => throw UnimplementedError();
 }
 
@@ -3526,19 +3299,15 @@ class RoyalJelly implements FoodObject, IngredientObject {
   const RoyalJelly();
 
   @override
-  // TODO: implement assetName
   String get assetName => throw UnimplementedError();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
-  // TODO: implement foodValues
   FoodValues? get foodValues => throw UnimplementedError();
 
   @override
-  // TODO: implement type
   FoodType get type => throw UnimplementedError();
 }
 
@@ -3569,7 +3338,6 @@ class TallbirdEgg implements FoodObject, IngredientObject {
   const TallbirdEgg();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -3599,7 +3367,6 @@ class CollectedDust implements IngredientObject {
   const CollectedDust();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
@@ -3616,7 +3383,6 @@ class Popperfish implements IngredientObject {
   const Popperfish();
 
   @override
-  // TODO: implement code
   String get code => throw UnimplementedError();
 
   @override
