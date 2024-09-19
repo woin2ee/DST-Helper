@@ -52,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
     'family_condition_unsatisfying_first_text': MessageLookupByLibrary.simpleMessage('일부 작물이 가족 조건을 만족하지 않습니다.'),
     'family_condition_unsatisfying_secondary_text': MessageLookupByLibrary.simpleMessage('최소 4개 작물이 인접해 있어야 합니다.'),
     'fertilizer': MessageLookupByLibrary.simpleMessage('거름통'),
+    'fertilizer_selection_tooltip': MessageLookupByLibrary.simpleMessage('텃밭이 여러 개인 경우, 모든 밭에 같은 비료를 사용한다고 가정합니다.'),
     'fertilizers': MessageLookupByLibrary.simpleMessage('비료'),
     'garlic_seeds_assumed_name': MessageLookupByLibrary.simpleMessage('씨앗 꼬투리'),
     'giant_crop': MessageLookupByLibrary.simpleMessage('거대 작물'),

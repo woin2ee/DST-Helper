@@ -132,6 +132,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                   ],
                 ),
                 Column(
+                  spacing: 6,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
@@ -141,7 +142,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         style: const TextStyle(
                           fontFamily: FontFamily.pretendard,
                           fontVariations: [FontVariation.weight(500)],
-                          fontSize: 15,
+                          fontSize: 16,
                         ),
                       ),
                     ),
@@ -149,6 +150,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                   ],
                 ),
                 Column(
+                  spacing: 6,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
@@ -161,16 +163,26 @@ class _EditFarmSetState extends State<EditFarmSet> {
                             style: const TextStyle(
                               fontFamily: FontFamily.pretendard,
                               fontVariations: [FontVariation.weight(500)],
-                              fontSize: 15,
+                              fontSize: 16,
                             ),
                           ),
-                          const Text(
-                            '(모든 밭에 같은 비료를 사용한다고 가정합니다.)',
-                            style: TextStyle(
+                          Tooltip(
+                            message: L10ns.of(context).localized('fertilizer_selection_tooltip'),
+                            textStyle: const TextStyle(
                               fontFamily: FontFamily.pretendard,
-                              fontVariations: [FontVariation.weight(400)],
-                              fontSize: 12,
+                              fontSize: 13,
+                              color: Colors.white,
                             ),
+                            decoration: const BoxDecoration(
+                              color: Colors.black87,
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                            ),
+                            verticalOffset: 15,
+                            padding: const EdgeInsets.only(top: 4, left: 10, right: 10, bottom: 4),
+                            enableTapToDismiss: false,
+                            preferBelow: false,
+                            waitDuration: const Duration(milliseconds: 200),
+                            child: const Icon(Icons.info_outline_rounded),
                           ),
                         ],
                       ),

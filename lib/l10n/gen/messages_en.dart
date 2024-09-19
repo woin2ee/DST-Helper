@@ -52,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
     'family_condition_unsatisfying_first_text': MessageLookupByLibrary.simpleMessage('Some crops don\'t satisfy the family condition.'),
     'family_condition_unsatisfying_secondary_text': MessageLookupByLibrary.simpleMessage('At least four crops must be adjacent.'),
     'fertilizer': MessageLookupByLibrary.simpleMessage('Bucket-o-poop'),
+    'fertilizer_selection_tooltip': MessageLookupByLibrary.simpleMessage('If you have multiple farms, assume that the same fertilizer is used for all of them.'),
     'fertilizers': MessageLookupByLibrary.simpleMessage('Fertilizers'),
     'garlic_seeds_assumed_name': MessageLookupByLibrary.simpleMessage('Seed Pods'),
     'giant_crop': MessageLookupByLibrary.simpleMessage('Giant Crop'),

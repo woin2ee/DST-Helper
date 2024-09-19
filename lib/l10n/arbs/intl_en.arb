@@ -11,6 +11,11 @@
       }
     }
   },
+  "fertilizer_selection_tooltip": "If you have multiple farms, assume that the same fertilizer is used for all of them.",
+  "@fertilizer_selection_tooltip": {
+    "type": "text",
+    "placeholders": {}
+  },
   "add": "Add",
   "@add": {
     "type": "text",

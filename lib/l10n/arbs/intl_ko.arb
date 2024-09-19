@@ -11,6 +11,11 @@
       }
     }
   },
+  "fertilizer_selection_tooltip": "텃밭이 여러 개인 경우, 모든 밭에 같은 비료를 사용한다고 가정합니다.",
+  "@fertilizer_selection_tooltip": {
+    "type": "text",
+    "placeholders": {}
+  },
   "add": "추가",
   "@add": {
     "type": "text",
