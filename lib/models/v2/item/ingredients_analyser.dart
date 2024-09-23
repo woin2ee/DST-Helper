@@ -1,9 +1,7 @@
-
-import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:dst_helper/models/v2/item/category_mixins.dart';
 import 'package:dst_helper/models/v2/item/food_value.dart';
 
-typedef Ingredients = Iterable<Ingredient>;
+typedef Ingredients = Iterable<UsingInCrockPot>;
 
 class IngredientsAnalyser {
   const IngredientsAnalyser(this.ingredients);
@@ -62,7 +60,7 @@ class IngredientsAnalyser {
     });
   }
 
-  bool contains(Ingredient ingredient, {int count = 1}) {
+  bool contains(UsingInCrockPot ingredient, {int count = 1}) {
     int hitCount = 0;
     for (final i in ingredients) {
       if (i == ingredient) hitCount += 1;

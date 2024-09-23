@@ -1,4 +1,4 @@
-import 'package:dst_helper/models/v2/item/categories.dart';
+import 'package:dst_helper/models/v2/item/category_mixins.dart';
 import 'package:dst_helper/models/v2/item/food_value.dart';
 import 'package:dst_helper/models/v2/item/ingredients_analyser.dart';
 
@@ -88,7 +88,7 @@ class AtLeastRequirement extends Requirement {
 class ContainingRequirement extends Requirement {
   const ContainingRequirement(this.ingredient, [this.count = 1]);
 
-  final Ingredient ingredient;
+  final UsingInCrockPot ingredient;
   final int count;
 
   @override
@@ -116,7 +116,7 @@ class NoRequirement extends Requirement {
     // this.excluded = const {},
   });
 
-  final Set<Ingredient>? ingredients;
+  final Set<UsingInCrockPot>? ingredients;
   final Set<FoodValueCategory>? categories;
   // final Set<Ingredient> excluded;
 

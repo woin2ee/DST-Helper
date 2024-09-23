@@ -16,25 +16,25 @@ enum FoodType {
   goodies,
 }
 
-mixin Edible {
+mixin Edible on Item {
   FoodType get type;
 }
 
-mixin Cookable {
+mixin Cookable on Item {
   String get cookedAssetName;
   String? get compositeAssetName;
 }
 
-mixin Plantable {
+mixin Plantable on Item {
   Set<Season> get seasons;
   Nutrient get nutrient;
 }
 
-mixin UsingInCrockPot {
+mixin UsingInCrockPot on Item {
   FoodValues? get foodValues;
 }
 
-mixin CookableInCrockPot {
+mixin CookableInCrockPot on Item {
   int get priority;
   Requirements get requirements;
 }

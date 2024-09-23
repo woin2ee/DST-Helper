@@ -322,12 +322,11 @@ extension EdibleIngredients on EdibleIngredient {
     foodValues: FoodValues({}),
   );
 
-  // TODO: Implementation is not checked
-  static const EdibleIngredient berries = EdibleIngredient(
-    code: 'code',
-    assetName: 'assetName',
-    type: FoodType.generic,
-    foodValues: FoodValues({}),
+  static EdibleIngredient berries = EdibleIngredient(
+    code: 'berries',
+    assetName: 'berries',
+    type: FoodType.veggie,
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.fruit, 0.5)}),
   );
 
   // TODO: Implementation is not checked
@@ -348,9 +347,9 @@ extension EdibleIngredients on EdibleIngredient {
 
   // TODO: Implementation is not checked
   static const EdibleIngredient butterflyWings = EdibleIngredient(
-    code: 'code',
-    assetName: 'assetName',
-    type: FoodType.generic,
+    code: 'butterflywings',
+    assetName: 'butterfly_wings',
+    type: FoodType.veggie,
     foodValues: FoodValues({}),
   );
 
@@ -499,11 +498,11 @@ extension EdibleIngredients on EdibleIngredient {
   );
 
   // TODO: Implementation is not checked
-  static const EdibleIngredient frogLegs = EdibleIngredient(
-    code: 'code',
-    assetName: 'assetName',
-    type: FoodType.generic,
-    foodValues: FoodValues({}),
+  static EdibleIngredient frogLegs = EdibleIngredient(
+    code: 'froglegs',
+    assetName: 'frog_legs',
+    type: FoodType.meat,
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.meat, 0.5)}),
   );
 
   // TODO: Implementation is not checked
@@ -564,9 +563,9 @@ extension EdibleIngredients on EdibleIngredient {
 
   // TODO: Implementation is not checked
   static const EdibleIngredient koalefantTrunk = EdibleIngredient(
-    code: 'code',
-    assetName: 'assetName',
-    type: FoodType.generic,
+    code: 'trunk_summer',
+    assetName: 'koalefant_trunk',
+    type: FoodType.meat,
     foodValues: FoodValues({}),
   );
 
@@ -610,12 +609,11 @@ extension EdibleIngredients on EdibleIngredient {
     foodValues: FoodValues({}),
   );
 
-  // TODO: Implementation is not checked
-  static const EdibleIngredient mandrake = EdibleIngredient(
-    code: 'code',
-    assetName: 'assetName',
-    type: FoodType.generic,
-    foodValues: FoodValues({}),
+  static EdibleIngredient mandrake = EdibleIngredient(
+    code: 'mandrake',
+    assetName: 'mandrake',
+    type: FoodType.veggie,
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}),
   );
 
   // TODO: Implementation is not checked
@@ -880,6 +878,12 @@ extension Ingredients on Ingredient {
     assetName: 'assetName',
     foodValues: FoodValues({}),
   );
+
+  static Ingredient collectedDust = const Ingredient(
+    code: 'refined_dust',
+    assetName: 'collected_dust',
+    foodValues: FoodValues({}),
+  );
 }
 
 extension Fertilizers on Fertilizer {
@@ -1017,22 +1021,1088 @@ extension Fertilizers on Fertilizer {
 }
 
 extension Recipes on Recipe {
-  static const List<Recipe> recipes = [
-    //
+  static List<Recipe> recipes = [
+    amberosia,
+    baconAndEggs,
+    bananaShake,
+    barnacleLinguine,
+    barnacleNigiri,
+    barnaclePita,
+    beefaloTreats,
+    beefyGreens,
+    breakfastSkillet,
+    bunnyStew,
+    butterMuffin,
+    creamyPotatoPuree,
+    dragonpie,
+    fancySpiralledTubers,
+    figatoni,
+    figgyFrogwich,
+    figkabab,
+    figStuffedTrunk,
+    fishTacos,
+    fishsticks,
+    fistFullOfJam,
+    flowerSalad,
+    froggleBunwich,
+    frozenBananaDaiquiri,
+    fruitMedley,
+    guacamole,
+    honeyHam,
+    honeyNuggets,
+    iceCream,
+    jellybeans,
+    jellySalad,
+    kabobs,
+    mandrakeSoup,
+    meatballs,
+    meatyStew,
+    melonsicle,
+    milkmadeHat,
+    monsterLasagna,
+    mushyCake,
+    leafyMeatloaf,
+    pierogi,
+    plainOmelette,
+    powdercake,
+    pumpkinCookie,
+    ratatouille,
+    salsaFresca,
+    soothingTea,
+    spicyChili,
+    steamedTwigs,
+    stuffedEggplant,
+    stuffedFishHeads,
+    stuffedNightCap,
+    stuffedPepperPoppers,
+    taffy,
+    tallScotchEggs,
+    trailMix,
+    turkeyDinner,
+    unagi,
+    veggieBurger,
+    vegetableStinger,
+    waffles,
+    wetGoop,
   ];
 
-  static const Recipe meatballs = Recipe(
-    code: 'meatballs',
-    assetName: 'meatballs',
-    priority: -1,
+  static Recipe amberosia = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NotApplicableStatusValue(),
+    sanityValue: const NotApplicableStatusValue(),
+    healthValue: const NotApplicableStatusValue(),
+    maxPerishTimeValue: const NotApplicableStatusValue(),
+    cookTimeValue: const SecStatusValue(40),
+    priority: 100,
+    requirements: Requirements({
+      ContainingRequirement(Ingredients.collectedDust),
+    }),
+  );
+
+  static Recipe baconAndEggs = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(75),
+    sanityValue: const NumericStatusValue(5),
+    healthValue: const NumericStatusValue(20),
+    maxPerishTimeValue: const DayStatusValue(20),
+    cookTimeValue: const SecStatusValue(40),
+    priority: 10,
+    requirements: Requirements({
+      ExcessRequirement(FoodValues({
+        const FoodValue(FoodValueCategory.meat, 1.0),
+        const FoodValue(FoodValueCategory.egg, 1.0),
+      })),
+      const NoRequirement(categories: {FoodValueCategory.vegetable}),
+    }),
+  );
+
+  static Recipe bananaShake = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(25),
+    sanityValue: NumericStatusValue(33),
+    healthValue: NumericStatusValue(8),
+    maxPerishTimeValue: DayStatusValue(15),
+    cookTimeValue: SecStatusValue(10),
+    priority: 1,
+    requirements: Requirements({}),
+  );
+
+  static Recipe barnacleLinguine = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(75),
+    sanityValue: NumericStatusValue(20),
+    healthValue: NumericStatusValue(10),
+    maxPerishTimeValue: DayStatusValue(6),
+    cookTimeValue: SecStatusValue(40),
+    priority: 30,
+    requirements: Requirements({}),
+  );
+
+  static Recipe barnacleNigiri = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(37.5),
+    sanityValue: NumericStatusValue(5),
+    healthValue: NumericStatusValue(40),
+    maxPerishTimeValue: DayStatusValue(10),
+    cookTimeValue: SecStatusValue(10),
+    priority: 30,
+    requirements: Requirements({}),
+  );
+
+  static Recipe barnaclePita = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(37.5),
+    sanityValue: NumericStatusValue(5),
+    healthValue: NumericStatusValue(20),
+    maxPerishTimeValue: DayStatusValue(15),
+    cookTimeValue: SecStatusValue(40),
+    priority: 25,
+    requirements: Requirements({}),
+  );
+
+  static Recipe beefaloTreats = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NotApplicableStatusValue(),
+    sanityValue: NotApplicableStatusValue(),
+    healthValue: NotApplicableStatusValue(),
+    maxPerishTimeValue: DayStatusValue(10),
+    cookTimeValue: SecStatusValue(40),
+    priority: -4,
+    requirements: Requirements({}),
+  );
+
+  static Recipe beefyGreens = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(75),
+    sanityValue: NumericStatusValue(5),
+    healthValue: NumericStatusValue(40),
+    maxPerishTimeValue: DayStatusValue(6),
+    cookTimeValue: SecStatusValue(40),
+    priority: 25,
+    requirements: Requirements({}),
+  );
+
+  static Recipe breakfastSkillet = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(37.5),
+    sanityValue: NumericStatusValue(5),
+    healthValue: NumericStatusValue(20),
+    maxPerishTimeValue: DayStatusValue(20),
+    cookTimeValue: SecStatusValue(20),
+    priority: 1,
+    requirements: Requirements({}),
+  );
+
+  static Recipe bunnyStew = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(37.5),
+    sanityValue: NumericStatusValue(5),
+    healthValue: NumericStatusValue(20),
+    maxPerishTimeValue: DayStatusValue(10),
+    cookTimeValue: SecStatusValue(10),
+    priority: 1,
     requirements: Requirements({
       AtLeastRequirement({FoodValueCategory.meat}),
-      NoRequirement(categories: {FoodValueCategory.inedible})
+      ContainingRequirement(EdibleIngredients.ice, 2),
+      NoRequirement(categories: {FoodValueCategory.inedible}),
+      MaxRequirement(FoodValue(FoodValueCategory.meat, 0.75)),
     }),
+  );
+
+  static Recipe butterMuffin = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(37.5),
+    sanityValue: const NumericStatusValue(5),
+    healthValue: const NumericStatusValue(20),
+    maxPerishTimeValue: const DayStatusValue(15),
+    cookTimeValue: const SecStatusValue(40),
+    priority: 1,
+    requirements: Requirements({
+      const OrRequirement({
+        ContainingRequirement(EdibleIngredients.butterflyWings),
+        ContainingRequirement(EdibleIngredients.moonMothWings),
+      }),
+      MeetRequirement(FoodValues({
+        const FoodValue(FoodValueCategory.vegetable, 0.5),
+      })),
+      const NoRequirement(categories: {FoodValueCategory.meat}),
+    }),
+  );
+
+  static Recipe creamyPotatoPuree = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(37.5),
+    sanityValue: const NumericStatusValue(33),
+    healthValue: const NumericStatusValue(20),
+    maxPerishTimeValue: const DayStatusValue(15),
+    cookTimeValue: const SecStatusValue(20),
+    priority: 20,
+    requirements: Requirements({
+      ContainingRequirement(Crops.potato, 2),
+      ContainingRequirement(Crops.garlic),
+      const NoRequirement(categories: {FoodValueCategory.meat, FoodValueCategory.inedible}),
+    }),
+  );
+
+  static Recipe dragonpie = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(75),
+    sanityValue: const NumericStatusValue(5),
+    healthValue: const NumericStatusValue(40),
+    maxPerishTimeValue: const DayStatusValue(15),
+    cookTimeValue: const SecStatusValue(40),
+    priority: 1,
+    requirements: Requirements({
+      ContainingRequirement(Crops.dragonFruit),
+      const NoRequirement(categories: {FoodValueCategory.meat}),
+    }),
+  );
+
+  static Recipe fancySpiralledTubers = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(37.5),
+    sanityValue: const NumericStatusValue(15),
+    healthValue: const NumericStatusValue(3),
+    maxPerishTimeValue: const DayStatusValue(10),
+    cookTimeValue: const SecStatusValue(15),
+    priority: 10,
+    requirements: Requirements({
+      ContainingRequirement(Crops.potato),
+      ContainingRequirement(Ingredients.twigs),
+      const NoRequirement(categories: {FoodValueCategory.meat, FoodValueCategory.monster}),
+      const MaxRequirement(FoodValue(FoodValueCategory.inedible, 2.0)),
+    }),
+  );
+
+  static Recipe figatoni = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(56.25),
+    sanityValue: const NumericStatusValue(15),
+    healthValue: const NumericStatusValue(30),
+    maxPerishTimeValue: const DayStatusValue(6),
+    cookTimeValue: const SecStatusValue(40),
+    priority: 30,
+    requirements: Requirements({
+      const ContainingRequirement(EdibleIngredients.fig),
+      MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.vegetable, 2.0)})),
+      const NoRequirement(categories: {FoodValueCategory.meat}),
+    }),
+  );
+
+  static Recipe figgyFrogwich = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(18.75),
+    sanityValue: const NumericStatusValue(10),
+    healthValue: const NumericStatusValue(8),
+    maxPerishTimeValue: const DayStatusValue(15),
+    cookTimeValue: const SecStatusValue(20),
+    priority: 1,
+    requirements: Requirements({
+      const ContainingRequirement(EdibleIngredients.fig),
+      ContainingRequirement(EdibleIngredients.frogLegs),
+    }),
+  );
+
+  static Recipe figkabab = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(25),
+    sanityValue: const NumericStatusValue(15),
+    healthValue: const NumericStatusValue(20),
+    maxPerishTimeValue: const DayStatusValue(15),
+    cookTimeValue: const SecStatusValue(20),
+    priority: 30,
+    requirements: Requirements({
+      const ContainingRequirement(EdibleIngredients.fig),
+      MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.meat, 1.0)})),
+      ContainingRequirement(Ingredients.twigs),
+    }),
+  );
+
+  static Recipe figStuffedTrunk = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(56.25),
+    sanityValue: NumericStatusValue(0),
+    healthValue: NumericStatusValue(60),
+    maxPerishTimeValue: DayStatusValue(10),
+    cookTimeValue: SecStatusValue(40),
+    priority: 40,
+    requirements: Requirements({
+      ContainingRequirement(EdibleIngredients.fig),
+      OrRequirement({
+        ContainingRequirement(EdibleIngredients.koalefantTrunk),
+        ContainingRequirement(EdibleIngredients.winterKoalefantTrunk),
+      }),
+    }),
+  );
+
+  static Recipe fishTacos = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(37.5),
+    sanityValue: NumericStatusValue(5),
+    healthValue: NumericStatusValue(20),
+    maxPerishTimeValue: DayStatusValue(6),
+    cookTimeValue: SecStatusValue(10),
+    priority: 10,
+    requirements: Requirements({}),
+  );
+
+  static Recipe fishsticks = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(37.5),
+    sanityValue: const NumericStatusValue(5),
+    healthValue: const NumericStatusValue(40),
+    maxPerishTimeValue: const DayStatusValue(10),
+    cookTimeValue: const SecStatusValue(40),
+    priority: 10,
+    requirements: Requirements({
+      const AtLeastRequirement({FoodValueCategory.fish}),
+      ContainingRequirement(Ingredients.twigs),
+      const MaxRequirement(FoodValue(FoodValueCategory.inedible, 1.0)), // Fillers cannot be `Inedibles`.
+    }),
+  );
+
+  static Recipe fistFullOfJam = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(37.5),
+    sanityValue: const NumericStatusValue(5),
+    healthValue: const NumericStatusValue(3),
+    maxPerishTimeValue: const DayStatusValue(15),
+    cookTimeValue: const SecStatusValue(10),
+    priority: 0,
+    requirements: Requirements({
+      MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.fruit, 0.5)})),
+      const NoRequirement(categories: {
+        FoodValueCategory.meat,
+        FoodValueCategory.vegetable,
+        FoodValueCategory.inedible,
+      }),
+    }),
+  );
+
+  static Recipe flowerSalad = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(12.5),
+    sanityValue: NumericStatusValue(5),
+    healthValue: NumericStatusValue(40),
+    maxPerishTimeValue: DayStatusValue(6),
+    cookTimeValue: SecStatusValue(10),
+    priority: 10,
+    requirements: Requirements({}),
+  );
+
+  static Recipe froggleBunwich = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(37.5),
+    sanityValue: NumericStatusValue(5),
+    healthValue: NumericStatusValue(20),
+    maxPerishTimeValue: DayStatusValue(15),
+    cookTimeValue: SecStatusValue(40),
+    priority: 1,
+    requirements: Requirements({}),
+  );
+
+  static Recipe frozenBananaDaiquiri = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(18.75),
+    sanityValue: NumericStatusValue(15),
+    healthValue: NumericStatusValue(30),
+    maxPerishTimeValue: DayStatusValue(15),
+    cookTimeValue: SecStatusValue(20),
+    priority: 1,
+    requirements: Requirements({}),
+  );
+
+  static Recipe fruitMedley = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(25),
+    sanityValue: const NumericStatusValue(5),
+    healthValue: const NumericStatusValue(20),
+    maxPerishTimeValue: const DayStatusValue(6),
+    cookTimeValue: const SecStatusValue(10),
+    priority: 0,
+    requirements: Requirements({
+      MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.fruit, 3.0)})),
+      const NoRequirement(categories: {
+        FoodValueCategory.meat,
+        FoodValueCategory.vegetable,
+      }),
+    }),
+  );
+
+  static Recipe guacamole = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(37.5),
+    sanityValue: NumericStatusValue(0),
+    healthValue: NumericStatusValue(20),
+    maxPerishTimeValue: DayStatusValue(10),
+    cookTimeValue: SecStatusValue(10),
+    priority: 10,
+    requirements: Requirements({}),
+  );
+
+  static Recipe honeyHam = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(75),
+    sanityValue: const NumericStatusValue(5),
+    healthValue: const NumericStatusValue(30),
+    maxPerishTimeValue: const DayStatusValue(15),
+    cookTimeValue: const SecStatusValue(40),
+    priority: 2,
+    requirements: Requirements({
+      const ContainingRequirement(EdibleIngredients.honey),
+      ExcessRequirement(FoodValues({const FoodValue(FoodValueCategory.meat, 1.5)})),
+      const NoRequirement(categories: {FoodValueCategory.inedible}),
+      const MaxRequirement(FoodValue(FoodValueCategory.meat, 1.5)),
+    }),
+  );
+
+  static Recipe honeyNuggets = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(37.5),
+    sanityValue: NumericStatusValue(5),
+    healthValue: NumericStatusValue(20),
+    maxPerishTimeValue: DayStatusValue(15),
+    cookTimeValue: SecStatusValue(40),
+    priority: 2,
+    requirements: Requirements({}),
+  );
+
+  static Recipe iceCream = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(25),
+    sanityValue: const NumericStatusValue(50),
+    healthValue: const NumericStatusValue(0),
+    maxPerishTimeValue: const DayStatusValue(3),
+    cookTimeValue: const SecStatusValue(10),
+    priority: 10,
+    requirements: Requirements({
+      const ContainingRequirement(EdibleIngredients.ice),
+      MeetRequirement(FoodValues({
+        const FoodValue(FoodValueCategory.dairy, 1.0),
+        const FoodValue(FoodValueCategory.sweetener, 1.0),
+      })),
+    }),
+  );
+
+  static Recipe jellybeans = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(0),
+    sanityValue: NumericStatusValue(5),
+    healthValue: DurationStatusValue(value: 122, minute: 2),
+    maxPerishTimeValue: NotApplicableStatusValue(),
+    cookTimeValue: SecStatusValue(50),
+    priority: 12,
+    requirements: Requirements({
+      ContainingRequirement(EdibleIngredients.royalJelly),
+      NoRequirement(categories: {
+        FoodValueCategory.inedible,
+        FoodValueCategory.monster,
+      }),
+    }),
+  );
+
+  static Recipe jellySalad = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(37.5),
+    sanityValue: const NumericStatusValue(50),
+    healthValue: const NumericStatusValue(0),
+    maxPerishTimeValue: const DayStatusValue(6),
+    cookTimeValue: const SecStatusValue(40),
+    priority: 50,
+    requirements: Requirements({
+      const ContainingRequirement(EdibleIngredients.leafyMeat, 2),
+      MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.sweetener, 2.0)})),
+    }),
+  );
+
+  static Recipe kabobs = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(37.5),
+    sanityValue: const NumericStatusValue(5),
+    healthValue: const NumericStatusValue(3),
+    maxPerishTimeValue: const DayStatusValue(15),
+    cookTimeValue: const SecStatusValue(40),
+    priority: 5,
+    requirements: Requirements({
+      const AtLeastRequirement({FoodValueCategory.meat}),
+      ContainingRequirement(Ingredients.twigs),
+      // Actually, `NoRequirement` should be here, but it requires 1 Twigs.
+      const MaxRequirement(FoodValue(FoodValueCategory.inedible, 1.0)),
+      const MaxRequirement(FoodValue(FoodValueCategory.monster, 1.0)),
+    }),
+  );
+
+  static Recipe mandrakeSoup = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(150),
+    sanityValue: NumericStatusValue(5),
+    healthValue: NumericStatusValue(100),
+    maxPerishTimeValue: DayStatusValue(6),
+    cookTimeValue: SecStatusValue(60),
+    priority: 10,
+    requirements: Requirements({}),
+  );
+
+  static Recipe meatballs = const Recipe(
+    code: 'meatballs',
+    assetName: 'meatballs',
     hungerValue: NumericStatusValue(62.5),
     sanityValue: NumericStatusValue(5),
     healthValue: NumericStatusValue(3),
     maxPerishTimeValue: DayStatusValue(10),
     cookTimeValue: SecStatusValue(15),
+    priority: -1,
+    requirements: Requirements({
+      AtLeastRequirement({FoodValueCategory.meat}),
+      NoRequirement(categories: {FoodValueCategory.inedible})
+    }),
   );
+
+  static Recipe meatyStew = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(150),
+    sanityValue: const NumericStatusValue(5),
+    healthValue: const NumericStatusValue(12),
+    maxPerishTimeValue: const DayStatusValue(10),
+    cookTimeValue: const SecStatusValue(15),
+    priority: 0,
+    requirements: Requirements({
+      MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.meat, 3.0)})),
+      NoRequirement(
+        categories: {FoodValueCategory.inedible},
+        ingredients: {EdibleIngredients.tallbirdEgg, EdibleIngredients.mandrake},
+      ),
+    }),
+  );
+
+  static Recipe melonsicle = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(12.5),
+    sanityValue: const NumericStatusValue(20),
+    healthValue: const NumericStatusValue(3),
+    maxPerishTimeValue: const DayStatusValue(3),
+    cookTimeValue: const SecStatusValue(10),
+    priority: 10,
+    requirements: Requirements({
+      ContainingRequirement(Crops.watermelon),
+      const ContainingRequirement(EdibleIngredients.ice),
+      ContainingRequirement(Ingredients.twigs),
+      const NoRequirement(categories: {
+        FoodValueCategory.meat,
+        FoodValueCategory.egg,
+        FoodValueCategory.vegetable,
+      }),
+    }),
+  );
+
+  static Recipe milkmadeHat = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: DurationStatusValue(value: 187.5, minute: 4),
+    sanityValue: DurationStatusValue(value: -5.3, minute: 4),
+    healthValue: NumericStatusValue(0),
+    maxPerishTimeValue: NotApplicableStatusValue(),
+    cookTimeValue: SecStatusValue(40),
+    priority: 55,
+    requirements: Requirements({}),
+  );
+
+  static Recipe monsterLasagna = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(37.5),
+    sanityValue: const NumericStatusValue(-20),
+    healthValue: const NumericStatusValue(-20),
+    maxPerishTimeValue: const DayStatusValue(6),
+    cookTimeValue: const SecStatusValue(10),
+    priority: 10,
+    requirements: Requirements({
+      MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.monster, 2.0)})),
+      const NoRequirement(categories: {FoodValueCategory.inedible}),
+    }),
+  );
+
+  static Recipe mushyCake = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(25),
+    sanityValue: NumericStatusValue(10),
+    healthValue: NumericStatusValue(0),
+    maxPerishTimeValue: DayStatusValue(15),
+    cookTimeValue: SecStatusValue(20),
+    priority: 30,
+    requirements: Requirements({}),
+  );
+
+  static Recipe leafyMeatloaf = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(37.5),
+    sanityValue: NumericStatusValue(5),
+    healthValue: NumericStatusValue(8),
+    maxPerishTimeValue: DayStatusValue(20),
+    cookTimeValue: SecStatusValue(40),
+    priority: 25,
+    requirements: Requirements({
+      ContainingRequirement(EdibleIngredients.leafyMeat, 2),
+    }),
+  );
+
+  static Recipe pierogi = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(37.5),
+    sanityValue: const NumericStatusValue(5),
+    healthValue: const NumericStatusValue(40),
+    maxPerishTimeValue: const DayStatusValue(20),
+    cookTimeValue: const SecStatusValue(20),
+    priority: 5,
+    requirements: Requirements({
+      MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.egg, 1.0)})),
+      const AtLeastRequirement({FoodValueCategory.meat, FoodValueCategory.vegetable}),
+      const NoRequirement(categories: {FoodValueCategory.inedible}),
+    }),
+  );
+
+  static Recipe plainOmelette = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(50),
+    sanityValue: const NumericStatusValue(5),
+    healthValue: const NumericStatusValue(3),
+    maxPerishTimeValue: const DayStatusValue(20),
+    cookTimeValue: const SecStatusValue(20),
+    priority: 1,
+    requirements: Requirements({
+      MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.egg, 3.0)})),
+    }),
+  );
+
+  static Recipe powdercake = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(0),
+    sanityValue: const NumericStatusValue(0),
+    healthValue: const NumericStatusValue(-3),
+    maxPerishTimeValue: const DayStatusValue(18750),
+    cookTimeValue: const SecStatusValue(10),
+    priority: 10,
+    requirements: Requirements({
+      OrRequirement({
+        ContainingRequirement(Crops.corn),
+        const ContainingRequirement(EdibleIngredients.popperfish),
+      }),
+      const ContainingRequirement(EdibleIngredients.honey),
+      ContainingRequirement(Ingredients.twigs),
+    }),
+  );
+
+  static Recipe pumpkinCookie = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(37.5),
+    sanityValue: const NumericStatusValue(15),
+    healthValue: const NumericStatusValue(0),
+    maxPerishTimeValue: const DayStatusValue(10),
+    cookTimeValue: const SecStatusValue(40),
+    priority: 10,
+    requirements: Requirements({
+      ContainingRequirement(Crops.pumpkin),
+      MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.sweetener, 2.0)})),
+    }),
+  );
+
+  static Recipe ratatouille = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(25),
+    sanityValue: const NumericStatusValue(5),
+    healthValue: const NumericStatusValue(3),
+    maxPerishTimeValue: const DayStatusValue(15),
+    cookTimeValue: const SecStatusValue(20),
+    priority: 0,
+    requirements: Requirements({
+      MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.vegetable, 0.5)})),
+      const NoRequirement(categories: {FoodValueCategory.meat, FoodValueCategory.inedible}),
+    }),
+  );
+
+  static Recipe salsaFresca = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(25),
+    sanityValue: const NumericStatusValue(33),
+    healthValue: const NumericStatusValue(3),
+    maxPerishTimeValue: const DayStatusValue(15),
+    cookTimeValue: const SecStatusValue(10),
+    priority: 20,
+    requirements: Requirements({
+      ContainingRequirement(Crops.tomaRoot),
+      ContainingRequirement(Crops.onion),
+      const NoRequirement(categories: {
+        FoodValueCategory.meat,
+        FoodValueCategory.inedible,
+        FoodValueCategory.egg,
+      }),
+    }),
+  );
+
+  static Recipe soothingTea = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(0),
+    sanityValue: const DurationStatusValue(initialValue: 15, value: 30, minute: 1),
+    healthValue: const NumericStatusValue(3),
+    maxPerishTimeValue: const DayStatusValue(3),
+    cookTimeValue: const SecStatusValue(20),
+    priority: 1,
+    requirements: Requirements({
+      ContainingRequirement(Weeds.forgetMeLots as UsingInCrockPot),
+      const ContainingRequirement(EdibleIngredients.honey),
+      const ContainingRequirement(EdibleIngredients.ice),
+      const NoRequirement(categories: {
+        FoodValueCategory.meat,
+        FoodValueCategory.monster,
+        FoodValueCategory.fish,
+        FoodValueCategory.vegetable,
+        FoodValueCategory.inedible,
+        FoodValueCategory.dairy,
+        FoodValueCategory.egg,
+      }),
+    }),
+  );
+
+  static Recipe spicyChili = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(37.5),
+    sanityValue: NumericStatusValue(0),
+    healthValue: NumericStatusValue(20),
+    maxPerishTimeValue: DayStatusValue(10),
+    cookTimeValue: SecStatusValue(10),
+    priority: 10,
+    requirements: Requirements({}),
+  );
+
+  static Recipe steamedTwigs = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NotApplicableStatusValue(),
+    sanityValue: const NotApplicableStatusValue(),
+    healthValue: const NotApplicableStatusValue(),
+    maxPerishTimeValue: const DayStatusValue(10),
+    cookTimeValue: const SecStatusValue(10),
+    priority: -5,
+    requirements: Requirements({
+      ContainingRequirement(Ingredients.twigs, 3),
+      NoRequirement(
+        ingredients: {Ingredients.nightmareFuel},
+        categories: {
+          FoodValueCategory.meat,
+          FoodValueCategory.egg,
+          FoodValueCategory.dairy,
+        },
+      ),
+    }),
+  );
+
+  static Recipe stuffedEggplant = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(37.5),
+    sanityValue: NumericStatusValue(5),
+    healthValue: NumericStatusValue(3),
+    maxPerishTimeValue: DayStatusValue(15),
+    cookTimeValue: SecStatusValue(40),
+    priority: 1,
+    requirements: Requirements({}),
+  );
+
+  static Recipe stuffedFishHeads = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(75),
+    sanityValue: NumericStatusValue(0),
+    healthValue: NumericStatusValue(20),
+    maxPerishTimeValue: DayStatusValue(3),
+    cookTimeValue: SecStatusValue(40),
+    priority: 25,
+    requirements: Requirements({}),
+  );
+
+  static Recipe stuffedNightCap = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(18.75),
+    sanityValue: NumericStatusValue(-15),
+    healthValue: NumericStatusValue(-20),
+    maxPerishTimeValue: DayStatusValue(15),
+    cookTimeValue: SecStatusValue(20),
+    priority: 30,
+    requirements: Requirements({}),
+  );
+
+  static Recipe stuffedPepperPoppers = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(25),
+    sanityValue: const NumericStatusValue(-5),
+    healthValue: const NumericStatusValue(30),
+    maxPerishTimeValue: const DayStatusValue(15),
+    cookTimeValue: const SecStatusValue(40),
+    priority: 20,
+    requirements: Requirements({
+      ContainingRequirement(Crops.pepper),
+      MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.meat, 0.5)})),
+      const NoRequirement(categories: {FoodValueCategory.inedible}),
+      const MaxRequirement(FoodValue(FoodValueCategory.meat, 1.5)),
+    }),
+  );
+
+  static Recipe taffy = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(25),
+    sanityValue: NumericStatusValue(15),
+    healthValue: NumericStatusValue(-3),
+    maxPerishTimeValue: DayStatusValue(15),
+    cookTimeValue: SecStatusValue(40),
+    priority: 10,
+    requirements: Requirements({
+      ContainingRequirement(EdibleIngredients.honey, 3),
+      NoRequirement(categories: {FoodValueCategory.meat}),
+    }),
+  );
+
+  static Recipe tallScotchEggs = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(150),
+    sanityValue: NumericStatusValue(5),
+    healthValue: NumericStatusValue(60),
+    maxPerishTimeValue: DayStatusValue(15),
+    cookTimeValue: SecStatusValue(40),
+    priority: 10,
+    requirements: Requirements({}),
+  );
+
+  static Recipe trailMix = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(12.5),
+    sanityValue: const NumericStatusValue(5),
+    healthValue: const NumericStatusValue(30),
+    maxPerishTimeValue: const DayStatusValue(15),
+    cookTimeValue: const SecStatusValue(10),
+    priority: 10,
+    requirements: Requirements({
+      const ContainingRequirement(EdibleIngredients.roastedBirchnut),
+      OrRequirement({
+        ContainingRequirement(EdibleIngredients.berries),
+        const ContainingRequirement(EdibleIngredients.juicyBerries),
+      }),
+      MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.fruit, 0.5)})),
+      const NoRequirement(categories: {
+        FoodValueCategory.meat,
+        FoodValueCategory.egg,
+        FoodValueCategory.vegetable,
+        FoodValueCategory.dairy,
+      }),
+    }),
+  );
+
+  static Recipe turkeyDinner = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(75),
+    sanityValue: const NumericStatusValue(5),
+    healthValue: const NumericStatusValue(20),
+    maxPerishTimeValue: const DayStatusValue(6),
+    cookTimeValue: const SecStatusValue(60),
+    priority: 10,
+    requirements: Requirements({
+      const ContainingRequirement(EdibleIngredients.drumstick, 2),
+      // Due to 2 drumstick + any meat value.
+      ExcessRequirement(FoodValues({const FoodValue(FoodValueCategory.meat, 1.0)})),
+      OrRequirement({
+        MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.vegetable, 0.5)})),
+        MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.fruit, 0.5)})),
+      }),
+      // TODO: When using Barnacle don't add Vegetable.
+    }),
+  );
+
+  static Recipe unagi = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(18.75),
+    sanityValue: NumericStatusValue(5),
+    healthValue: NumericStatusValue(20),
+    maxPerishTimeValue: DayStatusValue(10),
+    cookTimeValue: SecStatusValue(10),
+    priority: 20,
+    requirements: Requirements({}),
+  );
+
+  static Recipe veggieBurger = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(37.5),
+    sanityValue: const NumericStatusValue(33),
+    healthValue: const NumericStatusValue(30),
+    maxPerishTimeValue: const DayStatusValue(6),
+    cookTimeValue: const SecStatusValue(40),
+    priority: 25,
+    requirements: Requirements({
+      const ContainingRequirement(EdibleIngredients.leafyMeat),
+      ContainingRequirement(Crops.onion),
+      MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.vegetable, 2.0)})),
+    }),
+  );
+
+  static Recipe vegetableStinger = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(25),
+    sanityValue: const NumericStatusValue(33),
+    healthValue: const NumericStatusValue(3),
+    maxPerishTimeValue: const DayStatusValue(15),
+    cookTimeValue: const SecStatusValue(10),
+    priority: 15,
+    requirements: Requirements({
+      OrRequirement({
+        ContainingRequirement(Crops.asparagus),
+        ContainingRequirement(Crops.tomaRoot),
+      }),
+      const ContainingRequirement(EdibleIngredients.ice),
+      MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.5)})),
+    }),
+  );
+
+  static Recipe waffles = Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: const NumericStatusValue(37.5),
+    sanityValue: const NumericStatusValue(5),
+    healthValue: const NumericStatusValue(60),
+    maxPerishTimeValue: const DayStatusValue(6),
+    cookTimeValue: const SecStatusValue(10),
+    priority: 10,
+    requirements: Requirements({
+      const ContainingRequirement(EdibleIngredients.butter),
+      ContainingRequirement(EdibleIngredients.berries),
+      MeetRequirement(FoodValues({const FoodValue(FoodValueCategory.egg, 1.0)})),
+    }),
+  );
+
+  static Recipe wetGoop = const Recipe(
+    code: '',
+    assetName: '',
+    hungerValue: NumericStatusValue(0),
+    sanityValue: NumericStatusValue(0),
+    healthValue: NumericStatusValue(0),
+    maxPerishTimeValue: DayStatusValue(6),
+    cookTimeValue: SecStatusValue(5),
+    priority: -2,
+    requirements: Requirements({}),
+  );
+
+// 순서
+// Amberosia
+// Bacon and Eggs
+// Banana Shake
+// Barnacle Linguine
+// Barnacle Nigiri
+// Barnacle Pita
+// Beefalo Treats
+// Beefy Greens
+// Breakfast Skillet
+// Bunny Stew
+// Butter Muffin
+// Creamy Potato Purée
+// Dragonpie
+// Fancy Spiralled Tubers
+// Figatoni
+// Figgy Frogwich
+// Figkabab
+// Fig-Stuffed Trunk
+// Fish Tacos
+// Fishsticks
+// Fist Full of Jam
+// Flower Salad
+// Froggle Bunwich
+// Frozen Banana Daiquiri
+// Fruit Medley
+// Guacamole
+// Honey Ham
+// Honey Nuggets
+// Ice Cream
+// Jellybeans
+// Jelly Salad
+// Kabobs
+// Mandrake Soup
+// Meatballs
+// Meaty Stew
+// Melonsicle
+// Milkmade Hat
+// Monster Lasagna
+// Mushy Cake
+// Leafy Meatloaf
+// Pierogi
+// Plain Omelette
+// Powdercake
+// Pumpkin Cookie
+// Ratatouille
+// Salsa Fresca
+// Soothing Tea
+// Spicy Chili
+// Steamed Twigs
+// Stuffed Eggplant
+// Stuffed Fish Heads
+// Stuffed Night Cap
+// Stuffed Pepper Poppers
+// Taffy
+// Tall Scotch Eggs
+// Trail Mix
+// Turkey Dinner
+// Unagi
+// Veggie Burger
+// Vegetable Stinger
+// Waffles
+// Wet Goop
 }
