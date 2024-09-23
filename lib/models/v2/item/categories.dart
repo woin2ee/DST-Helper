@@ -1,8 +1,9 @@
-import 'package:dst_helper/models/v1/item/requirement.dart';
 import 'package:dst_helper/models/v1/season.dart';
 import 'package:dst_helper/models/v2/item/category_mixins.dart';
 import 'package:dst_helper/models/v2/item/food_value.dart';
 import 'package:dst_helper/models/v2/item/nutrient.dart';
+import 'package:dst_helper/models/v2/item/requirement.dart';
+import 'package:dst_helper/models/v2/status_value.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'categories.freezed.dart';
@@ -137,6 +138,11 @@ class Recipe with _$Recipe, Item, CookableInCrockPot {
     required String assetName,
     required int priority,
     required Requirements requirements,
+    required StatusValue hungerValue,
+    required StatusValue healthValue,
+    required StatusValue sanityValue,
+    required StatusValue maxPerishTimeValue,
+    required StatusValue cookTimeValue,
   }) = _Recipe;
 
   @With<Edible>()
@@ -146,6 +152,11 @@ class Recipe with _$Recipe, Item, CookableInCrockPot {
     required int priority,
     required Requirements requirements,
     required FoodType type,
+    required StatusValue hungerValue,
+    required StatusValue healthValue,
+    required StatusValue sanityValue,
+    required StatusValue maxPerishTimeValue,
+    required StatusValue cookTimeValue,
   }) = EdibleRecipe;
 }
 

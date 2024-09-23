@@ -1,7 +1,7 @@
-import 'package:dst_helper/models/v1/item/requirement.dart';
 import 'package:dst_helper/models/v1/season.dart';
 import 'package:dst_helper/models/v2/item/food_value.dart';
 import 'package:dst_helper/models/v2/item/nutrient.dart';
+import 'package:dst_helper/models/v2/item/requirement.dart';
 
 mixin Item {
   String get code;

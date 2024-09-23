@@ -1,5 +1,7 @@
 import 'package:dst_helper/models/v1/season.dart';
 import 'package:dst_helper/models/v2/item/item.dart';
+import 'package:dst_helper/models/v2/item/requirement.dart';
+import 'package:dst_helper/models/v2/status_value.dart';
 
 extension Crops on Crop {
   static List<Crop> crops = [
@@ -1011,5 +1013,26 @@ extension Fertilizers on Fertilizer {
     code: 'treegrowthsolution',
     assetName: 'tree_jam',
     nutrient: Nutrient(compost: 32, growthFormula: 8, manure: 8),
+  );
+}
+
+extension Recipes on Recipe {
+  static const List<Recipe> recipes = [
+    //
+  ];
+
+  static const Recipe meatballs = Recipe(
+    code: 'meatballs',
+    assetName: 'meatballs',
+    priority: -1,
+    requirements: Requirements({
+      AtLeastRequirement({FoodValueCategory.meat}),
+      NoRequirement(categories: {FoodValueCategory.inedible})
+    }),
+    hungerValue: NumericStatusValue(62.5),
+    sanityValue: NumericStatusValue(5),
+    healthValue: NumericStatusValue(3),
+    maxPerishTimeValue: DayStatusValue(10),
+    cookTimeValue: SecStatusValue(15),
   );
 }
