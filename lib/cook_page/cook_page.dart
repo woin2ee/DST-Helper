@@ -1,5 +1,5 @@
-import 'package:dst_helper/cook_page/favorite_recipe_list.dart';
-import 'package:dst_helper/models/v1/item/dst_object.dart' show Recipes;
+import 'package:dst_helper/cook_page/recipe_card.dart';
+import 'package:dst_helper/models/v2/item/items.dart';
 import 'package:flutter/material.dart';
 
 class CookPage extends StatelessWidget {
@@ -7,31 +7,20 @@ class CookPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(left: 12.0),
-          decoration: BoxDecoration(
-            boxShadow: kElevationToShadow[2],
-          ),
-          child: const FavoriteRecipeList(),
-        ),
-        Expanded(
-          child: GridView(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 10),
+    return Container(
+      color: Colors.white,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 36, left: 56, right: 56, bottom: 36),
+          child: Wrap(
+            spacing: 40,
+            runSpacing: 40,
             children: [
-              ...Recipes.recipes.map((recipe) => Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Image.asset(
-                      'assets/images/items/${recipe.assetName}.png',
-                      width: 50,
-                      height: 50,
-                    ),
-                  ))
+              ...Recipes.recipes.map((recipe) => RecipeCard(recipe: recipe)),
             ],
           ),
         ),
-      ],
+      ),
     );
   }
 }

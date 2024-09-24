@@ -58,9 +58,10 @@ class RecipeCard extends StatelessWidget {
       height: titleTextPhysicalSize * titleTextMaxLines,
       child: Center(
         child: Text(
+          recipe.code,
           // L10ns.of(context).localized(recipe.code),
           // '무화과 개구리 샌드위치',
-          _keepWord('무화과 개구리 샌드위치'),
+          // _keepWord('무화과 개구리 샌드위치'),
           // _keepWord('Fancy Spiralled Tubers'),
           // 'Fancy Spiralled Tubers',
           // 'Stuffed Pepper Poppers',

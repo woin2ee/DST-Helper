@@ -57,6 +57,7 @@ class Plant with _$Plant, Item, Plantable {
     required Nutrient nutrient,
   }) = _Plant;
 
+  @With<Item>()
   @With<Edible>()
   @With<UsingInCrockPot>()
   const factory Plant.crop({
@@ -69,6 +70,7 @@ class Plant with _$Plant, Item, Plantable {
     required Seed seed,
   }) = Crop;
 
+  @With<Item>()
   const factory Plant.weed({
     required String code,
     required String assetName,
@@ -76,6 +78,7 @@ class Plant with _$Plant, Item, Plantable {
     required Set<Season> seasons,
   }) = Weed;
 
+  @With<Item>()
   @With<UsingInCrockPot>()
   const factory Plant.forgetMeLots({
     required String code,
@@ -87,6 +90,19 @@ class Plant with _$Plant, Item, Plantable {
 
   factory Plant.fromJson(Map<String, dynamic> json) => _$PlantFromJson(json);
 }
+
+// @freezed
+// class Crop with _$Crop, Item, Plantable, Edible, UsingInCrockPot {
+//   const factory Crop({
+//     required String code,
+//     required String assetName,
+//     required FoodValues? foodValues,
+//     required Nutrient nutrient,
+//     required Set<Season> seasons,
+//     required FoodType type,
+//     required Seed seed,
+//   }) = _Crop;
+// }
 
 @freezed
 class Seed with _$Seed, Item, Edible, Cookable {
@@ -145,6 +161,7 @@ class Recipe with _$Recipe, Item, CookableInCrockPot {
     required StatusValue cookTimeValue,
   }) = _Recipe;
 
+  @With<Item>()
   @With<Edible>()
   const factory Recipe.edible({
     required String code,
