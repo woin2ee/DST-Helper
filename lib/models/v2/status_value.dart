@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 sealed class StatusValue {
   const StatusValue();
 }
@@ -10,7 +9,8 @@ class NumericStatusValue extends StatusValue {
 
   @override
   String toString() {
-    return value.toString();
+    final regex = RegExp(r'([.]*0)(?!.*\d)');
+    return value.toString().replaceAll(regex, '');
   }
 }
 
