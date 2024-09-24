@@ -1,3 +1,4 @@
+import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class RecipeCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           spacing: 8,
           children: <Widget>[
-            _buildTitle(),
+            _buildTitle(context),
             Image.asset(
               'assets/images/items/${recipe.assetName}.png',
               width: 64,
@@ -49,7 +50,7 @@ class RecipeCard extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle() {
+  Widget _buildTitle(BuildContext context) {
     const double titleTextFontSize = 15;
     const double titleTextPhysicalSize = 18;
     const int titleTextMaxLines = 2;
@@ -58,13 +59,7 @@ class RecipeCard extends StatelessWidget {
       height: titleTextPhysicalSize * titleTextMaxLines,
       child: Center(
         child: Text(
-          recipe.code,
-          // L10ns.of(context).localized(recipe.code),
-          // '무화과 개구리 샌드위치',
-          // _keepWord('무화과 개구리 샌드위치'),
-          // _keepWord('Fancy Spiralled Tubers'),
-          // 'Fancy Spiralled Tubers',
-          // 'Stuffed Pepper Poppers',
+          _keepWord(L10ns.of(context).localized('${recipe.code}_name')),
           style: const TextStyle(
             fontFamily: FontFamily.pretendard,
             fontVariations: [FontVariation.weight(500)],

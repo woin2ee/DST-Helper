@@ -340,5 +340,289 @@ class L10ns {
           "winter",
           locale: localeName,
         ),
+        ...recipeNames,
+      };
+
+  Map<String, String> get recipeNames => {
+        "dustmeringue_name": Intl.message(
+          "dustmeringue_name",
+          locale: localeName,
+        ),
+        "asparagussoup_name": Intl.message(
+          "asparagussoup_name",
+          locale: localeName,
+        ),
+        "baconeggs_name": Intl.message(
+          "baconeggs_name",
+          locale: localeName,
+        ),
+        "bananapop_name": Intl.message(
+          "bananapop_name",
+          locale: localeName,
+        ),
+        "bananajuice_name": Intl.message(
+          "bananajuice_name",
+          locale: localeName,
+        ),
+        "barnaclinguine_name": Intl.message(
+          "barnaclinguine_name",
+          locale: localeName,
+        ),
+        "barnaclesushi_name": Intl.message(
+          "barnaclesushi_name",
+          locale: localeName,
+        ),
+        "barnaclepita_name": Intl.message(
+          "barnaclepita_name",
+          locale: localeName,
+        ),
+        "beefalotreat_name": Intl.message(
+          "beefalotreat_name",
+          locale: localeName,
+        ),
+        "meatysalad_name": Intl.message(
+          "meatysalad_name",
+          locale: localeName,
+        ),
+        "veggieomlet_name": Intl.message(
+          "veggieomlet_name",
+          locale: localeName,
+        ),
+        "bunnystew_name": Intl.message(
+          "bunnystew_name",
+          locale: localeName,
+        ),
+        "butterflymuffin_name": Intl.message(
+          "butterflymuffin_name",
+          locale: localeName,
+        ),
+        "californiaroll_name": Intl.message(
+          "californiaroll_name",
+          locale: localeName,
+        ),
+        "ceviche_name": Intl.message(
+          "ceviche_name",
+          locale: localeName,
+        ),
+        "mashedpotatoes_name": Intl.message(
+          "mashedpotatoes_name",
+          locale: localeName,
+        ),
+        "dragonpie_name": Intl.message(
+          "dragonpie_name",
+          locale: localeName,
+        ),
+        "potatotornado_name": Intl.message(
+          "potatotornado_name",
+          locale: localeName,
+        ),
+        "figatoni_name": Intl.message(
+          "figatoni_name",
+          locale: localeName,
+        ),
+        "frognewton_name": Intl.message(
+          "frognewton_name",
+          locale: localeName,
+        ),
+        "figkabab_name": Intl.message(
+          "figkabab_name",
+          locale: localeName,
+        ),
+        "koalefig_trunk_name": Intl.message(
+          "koalefig_trunk_name",
+          locale: localeName,
+        ),
+        "fishtacos_name": Intl.message(
+          "fishtacos_name",
+          locale: localeName,
+        ),
+        "fishsticks_name": Intl.message(
+          "fishsticks_name",
+          locale: localeName,
+        ),
+        "jammypreserves_name": Intl.message(
+          "jammypreserves_name",
+          locale: localeName,
+        ),
+        "flowersalad_name": Intl.message(
+          "flowersalad_name",
+          locale: localeName,
+        ),
+        "frogglebunwich_name": Intl.message(
+          "frogglebunwich_name",
+          locale: localeName,
+        ),
+        "frozenbananadaiquiri_name": Intl.message(
+          "frozenbananadaiquiri_name",
+          locale: localeName,
+        ),
+        "fruitmedley_name": Intl.message(
+          "fruitmedley_name",
+          locale: localeName,
+        ),
+        "guacamole_name": Intl.message(
+          "guacamole_name",
+          locale: localeName,
+        ),
+        "honeyham_name": Intl.message(
+          "honeyham_name",
+          locale: localeName,
+        ),
+        "honeynuggets_name": Intl.message(
+          "honeynuggets_name",
+          locale: localeName,
+        ),
+        "icecream_name": Intl.message(
+          "icecream_name",
+          locale: localeName,
+        ),
+        "jellybean_name": Intl.message(
+          "jellybean_name",
+          locale: localeName,
+        ),
+        "leafymeatsouffle_name": Intl.message(
+          "leafymeatsouffle_name",
+          locale: localeName,
+        ),
+        "kabobs_name": Intl.message(
+          "kabobs_name",
+          locale: localeName,
+        ),
+        "mandrakesoup_name": Intl.message(
+          "mandrakesoup_name",
+          locale: localeName,
+        ),
+        "meatballs_name": Intl.message(
+          "meatballs_name",
+          locale: localeName,
+        ),
+        "bonestew_name": Intl.message(
+          "bonestew_name",
+          locale: localeName,
+        ),
+        "watermelonicle_name": Intl.message(
+          "watermelonicle_name",
+          locale: localeName,
+        ),
+        "batnosehat_name": Intl.message(
+          "batnosehat_name",
+          locale: localeName,
+        ),
+        "monsterlasagna_name": Intl.message(
+          "monsterlasagna_name",
+          locale: localeName,
+        ),
+        "shroomcake_name": Intl.message(
+          "shroomcake_name",
+          locale: localeName,
+        ),
+        "leafloaf_name": Intl.message(
+          "leafloaf_name",
+          locale: localeName,
+        ),
+        "perogies_name": Intl.message(
+          "perogies_name",
+          locale: localeName,
+        ),
+        "justeggs_name": Intl.message(
+          "justeggs_name",
+          locale: localeName,
+        ),
+        "powcake_name": Intl.message(
+          "powcake_name",
+          locale: localeName,
+        ),
+        "pumpkincookie_name": Intl.message(
+          "pumpkincookie_name",
+          locale: localeName,
+        ),
+        "ratatouille_name": Intl.message(
+          "ratatouille_name",
+          locale: localeName,
+        ),
+        "salsa_name": Intl.message(
+          "salsa_name",
+          locale: localeName,
+        ),
+        "seafoodgumbo_name": Intl.message(
+          "seafoodgumbo_name",
+          locale: localeName,
+        ),
+        "sweettea_name": Intl.message(
+          "sweettea_name",
+          locale: localeName,
+        ),
+        "hotchili_name": Intl.message(
+          "hotchili_name",
+          locale: localeName,
+        ),
+        "beefalofeed_name": Intl.message(
+          "beefalofeed_name",
+          locale: localeName,
+        ),
+        "stuffedeggplant_name": Intl.message(
+          "stuffedeggplant_name",
+          locale: localeName,
+        ),
+        "barnaclestuffedfishhead_name": Intl.message(
+          "barnaclestuffedfishhead_name",
+          locale: localeName,
+        ),
+        "shroombait_name": Intl.message(
+          "shroombait_name",
+          locale: localeName,
+        ),
+        "pepperpopper_name": Intl.message(
+          "pepperpopper_name",
+          locale: localeName,
+        ),
+        "surfnturf_name": Intl.message(
+          "surfnturf_name",
+          locale: localeName,
+        ),
+        "taffy_name": Intl.message(
+          "taffy_name",
+          locale: localeName,
+        ),
+        "talleggs_name": Intl.message(
+          "talleggs_name",
+          locale: localeName,
+        ),
+        "trailmix_name": Intl.message(
+          "trailmix_name",
+          locale: localeName,
+        ),
+        "turkeydinner_name": Intl.message(
+          "turkeydinner_name",
+          locale: localeName,
+        ),
+        "unagi_name": Intl.message(
+          "unagi_name",
+          locale: localeName,
+        ),
+        "leafymeatburger_name": Intl.message(
+          "leafymeatburger_name",
+          locale: localeName,
+        ),
+        "vegstinger_name": Intl.message(
+          "vegstinger_name",
+          locale: localeName,
+        ),
+        "waffles_name": Intl.message(
+          "waffles_name",
+          locale: localeName,
+        ),
+        "wetgoop_name": Intl.message(
+          "wetgoop_name",
+          locale: localeName,
+        ),
+        "lobsterbisque_name": Intl.message(
+          "lobsterbisque_name",
+          locale: localeName,
+        ),
+        "lobsterdinner_name": Intl.message(
+          "lobsterdinner_name",
+          locale: localeName,
+        ),
       };
 }

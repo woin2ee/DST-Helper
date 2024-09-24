@@ -350,5 +350,355 @@
   "@winter": {
     "type": "text",
     "placeholders": {}
+  },
+  "dustmeringue_name": "Amberosia",
+  "@dustmeringue_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "asparagussoup_name": "Asparagus Soup",
+  "@asparagussoup_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "baconeggs_name": "Bacon and Eggs",
+  "@baconeggs_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bananapop_name": "Banana Pop",
+  "@bananapop_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bananajuice_name": "Banana Shake",
+  "@bananajuice_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "barnaclinguine_name": "Barnacle Linguine",
+  "@barnaclinguine_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "barnaclesushi_name": "Barnacle Nigiri",
+  "@barnaclesushi_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "barnaclepita_name": "Barnacle Pita",
+  "@barnaclepita_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "beefalotreat_name": "Beefalo Treats",
+  "@beefalotreat_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "meatysalad_name": "Beefy Greens",
+  "@meatysalad_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "veggieomlet_name": "Breakfast Skillet",
+  "@veggieomlet_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bunnystew_name": "Bunny Stew",
+  "@bunnystew_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "butterflymuffin_name": "Butter Muffin",
+  "@butterflymuffin_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "californiaroll_name": "California Roll",
+  "@californiaroll_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ceviche_name": "Ceviche",
+  "@ceviche_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mashedpotatoes_name": "Creamy Potato Purée",
+  "@mashedpotatoes_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "dragonpie_name": "Dragonpie",
+  "@dragonpie_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "potatotornado_name": "Fancy Spiralled Tubers",
+  "@potatotornado_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "figatoni_name": "Figatoni",
+  "@figatoni_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "frognewton_name": "Figgy Frogwich",
+  "@frognewton_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "figkabab_name": "Figkabab",
+  "@figkabab_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "koalefig_trunk_name": "Fig-Stuffed Trunk",
+  "@koalefig_trunk_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fishtacos_name": "Fish Tacos",
+  "@fishtacos_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fishsticks_name": "Fishsticks",
+  "@fishsticks_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "jammypreserves_name": "Fist Full of Jam",
+  "@jammypreserves_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "flowersalad_name": "Flower Salad",
+  "@flowersalad_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "frogglebunwich_name": "Froggle Bunwich",
+  "@frogglebunwich_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "frozenbananadaiquiri_name": "Frozen Banana Daiquiri",
+  "@frozenbananadaiquiri_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "fruitmedley_name": "Fruit Medley",
+  "@fruitmedley_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "guacamole_name": "Guacamole",
+  "@guacamole_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "honeyham_name": "Honey Ham",
+  "@honeyham_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "honeynuggets_name": "Honey Nuggets",
+  "@honeynuggets_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "icecream_name": "Ice Cream",
+  "@icecream_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "jellybean_name": "Jellybeans",
+  "@jellybean_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "leafymeatsouffle_name": "Jelly Salad",
+  "@leafymeatsouffle_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "kabobs_name": "Kabobs",
+  "@kabobs_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "mandrakesoup_name": "Mandrake Soup",
+  "@mandrakesoup_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "meatballs_name": "Meatballs",
+  "@meatballs_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "bonestew_name": "Meaty Stew",
+  "@bonestew_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "watermelonicle_name": "Melonsicle",
+  "@watermelonicle_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "batnosehat_name": "Milkmade Hat",
+  "@batnosehat_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "monsterlasagna_name": "Monster Lasagna",
+  "@monsterlasagna_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shroomcake_name": "Mushy Cake",
+  "@shroomcake_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "leafloaf_name": "Leafy Meatloaf",
+  "@leafloaf_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "perogies_name": "Pierogi",
+  "@perogies_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "justeggs_name": "Plain Omelette",
+  "@justeggs_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "powcake_name": "Powdercake",
+  "@powcake_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pumpkincookie_name": "Pumpkin Cookie",
+  "@pumpkincookie_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ratatouille_name": "Ratatouille",
+  "@ratatouille_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "salsa_name": "Salsa Fresca",
+  "@salsa_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "seafoodgumbo_name": "Seafood Gumbo",
+  "@seafoodgumbo_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sweettea_name": "Soothing Tea",
+  "@sweettea_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hotchili_name": "Spicy Chili",
+  "@hotchili_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "beefalofeed_name": "Steamed Twigs",
+  "@beefalofeed_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "stuffedeggplant_name": "Stuffed Eggplant",
+  "@stuffedeggplant_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "barnaclestuffedfishhead_name": "Stuffed Fish Heads",
+  "@barnaclestuffedfishhead_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "shroombait_name": "Stuffed Night Cap",
+  "@shroombait_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pepperpopper_name": "Stuffed Pepper Poppers",
+  "@pepperpopper_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "surfnturf_name": "Surf 'n' Turf",
+  "@surfnturf_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "taffy_name": "Taffy",
+  "@taffy_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "talleggs_name": "Tall Scotch Eggs",
+  "@talleggs_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "trailmix_name": "Trail Mix",
+  "@trailmix_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "turkeydinner_name": "Turkey Dinner",
+  "@turkeydinner_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "unagi_name": "Unagi",
+  "@unagi_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "leafymeatburger_name": "Veggie Burger",
+  "@leafymeatburger_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "vegstinger_name": "Vegetable Stinger",
+  "@vegstinger_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "waffles_name": "Waffles",
+  "@waffles_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "wetgoop_name": "Wet Goop",
+  "@wetgoop_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lobsterbisque_name": "Wobster Bisque",
+  "@lobsterbisque_name": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lobsterdinner_name": "Wobster Dinner",
+  "@lobsterdinner_name": {
+    "type": "text",
+    "placeholders": {}
   }
 }

@@ -1021,76 +1021,76 @@ extension Fertilizers on Fertilizer {
 
 extension Recipes on Recipe {
   static List<Recipe> recipes = [
-    amberosia,
-    asparagusSoup,
-    baconAndEggs,
-    bananaPop,
-    bananaShake,
-    barnacleLinguine,
-    barnacleNigiri,
-    barnaclePita,
-    beefaloTreats,
-    beefyGreens,
-    breakfastSkillet,
-    bunnyStew,
-    butterMuffin,
-    californiaRoll,
-    ceviche,
-    creamyPotatoPuree,
-    dragonpie,
-    fancySpiralledTubers,
-    figatoni,
-    figgyFrogwich,
-    figkabab,
-    figStuffedTrunk,
-    fishTacos,
-    fishsticks,
-    fistFullOfJam,
-    flowerSalad,
-    froggleBunwich,
-    frozenBananaDaiquiri,
-    fruitMedley,
-    guacamole,
-    honeyHam,
-    honeyNuggets,
-    iceCream,
-    jellybeans,
-    jellySalad,
-    kabobs,
-    mandrakeSoup,
-    meatballs,
-    meatyStew,
-    melonsicle,
-    milkmadeHat,
-    monsterLasagna,
-    mushyCake,
-    leafyMeatloaf,
-    pierogi,
-    plainOmelette,
-    powdercake,
-    pumpkinCookie,
-    ratatouille,
-    salsaFresca,
-    seafoodGumbo,
-    soothingTea,
-    spicyChili,
-    steamedTwigs,
-    stuffedEggplant,
-    stuffedFishHeads,
-    stuffedNightCap,
-    stuffedPepperPoppers,
-    surfNTurf,
-    taffy,
-    tallScotchEggs,
-    trailMix,
-    turkeyDinner,
-    unagi,
-    veggieBurger,
-    vegetableStinger,
-    waffles,
-    wetGoop,
-    wobsterBisque,
-    wobsterDinner,
+    amberosia, // Amberosia
+    asparagusSoup, // Asparagus Soup
+    baconAndEggs, // Bacon and Eggs
+    bananaPop, // Banana Pop
+    bananaShake, // Banana Shake
+    barnacleLinguine, // Barnacle Linguine
+    barnacleNigiri, // Barnacle Nigiri
+    barnaclePita, // Barnacle Pita
+    beefaloTreats, // Beefalo Treats
+    beefyGreens, // Beefy Greens
+    breakfastSkillet, // Breakfast Skillet
+    bunnyStew, // Bunny Stew
+    butterMuffin, // Butter Muffin
+    californiaRoll, // California Roll
+    ceviche, // Ceviche
+    creamyPotatoPuree, // Creamy Potato Purée
+    dragonpie, // Dragonpie
+    fancySpiralledTubers, // Fancy Spiralled Tubers
+    figatoni, // Figatoni
+    figgyFrogwich, // Figgy Frogwich
+    figkabab, // Figkabab
+    figStuffedTrunk, // Fig-Stuffed Trunk
+    fishTacos, // Fish Tacos
+    fishsticks, // Fishsticks
+    fistFullOfJam, // Fist Full of Jam
+    flowerSalad, // Flower Salad
+    froggleBunwich, // Froggle Bunwich
+    frozenBananaDaiquiri, // Frozen Banana Daiquiri
+    fruitMedley, // Fruit Medley
+    guacamole, // Guacamole
+    honeyHam, // Honey Ham
+    honeyNuggets, // Honey Nuggets
+    iceCream, // Ice Cream
+    jellybeans, // Jellybeans
+    jellySalad, // Jelly Salad
+    kabobs, // Kabobs
+    mandrakeSoup, // Mandrake Soup
+    meatballs, // Meatballs
+    meatyStew, // Meaty Stew
+    melonsicle, // Melonsicle
+    milkmadeHat, // Milkmade Hat
+    monsterLasagna, // Monster Lasagna
+    mushyCake, // Mushy Cake
+    leafyMeatloaf, // Leafy Meatloaf
+    pierogi, // Pierogi
+    plainOmelette, // Plain Omelette
+    powdercake, // Powdercake
+    pumpkinCookie, // Pumpkin Cookie
+    ratatouille, // Ratatouille
+    salsaFresca, // Salsa Fresca
+    seafoodGumbo, // Seafood Gumbo
+    soothingTea, // Soothing Tea
+    spicyChili, // Spicy Chili
+    steamedTwigs, // Steamed Twigs
+    stuffedEggplant, // Stuffed Eggplant
+    stuffedFishHeads, // Stuffed Fish Heads
+    stuffedNightCap, // Stuffed Night Cap
+    stuffedPepperPoppers, // Stuffed Pepper Poppers
+    surfNTurf, // Surf 'n' Turf
+    taffy, // Taffy
+    tallScotchEggs, // Tall Scotch Eggs
+    trailMix, // Trail Mix
+    turkeyDinner, // Turkey Dinner
+    unagi, // Unagi
+    veggieBurger, // Veggie Burger
+    vegetableStinger, // Vegetable Stinger
+    waffles, // Waffles
+    wetGoop, // Wet Goop
+    wobsterBisque, // Wobster Bisque
+    wobsterDinner, // Wobster Dinner
   ];
 
   static Recipe amberosia = Recipe(
@@ -2144,68 +2144,4 @@ extension Recipes on Recipe {
     maxPerishTimeValue: DayStatusValue(15),
     cookTimeValue: SecStatusValue(20),
   );
-
-// 순서
-// Amberosia
-// Bacon and Eggs
-// Banana Shake
-// Barnacle Linguine
-// Barnacle Nigiri
-// Barnacle Pita
-// Beefalo Treats
-// Beefy Greens
-// Breakfast Skillet
-// Bunny Stew
-// Butter Muffin
-// Creamy Potato Purée
-// Dragonpie
-// Fancy Spiralled Tubers
-// Figatoni
-// Figgy Frogwich
-// Figkabab
-// Fig-Stuffed Trunk
-// Fish Tacos
-// Fishsticks
-// Fist Full of Jam
-// Flower Salad
-// Froggle Bunwich
-// Frozen Banana Daiquiri
-// Fruit Medley
-// Guacamole
-// Honey Ham
-// Honey Nuggets
-// Ice Cream
-// Jellybeans
-// Jelly Salad
-// Kabobs
-// Mandrake Soup
-// Meatballs
-// Meaty Stew
-// Melonsicle
-// Milkmade Hat
-// Monster Lasagna
-// Mushy Cake
-// Leafy Meatloaf
-// Pierogi
-// Plain Omelette
-// Powdercake
-// Pumpkin Cookie
-// Ratatouille
-// Salsa Fresca
-// Soothing Tea
-// Spicy Chili
-// Steamed Twigs
-// Stuffed Eggplant
-// Stuffed Fish Heads
-// Stuffed Night Cap
-// Stuffed Pepper Poppers
-// Taffy
-// Tall Scotch Eggs
-// Trail Mix
-// Turkey Dinner
-// Unagi
-// Veggie Burger
-// Vegetable Stinger
-// Waffles
-// Wet Goop
 }
