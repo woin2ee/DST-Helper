@@ -1094,7 +1094,7 @@ extension Recipes on Recipe {
   ];
 
   static Recipe amberosia = Recipe(
-    code: '',
+    code: 'dustmeringue',
     assetName: 'amberosia',
     hungerValue: const NotApplicableStatusValue(),
     sanityValue: const NotApplicableStatusValue(),
@@ -1108,7 +1108,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe asparagusSoup = const Recipe(
-    code: '',
+    code: 'asparagussoup',
     assetName: 'asparagus_soup',
     priority: 10,
     requirements: Requirements({}),
@@ -1120,7 +1120,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe baconAndEggs = Recipe(
-    code: '',
+    code: 'baconeggs',
     assetName: 'bacon_and_eggs',
     hungerValue: const NumericStatusValue(75),
     sanityValue: const NumericStatusValue(5),
@@ -1138,7 +1138,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe bananaPop = const Recipe(
-    code: '',
+    code: 'bananapop',
     assetName: 'banana_pop',
     priority: 20,
     requirements: Requirements({}),
@@ -1150,7 +1150,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe bananaShake = const Recipe(
-    code: '',
+    code: 'bananajuice',
     assetName: 'banana_shake',
     hungerValue: NumericStatusValue(25),
     sanityValue: NumericStatusValue(33),
@@ -1162,7 +1162,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe barnacleLinguine = const Recipe(
-    code: '',
+    code: 'barnaclinguine',
     assetName: 'barnacle_linguine',
     hungerValue: NumericStatusValue(75),
     sanityValue: NumericStatusValue(20),
@@ -1174,7 +1174,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe barnacleNigiri = const Recipe(
-    code: '',
+    code: 'barnaclesushi',
     assetName: 'barnacle_nigiri',
     hungerValue: NumericStatusValue(37.5),
     sanityValue: NumericStatusValue(5),
@@ -1186,7 +1186,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe barnaclePita = const Recipe(
-    code: '',
+    code: 'barnaclepita',
     assetName: 'barnacle_pita',
     hungerValue: NumericStatusValue(37.5),
     sanityValue: NumericStatusValue(5),
@@ -1198,7 +1198,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe beefaloTreats = const Recipe(
-    code: '',
+    code: 'beefalotreat',
     assetName: 'beefalo_treats',
     hungerValue: NotApplicableStatusValue(),
     sanityValue: NotApplicableStatusValue(),
@@ -1210,7 +1210,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe beefyGreens = const Recipe(
-    code: '',
+    code: 'meatysalad',
     assetName: 'beefy_greens',
     hungerValue: NumericStatusValue(75),
     sanityValue: NumericStatusValue(5),
@@ -1222,7 +1222,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe breakfastSkillet = const Recipe(
-    code: '',
+    code: 'veggieomlet',
     assetName: 'breakfast_skillet',
     hungerValue: NumericStatusValue(37.5),
     sanityValue: NumericStatusValue(5),
@@ -1234,7 +1234,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe bunnyStew = const Recipe(
-    code: '',
+    code: 'bunnystew',
     assetName: 'bunny_stew',
     hungerValue: NumericStatusValue(37.5),
     sanityValue: NumericStatusValue(5),
@@ -1272,7 +1272,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe californiaRoll = const Recipe(
-    code: '',
+    code: 'californiaroll',
     assetName: 'california_roll',
     priority: 20,
     requirements: Requirements({}),
@@ -1284,7 +1284,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe ceviche = const Recipe(
-    code: '',
+    code: 'ceviche',
     assetName: 'ceviche',
     priority: 20,
     requirements: Requirements({}),
@@ -1296,7 +1296,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe creamyPotatoPuree = Recipe(
-    code: '',
+    code: 'mashedpotatoes',
     assetName: 'mashedpotatoes',
     hungerValue: const NumericStatusValue(37.5),
     sanityValue: const NumericStatusValue(33),
@@ -1312,7 +1312,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe dragonpie = Recipe(
-    code: '',
+    code: 'dragonpie',
     assetName: 'dragonpie',
     hungerValue: const NumericStatusValue(75),
     sanityValue: const NumericStatusValue(5),
@@ -1327,7 +1327,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe fancySpiralledTubers = Recipe(
-    code: '',
+    code: 'potatotornado',
     assetName: 'fancy_spiralled_tubers',
     hungerValue: const NumericStatusValue(37.5),
     sanityValue: const NumericStatusValue(15),
@@ -1344,7 +1344,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe figatoni = Recipe(
-    code: '',
+    code: 'figatoni',
     assetName: 'figatoni',
     hungerValue: const NumericStatusValue(56.25),
     sanityValue: const NumericStatusValue(15),
@@ -1360,7 +1360,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe figgyFrogwich = Recipe(
-    code: '',
+    code: 'frognewton',
     assetName: 'figgy_frogwich',
     hungerValue: const NumericStatusValue(18.75),
     sanityValue: const NumericStatusValue(10),
@@ -1375,7 +1375,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe figkabab = Recipe(
-    code: '',
+    code: 'figkabab',
     assetName: 'figkabab',
     hungerValue: const NumericStatusValue(25),
     sanityValue: const NumericStatusValue(15),
@@ -1391,7 +1391,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe figStuffedTrunk = const Recipe(
-    code: '',
+    code: 'koalefig_trunk',
     assetName: 'fig_stuffed_trunk',
     hungerValue: NumericStatusValue(56.25),
     sanityValue: NumericStatusValue(0),
@@ -1409,7 +1409,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe fishTacos = const Recipe(
-    code: '',
+    code: 'fishtacos',
     assetName: 'fish_tacos',
     hungerValue: NumericStatusValue(37.5),
     sanityValue: NumericStatusValue(5),
@@ -1421,7 +1421,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe fishsticks = Recipe(
-    code: '',
+    code: 'fishsticks',
     assetName: 'fishsticks',
     hungerValue: const NumericStatusValue(37.5),
     sanityValue: const NumericStatusValue(5),
@@ -1456,7 +1456,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe flowerSalad = const Recipe(
-    code: '',
+    code: 'flowersalad',
     assetName: 'flower_salad',
     hungerValue: NumericStatusValue(12.5),
     sanityValue: NumericStatusValue(5),
@@ -1468,7 +1468,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe froggleBunwich = const Recipe(
-    code: '',
+    code: 'frogglebunwich',
     assetName: 'froggle_bunwich',
     hungerValue: NumericStatusValue(37.5),
     sanityValue: NumericStatusValue(5),
@@ -1480,7 +1480,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe frozenBananaDaiquiri = const Recipe(
-    code: '',
+    code: 'frozenbananadaiquiri',
     assetName: 'frozen_banana_daiquiri',
     hungerValue: NumericStatusValue(18.75),
     sanityValue: NumericStatusValue(15),
@@ -1510,7 +1510,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe guacamole = const Recipe(
-    code: '',
+    code: 'guacamole',
     assetName: 'guacamole',
     hungerValue: NumericStatusValue(37.5),
     sanityValue: NumericStatusValue(0),
@@ -1522,7 +1522,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe honeyHam = Recipe(
-    code: '',
+    code: 'honeyham',
     assetName: 'honey_ham',
     hungerValue: const NumericStatusValue(75),
     sanityValue: const NumericStatusValue(5),
@@ -1539,7 +1539,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe honeyNuggets = const Recipe(
-    code: '',
+    code: 'honeynuggets',
     assetName: 'honey_nuggets',
     hungerValue: NumericStatusValue(37.5),
     sanityValue: NumericStatusValue(5),
@@ -1551,7 +1551,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe iceCream = Recipe(
-    code: '',
+    code: 'icecream',
     assetName: 'ice_cream',
     hungerValue: const NumericStatusValue(25),
     sanityValue: const NumericStatusValue(50),
@@ -1569,7 +1569,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe jellybeans = const Recipe(
-    code: '',
+    code: 'jellybean',
     assetName: 'jellybeans',
     hungerValue: NumericStatusValue(0),
     sanityValue: NumericStatusValue(5),
@@ -1587,7 +1587,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe jellySalad = Recipe(
-    code: '',
+    code: 'leafymeatsouffle',
     assetName: 'jelly_salad',
     hungerValue: const NumericStatusValue(37.5),
     sanityValue: const NumericStatusValue(50),
@@ -1602,7 +1602,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe kabobs = Recipe(
-    code: '',
+    code: 'kabobs',
     assetName: 'kabobs',
     hungerValue: const NumericStatusValue(37.5),
     sanityValue: const NumericStatusValue(5),
@@ -1620,7 +1620,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe mandrakeSoup = const Recipe(
-    code: '',
+    code: 'mandrakesoup',
     assetName: 'mandrake_soup',
     hungerValue: NumericStatusValue(150),
     sanityValue: NumericStatusValue(5),
@@ -1647,7 +1647,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe meatyStew = Recipe(
-    code: '',
+    code: 'bonestew',
     assetName: 'meaty_stew',
     hungerValue: const NumericStatusValue(150),
     sanityValue: const NumericStatusValue(5),
@@ -1665,7 +1665,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe melonsicle = Recipe(
-    code: '',
+    code: 'watermelonicle',
     assetName: 'melonsicle',
     hungerValue: const NumericStatusValue(12.5),
     sanityValue: const NumericStatusValue(20),
@@ -1686,7 +1686,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe milkmadeHat = const Recipe(
-    code: '',
+    code: 'batnosehat',
     assetName: 'milkmade_hat',
     hungerValue: DurationStatusValue(value: 187.5, minute: 4),
     sanityValue: DurationStatusValue(value: -5.3, minute: 4),
@@ -1698,7 +1698,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe monsterLasagna = Recipe(
-    code: '',
+    code: 'monsterlasagna',
     assetName: 'monster_lasagna',
     hungerValue: const NumericStatusValue(37.5),
     sanityValue: const NumericStatusValue(-20),
@@ -1713,7 +1713,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe mushyCake = const Recipe(
-    code: '',
+    code: 'shroomcake',
     assetName: 'mushy_cake',
     hungerValue: NumericStatusValue(25),
     sanityValue: NumericStatusValue(10),
@@ -1725,7 +1725,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe leafyMeatloaf = const Recipe(
-    code: '',
+    code: 'leafloaf',
     assetName: 'leafy_meatloaf',
     hungerValue: NumericStatusValue(37.5),
     sanityValue: NumericStatusValue(5),
@@ -1739,7 +1739,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe pierogi = Recipe(
-    code: '',
+    code: 'perogies',
     assetName: 'pierogi',
     hungerValue: const NumericStatusValue(37.5),
     sanityValue: const NumericStatusValue(5),
@@ -1755,7 +1755,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe plainOmelette = Recipe(
-    code: '',
+    code: 'justeggs',
     assetName: 'plain_omelette',
     hungerValue: const NumericStatusValue(50),
     sanityValue: const NumericStatusValue(5),
@@ -1769,7 +1769,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe powdercake = Recipe(
-    code: '',
+    code: 'powcake',
     assetName: 'powdercake',
     hungerValue: const NumericStatusValue(0),
     sanityValue: const NumericStatusValue(0),
@@ -1788,7 +1788,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe pumpkinCookie = Recipe(
-    code: '',
+    code: 'pumpkincookie',
     assetName: 'pumpkin_cookie',
     hungerValue: const NumericStatusValue(37.5),
     sanityValue: const NumericStatusValue(15),
@@ -1803,7 +1803,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe ratatouille = Recipe(
-    code: '',
+    code: 'ratatouille',
     assetName: 'ratatouille',
     hungerValue: const NumericStatusValue(25),
     sanityValue: const NumericStatusValue(5),
@@ -1818,7 +1818,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe salsaFresca = Recipe(
-    code: '',
+    code: 'salsa',
     assetName: 'salsa_fresca',
     hungerValue: const NumericStatusValue(25),
     sanityValue: const NumericStatusValue(33),
@@ -1838,7 +1838,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe seafoodGumbo = const Recipe(
-    code: '',
+    code: 'seafoodgumbo',
     assetName: 'seafood_gumbo',
     priority: 10,
     requirements: Requirements({}),
@@ -1850,7 +1850,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe soothingTea = Recipe(
-    code: '',
+    code: 'sweettea',
     assetName: 'soothing_tea',
     hungerValue: const NumericStatusValue(0),
     sanityValue: const DurationStatusValue(initialValue: 15, value: 30, minute: 1),
@@ -1875,7 +1875,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe spicyChili = const Recipe(
-    code: '',
+    code: 'hotchili',
     assetName: 'spicy_chili',
     hungerValue: NumericStatusValue(37.5),
     sanityValue: NumericStatusValue(0),
@@ -1887,7 +1887,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe steamedTwigs = Recipe(
-    code: '',
+    code: 'beefalofeed',
     assetName: 'steamed_twigs',
     hungerValue: const NotApplicableStatusValue(),
     sanityValue: const NotApplicableStatusValue(),
@@ -1909,7 +1909,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe stuffedEggplant = const Recipe(
-    code: '',
+    code: 'stuffedeggplant',
     assetName: 'stuffed_eggplant',
     hungerValue: NumericStatusValue(37.5),
     sanityValue: NumericStatusValue(5),
@@ -1921,7 +1921,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe stuffedFishHeads = const Recipe(
-    code: '',
+    code: 'barnaclestuffedfishhead',
     assetName: 'stuffed_fish_heads',
     hungerValue: NumericStatusValue(75),
     sanityValue: NumericStatusValue(0),
@@ -1933,7 +1933,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe stuffedNightCap = const Recipe(
-    code: '',
+    code: 'shroombait',
     assetName: 'stuffed_night_cap',
     hungerValue: NumericStatusValue(18.75),
     sanityValue: NumericStatusValue(-15),
@@ -1945,7 +1945,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe stuffedPepperPoppers = Recipe(
-    code: '',
+    code: 'pepperpopper',
     assetName: 'stuffed_pepper_poppers',
     hungerValue: const NumericStatusValue(25),
     sanityValue: const NumericStatusValue(-5),
@@ -1962,7 +1962,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe surfNTurf = const Recipe(
-    code: '',
+    code: 'surfnturf',
     assetName: 'surf_n_turf',
     priority: 30,
     requirements: Requirements({}),
@@ -1974,7 +1974,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe taffy = const Recipe(
-    code: '',
+    code: 'taffy',
     assetName: 'taffy',
     hungerValue: NumericStatusValue(25),
     sanityValue: NumericStatusValue(15),
@@ -1989,7 +1989,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe tallScotchEggs = const Recipe(
-    code: '',
+    code: 'talleggs',
     assetName: 'tall_scotch_eggs',
     hungerValue: NumericStatusValue(150),
     sanityValue: NumericStatusValue(5),
@@ -2001,7 +2001,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe trailMix = Recipe(
-    code: '',
+    code: 'trailmix',
     assetName: 'trail_mix',
     hungerValue: const NumericStatusValue(12.5),
     sanityValue: const NumericStatusValue(5),
@@ -2047,7 +2047,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe unagi = const Recipe(
-    code: '',
+    code: 'unagi',
     assetName: 'unagi',
     hungerValue: NumericStatusValue(18.75),
     sanityValue: NumericStatusValue(5),
@@ -2059,7 +2059,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe veggieBurger = Recipe(
-    code: '',
+    code: 'leafymeatburger',
     assetName: 'veggie_burger',
     hungerValue: const NumericStatusValue(37.5),
     sanityValue: const NumericStatusValue(33),
@@ -2075,7 +2075,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe vegetableStinger = Recipe(
-    code: '',
+    code: 'vegstinger',
     assetName: 'vegetable_stinger',
     hungerValue: const NumericStatusValue(25),
     sanityValue: const NumericStatusValue(33),
@@ -2110,7 +2110,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe wetGoop = const Recipe(
-    code: '',
+    code: 'wetgoop',
     assetName: 'wet_goop',
     hungerValue: NumericStatusValue(0),
     sanityValue: NumericStatusValue(0),
@@ -2122,7 +2122,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe wobsterBisque = const Recipe(
-    code: '',
+    code: 'lobsterbisque',
     assetName: 'wobster_bisque',
     priority: 30,
     requirements: Requirements({}),
@@ -2134,7 +2134,7 @@ extension Recipes on Recipe {
   );
 
   static Recipe wobsterDinner = const Recipe(
-    code: '',
+    code: 'lobsterdinner',
     assetName: 'wobster_dinner',
     priority: 25,
     requirements: Requirements({}),
