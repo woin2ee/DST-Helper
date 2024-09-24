@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 sealed class StatusValue {
   const StatusValue();
 }
@@ -9,6 +11,9 @@ class NumericStatusValue extends StatusValue {
 
   @override
   String toString() {
+    if (kIsWeb) {
+      return value.toString();
+    }
     final regex = RegExp(r'([.]*0)(?!.*\d)');
     return value.toString().replaceAll(regex, '');
   }
@@ -58,6 +63,11 @@ class DurationStatusValue extends StatusValue {
 
   @override
   String toString() {
-    return '${value.toString()} in ${minute.toString()}min';
+    if (kIsWeb) {
+      return value.toString();
+    }
+    final regex = RegExp(r'([.]*0)(?!.*\d)');
+    return value.toString().replaceAll(regex, '');
+    // return '${value.toString()} in ${minute.toString()}min';
   }
 }
