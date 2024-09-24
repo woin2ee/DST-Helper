@@ -91,19 +91,6 @@ class Plant with _$Plant, Item, Plantable {
   factory Plant.fromJson(Map<String, dynamic> json) => _$PlantFromJson(json);
 }
 
-// @freezed
-// class Crop with _$Crop, Item, Plantable, Edible, UsingInCrockPot {
-//   const factory Crop({
-//     required String code,
-//     required String assetName,
-//     required FoodValues? foodValues,
-//     required Nutrient nutrient,
-//     required Set<Season> seasons,
-//     required FoodType type,
-//     required Seed seed,
-//   }) = _Crop;
-// }
-
 @freezed
 class Seed with _$Seed, Item, Edible, Cookable {
   const factory Seed({
@@ -119,33 +106,6 @@ class Seed with _$Seed, Item, Edible, Cookable {
 
   factory Seed.fromJson(Map<String, Object?> json) => _$SeedFromJson(json);
 }
-
-// @freezed
-// class Weed with _$Weed, Item, Plantable {
-//   const factory Weed({
-//     required String code,
-//     required String assetName,
-//     required Nutrient nutrient,
-//     required Set<Season> seasons,
-//   }) = _Weed;
-
-//   // This is for `Forget-Me-Lots` only.
-//   @With<UsingInCrockPot>()
-//   const factory Weed.forgetMeLots({
-//     required String code,
-//     required String assetName,
-//     required Nutrient nutrient,
-//     required Set<Season> seasons,
-//     required FoodValues? foodValues,
-//   }) = ForgetMeLots;
-
-//   const factory Weed.fireNettleFronds({
-//     required String code,
-//     required String assetName,
-//     required Nutrient nutrient,
-//     required Set<Season> seasons,
-//   }) = FireNettleFronds;
-// }
 
 @freezed
 class Recipe with _$Recipe, Item, CookableInCrockPot {
