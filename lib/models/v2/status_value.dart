@@ -63,11 +63,32 @@ class DurationStatusValue extends StatusValue {
 
   @override
   String toString() {
+    final totalValue = (initialValue ?? 0) + value;
     if (kIsWeb) {
-      return value.toString();
+      return totalValue.toString();
     }
     final regex = RegExp(r'([.]*0)(?!.*\d)');
-    return value.toString().replaceAll(regex, '');
-    // return '${value.toString()} in ${minute.toString()}min';
+    return totalValue.toString().replaceAll(regex, '');
+  }
+
+  String verbose() {
+    final regex = RegExp(r'([.]*0)(?!.*\d)');
+
+    final String trimValue;
+    if (kIsWeb) {
+      trimValue = value.toString();
+    } else {
+      trimValue = value.toString().replaceAll(regex, '');
+    }
+
+    final String durationText = '$trimValue over $minute min';
+
+    final initialValue = this.initialValue;
+    if (initialValue != null) {
+      final trimInitialValue = initialValue.toString().replaceAll(regex, '');
+      return '$trimInitialValue + $durationText';
+    } else {
+      return durationText;
+    }
   }
 }

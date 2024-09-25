@@ -1,5 +1,6 @@
 import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/models/v2/item/categories.dart';
+import 'package:dst_helper/models/v2/status_value.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +44,7 @@ class RecipeCard extends StatelessWidget {
               width: 64,
               height: 64,
             ),
-            _buildStatus(),
+            _StatusBox(recipe: recipe),
           ],
         ),
       ),
@@ -73,16 +74,18 @@ class RecipeCard extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildStatus() {
-    const double imageSize = 20;
-    const valueTextStyle = TextStyle(
-      fontFamily: FontFamily.pretendard,
-      fontSize: 13,
-      color: Colors.black,
-    );
-    const double valueTextWidth = 40;
+class _StatusBox extends StatelessWidget {
+  const _StatusBox({required this.recipe});
 
+  final Recipe recipe;
+
+  final double imageSize = 20;
+  final double valueTextWidth = 52;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       spacing: 4,
@@ -98,11 +101,7 @@ class RecipeCard extends StatelessWidget {
             ),
             SizedBox(
               width: valueTextWidth,
-              child: Text(
-                recipe.hungerValue.toString(),
-                style: valueTextStyle,
-                textAlign: TextAlign.center,
-              ),
+              child: _buildStatusItemValue(recipe.hungerValue, context),
             ),
           ],
         ),
@@ -117,11 +116,7 @@ class RecipeCard extends StatelessWidget {
             ),
             SizedBox(
               width: valueTextWidth,
-              child: Text(
-                recipe.healthValue.toString(),
-                style: valueTextStyle,
-                textAlign: TextAlign.center,
-              ),
+              child: _buildStatusItemValue(recipe.healthValue, context),
             ),
           ],
         ),
@@ -136,16 +131,72 @@ class RecipeCard extends StatelessWidget {
             ),
             SizedBox(
               width: valueTextWidth,
-              child: Text(
-                recipe.sanityValue.toString(),
-                style: valueTextStyle,
-                textAlign: TextAlign.center,
-              ),
+              child: _buildStatusItemValue(recipe.sanityValue, context),
             ),
           ],
         ),
       ],
     );
+  }
+
+  Widget _buildStatusItemValue(StatusValue statusValue, BuildContext context) {
+    const valueTextStyle = TextStyle(
+      fontFamily: FontFamily.pretendard,
+      fontSize: 13,
+      color: Colors.black,
+    );
+    const double iconSize = 16;
+
+    if (statusValue is DurationStatusValue) {
+      return Tooltip(
+        message: statusValue.verbose(),
+        textStyle: const TextStyle(
+          fontFamily: FontFamily.pretendard,
+          fontSize: 12,
+          color: Colors.white,
+        ),
+        decoration: const BoxDecoration(
+          color: Colors.black87,
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        ),
+        verticalOffset: 8,
+        margin: const EdgeInsets.only(left: 132),
+        padding: const EdgeInsets.only(top: 4, left: 10, right: 10, bottom: 4),
+        enableTapToDismiss: false,
+        preferBelow: false,
+        showDuration: const Duration(),
+        exitDuration: const Duration(),
+        child: Center(
+          child: Row(
+            spacing: 2,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                statusValue.toString(),
+                style: valueTextStyle,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                width: iconSize,
+                height: iconSize,
+                child: FittedBox(
+                  child: Icon(
+                    Icons.error_outline_rounded,
+                    color: Color(0xff444444),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    } else {
+      return Text(
+        statusValue.toString(),
+        style: valueTextStyle,
+        textAlign: TextAlign.center,
+      );
+    }
   }
 }
 
