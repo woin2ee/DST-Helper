@@ -14,38 +14,43 @@ class RecipeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-        boxShadow: [
-          BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.15),
-            blurRadius: 3,
-            offset: Offset(0, 3),
-          ),
-          BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.15),
-            blurRadius: 7,
-            offset: Offset(0, 1),
-          ),
-        ],
-      ),
-      width: 134,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 12, left: 8, right: 8, bottom: 12),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          spacing: 8,
-          children: <Widget>[
-            _buildTitle(context),
-            Image.asset(
-              'assets/images/items/${recipe.assetName}.png',
-              width: 64,
-              height: 64,
+    return LongPressDraggable<Recipe>(
+      data: recipe,
+      dragAnchorStrategy: pointerDragAnchorStrategy,
+      feedback: DraggingRecipeCard(imageAssetName: recipe.assetName),
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromRGBO(0, 0, 0, 0.15),
+              blurRadius: 3,
+              offset: Offset(0, 3),
             ),
-            _StatusBox(recipe: recipe),
+            BoxShadow(
+              color: Color.fromRGBO(0, 0, 0, 0.15),
+              blurRadius: 7,
+              offset: Offset(0, 1),
+            ),
           ],
+        ),
+        width: 134,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 12, left: 8, right: 8, bottom: 12),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            spacing: 8,
+            children: <Widget>[
+              _buildTitle(context),
+              Image.asset(
+                'assets/images/items/${recipe.assetName}.png',
+                width: 64,
+                height: 64,
+              ),
+              _StatusBox(recipe: recipe),
+            ],
+          ),
         ),
       ),
     );
@@ -211,4 +216,27 @@ String _keepWord(String text) {
     if (i < words.length - 1) fullText += ' ';
   }
   return fullText;
+}
+
+class DraggingRecipeCard extends StatelessWidget {
+  const DraggingRecipeCard({
+    super.key,
+    required this.imageAssetName,
+  });
+
+  final String imageAssetName;
+
+  @override
+  Widget build(BuildContext context) {
+    return FractionalTranslation(
+      translation: const Offset(-0.75, -0.75),
+      child: Opacity(
+        opacity: 0.85,
+        child: Image(
+            image: AssetImage(
+          'assets/images/items/$imageAssetName.png',
+        )),
+      ),
+    );
+  }
 }
