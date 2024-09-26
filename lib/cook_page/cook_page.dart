@@ -36,7 +36,7 @@ class CookPage extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.only(top: 36, left: 56, right: 56, bottom: 36),
+                padding: const EdgeInsets.only(top: 36, left: 56, right: 42, bottom: 36),
                 child: Wrap(
                   spacing: 40,
                   runSpacing: 40,
@@ -48,8 +48,7 @@ class CookPage extends StatelessWidget {
             ),
           ),
           Container(
-            width: 480,
-            // height: 830,
+            width: 410,
             decoration: const BoxDecoration(
               color: Colors.white,
               boxShadow: [
@@ -63,7 +62,7 @@ class CookPage extends StatelessWidget {
             child: ListView.separated(
               padding: const EdgeInsets.only(top: 24, left: 32, right: 32, bottom: 24),
               itemCount: recipes.length,
-              itemBuilder: (context, index) => RecipeListItem(recipe: recipes[index]),
+              itemBuilder: (context, index) => FittedBox(child: RecipeListItem(recipe: recipes[index])),
               separatorBuilder: (context, index) => const Divider(color: Color(0xffBEBEBE)),
             ),
           ),
