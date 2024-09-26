@@ -34,6 +34,7 @@ class _RecipeListState extends State<RecipeList> {
   Widget build(BuildContext context) {
     return DragTarget<Recipe>(
       onAcceptWithDetails: (details) {
+        if (_recipes.contains(details.data)) return;
         setState(() {
           _recipes.add(details.data);
         });
