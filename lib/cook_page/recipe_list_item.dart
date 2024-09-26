@@ -15,7 +15,7 @@ class RecipeListItem extends StatelessWidget {
     const double recipeFrameSize = 80;
     const double recipeImageSize = 64;
     const double ingredientFrameSize = 62;
-    const double ingredientImageSize = 54;
+    const double ingredientImageSize = 50;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -50,7 +50,7 @@ class RecipeListItem extends StatelessWidget {
                       alignment: Alignment.center,
                       children: [
                         const Image(
-                          image: AssetImage('assets/images/frame_2.png'),
+                          image: AssetImage('assets/images/frame_2_thick.png'),
                           fit: BoxFit.contain,
                           width: ingredientFrameSize,
                           height: ingredientFrameSize,
