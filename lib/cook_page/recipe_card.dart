@@ -14,7 +14,7 @@ class RecipeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LongPressDraggable<Recipe>(
+    return Draggable<Recipe>(
       data: recipe,
       dragAnchorStrategy: pointerDragAnchorStrategy,
       feedback: DraggingRecipeCard(imageAssetName: recipe.assetName),
