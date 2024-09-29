@@ -418,12 +418,11 @@ extension EdibleIngredients on EdibleIngredient {
     foodValues: FoodValues({}),
   );
 
-  // TODO: Implementation is not checked
-  static const EdibleIngredient drumstick = EdibleIngredient(
-    code: 'code',
-    assetName: 'assetName',
-    type: FoodType.generic,
-    foodValues: FoodValues({}),
+  static final EdibleIngredient drumstick = EdibleIngredient(
+    code: 'drumstick',
+    assetName: 'drumstick',
+    type: FoodType.meat,
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.meat, 0.5)}),
   );
 
   // TODO: Implementation is not checked
@@ -2019,7 +2018,7 @@ extension Recipes on Recipe {
     cookTimeValue: const SecStatusValue(60),
     priority: 10,
     requirements: Requirements({
-      const ContainingRequirement(EdibleIngredients.drumstick, 2),
+      ContainingRequirement(EdibleIngredients.drumstick, 2),
       // Due to 2 drumstick + any meat value.
       ExcessRequirement(FoodValues({const FoodValue(FoodValueCategory.meat, 1.0)})),
       OrRequirement({
