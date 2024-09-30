@@ -1090,16 +1090,25 @@ extension Recipes on Recipe {
     }),
   );
 
-  static const Recipe asparagusSoup = Recipe(
+  static final Recipe asparagusSoup = Recipe(
     code: 'asparagussoup',
     assetName: 'asparagus_soup',
     priority: 10,
-    requirements: Requirements({}),
-    hungerValue: NumericStatusValue(18.75),
-    sanityValue: NumericStatusValue(5),
-    healthValue: NumericStatusValue(20),
-    maxPerishTimeValue: DayStatusValue(15),
-    cookTimeValue: SecStatusValue(10),
+    hungerValue: const NumericStatusValue(18.75),
+    sanityValue: const NumericStatusValue(5),
+    healthValue: const NumericStatusValue(20),
+    maxPerishTimeValue: const DayStatusValue(15),
+    cookTimeValue: const SecStatusValue(10),
+    requirements: Requirements({
+      ContainingRequirement(Crops.asparagus),
+      MeetRequirement(FoodValues({
+        const FoodValue(FoodValueCategory.vegetable, 2.5),
+      })),
+      const NoRequirement(categories: {
+        FoodValueCategory.meat,
+        FoodValueCategory.inedible,
+      }),
+    }),
   );
 
   static final Recipe baconAndEggs = Recipe(
@@ -1120,16 +1129,24 @@ extension Recipes on Recipe {
     }),
   );
 
-  static const Recipe bananaPop = Recipe(
+  static final Recipe bananaPop = Recipe(
     code: 'bananapop',
     assetName: 'banana_pop',
     priority: 20,
-    requirements: Requirements({}),
-    hungerValue: NumericStatusValue(12.5),
-    sanityValue: NumericStatusValue(33),
-    healthValue: NumericStatusValue(20),
-    maxPerishTimeValue: DayStatusValue(3),
-    cookTimeValue: SecStatusValue(10),
+    hungerValue: const NumericStatusValue(12.5),
+    sanityValue: const NumericStatusValue(33),
+    healthValue: const NumericStatusValue(20),
+    maxPerishTimeValue: const DayStatusValue(3),
+    cookTimeValue: const SecStatusValue(10),
+    requirements: Requirements({
+      const ContainingRequirement(EdibleIngredients.banana),
+      const ContainingRequirement(EdibleIngredients.ice),
+      ContainingRequirement(Ingredients.twigs),
+      const NoRequirement(categories: {
+        FoodValueCategory.meat,
+        FoodValueCategory.fish,
+      }),
+    }),
   );
 
   static const Recipe bananaShake = Recipe(
@@ -1141,7 +1158,14 @@ extension Recipes on Recipe {
     maxPerishTimeValue: DayStatusValue(15),
     cookTimeValue: SecStatusValue(10),
     priority: 1,
-    requirements: Requirements({}),
+    requirements: Requirements({
+      ContainingRequirement(EdibleIngredients.banana, 2),
+      NoRequirement(categories: {
+        FoodValueCategory.meat,
+        FoodValueCategory.fish,
+        FoodValueCategory.monster,
+      }),
+    }),
   );
 
   static const Recipe barnacleLinguine = Recipe(
