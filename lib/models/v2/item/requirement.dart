@@ -7,7 +7,7 @@ sealed class Requirement implements Comparable<Requirement> {
 
   int get order => switch (this) {
         AndRequirements() => 0,
-        OrRequirement() => 0,
+        OrRequirement() => 20,
 
         /// These 2 values below must be less than the order value of `ContainingRequirement`.
         /// Because, when it makes up ingredient list for a recipe,

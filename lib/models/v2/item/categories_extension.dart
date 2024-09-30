@@ -30,39 +30,43 @@ extension RecipeExtension on Recipe {
 
     List<String> assets = [];
     List<UsingInCrockPot> containedIngredient = [];
-    for (final requirement in requirements.reversed) {
+
+    /// Extract assets that appropriately represent a given requirement.
+    List<String> assetsRepresenting(Requirement requirement) {
       switch (requirement) {
         case AtLeastRequirement(:final categories):
-          for (final category in categories) {
-            assets.add(category.assetName);
-          }
+          return categories.map((e) => e.assetName).toList();
         case ContainingRequirement(:final ingredient, :final count):
           containedIngredient.add(ingredient);
-          for (var i = 0; i < count; i++) {
+          return List<String>.generate(count, (index) {
             if (ingredient is CookableFood) {
               final cookableFood = ingredient as CookableFood;
-              assets.add(cookableFood.compositeAssetName ?? ingredient.assetName);
+              return cookableFood.compositeAssetName ?? ingredient.assetName;
             } else {
-              assets.add(ingredient.assetName);
+              return ingredient.assetName;
             }
-          }
+          });
         case MeetRequirement(minimumValues: final foodValues):
         case ExcessRequirement(thresholdValues: final foodValues):
           final ingredientsAnalyser = IngredientsAnalyser(containedIngredient);
-          for (final foodValue in foodValues.rawValues) {
+          final assetNamesByCategory = foodValues.rawValues.map((foodValue) {
             final remainingValue = foodValue.quantifiedValue - ingredientsAnalyser.foodValueFor(foodValue.category);
-            for (var i = 0; i < remainingValue.ceil(); i++) {
-              assets.add(foodValue.category.assetName);
-            }
-          }
+            return List<String>.generate(remainingValue.ceil(), (_) => foodValue.category.assetName);
+          });
+          return assetNamesByCategory.fold([], (a, b) => a + b);
+        case OrRequirement(:final requirements):
+          return assetsRepresenting(requirements.first);
         case NoRequirement():
         case AndRequirements():
-        // TODO: Implement this case
-        case OrRequirement():
         case MaxRequirement():
-          break;
+          return [];
       }
     }
+
+    for (final requirement in requirements.reversed) {
+      assets += assetsRepresenting(requirement);
+    }
+
     assert(assets.length <= 4);
     while (assets.length < 4) {
       assets.add('none');
