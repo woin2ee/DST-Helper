@@ -2,8 +2,28 @@ import 'package:dst_helper/models/v2/item/category_mixins.dart';
 import 'package:dst_helper/models/v2/item/food_value.dart';
 import 'package:dst_helper/models/v2/item/ingredients_analyser.dart';
 
-sealed class Requirement {
+sealed class Requirement implements Comparable<Requirement> {
   const Requirement();
+
+  int get order => switch (this) {
+        AndRequirements() => 0,
+        OrRequirement() => 0,
+
+        /// These 2 values below must be less than the order value of `ContainingRequirement`.
+        /// Because, when it makes up ingredient list for a recipe,
+        /// `ExcessRequirement` should be considered after considering `ContainingRequirement`.
+        MeetRequirement() => -2,
+        ExcessRequirement() => -1,
+
+        //
+        AtLeastRequirement() => 2,
+        ContainingRequirement() => 10,
+        NoRequirement() => 0,
+        MaxRequirement() => 0,
+      };
+
+  @override
+  int compareTo(Requirement other) => order.compareTo(other.order);
 
   bool isMetFor(IngredientsAnalyser ingredientsAnalyser);
 }
@@ -97,17 +117,6 @@ class ContainingRequirement extends Requirement {
   }
 }
 
-// class ExactRequirement extends Requirement {
-//   const ExactRequirement();
-
-//   final
-
-//   @override
-//   bool isMetFor(IngredientsAnalyser ingredientsAnalyser) {
-
-//   }
-// }
-
 /// A requirement indicating that specific ingredients must not be contained.
 class NoRequirement extends Requirement {
   const NoRequirement({
@@ -151,3 +160,14 @@ class MaxRequirement extends Requirement {
     return foodValue <= maximum.quantifiedValue;
   }
 }
+
+// class ExactRequirement extends Requirement {
+//   const ExactRequirement();
+
+//   final
+
+//   @override
+//   bool isMetFor(IngredientsAnalyser ingredientsAnalyser) {
+
+//   }
+// }

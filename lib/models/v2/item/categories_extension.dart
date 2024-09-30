@@ -26,11 +26,11 @@ extension RecipeExtension on Recipe {
   /// 4개의 asset name 을 가진 List 를 반화합니다.
   List<String> get ingredientListAssetNames {
     final requirements = this.requirements.rawRequirements.toList();
-    requirements.sort((a, b) => a.runtimeType is ContainingRequirement ? 1 : 0);
+    requirements.sort((a, b) => a.compareTo(b));
 
     List<String> assets = [];
     List<UsingInCrockPot> containedIngredient = [];
-    for (final requirement in requirements) {
+    for (final requirement in requirements.reversed) {
       switch (requirement) {
         case AtLeastRequirement(:final categories):
           for (final category in categories) {
