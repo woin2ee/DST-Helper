@@ -47,11 +47,19 @@ extension RecipeExtension on Recipe {
             }
           });
         case MeetRequirement(minimumValues: final foodValues):
-        case ExcessRequirement(thresholdValues: final foodValues):
           final ingredientsAnalyser = IngredientsAnalyser(containedIngredient);
           final assetNamesByCategory = foodValues.rawValues.map((foodValue) {
             final remainingValue = foodValue.quantifiedValue - ingredientsAnalyser.foodValueFor(foodValue.category);
             return List<String>.generate(remainingValue.ceil(), (_) => foodValue.category.assetName);
+          });
+          return assetNamesByCategory.fold([], (a, b) => a + b);
+        case ExcessRequirement(thresholdValues: final foodValues):
+          final ingredientsAnalyser = IngredientsAnalyser(containedIngredient);
+          final assetNamesByCategory = foodValues.rawValues.map((foodValue) {
+            final remainingValue = foodValue.quantifiedValue - ingredientsAnalyser.foodValueFor(foodValue.category);
+            var countOfNeeded = remainingValue.ceil();
+            if (remainingValue == countOfNeeded) countOfNeeded += 1;
+            return List<String>.generate(countOfNeeded, (_) => foodValue.category.assetName);
           });
           return assetNamesByCategory.fold([], (a, b) => a + b);
         case OrRequirement(:final requirements):
