@@ -9,10 +9,10 @@ class FertilizerSelectionTable extends StatelessWidget {
 
   final double spacing = 4;
   final List<List<Fertilizer>> fertilizerList = const [
-    Fertilizers.compostList,
-    Fertilizers.growthFormulaList,
-    Fertilizers.manureList,
-    Fertilizers.mixList,
+    Items.compostList,
+    Items.growthFormulaList,
+    Items.manureList,
+    Items.mixList,
   ];
 
   final FertilizerSelectionTableController controller;

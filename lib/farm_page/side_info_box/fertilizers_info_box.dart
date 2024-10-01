@@ -103,10 +103,10 @@ class FertilizersInfoBox extends StatelessWidget {
   const FertilizersInfoBox({super.key});
 
   final List<(_NutrientType, List<Fertilizer>)> _nutrientList = const [
-    (_NutrientType.compost, Fertilizers.compostList),
-    (_NutrientType.growthFormula, Fertilizers.growthFormulaList),
-    (_NutrientType.manure, Fertilizers.manureList),
-    (_NutrientType.mix, Fertilizers.mixList),
+    (_NutrientType.compost, Items.compostList),
+    (_NutrientType.growthFormula, Items.growthFormulaList),
+    (_NutrientType.manure, Items.manureList),
+    (_NutrientType.mix, Items.mixList),
   ];
 
   @override
@@ -238,7 +238,7 @@ class FertilizersInfoBoxTag extends StatelessWidget {
       child: IconButton(
         padding: const EdgeInsets.only(top: 4, bottom: 2),
         onPressed: onPressed,
-        icon: Image.asset("assets/images/items/${Fertilizers.fertilizer.assetName}.png"),
+        icon: Image.asset("assets/images/items/${Items.fertilizer.assetName}.png"),
       ),
     );
   }

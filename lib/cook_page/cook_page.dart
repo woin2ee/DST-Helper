@@ -21,7 +21,7 @@ class CookPage extends StatelessWidget {
                   spacing: 40,
                   runSpacing: 40,
                   children: [
-                    ...Recipes.recipes.map((recipe) => RecipeCard(recipe: recipe)),
+                    ...Items.recipes.map((recipe) => RecipeCard(recipe: recipe)),
                   ],
                 ),
               ),

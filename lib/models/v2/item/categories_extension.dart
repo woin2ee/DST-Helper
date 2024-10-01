@@ -16,7 +16,7 @@ extension RecipeExtension on Recipe {
     final ingredientsAnalyser = IngredientsAnalyser([i1, i2, i3, i4]);
     if (!requirements.isMetFor(ingredientsAnalyser)) return false;
     // The length of recipes is always greater than 0 because the checking above.
-    final satisfiedRecipes = Recipes.recipes.where((recipe) => recipe.requirements.isMetFor(ingredientsAnalyser));
+    final satisfiedRecipes = Items.recipes.where((recipe) => recipe.requirements.isMetFor(ingredientsAnalyser));
     if (satisfiedRecipes.length == 1) return true;
     final maxPriority = satisfiedRecipes.map((recipe) => recipe.priority).reduce(max);
     if (priority < maxPriority) return false;
