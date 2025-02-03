@@ -1,21 +1,19 @@
 import 'package:dst_helper/cook_page/recipe_card/dragging_recipe_card.dart';
-import 'package:dst_helper/cook_page/recipe_card/status_pair.dart';
 import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/models/v2/item/categories.dart';
-import 'package:dst_helper/models/v2/status_value.dart';
 import 'package:dst_helper/utils/etc.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 
-class DetailRecipeCard extends StatelessWidget {
-  const DetailRecipeCard({
+class SimpleRecipeCard extends StatelessWidget {
+  const SimpleRecipeCard({
     super.key,
     required this.recipe,
   });
 
   final Recipe recipe;
 
-  static const double width = 186;
+  static const double width = 128;
   static const double imageSize = 64;
   static const double spacing = 8;
   static const double hPadding = 12;
@@ -41,7 +39,6 @@ class DetailRecipeCard extends StatelessWidget {
               width: imageSize,
               height: imageSize,
             ),
-            _StatusBox(recipe: recipe),
           ],
         ),
       ),
@@ -69,8 +66,8 @@ class _DropShadowedContainer extends StatelessWidget {
   );
   static const keyShadow = BoxShadow(
     color: Color.fromRGBO(0, 0, 0, 0.15),
-    blurRadius: 3,
-    offset: Offset(0, 3),
+    blurRadius: 2,
+    offset: Offset(0, 2.2),
   );
 
   @override
@@ -98,8 +95,8 @@ class _TitleBox extends StatelessWidget {
 
   final String title;
 
-  static const double fontSize = 15;
-  static const double lineHeight = 18;
+  static const double lineHeight = 17;
+  static const double fontSize = 14;
   static const int maxLines = 2;
 
   @override
@@ -120,61 +117,6 @@ class _TitleBox extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
       ),
-    );
-  }
-}
-
-class _StatusBox extends StatelessWidget {
-  const _StatusBox({
-    required this.recipe,
-  });
-
-  final Recipe recipe;
-
-  static const double vSpacing = 4;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          spacing: vSpacing,
-          children: <Widget>[
-            StatusPair(
-              statusKey: StatusKey.hunger,
-              statusValue: recipe.hungerValue,
-            ),
-            StatusPair(
-              statusKey: StatusKey.health,
-              statusValue: recipe.healthValue,
-            ),
-            StatusPair(
-              statusKey: StatusKey.sanity,
-              statusValue: recipe.sanityValue,
-            ),
-          ],
-        ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          spacing: vSpacing,
-          children: [
-            StatusPair(
-              statusKey: StatusKey.perish,
-              statusValue: recipe.maxPerishTimeValue,
-            ),
-            StatusPair(
-              statusKey: StatusKey.cook,
-              statusValue: recipe.cookTimeValue,
-            ),
-            StatusPair(
-              statusKey: StatusKey.priority,
-              statusValue: NumericStatusValue(recipe.priority as double),
-            ),
-          ],
-        ),
-      ],
     );
   }
 }
