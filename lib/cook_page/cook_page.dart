@@ -1,4 +1,4 @@
-import 'package:dst_helper/cook_page/recipe_card.dart';
+import 'package:dst_helper/cook_page/recipe_card/recipe_card.dart';
 import 'package:dst_helper/cook_page/recipe_list/recipe_list.dart';
 import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter/material.dart';
