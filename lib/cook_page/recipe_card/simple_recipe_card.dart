@@ -16,8 +16,7 @@ class SimpleRecipeCard extends StatelessWidget {
   static const double width = 128;
   static const double imageSize = 64;
   static const double spacing = 8;
-  static const double hPadding = 12;
-  static const double vPadding = 12;
+  static const double padding = 12;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class SimpleRecipeCard extends StatelessWidget {
       feedback: DraggingRecipeCard(imageAssetName: recipe.assetName),
       child: _DropShadowedContainer(
         width: width,
-        padding: const EdgeInsets.only(top: vPadding, left: hPadding, right: hPadding, bottom: vPadding),
+        padding: const EdgeInsets.all(padding),
         borderRadius: const BorderRadius.all(Radius.circular(15)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
