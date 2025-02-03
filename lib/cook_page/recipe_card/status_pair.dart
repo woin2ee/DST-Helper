@@ -19,14 +19,11 @@ enum StatusKey {
       case StatusKey.sanity:
         return 'sanity_meter';
       case StatusKey.perish:
-        return '';
-      // TODO: Handle this case.
+        return 'rot';
       case StatusKey.cook:
-        return '';
-      // TODO: Handle this case.
+        return 'crock_pot';
       case StatusKey.priority:
-        return '';
-      // TODO: Handle this case.
+        return 'priority';
     }
   }
 }
