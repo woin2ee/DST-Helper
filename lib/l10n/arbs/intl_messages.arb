@@ -1,207 +1,200 @@
 {
   "@@last_modified": "2025-02-04T22:53:33.904153",
-  "@@locale": "en",
   "seasonConditionSatisfyingText": "Becomes a giant crop in the {seasonsText}!",
   "@seasonConditionSatisfyingText": {
     "type": "text",
     "placeholders": {
       "seasonsText": {
-        "type": "String",
         "example": "<spring>spring</spring>, <fall>fall</fall>"
       }
     }
   },
-  "recipe_list_guide_message": "Drag and drop a recipe card.",
+  "recipe_list_guide_message": "recipe_list_guide_message",
   "@recipe_list_guide_message": {
     "type": "text",
     "placeholders": {}
   },
-  "fertilizer_selection_tooltip": "If you have multiple farms, assume that the same fertilizer is used for all of them.",
+  "fertilizer_selection_tooltip": "fertilizer_selection_tooltip",
   "@fertilizer_selection_tooltip": {
     "type": "text",
     "placeholders": {}
   },
-  "add": "Add",
+  "add": "add",
   "@add": {
     "type": "text",
     "placeholders": {}
   },
-  "asparagus_seeds_assumed_name": "Tubular Seeds",
+  "asparagus_seeds_assumed_name": "asparagus_seeds_assumed_name",
   "@asparagus_seeds_assumed_name": {
     "type": "text",
     "placeholders": {}
   },
-  "autumn": "Autumn",
+  "autumn": "autumn",
   "@autumn": {
     "type": "text",
     "placeholders": {}
   },
-  "season": "Season",
-  "@season": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "back_dialog_message": "You will lose what you are editing.",
+  "back_dialog_message": "back_dialog_message",
   "@back_dialog_message": {
     "type": "text",
     "placeholders": {}
   },
-  "back_dialog_title": "Do you want to leave?",
+  "back_dialog_title": "back_dialog_title",
   "@back_dialog_title": {
     "type": "text",
     "placeholders": {}
   },
-  "basic": "Basic",
+  "basic": "basic",
   "@basic": {
     "type": "text",
     "placeholders": {}
   },
-  "butterflymuffin": "Butter Muffin",
+  "butterflymuffin": "butterflymuffin",
   "@butterflymuffin": {
     "type": "text",
     "placeholders": {}
   },
-  "cancel": "Cancel",
+  "cancel": "cancel",
   "@cancel": {
     "type": "text",
     "placeholders": {}
   },
-  "carrot_seeds_assumed_name": "Oblong Seeds",
+  "carrot_seeds_assumed_name": "carrot_seeds_assumed_name",
   "@carrot_seeds_assumed_name": {
     "type": "text",
     "placeholders": {}
   },
-  "compost": "Compost",
+  "compost": "compost",
   "@compost": {
     "type": "text",
     "placeholders": {}
   },
-  "compostwrap": "Compost Wrap",
+  "compostwrap": "compostwrap",
   "@compostwrap": {
     "type": "text",
     "placeholders": {}
   },
-  "confirm": "Confirm",
+  "confirm": "confirm",
   "@confirm": {
     "type": "text",
     "placeholders": {}
   },
-  "corn_seeds_assumed_name": "Clustered Seeds",
+  "corn_seeds_assumed_name": "corn_seeds_assumed_name",
   "@corn_seeds_assumed_name": {
     "type": "text",
     "placeholders": {}
   },
-  "crops": "Crops",
+  "crops": "crops",
   "@crops": {
     "type": "text",
     "placeholders": {}
   },
-  "delete": "Delete",
+  "delete": "delete",
   "@delete": {
     "type": "text",
     "placeholders": {}
   },
-  "dense": "Dense",
+  "dense": "dense",
   "@dense": {
     "type": "text",
     "placeholders": {}
   },
-  "done": "Done",
+  "done": "done",
   "@done": {
     "type": "text",
     "placeholders": {}
   },
-  "dragonfruit_seeds_assumed_name": "Bulbous Seeds",
+  "dragonfruit_seeds_assumed_name": "dragonfruit_seeds_assumed_name",
   "@dragonfruit_seeds_assumed_name": {
     "type": "text",
     "placeholders": {}
   },
-  "durian_seeds_assumed_name": "Brittle Seed Pods",
+  "durian_seeds_assumed_name": "durian_seeds_assumed_name",
   "@durian_seeds_assumed_name": {
     "type": "text",
     "placeholders": {}
   },
-  "edit": "Edit",
+  "edit": "edit",
   "@edit": {
     "type": "text",
     "placeholders": {}
   },
-  "eggplant_seeds_assumed_name": "Swirly Seeds",
+  "eggplant_seeds_assumed_name": "eggplant_seeds_assumed_name",
   "@eggplant_seeds_assumed_name": {
     "type": "text",
     "placeholders": {}
   },
-  "family_condition_satisfying_text": "All crops satisfy family conditions!",
+  "family_condition_satisfying_text": "family_condition_satisfying_text",
   "@family_condition_satisfying_text": {
     "type": "text",
     "placeholders": {}
   },
-  "family_condition_unsatisfying_first_text": "Some crops don't satisfy the family condition.",
+  "family_condition_unsatisfying_first_text": "family_condition_unsatisfying_first_text",
   "@family_condition_unsatisfying_first_text": {
     "type": "text",
     "placeholders": {}
   },
-  "family_condition_unsatisfying_secondary_text": "At least four crops must be adjacent.",
+  "family_condition_unsatisfying_secondary_text": "family_condition_unsatisfying_secondary_text",
   "@family_condition_unsatisfying_secondary_text": {
     "type": "text",
     "placeholders": {}
   },
-  "fertilizer": "Bucket-o-poop",
+  "fertilizer": "fertilizer",
   "@fertilizer": {
     "type": "text",
     "placeholders": {}
   },
-  "fertilizers": "Fertilizers",
+  "fertilizers": "fertilizers",
   "@fertilizers": {
     "type": "text",
     "placeholders": {}
   },
-  "garlic_seeds_assumed_name": "Seed Pods",
+  "garlic_seeds_assumed_name": "garlic_seeds_assumed_name",
   "@garlic_seeds_assumed_name": {
     "type": "text",
     "placeholders": {}
   },
-  "giant_crop": "Giant Crop",
+  "giant_crop": "giant_crop",
   "@giant_crop": {
     "type": "text",
     "placeholders": {}
   },
-  "glommerfuel": "Glommer's Goop",
+  "glommerfuel": "glommerfuel",
   "@glommerfuel": {
     "type": "text",
     "placeholders": {}
   },
-  "growthFormula": "Growth Formula",
+  "growthFormula": "growthFormula",
   "@growthFormula": {
     "type": "text",
     "placeholders": {}
   },
-  "guano": "Guano",
+  "guano": "guano",
   "@guano": {
     "type": "text",
     "placeholders": {}
   },
-  "hide": "Hide",
+  "hide": "hide",
   "@hide": {
     "type": "text",
     "placeholders": {}
   },
-  "manure": "Manure",
+  "manure": "manure",
   "@manure": {
     "type": "text",
     "placeholders": {}
   },
-  "menu_cook": "Cook",
+  "menu_cook": "menu_cook",
   "@menu_cook": {
     "type": "text",
     "placeholders": {}
   },
-  "menu_farm": "Farm",
+  "menu_farm": "menu_farm",
   "@menu_farm": {
     "type": "text",
     "placeholders": {}
   },
-  "mix": "Mix",
+  "mix": "mix",
   "@mix": {
     "type": "text",
     "placeholders": {}
@@ -211,497 +204,502 @@
     "type": "text",
     "placeholders": {}
   },
-  "no_crops_message": "There are no crops placed.",
+  "no_crops_message": "no_crops_message",
   "@no_crops_message": {
     "type": "text",
     "placeholders": {}
   },
-  "nutrient_condition_satisfying_first_text": "Balanced nutrients!",
+  "nutrient_condition_satisfying_first_text": "nutrient_condition_satisfying_first_text",
   "@nutrient_condition_satisfying_first_text": {
     "type": "text",
     "placeholders": {}
   },
-  "nutrient_condition_unsatisfying_first_text": "The nutrients are not balanced.",
+  "nutrient_condition_unsatisfying_first_text": "nutrient_condition_unsatisfying_first_text",
   "@nutrient_condition_unsatisfying_first_text": {
     "type": "text",
     "placeholders": {}
   },
-  "nutrient_condition_unsatisfying_secondary_text": "Plant complementary crops or choose the right fertilizer.",
+  "nutrient_condition_unsatisfying_secondary_text": "nutrient_condition_unsatisfying_secondary_text",
   "@nutrient_condition_unsatisfying_secondary_text": {
     "type": "text",
     "placeholders": {}
   },
-  "onion_seeds_assumed_name": "Pointy Seeds",
+  "onion_seeds_assumed_name": "onion_seeds_assumed_name",
   "@onion_seeds_assumed_name": {
     "type": "text",
     "placeholders": {}
   },
-  "pepper_seeds_assumed_name": "Lumpy Seeds",
+  "pepper_seeds_assumed_name": "pepper_seeds_assumed_name",
   "@pepper_seeds_assumed_name": {
     "type": "text",
     "placeholders": {}
   },
-  "pomegranate_seeds_assumed_name": "Windblown Seeds",
+  "pomegranate_seeds_assumed_name": "pomegranate_seeds_assumed_name",
   "@pomegranate_seeds_assumed_name": {
     "type": "text",
     "placeholders": {}
   },
-  "poop": "Manure",
+  "poop": "poop",
   "@poop": {
     "type": "text",
     "placeholders": {}
   },
-  "potato_seeds_assumed_name": "Fluffy Seeds",
+  "potato_seeds_assumed_name": "potato_seeds_assumed_name",
   "@potato_seeds_assumed_name": {
     "type": "text",
     "placeholders": {}
   },
-  "pumpkin_seeds_assumed_name": "Sharp Seeds",
+  "pumpkin_seeds_assumed_name": "pumpkin_seeds_assumed_name",
   "@pumpkin_seeds_assumed_name": {
     "type": "text",
     "placeholders": {}
   },
-  "reverse_dense": "Dense(flip)",
+  "reverse_dense": "reverse_dense",
   "@reverse_dense": {
     "type": "text",
     "placeholders": {}
   },
-  "rottenegg": "Rotten Egg",
+  "rottenegg": "rottenegg",
   "@rottenegg": {
     "type": "text",
     "placeholders": {}
   },
-  "season_condition_unsatisfying_first_text": "There are no seasons to be a giant crop.",
+  "season_condition_unsatisfying_first_text": "season_condition_unsatisfying_first_text",
   "@season_condition_unsatisfying_first_text": {
     "type": "text",
     "placeholders": {}
   },
-  "season_condition_unsatisfying_secondary_text": "Compose the farm with crops sharing a season.",
+  "season_condition_unsatisfying_secondary_text": "season_condition_unsatisfying_secondary_text",
   "@season_condition_unsatisfying_secondary_text": {
     "type": "text",
     "placeholders": {}
   },
-  "seeds": "Seeds",
+  "seeds": "seeds",
   "@seeds": {
     "type": "text",
     "placeholders": {}
   },
-  "show": "Show",
+  "show": "show",
   "@show": {
     "type": "text",
     "placeholders": {}
   },
-  "show_hidden_items": "Show hidden items",
+  "show_hidden_items": "show_hidden_items",
   "@show_hidden_items": {
     "type": "text",
     "placeholders": {}
   },
-  "show_seeds_alias": "Show seeds alias",
+  "show_seeds_alias": "show_seeds_alias",
   "@show_seeds_alias": {
     "type": "text",
     "placeholders": {}
   },
-  "soil_amender": "Growth Formula Starter",
+  "soil_amender": "soil_amender",
   "@soil_amender": {
     "type": "text",
     "placeholders": {}
   },
-  "spoiled_fish": "Spoiled Fish",
+  "spoiled_fish": "spoiled_fish",
   "@spoiled_fish": {
     "type": "text",
     "placeholders": {}
   },
-  "spoiled_fish_small": "Spoiled Fish Morsel",
+  "spoiled_fish_small": "spoiled_fish_small",
   "@spoiled_fish_small": {
     "type": "text",
     "placeholders": {}
   },
-  "spoiled_food": "Rot",
+  "spoiled_food": "spoiled_food",
   "@spoiled_food": {
     "type": "text",
     "placeholders": {}
   },
-  "spring": "Spring",
+  "spring": "spring",
   "@spring": {
     "type": "text",
     "placeholders": {}
   },
-  "suitable_seasons": "Suitable Seasons",
+  "suitable_seasons": "suitable_seasons",
   "@suitable_seasons": {
     "type": "text",
     "placeholders": {}
   },
-  "summer": "Summer",
+  "season": "season",
+  "@season": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "summer": "summer",
   "@summer": {
     "type": "text",
     "placeholders": {}
   },
-  "tomato_seeds_assumed_name": "Spiky Seeds",
+  "tomato_seeds_assumed_name": "tomato_seeds_assumed_name",
   "@tomato_seeds_assumed_name": {
     "type": "text",
     "placeholders": {}
   },
-  "treegrowthsolution": "Tree Jam",
+  "treegrowthsolution": "treegrowthsolution",
   "@treegrowthsolution": {
     "type": "text",
     "placeholders": {}
   },
-  "watermelon_seeds_assumed_name": "Square Seeds",
+  "watermelon_seeds_assumed_name": "watermelon_seeds_assumed_name",
   "@watermelon_seeds_assumed_name": {
     "type": "text",
     "placeholders": {}
   },
-  "winter": "Winter",
+  "winter": "winter",
   "@winter": {
     "type": "text",
     "placeholders": {}
   },
-  "dustmeringue_name": "Amberosia",
+  "dustmeringue_name": "dustmeringue_name",
   "@dustmeringue_name": {
     "type": "text",
     "placeholders": {}
   },
-  "asparagussoup_name": "Asparagus Soup",
+  "asparagussoup_name": "asparagussoup_name",
   "@asparagussoup_name": {
     "type": "text",
     "placeholders": {}
   },
-  "baconeggs_name": "Bacon and Eggs",
+  "baconeggs_name": "baconeggs_name",
   "@baconeggs_name": {
     "type": "text",
     "placeholders": {}
   },
-  "bananapop_name": "Banana Pop",
+  "bananapop_name": "bananapop_name",
   "@bananapop_name": {
     "type": "text",
     "placeholders": {}
   },
-  "bananajuice_name": "Banana Shake",
+  "bananajuice_name": "bananajuice_name",
   "@bananajuice_name": {
     "type": "text",
     "placeholders": {}
   },
-  "barnaclinguine_name": "Barnacle Linguine",
+  "barnaclinguine_name": "barnaclinguine_name",
   "@barnaclinguine_name": {
     "type": "text",
     "placeholders": {}
   },
-  "barnaclesushi_name": "Barnacle Nigiri",
+  "barnaclesushi_name": "barnaclesushi_name",
   "@barnaclesushi_name": {
     "type": "text",
     "placeholders": {}
   },
-  "barnaclepita_name": "Barnacle Pita",
+  "barnaclepita_name": "barnaclepita_name",
   "@barnaclepita_name": {
     "type": "text",
     "placeholders": {}
   },
-  "beefalotreat_name": "Beefalo Treats",
+  "beefalotreat_name": "beefalotreat_name",
   "@beefalotreat_name": {
     "type": "text",
     "placeholders": {}
   },
-  "meatysalad_name": "Beefy Greens",
+  "meatysalad_name": "meatysalad_name",
   "@meatysalad_name": {
     "type": "text",
     "placeholders": {}
   },
-  "veggieomlet_name": "Breakfast Skillet",
+  "veggieomlet_name": "veggieomlet_name",
   "@veggieomlet_name": {
     "type": "text",
     "placeholders": {}
   },
-  "bunnystew_name": "Bunny Stew",
+  "bunnystew_name": "bunnystew_name",
   "@bunnystew_name": {
     "type": "text",
     "placeholders": {}
   },
-  "butterflymuffin_name": "Butter Muffin",
+  "butterflymuffin_name": "butterflymuffin_name",
   "@butterflymuffin_name": {
     "type": "text",
     "placeholders": {}
   },
-  "californiaroll_name": "California Roll",
+  "californiaroll_name": "californiaroll_name",
   "@californiaroll_name": {
     "type": "text",
     "placeholders": {}
   },
-  "ceviche_name": "Ceviche",
+  "ceviche_name": "ceviche_name",
   "@ceviche_name": {
     "type": "text",
     "placeholders": {}
   },
-  "mashedpotatoes_name": "Creamy Potato Purée",
+  "mashedpotatoes_name": "mashedpotatoes_name",
   "@mashedpotatoes_name": {
     "type": "text",
     "placeholders": {}
   },
-  "dragonpie_name": "Dragonpie",
+  "dragonpie_name": "dragonpie_name",
   "@dragonpie_name": {
     "type": "text",
     "placeholders": {}
   },
-  "potatotornado_name": "Fancy Spiralled Tubers",
+  "potatotornado_name": "potatotornado_name",
   "@potatotornado_name": {
     "type": "text",
     "placeholders": {}
   },
-  "figatoni_name": "Figatoni",
+  "figatoni_name": "figatoni_name",
   "@figatoni_name": {
     "type": "text",
     "placeholders": {}
   },
-  "frognewton_name": "Figgy Frogwich",
+  "frognewton_name": "frognewton_name",
   "@frognewton_name": {
     "type": "text",
     "placeholders": {}
   },
-  "figkabab_name": "Figkabab",
+  "figkabab_name": "figkabab_name",
   "@figkabab_name": {
     "type": "text",
     "placeholders": {}
   },
-  "koalefig_trunk_name": "Fig-Stuffed Trunk",
+  "koalefig_trunk_name": "koalefig_trunk_name",
   "@koalefig_trunk_name": {
     "type": "text",
     "placeholders": {}
   },
-  "fishtacos_name": "Fish Tacos",
+  "fishtacos_name": "fishtacos_name",
   "@fishtacos_name": {
     "type": "text",
     "placeholders": {}
   },
-  "fishsticks_name": "Fishsticks",
+  "fishsticks_name": "fishsticks_name",
   "@fishsticks_name": {
     "type": "text",
     "placeholders": {}
   },
-  "jammypreserves_name": "Fist Full of Jam",
+  "jammypreserves_name": "jammypreserves_name",
   "@jammypreserves_name": {
     "type": "text",
     "placeholders": {}
   },
-  "flowersalad_name": "Flower Salad",
+  "flowersalad_name": "flowersalad_name",
   "@flowersalad_name": {
     "type": "text",
     "placeholders": {}
   },
-  "frogglebunwich_name": "Froggle Bunwich",
+  "frogglebunwich_name": "frogglebunwich_name",
   "@frogglebunwich_name": {
     "type": "text",
     "placeholders": {}
   },
-  "frozenbananadaiquiri_name": "Frozen Banana Daiquiri",
+  "frozenbananadaiquiri_name": "frozenbananadaiquiri_name",
   "@frozenbananadaiquiri_name": {
     "type": "text",
     "placeholders": {}
   },
-  "fruitmedley_name": "Fruit Medley",
+  "fruitmedley_name": "fruitmedley_name",
   "@fruitmedley_name": {
     "type": "text",
     "placeholders": {}
   },
-  "guacamole_name": "Guacamole",
+  "guacamole_name": "guacamole_name",
   "@guacamole_name": {
     "type": "text",
     "placeholders": {}
   },
-  "honeyham_name": "Honey Ham",
+  "honeyham_name": "honeyham_name",
   "@honeyham_name": {
     "type": "text",
     "placeholders": {}
   },
-  "honeynuggets_name": "Honey Nuggets",
+  "honeynuggets_name": "honeynuggets_name",
   "@honeynuggets_name": {
     "type": "text",
     "placeholders": {}
   },
-  "icecream_name": "Ice Cream",
+  "icecream_name": "icecream_name",
   "@icecream_name": {
     "type": "text",
     "placeholders": {}
   },
-  "jellybean_name": "Jellybeans",
+  "jellybean_name": "jellybean_name",
   "@jellybean_name": {
     "type": "text",
     "placeholders": {}
   },
-  "leafymeatsouffle_name": "Jelly Salad",
+  "leafymeatsouffle_name": "leafymeatsouffle_name",
   "@leafymeatsouffle_name": {
     "type": "text",
     "placeholders": {}
   },
-  "kabobs_name": "Kabobs",
+  "kabobs_name": "kabobs_name",
   "@kabobs_name": {
     "type": "text",
     "placeholders": {}
   },
-  "mandrakesoup_name": "Mandrake Soup",
+  "mandrakesoup_name": "mandrakesoup_name",
   "@mandrakesoup_name": {
     "type": "text",
     "placeholders": {}
   },
-  "meatballs_name": "Meatballs",
+  "meatballs_name": "meatballs_name",
   "@meatballs_name": {
     "type": "text",
     "placeholders": {}
   },
-  "bonestew_name": "Meaty Stew",
+  "bonestew_name": "bonestew_name",
   "@bonestew_name": {
     "type": "text",
     "placeholders": {}
   },
-  "watermelonicle_name": "Melonsicle",
+  "watermelonicle_name": "watermelonicle_name",
   "@watermelonicle_name": {
     "type": "text",
     "placeholders": {}
   },
-  "batnosehat_name": "Milkmade Hat",
+  "batnosehat_name": "batnosehat_name",
   "@batnosehat_name": {
     "type": "text",
     "placeholders": {}
   },
-  "monsterlasagna_name": "Monster Lasagna",
+  "monsterlasagna_name": "monsterlasagna_name",
   "@monsterlasagna_name": {
     "type": "text",
     "placeholders": {}
   },
-  "shroomcake_name": "Mushy Cake",
+  "shroomcake_name": "shroomcake_name",
   "@shroomcake_name": {
     "type": "text",
     "placeholders": {}
   },
-  "leafloaf_name": "Leafy Meatloaf",
+  "leafloaf_name": "leafloaf_name",
   "@leafloaf_name": {
     "type": "text",
     "placeholders": {}
   },
-  "perogies_name": "Pierogi",
+  "perogies_name": "perogies_name",
   "@perogies_name": {
     "type": "text",
     "placeholders": {}
   },
-  "justeggs_name": "Plain Omelette",
+  "justeggs_name": "justeggs_name",
   "@justeggs_name": {
     "type": "text",
     "placeholders": {}
   },
-  "powcake_name": "Powdercake",
+  "powcake_name": "powcake_name",
   "@powcake_name": {
     "type": "text",
     "placeholders": {}
   },
-  "pumpkincookie_name": "Pumpkin Cookie",
+  "pumpkincookie_name": "pumpkincookie_name",
   "@pumpkincookie_name": {
     "type": "text",
     "placeholders": {}
   },
-  "ratatouille_name": "Ratatouille",
+  "ratatouille_name": "ratatouille_name",
   "@ratatouille_name": {
     "type": "text",
     "placeholders": {}
   },
-  "salsa_name": "Salsa Fresca",
+  "salsa_name": "salsa_name",
   "@salsa_name": {
     "type": "text",
     "placeholders": {}
   },
-  "seafoodgumbo_name": "Seafood Gumbo",
+  "seafoodgumbo_name": "seafoodgumbo_name",
   "@seafoodgumbo_name": {
     "type": "text",
     "placeholders": {}
   },
-  "sweettea_name": "Soothing Tea",
+  "sweettea_name": "sweettea_name",
   "@sweettea_name": {
     "type": "text",
     "placeholders": {}
   },
-  "hotchili_name": "Spicy Chili",
+  "hotchili_name": "hotchili_name",
   "@hotchili_name": {
     "type": "text",
     "placeholders": {}
   },
-  "beefalofeed_name": "Steamed Twigs",
+  "beefalofeed_name": "beefalofeed_name",
   "@beefalofeed_name": {
     "type": "text",
     "placeholders": {}
   },
-  "stuffedeggplant_name": "Stuffed Eggplant",
+  "stuffedeggplant_name": "stuffedeggplant_name",
   "@stuffedeggplant_name": {
     "type": "text",
     "placeholders": {}
   },
-  "barnaclestuffedfishhead_name": "Stuffed Fish Heads",
+  "barnaclestuffedfishhead_name": "barnaclestuffedfishhead_name",
   "@barnaclestuffedfishhead_name": {
     "type": "text",
     "placeholders": {}
   },
-  "shroombait_name": "Stuffed Night Cap",
+  "shroombait_name": "shroombait_name",
   "@shroombait_name": {
     "type": "text",
     "placeholders": {}
   },
-  "pepperpopper_name": "Stuffed Pepper Poppers",
+  "pepperpopper_name": "pepperpopper_name",
   "@pepperpopper_name": {
     "type": "text",
     "placeholders": {}
   },
-  "surfnturf_name": "Surf 'n' Turf",
+  "surfnturf_name": "surfnturf_name",
   "@surfnturf_name": {
     "type": "text",
     "placeholders": {}
   },
-  "taffy_name": "Taffy",
+  "taffy_name": "taffy_name",
   "@taffy_name": {
     "type": "text",
     "placeholders": {}
   },
-  "talleggs_name": "Tall Scotch Eggs",
+  "talleggs_name": "talleggs_name",
   "@talleggs_name": {
     "type": "text",
     "placeholders": {}
   },
-  "trailmix_name": "Trail Mix",
+  "trailmix_name": "trailmix_name",
   "@trailmix_name": {
     "type": "text",
     "placeholders": {}
   },
-  "turkeydinner_name": "Turkey Dinner",
+  "turkeydinner_name": "turkeydinner_name",
   "@turkeydinner_name": {
     "type": "text",
     "placeholders": {}
   },
-  "unagi_name": "Unagi",
+  "unagi_name": "unagi_name",
   "@unagi_name": {
     "type": "text",
     "placeholders": {}
   },
-  "leafymeatburger_name": "Veggie Burger",
+  "leafymeatburger_name": "leafymeatburger_name",
   "@leafymeatburger_name": {
     "type": "text",
     "placeholders": {}
   },
-  "vegstinger_name": "Vegetable Stinger",
+  "vegstinger_name": "vegstinger_name",
   "@vegstinger_name": {
     "type": "text",
     "placeholders": {}
   },
-  "waffles_name": "Waffles",
+  "waffles_name": "waffles_name",
   "@waffles_name": {
     "type": "text",
     "placeholders": {}
   },
-  "wetgoop_name": "Wet Goop",
+  "wetgoop_name": "wetgoop_name",
   "@wetgoop_name": {
     "type": "text",
     "placeholders": {}
   },
-  "lobsterbisque_name": "Wobster Bisque",
+  "lobsterbisque_name": "lobsterbisque_name",
   "@lobsterbisque_name": {
     "type": "text",
     "placeholders": {}
   },
-  "lobsterdinner_name": "Wobster Dinner",
+  "lobsterdinner_name": "lobsterdinner_name",
   "@lobsterdinner_name": {
     "type": "text",
     "placeholders": {}

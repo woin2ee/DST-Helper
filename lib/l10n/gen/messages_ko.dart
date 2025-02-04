@@ -128,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
     'pumpkin_seeds_assumed_name': MessageLookupByLibrary.simpleMessage('날카로운 씨앗'),
     'pumpkincookie_name': MessageLookupByLibrary.simpleMessage('호박 쿠키'),
     'ratatouille_name': MessageLookupByLibrary.simpleMessage('라따뚜이'),
+    'recipe_list_guide_message': MessageLookupByLibrary.simpleMessage('레시피 카드를 끌어다 놓으세요.'),
     'reverse_dense': MessageLookupByLibrary.simpleMessage('밀집(반전)'),
     'rottenegg': MessageLookupByLibrary.simpleMessage('썩은 알'),
     'salsa_name': MessageLookupByLibrary.simpleMessage('살사 프레스카'),

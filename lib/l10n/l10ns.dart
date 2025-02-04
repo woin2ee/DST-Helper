@@ -68,6 +68,10 @@ class L10ns {
   }
 
   Map<String, String> get strings => {
+        "recipe_list_guide_message": Intl.message(
+          "recipe_list_guide_message",
+          locale: localeName,
+        ),
         "fertilizer_selection_tooltip": Intl.message(
           "fertilizer_selection_tooltip",
           locale: localeName,

@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2024-09-19T00:21:02.962441",
+  "@@last_modified": "2025-02-04T22:53:33.904153",
   "@@locale": "ko",
   "seasonConditionSatisfyingText": "{seasonsText}에 거대 작물이 됩니다!",
   "@seasonConditionSatisfyingText": {
@@ -10,6 +10,11 @@
         "example": "<spring>봄</spring>, <fall>가을</fall>"
       }
     }
+  },
+  "recipe_list_guide_message": "레시피 카드를 끌어다 놓으세요.",
+  "@recipe_list_guide_message": {
+    "type": "text",
+    "placeholders": {}
   },
   "fertilizer_selection_tooltip": "텃밭이 여러 개인 경우, 모든 밭에 같은 비료를 사용한다고 가정합니다.",
   "@fertilizer_selection_tooltip": {

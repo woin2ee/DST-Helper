@@ -1,5 +1,6 @@
 import 'package:dst_helper/cook_page/recipe_list/recipe_list_item.dart';
 import 'package:dst_helper/cook_page/recipe_list/recipe_list_notifier.dart';
+import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter/material.dart';
 
@@ -38,8 +39,8 @@ class _RecipeListState extends State<RecipeList> {
             builder: (context, child) {
               final recipeList = _recipeListNotifier.value;
               if (recipeList.isEmpty) {
-                return const Center(
-                  child: Text('레시피 카드를 끌어다 놓으세요.'),
+                return Center(
+                  child: Text(L10ns.of(context).localized('recipe_list_guide_message')),
                 );
               }
               return ListView.separated(

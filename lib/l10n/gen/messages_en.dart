@@ -128,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
     'pumpkin_seeds_assumed_name': MessageLookupByLibrary.simpleMessage('Sharp Seeds'),
     'pumpkincookie_name': MessageLookupByLibrary.simpleMessage('Pumpkin Cookie'),
     'ratatouille_name': MessageLookupByLibrary.simpleMessage('Ratatouille'),
+    'recipe_list_guide_message': MessageLookupByLibrary.simpleMessage('Drag and drop a recipe card.'),
     'reverse_dense': MessageLookupByLibrary.simpleMessage('Dense(flip)'),
     'rottenegg': MessageLookupByLibrary.simpleMessage('Rotten Egg'),
     'salsa_name': MessageLookupByLibrary.simpleMessage('Salsa Fresca'),
