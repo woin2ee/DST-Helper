@@ -1,5 +1,5 @@
 import 'package:dst_helper/cook_page/recipe_list/recipe_list_item.dart';
-import 'package:dst_helper/cook_page/recipe_list/recipe_list_provider.dart';
+import 'package:dst_helper/cook_page/recipe_list/recipe_list_notifier.dart';
 import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter/material.dart';
 
@@ -13,19 +13,13 @@ class RecipeList extends StatefulWidget {
 }
 
 class _RecipeListState extends State<RecipeList> {
-  final RecipeListProvider recipeListProvider = RecipeListProvider();
-
-  @override
-  void initState() {
-    super.initState();
-    recipeListProvider.initialize();
-  }
+  final RecipeListNotifier _recipeListNotifier = RecipeListNotifier();
 
   @override
   Widget build(BuildContext context) {
     return DragTarget<Recipe>(
       onAcceptWithDetails: (details) {
-        recipeListProvider.addRecipe(details.data);
+        _recipeListNotifier.addRecipe(details.data);
       },
       builder: (context, candidateItems, rejectedItems) {
         return Container(
@@ -39,17 +33,18 @@ class _RecipeListState extends State<RecipeList> {
               ),
             ),
           ),
-          child: ValueListenableBuilder(
-            valueListenable: recipeListProvider,
-            builder: (context, value, child) {
+          child: ListenableBuilder(
+            listenable: _recipeListNotifier,
+            builder: (context, child) {
+              final recipeList = _recipeListNotifier.value;
               return ListView.separated(
                 padding: const EdgeInsets.only(top: 24, left: 32, right: 32, bottom: 24),
-                itemCount: value.length,
+                itemCount: recipeList.length,
                 itemBuilder: (context, index) => FittedBox(
-                    child: RecipeListItem(
-                  recipe: value[index],
+                    child: DraggableRecipeListItem(
+                  recipe: recipeList[index],
                   recipeListKey: widget.globalKey,
-                  recipeListProvider: recipeListProvider,
+                  recipeListNotifier: _recipeListNotifier,
                 )),
                 separatorBuilder: (context, index) => const Divider(color: Color(0xffBEBEBE)),
               );
