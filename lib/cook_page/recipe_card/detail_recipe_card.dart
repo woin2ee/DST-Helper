@@ -169,7 +169,7 @@ class _StatusBox extends StatelessWidget {
             ),
             StatusPair(
               statusKey: StatusKey.priority,
-              statusValue: NumericStatusValue(recipe.priority as double),
+              statusValue: NumericStatusValue(recipe.priority.toDouble()),
             ),
           ],
         ),

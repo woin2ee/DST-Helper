@@ -32,13 +32,12 @@ class _RecipeListState extends State<RecipeList> {
           width: 410,
           decoration: const BoxDecoration(
             color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(-2, 4),
-                blurRadius: 4,
-                color: Color.fromRGBO(0, 0, 0, 0.25),
+            border: Border(
+              left: BorderSide(
+                color: Colors.black12,
+                width: 1,
               ),
-            ],
+            ),
           ),
           child: ValueListenableBuilder(
             valueListenable: recipeListProvider,
