@@ -13,8 +13,6 @@ class CookPage extends StatefulWidget {
 }
 
 class _CookPageState extends State<CookPage> {
-  RecipeCardMode _recipeCardMode = RecipeCardMode.basic;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,70 +20,86 @@ class _CookPageState extends State<CookPage> {
       child: Row(
         spacing: 10,
         children: [
-          Expanded(
-            child: Stack(
-              children: [
-                ConstrainedBox(
-                  constraints: const BoxConstraints.expand(),
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.only(top: 36 + CookPage.topBarHeight, left: 42, right: 42, bottom: 36),
-                    child: Center(
-                      child: Wrap(
-                        spacing: 40,
-                        runSpacing: 40,
-                        children: [
-                          ...Items.recipes.map((recipe) {
-                            switch (_recipeCardMode) {
-                              case RecipeCardMode.basic:
-                                return DefaultRecipeCard(recipe: recipe);
-                              case RecipeCardMode.detail:
-                                return DetailRecipeCard(recipe: recipe);
-                              case RecipeCardMode.simple:
-                                return SimpleRecipeCard(recipe: recipe);
-                              case RecipeCardMode.onlyImage:
-                                return OnlyImageRecipeCard(recipe: recipe);
-                            }
-                          }),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  height: CookPage.topBarHeight,
-                  margin: const EdgeInsets.only(left: 12, right: 20),
-                  padding: const EdgeInsets.only(top: 8, bottom: 8),
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        width: 1,
-                        color: Colors.black12,
-                      ),
-                    ),
-                    color: Colors.white,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        color: Colors.red.withOpacity(0),
-                        width: 400,
-                      ), // TODO: Implement a search bar
-                      _ModeChangeSwitch(
-                        mode: _recipeCardMode,
-                        onChangedMode: (mode) => setState(() {
-                          _recipeCardMode = mode;
-                        }),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          const Expanded(
+            child: _RecipeCardTable(),
           ),
           RecipeList(),
         ],
       ),
+    );
+  }
+}
+
+class _RecipeCardTable extends StatefulWidget {
+  const _RecipeCardTable();
+
+  @override
+  State<_RecipeCardTable> createState() => _RecipeCardTableState();
+}
+
+class _RecipeCardTableState extends State<_RecipeCardTable> {
+  RecipeCardMode _recipeCardMode = RecipeCardMode.basic;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        ConstrainedBox(
+          constraints: const BoxConstraints.expand(),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(top: 36 + CookPage.topBarHeight, left: 42, right: 42, bottom: 36),
+            child: Center(
+              child: Wrap(
+                spacing: 40,
+                runSpacing: 40,
+                children: [
+                  ...Items.recipes.map((recipe) {
+                    switch (_recipeCardMode) {
+                      case RecipeCardMode.basic:
+                        return DefaultRecipeCard(recipe: recipe);
+                      case RecipeCardMode.detail:
+                        return DetailRecipeCard(recipe: recipe);
+                      case RecipeCardMode.simple:
+                        return SimpleRecipeCard(recipe: recipe);
+                      case RecipeCardMode.onlyImage:
+                        return OnlyImageRecipeCard(recipe: recipe);
+                    }
+                  }),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Container(
+          height: CookPage.topBarHeight,
+          margin: const EdgeInsets.only(left: 12, right: 20),
+          padding: const EdgeInsets.only(top: 8, bottom: 8),
+          decoration: const BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                width: 1,
+                color: Colors.black12,
+              ),
+            ),
+            color: Colors.white,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                color: Colors.red.withOpacity(0),
+                width: 400,
+              ), // TODO: Implement a search bar
+              _ModeChangeSwitch(
+                mode: _recipeCardMode,
+                onChangedMode: (mode) => setState(() {
+                  _recipeCardMode = mode;
+                }),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
