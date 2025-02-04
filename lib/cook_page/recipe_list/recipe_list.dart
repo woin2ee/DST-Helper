@@ -2,6 +2,7 @@ import 'package:dst_helper/cook_page/recipe_list/recipe_list_item.dart';
 import 'package:dst_helper/cook_page/recipe_list/recipe_list_notifier.dart';
 import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/models/v2/item/item.dart';
+import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 
 class RecipeList extends StatefulWidget {
@@ -40,7 +41,13 @@ class _RecipeListState extends State<RecipeList> {
               final recipeList = _recipeListNotifier.value;
               if (recipeList.isEmpty) {
                 return Center(
-                  child: Text(L10ns.of(context).localized('recipe_list_guide_message')),
+                  child: Text(
+                    L10ns.of(context).localized('recipe_list_guide_message'),
+                    style: const TextStyle(
+                      fontFamily: FontFamily.pretendard,
+                      fontSize: 14,
+                    ),
+                  ),
                 );
               }
               return ListView.separated(
