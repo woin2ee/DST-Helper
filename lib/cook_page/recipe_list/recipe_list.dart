@@ -37,6 +37,11 @@ class _RecipeListState extends State<RecipeList> {
             listenable: _recipeListNotifier,
             builder: (context, child) {
               final recipeList = _recipeListNotifier.value;
+              if (recipeList.isEmpty) {
+                return const Center(
+                  child: Text('레시피 카드를 끌어다 놓으세요.'),
+                );
+              }
               return ListView.separated(
                 padding: const EdgeInsets.only(top: 24, left: 32, right: 32, bottom: 24),
                 itemCount: recipeList.length,

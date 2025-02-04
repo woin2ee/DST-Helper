@@ -2,7 +2,8 @@ import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter/material.dart';
 
 class RecipeListNotifier extends ChangeNotifier {
-  final List<Recipe> _value = [
+  // ignore: unused_field
+  static final List<Recipe> _sample = [
     Items.meatballs,
     Items.creamyPotatoPuree,
     Items.fancySpiralledTubers,
@@ -20,6 +21,10 @@ class RecipeListNotifier extends ChangeNotifier {
     Items.figkabab,
     Items.soothingTea,
     Items.trailMix,
+  ];
+
+  final List<Recipe> _value = [
+    // ..._sample,
   ];
 
   List<Recipe> get value => _value.toList();
