@@ -109,7 +109,7 @@ class CropsInfoBox extends StatelessWidget {
               context: context,
               color: Colors.transparent,
               tiles: <Widget>[
-                ...Crops.crops.map((crop) => Row(
+                ...Items.crops.map((crop) => Row(
                       spacing: horizontalSpacing,
                       children: [
                         Image(

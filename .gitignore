@@ -50,3 +50,4 @@ lib/**/*.g.dart
 
 # Personal
 lib/example
+design/

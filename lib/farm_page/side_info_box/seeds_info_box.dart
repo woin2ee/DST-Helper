@@ -73,7 +73,7 @@ class _SeedsInfoBoxState extends State<SeedsInfoBox> {
               ),
             ],
           ),
-          ...Crops.crops.map((crop) => SizedBox(
+          ...Items.crops.map((crop) => SizedBox(
                 height: 46,
                 child: Row(
                   children: [
@@ -140,7 +140,7 @@ class SeedsInfoBoxTag extends StatelessWidget {
         iconSize: 20,
         onPressed: onPressed,
         icon: Image.asset(
-          "assets/images/items/${Seeds.seeds.assetName}.png",
+          "assets/images/items/${Items.seeds.assetName}.png",
           width: 50,
         ),
       ),
