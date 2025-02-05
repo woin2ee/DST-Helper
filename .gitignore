@@ -51,3 +51,7 @@ lib/**/*.g.dart
 # Personal
 lib/example
 design/
+
+# l10n
+lib/l10n/arbs/intl_messages.arb
+lib/l10n/gen/messages_messages.dart

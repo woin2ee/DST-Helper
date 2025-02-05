@@ -1,6 +1,12 @@
 {
   "@@last_modified": "2025-02-04T22:53:33.904153",
   "@@locale": "ko",
+  "The recipe is already registered.": "이미 등록되어 있는 레시피입니다.",
+  "@The recipe is already registered.": {
+    "description": "It's showed up when a duplicated recipe card is registered to list.",
+    "type": "text",
+    "placeholders": {}
+  },
   "seasonConditionSatisfyingText": "{seasonsText}에 거대 작물이 됩니다!",
   "@seasonConditionSatisfyingText": {
     "type": "text",
