@@ -1,0 +1,36 @@
+name: Deploy by tag
+
+on:
+  push:
+    tags:
+    - '*.*.*'
+
+jobs:
+  deploy_web_by_tag:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.2.2
+      with: 
+        ref: ${{ github.ref_name }}
+    - name: Build for web release
+      env:
+        BASE_HREF: "/DST-Helper-web/"
+      run: flutter build web --base-href "${BASE_HREF}"
+    - name: Move to build dir for web
+      run: cd build/web
+    # - name: Commit the result of build
+    #   env:
+    #     COMMIT_MESSAGE: "Deploy ${{ github.ref_name }}"
+    #   run: git add . && git commit -m "${COMMIT_MESSAGE}"
+    - name: Push directory to another repository
+      uses: cpina/github-action-push-to-another-repository@v1.7.2
+      env:
+        SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+      with:
+        source-directory: 'build/web'
+        destination-github-username: 'woin2ee'
+        destination-repository-name: 'DST-Helper-web'
+        user-email: woin2ee@gmail.com
+        target-branch: main
+        commit-message: "Deploy ${{ github.ref_name }}"
