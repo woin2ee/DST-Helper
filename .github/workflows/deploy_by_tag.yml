@@ -23,6 +23,7 @@ jobs:
         BASE_HREF: "/DST-Helper-web/"
       run: |
         flutter pub get
+        dart run build_runner build
         flutter build web --base-href "${BASE_HREF}"
     - name: Move to build dir for web
       run: cd build/web
