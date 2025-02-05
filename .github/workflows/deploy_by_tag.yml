@@ -25,6 +25,8 @@ jobs:
         flutter pub get
         dart run build_runner build
         flutter build web --base-href "${BASE_HREF}"
+    - name: Copy `README.md` to the build dir
+      run: cp README_web.md build/web/README.md
     - name: Move to build dir for web
       run: cd build/web
     - name: Push directory to another repository
