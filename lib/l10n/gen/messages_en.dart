@@ -27,7 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final Map<String, dynamic> messages = _notInlinedMessages(_notInlinedMessages);
 
   static Map<String, dynamic> _notInlinedMessages(_) => {
-      'add': MessageLookupByLibrary.simpleMessage('Add'),
+      'The recipe is already registered.': MessageLookupByLibrary.simpleMessage('The recipe is already registered.'),
+    'add': MessageLookupByLibrary.simpleMessage('Add'),
     'asparagus_seeds_assumed_name': MessageLookupByLibrary.simpleMessage('Tubular Seeds'),
     'asparagussoup_name': MessageLookupByLibrary.simpleMessage('Asparagus Soup'),
     'autumn': MessageLookupByLibrary.simpleMessage('Autumn'),

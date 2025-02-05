@@ -30,7 +30,6 @@ class RecipeListNotifier extends ChangeNotifier {
   List<Recipe> get value => _value.toList();
 
   void addRecipe(Recipe recipe) {
-    if (_value.contains(recipe)) return;
     _value.add(recipe);
     notifyListeners();
   }

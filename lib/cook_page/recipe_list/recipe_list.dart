@@ -4,6 +4,8 @@ import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:toastification/toastification.dart';
 
 class RecipeList extends StatefulWidget {
   RecipeList() : super(key: GlobalKey());
@@ -21,6 +23,11 @@ class _RecipeListState extends State<RecipeList> {
   Widget build(BuildContext context) {
     return DragTarget<Recipe>(
       onAcceptWithDetails: (details) {
+        var recipe = details.data;
+        if (_recipeListNotifier.value.contains(recipe)) {
+          _showToast(context);
+          return;
+        }
         _recipeListNotifier.addRecipe(details.data);
       },
       builder: (context, candidateItems, rejectedItems) {
@@ -65,6 +72,29 @@ class _RecipeListState extends State<RecipeList> {
           ),
         );
       },
+    );
+  }
+
+  void _showToast(BuildContext context) {
+    String message() => Intl.message(
+          'The recipe is already registered.',
+          desc: "It's showed up when a duplicated recipe card is registered to list.",
+          locale: Localizations.localeOf(context).languageCode,
+        );
+
+    toastification.show(
+      context: context,
+      alignment: Alignment.bottomCenter,
+      icon: const Icon(Icons.warning),
+      style: ToastificationStyle.flatColored,
+      primaryColor: Colors.grey,
+      backgroundColor: Colors.grey.shade100,
+      title: Text(message()),
+      autoCloseDuration: const Duration(seconds: 2),
+      animationDuration: const Duration(milliseconds: 300),
+      pauseOnHover: false,
+      boxShadow: kElevationToShadow[3],
+      dragToClose: false,
     );
   }
 }

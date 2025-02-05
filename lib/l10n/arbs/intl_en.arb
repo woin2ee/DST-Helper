@@ -1,6 +1,12 @@
 {
   "@@last_modified": "2025-02-04T22:53:33.904153",
   "@@locale": "en",
+  "The recipe is already registered.": "The recipe is already registered.",
+  "@The recipe is already registered.": {
+    "description": "It's showed up when a duplicated recipe card is registered to list.",
+    "type": "text",
+    "placeholders": {}
+  },
   "seasonConditionSatisfyingText": "Becomes a giant crop in the {seasonsText}!",
   "@seasonConditionSatisfyingText": {
     "type": "text",
