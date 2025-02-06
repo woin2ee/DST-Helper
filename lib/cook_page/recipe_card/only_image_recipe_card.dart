@@ -1,4 +1,4 @@
-import 'package:dst_helper/cook_page/recipe_card/dragging_recipe_card.dart';
+import 'package:dst_helper/cook_page/recipe_card/dragging_recipe_image.dart';
 import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,7 @@ class OnlyImageRecipeCard extends StatelessWidget {
     return Draggable<Recipe>(
       data: recipe,
       dragAnchorStrategy: pointerDragAnchorStrategy,
-      feedback: DraggingRecipeCard(imageAssetName: recipe.assetName),
+      feedback: DraggingRecipeImage(assetName: recipe.assetName),
       child: _DropShadowedContainer(
         padding: const EdgeInsets.all(padding),
         borderRadius: const BorderRadius.all(Radius.circular(15)),

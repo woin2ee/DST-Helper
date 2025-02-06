@@ -9,7 +9,7 @@ import 'package:toastification/toastification.dart';
 class RecipeList extends StatefulWidget {
   RecipeList() : super(key: GlobalKey());
 
-  GlobalKey get globalKey => key as GlobalKey;
+  static const double width = 410;
 
   @override
   State<RecipeList> createState() => _RecipeListState();
@@ -31,7 +31,7 @@ class _RecipeListState extends State<RecipeList> {
       },
       builder: (context, candidateItems, rejectedItems) {
         return Container(
-          width: 410,
+          width: RecipeList.width,
           decoration: const BoxDecoration(
             color: Colors.white,
             border: Border(
@@ -41,34 +41,37 @@ class _RecipeListState extends State<RecipeList> {
               ),
             ),
           ),
-          child: ListenableBuilder(
-            listenable: _recipeListNotifier,
-            builder: (context, child) {
-              final recipeList = _recipeListNotifier.value;
-              if (recipeList.isEmpty) {
-                return Center(
-                  child: Text(
-                    L10ns.of(context).localized('recipe_list_guide_message'),
-                    style: const TextStyle(
-                      fontFamily: FontFamily.pretendard,
-                      fontSize: 14,
-                    ),
-                  ),
-                );
-              }
-              return ListView.separated(
-                padding: const EdgeInsets.only(top: 24, left: 32, right: 32, bottom: 24),
-                itemCount: recipeList.length,
-                itemBuilder: (context, index) => FittedBox(
-                    child: DraggableRecipeListItem(
-                  recipe: recipeList[index],
-                  recipeListKey: widget.globalKey,
+          child: recipeListContent(),
+        );
+      },
+    );
+  }
+
+  Widget recipeListContent() {
+    return ListenableBuilder(
+      listenable: _recipeListNotifier,
+      builder: (context, child) {
+        final recipeList = _recipeListNotifier.value;
+        if (recipeList.isEmpty) {
+          return const _EmptyListText();
+        }
+        return ReorderableListView(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          children: [
+            ..._recipeListNotifier.value.asMap().entries.map((recipe) => DraggableRecipeListItem(
+                  key: Key('${recipe.key}'),
+                  recipe: recipe.value,
+                  recipeListWidgetKey: widget.key as GlobalKey,
                   recipeListNotifier: _recipeListNotifier,
                 )),
-                separatorBuilder: (context, index) => const Divider(color: Color(0xffBEBEBE)),
-              );
-            },
-          ),
+          ],
+          onReorder: (oldIndex, newIndex) => setState(() {
+            if (oldIndex < newIndex) {
+              newIndex -= 1;
+            }
+            final item = _recipeListNotifier.removeAt(oldIndex);
+            _recipeListNotifier.insert(newIndex, item);
+          }),
         );
       },
     );
@@ -88,6 +91,23 @@ class _RecipeListState extends State<RecipeList> {
       pauseOnHover: false,
       boxShadow: kElevationToShadow[3],
       dragToClose: false,
+    );
+  }
+}
+
+class _EmptyListText extends StatelessWidget {
+  const _EmptyListText();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        L10ns.of(context).localized('recipe_list_guide_message'),
+        style: const TextStyle(
+          fontFamily: FontFamily.pretendard,
+          fontSize: 14,
+        ),
+      ),
     );
   }
 }

@@ -27,7 +27,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Only debug use
+  // Only use in developing
   static const _firstPageIndex = kReleaseMode ? 0 : 0;
 
   final List<(Menu, bool)> _selectedMenuState = Menu.values.map((menu) {
