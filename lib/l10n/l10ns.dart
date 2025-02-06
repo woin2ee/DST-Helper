@@ -630,3 +630,22 @@ class L10ns {
         ),
       };
 }
+
+extension L10nsContextualizing on L10ns {
+  L10nsRecipeListContext get recipeList => L10nsRecipeListContext(localeName);
+}
+
+class L10nsRecipeListContext {
+  const L10nsRecipeListContext(this.localeName);
+
+  final String localeName;
+
+  String toastMessage() {
+    return Intl.message(
+      'The recipe is already registered.',
+      name: 'L10nsRecipeListContext_toastMessage',
+      desc: "It's showed up when a duplicated recipe card is registered to list.",
+      locale: localeName,
+    );
+  }
+}

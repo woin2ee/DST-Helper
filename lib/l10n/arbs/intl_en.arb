@@ -1,8 +1,8 @@
 {
-  "@@last_modified": "2025-02-04T22:53:33.904153",
+  "@@last_modified": "2025-02-06T14:22:32.438287",
   "@@locale": "en",
-  "The recipe is already registered.": "The recipe is already registered.",
-  "@The recipe is already registered.": {
+  "L10nsRecipeListContext_toastMessage": "The recipe is already registered.",
+  "@L10nsRecipeListContext_toastMessage": {
     "description": "It's showed up when a duplicated recipe card is registered to list.",
     "type": "text",
     "placeholders": {}
