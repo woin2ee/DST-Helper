@@ -1,0 +1,3 @@
+[tasks.deploy-web-testing]
+description = 'Deploy testing version with a testing repository.'
+run = 'flutter build web --base-href "/DST-Helper-web-testing/" && cd build/web && git add . && git commit -m {{option(name="m")}} && git push testing main'
