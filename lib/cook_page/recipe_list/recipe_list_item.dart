@@ -7,12 +7,12 @@ class DraggableRecipeListItem extends StatelessWidget {
   const DraggableRecipeListItem({
     super.key,
     required this.recipe,
-    required this.recipeListKey,
+    required this.recipeListWidgetKey,
     required this.recipeListNotifier,
   });
 
   final Recipe recipe;
-  final GlobalKey recipeListKey;
+  final GlobalKey recipeListWidgetKey;
   final RecipeListNotifier recipeListNotifier;
 
   @override
@@ -22,31 +22,32 @@ class DraggableRecipeListItem extends StatelessWidget {
     return Draggable(
       dragAnchorStrategy: (draggable, context, position) => draggingOffset,
       onDragEnd: (details) {
-        final recipeListBox = _recipeListBox();
-        if (_isPoint(details.offset + draggingOffset, inside: recipeListBox)) return;
-        recipeListNotifier.removeRecipe(recipe);
+        final globalPoint = details.offset;
+        final recipeListBox = _getRecipeListRenderBox();
+        if (!recipeListBox.contains(globalPoint + draggingOffset)) {
+          recipeListNotifier.removeRecipe(recipe);
+        }
       },
       feedback: Opacity(
         opacity: 0.85,
-        child: this,
+        child: Image(
+          image: AssetImage('assets/images/items/${recipe.assetName}.png'),
+          width: _RecipeListItemImage.recipeFrameSize,
+          height: _RecipeListItemImage.recipeFrameSize,
+        ),
       ),
+      hitTestBehavior: HitTestBehavior.opaque,
       child: _RecipeListItem(recipe: recipe),
     );
   }
 
-  Rect _recipeListBox() {
-    final renderBox = recipeListKey.currentContext?.findRenderObject() as RenderBox;
+  Rect _getRecipeListRenderBox() {
+    final renderBox = recipeListWidgetKey.currentContext?.findRenderObject() as RenderBox?;
+    if (renderBox == null) {
+      return Rect.zero;
+    }
     final globalOffset = renderBox.localToGlobal(Offset.zero);
-    return Rect.fromLTWH(
-      globalOffset.dx,
-      globalOffset.dy,
-      renderBox.size.width,
-      renderBox.size.height,
-    );
-  }
-
-  bool _isPoint(Offset point, {required Rect inside}) {
-    return inside.left <= point.dx && point.dx <= inside.right && inside.top <= point.dy && point.dy <= inside.bottom;
+    return globalOffset & renderBox.size;
   }
 }
 
@@ -59,13 +60,16 @@ class _RecipeListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      spacing: 24,
-      children: <Widget>[
-        _RecipeListItemImage(assetName: recipe.assetName),
-        _RecipeListItemIngredients(recipe: recipe),
-      ],
+    return Container(
+      alignment: AlignmentDirectional.center,
+      padding: const EdgeInsets.only(top: 8, bottom: 8),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          _RecipeListItemImage(assetName: recipe.assetName),
+          _RecipeListItemIngredients(recipe: recipe),
+        ],
+      ),
     );
   }
 }
@@ -77,8 +81,8 @@ class _RecipeListItemImage extends StatelessWidget {
 
   final String assetName;
 
-  static const double recipeFrameSize = 80;
-  static const double recipeImageSize = 64;
+  static const double recipeFrameSize = 70;
+  static const double recipeImageSize = 56;
 
   @override
   Widget build(BuildContext context) {
@@ -109,47 +113,36 @@ class _RecipeListItemIngredients extends StatelessWidget {
 
   final Recipe recipe;
 
-  static const double ingredientFrameSize = 62;
-  static const double ingredientImageSize = 50;
+  static const double ingredientFrameSize = 56;
+  static const double ingredientImageSize = 40;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      spacing: 16,
-      children: <Widget>[
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          spacing: 8,
-          children: <Widget>[
-            ...recipe.ingredientListAssetNames.map((assetName) => Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    const Image(
-                      image: AssetImage('assets/images/frame_2_thick.png'),
-                      fit: BoxFit.contain,
-                      width: ingredientFrameSize,
-                      height: ingredientFrameSize,
-                    ),
-                    Image(
-                      image: AssetImage('assets/images/items/$assetName.png'),
-                      fit: BoxFit.fill,
-                      width: ingredientImageSize,
-                      height: ingredientImageSize,
-                    ),
-                  ],
-                )),
-          ],
-        ),
-        // SizedBox(
-        //   width: 24,
-        //   height: 24,
-        //   child: Icon(
-        //     Icons.menu_rounded,
-        //     color: Color(0xff8F8F8F),
-        //   ),
-        // ), // For ordering feature
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 18),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        spacing: 6,
+        children: <Widget>[
+          ...recipe.ingredientListAssetNames.map((assetName) => Stack(
+                alignment: Alignment.center,
+                children: [
+                  const Image(
+                    image: AssetImage('assets/images/frame_2_thick.png'),
+                    fit: BoxFit.contain,
+                    width: ingredientFrameSize,
+                    height: ingredientFrameSize,
+                  ),
+                  Image(
+                    image: AssetImage('assets/images/items/$assetName.png'),
+                    fit: BoxFit.fill,
+                    width: ingredientImageSize,
+                    height: ingredientImageSize,
+                  ),
+                ],
+              )),
+        ],
+      ),
     );
   }
 }

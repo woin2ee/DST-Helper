@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class DraggingRecipeCard extends StatelessWidget {
-  const DraggingRecipeCard({
+class DraggingRecipeImage extends StatelessWidget {
+  const DraggingRecipeImage({
     super.key,
-    required this.imageAssetName,
+    required this.assetName,
   });
 
-  final String imageAssetName;
+  final String assetName;
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,8 @@ class DraggingRecipeCard extends StatelessWidget {
       child: Opacity(
         opacity: 0.85,
         child: Image(
-            image: AssetImage(
-          'assets/images/items/$imageAssetName.png',
-        )),
+          image: AssetImage('assets/images/items/$assetName.png'),
+        ),
       ),
     );
   }

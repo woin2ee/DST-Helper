@@ -1,4 +1,4 @@
-import 'package:dst_helper/cook_page/recipe_card/dragging_recipe_card.dart';
+import 'package:dst_helper/cook_page/recipe_card/dragging_recipe_image.dart';
 import 'package:dst_helper/cook_page/recipe_card/status_pair.dart';
 import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:dst_helper/models/v2/item/categories.dart';
@@ -25,7 +25,7 @@ class DefaultRecipeCard extends StatelessWidget {
     return Draggable<Recipe>(
       data: recipe,
       dragAnchorStrategy: pointerDragAnchorStrategy,
-      feedback: DraggingRecipeCard(imageAssetName: recipe.assetName),
+      feedback: DraggingRecipeImage(assetName: recipe.assetName),
       child: _DropShadowedContainer(
         width: width,
         padding: const EdgeInsets.only(top: vPadding, left: hPadding, right: hPadding, bottom: vPadding),

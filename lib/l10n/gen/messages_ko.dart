@@ -27,7 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final Map<String, dynamic> messages = _notInlinedMessages(_notInlinedMessages);
 
   static Map<String, dynamic> _notInlinedMessages(_) => {
-      'The recipe is already registered.': MessageLookupByLibrary.simpleMessage('이미 등록되어 있는 레시피입니다.'),
+      'L10nsRecipeListContext_toastMessage': MessageLookupByLibrary.simpleMessage('이미 등록되어 있는 레시피입니다.'),
     'add': MessageLookupByLibrary.simpleMessage('추가'),
     'asparagus_seeds_assumed_name': MessageLookupByLibrary.simpleMessage('관모양 씨앗'),
     'asparagussoup_name': MessageLookupByLibrary.simpleMessage('아스파라거스 수프'),
