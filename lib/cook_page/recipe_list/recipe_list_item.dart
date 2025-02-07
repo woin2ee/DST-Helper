@@ -23,9 +23,10 @@ class DraggableRecipeListItem extends StatelessWidget {
       dragAnchorStrategy: (draggable, context, position) => draggingOffset,
       onDragEnd: (details) {
         final globalPoint = details.offset;
-        final recipeListBox = _recipeListBox();
-        if (_isPoint(globalPoint + draggingOffset, inside: recipeListBox)) return;
-        recipeListNotifier.removeRecipe(recipe);
+        final recipeListBox = _getRecipeListRenderBox();
+        if (!recipeListBox.contains(globalPoint + draggingOffset)) {
+          recipeListNotifier.removeRecipe(recipe);
+        }
       },
       feedback: Opacity(
         opacity: 0.85,
@@ -40,22 +41,13 @@ class DraggableRecipeListItem extends StatelessWidget {
     );
   }
 
-  Rect _recipeListBox() {
-    final renderBox = recipeListWidgetKey.currentContext?.findRenderObject() as RenderBox;
+  Rect _getRecipeListRenderBox() {
+    final renderBox = recipeListWidgetKey.currentContext?.findRenderObject() as RenderBox?;
+    if (renderBox == null) {
+      return Rect.zero;
+    }
     final globalOffset = renderBox.localToGlobal(Offset.zero);
-    return Rect.fromLTWH(
-      globalOffset.dx,
-      globalOffset.dy,
-      renderBox.size.width,
-      renderBox.size.height,
-    );
-  }
-
-  bool _isPoint(Offset globalPoint, {required Rect inside}) {
-    return globalPoint.dx >= inside.left &&
-        globalPoint.dx <= inside.right &&
-        globalPoint.dy >= inside.top &&
-        globalPoint.dy <= inside.bottom;
+    return globalOffset & renderBox.size;
   }
 }
 
