@@ -1,6 +1,6 @@
 {
-    "name": "dst_helper",
-    "short_name": "dst_helper",
+    "name": "DST Helper",
+    "short_name": "DST Helper",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
