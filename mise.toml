@@ -1,6 +1,16 @@
 [tasks.deploy-web-testing]
 description = 'Deploy testing version with a testing repository. | [--m <commit_message>]'
-run = 'flutter build web --base-href "/DST-Helper-web-testing/" && cd build/web && git add . && git commit -m {{option(name="m")}} && git push testing main'
+env = { REPO_NAME = 'DST-Helper-web-testing' }
+run = '''
+rm -rf build/web
+git clone git@github.com:woin2ee/${REPO_NAME}.git build/web
+flutter build web --base-href "/${REPO_NAME}/"
+cd build/web
+date >> date
+git add .
+git commit -m {{option(name="m")}}
+git push
+'''
 
 [tasks.run-web-release]
 description = 'Run for web server with given ip-address on release. | [ip_address]'
