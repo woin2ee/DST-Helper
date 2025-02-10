@@ -389,22 +389,20 @@ extension Items on Item {
     wobster,
   ];
 
-  // TODO: Implementation is not checked
   static final EdibleIngredient barnacles = EdibleIngredient(
-    code: 'code',
+    code: 'barnacle',
     assetName: 'barnacles',
-    type: FoodType.generic,
+    type: FoodType.meat,
     foodValues: FoodValues({
       const FoodValue(FoodValueCategory.meat, 0.25),
       const FoodValue(FoodValueCategory.fish, 0.25),
     }),
   );
 
-  // TODO: Implementation is not checked
   static final EdibleIngredient batiliskWing = EdibleIngredient(
-    code: 'code',
+    code: 'batwing',
     assetName: 'batilisk_wing',
-    type: FoodType.generic,
+    type: FoodType.meat,
     foodValues: FoodValues({const FoodValue(FoodValueCategory.meat, 0.5)}),
   );
 
@@ -617,9 +615,8 @@ extension Items on Item {
     foodValues: null,
   );
 
-  // TODO: Implementation is not checked
   static final EdibleIngredient juicyBerries = EdibleIngredient(
-    code: 'code',
+    code: 'berries_juicy',
     assetName: 'juicy_berries',
     type: FoodType.veggie,
     foodValues: FoodValues({const FoodValue(FoodValueCategory.fruit, 0.5)}),
@@ -640,43 +637,39 @@ extension Items on Item {
     foodValues: FoodValues({}),
   );
 
-  static const EdibleIngredient koalefantTrunk = EdibleIngredient(
+  static EdibleIngredient koalefantTrunk = EdibleIngredient(
     code: 'trunk_summer',
     assetName: 'koalefant_trunk',
     type: FoodType.meat,
-    foodValues: null,
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.meat, 1.0)}),
   );
 
-  // TODO: Implementation is not checked
-  static const EdibleIngredient winterKoalefantTrunk = EdibleIngredient(
-    code: 'code',
+  static EdibleIngredient winterKoalefantTrunk = EdibleIngredient(
+    code: 'trunk_summer',
     assetName: 'winter_koalefant_trunk',
     type: FoodType.meat,
-    foodValues: null,
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.meat, 1.0)}),
   );
 
-  // TODO: Implementation is not checked
   static final EdibleIngredient leafyMeat = EdibleIngredient(
-    code: 'code',
+    code: 'plantmeat',
     assetName: 'leafy_meat',
     type: FoodType.meat,
     foodValues: FoodValues({const FoodValue(FoodValueCategory.meat, 1.0)}),
   );
 
-  // TODO: Implementation is not checked
-  static const EdibleIngredient lichen = EdibleIngredient(
-    code: 'code',
-    assetName: 'assetName',
-    type: FoodType.generic,
-    foodValues: FoodValues({}),
+  static EdibleIngredient lichen = EdibleIngredient(
+    code: 'cutlichen',
+    assetName: 'lichen',
+    type: FoodType.veggie,
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}),
   );
 
-  // TODO: Implementation is not checked
   static const EdibleIngredient lightBulb = EdibleIngredient(
-    code: 'code',
-    assetName: 'assetName',
-    type: FoodType.generic,
-    foodValues: FoodValues({}),
+    code: 'lightbulb',
+    assetName: 'light_bulb',
+    type: FoodType.veggie,
+    foodValues: null,
   );
 
   // TODO: Implementation is not checked
@@ -694,9 +687,8 @@ extension Items on Item {
     foodValues: FoodValues({const FoodValue(FoodValueCategory.vegetable, 1.0)}),
   );
 
-  // TODO: Implementation is not checked
   static final EdibleIngredient meat = EdibleIngredient(
-    code: 'code',
+    code: 'meat',
     assetName: 'meat',
     type: FoodType.meat,
     foodValues: FoodValues({const FoodValue(FoodValueCategory.meat, 1.0)}),
@@ -710,9 +702,8 @@ extension Items on Item {
     foodValues: FoodValues({}),
   );
 
-  // TODO: Implementation is not checked
   static final EdibleIngredient monsterMeat = EdibleIngredient(
-    code: 'code',
+    code: 'monstermeat',
     assetName: 'monster_meat',
     type: FoodType.meat,
     foodValues: FoodValues({
@@ -736,20 +727,18 @@ extension Items on Item {
     foodValues: FoodValues({}),
   );
 
-  // TODO: Implementation is not checked
   static final EdibleIngredient morsel = EdibleIngredient(
-    code: 'code',
+    code: 'smallmeat',
     assetName: 'morsel',
     type: FoodType.meat,
     foodValues: FoodValues({const FoodValue(FoodValueCategory.meat, 0.5)}),
   );
 
-  // TODO: Implementation is not checked
-  static const EdibleIngredient smallJerky = EdibleIngredient(
-    code: 'code',
-    assetName: 'assetName',
-    type: FoodType.generic,
-    foodValues: FoodValues({}),
+  static EdibleIngredient smallJerky = EdibleIngredient(
+    code: 'smallmeat_dried',
+    assetName: 'small_jerky',
+    type: FoodType.meat,
+    foodValues: FoodValues({const FoodValue(FoodValueCategory.meat, 0.5)}),
   );
 
   static final EdibleIngredient blueCap = EdibleIngredient(
@@ -1545,7 +1534,7 @@ extension Items on Item {
     priority: 40,
     requirements: Requirements({
       ContainingRequirement(Items.fig),
-      const OrRequirement({
+      OrRequirement({
         ContainingRequirement(Items.koalefantTrunk),
         ContainingRequirement(Items.winterKoalefantTrunk),
       }),
@@ -2282,7 +2271,7 @@ extension Items on Item {
     requirements: Requirements({
       const ContainingRequirement(Items.eel),
       OrRequirement({
-        const ContainingRequirement(Items.lichen),
+        ContainingRequirement(Items.lichen),
         ContainingRequirement(Items.kelpFronds),
       }),
     }),

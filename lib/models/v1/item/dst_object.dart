@@ -2701,7 +2701,7 @@ class Barnacles implements FoodObject, IngredientObject {
   const Barnacles();
 
   @override
-  String get code => throw UnimplementedError();
+  String get code => 'barnacle';
 
   @override
   String get assetName => 'barnacles';
@@ -2725,7 +2725,7 @@ class BatiliskWing implements FoodObject, IngredientObject {
   const BatiliskWing();
 
   @override
-  String get code => throw UnimplementedError();
+  String get code => 'batwing';
 
   @override
   String get assetName => 'batilisk_wing';
@@ -2990,7 +2990,7 @@ class JuicyBerries implements CookableFood, IngredientObject {
   const JuicyBerries();
 
   @override
-  String get code => throw UnimplementedError();
+  String get code => 'berries_juicy';
 
   @override
   String get assetName => 'juicy_berries';
@@ -3042,7 +3042,7 @@ class WinterKoalefantTrunk implements CookableFood, IngredientObject {
   const WinterKoalefantTrunk();
 
   @override
-  String get code => throw UnimplementedError();
+  String get code => 'trunk_summer';
 
   @override
   String get assetName => 'winter_koalefant_trunk';
@@ -3051,7 +3051,7 @@ class WinterKoalefantTrunk implements CookableFood, IngredientObject {
   String get compositeAssetName => 'koalefant_trunks';
 
   @override
-  FoodValues? get foodValues => null;
+  FoodValues? get foodValues => const FoodValues({FoodValue(FoodValueCategory.meat, 1.0)});
 
   @override
   String get name => 'Winter Koalefant Trunk';
@@ -3096,7 +3096,7 @@ class Mandrake implements FoodObject, IngredientObject {
   const Mandrake();
 
   @override
-  String get code => throw UnimplementedError();
+  String get code => 'mandrake';
 
   @override
   String get assetName => 'mandrake';
@@ -3142,7 +3142,7 @@ class MonsterMeat implements FoodObject, IngredientObject {
   const MonsterMeat();
 
   @override
-  String get code => throw UnimplementedError();
+  String get code => 'monstermeat';
 
   @override
   String get assetName => 'monster_meat';
