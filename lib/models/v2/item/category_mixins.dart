@@ -3,6 +3,9 @@ import 'package:dst_helper/models/v2/item/food_value.dart';
 import 'package:dst_helper/models/v2/item/nutrient.dart';
 import 'package:dst_helper/models/v2/item/requirement.dart';
 
+/// It defines the common properties of items.
+///
+/// The classes that adopt this mixin have `code` identifying the item and `assetName` that it is the same name as the image file.
 mixin Item {
   String get code;
   String get assetName;
@@ -20,21 +23,32 @@ mixin Edible on Item {
   FoodType get type;
 }
 
+/// It indicates that the item can be cooked.
+///
+/// All cooked items have the own cooked name.
+/// If the item doesn't have the own cooked name, should not adopt this mixin.
+///
+/// Some cookable items may have a composite asset that is a combination of the item and the cooked item.
 mixin Cookable on Item {
   String get cookedAssetName;
   String? get compositeAssetName;
 }
 
+/// It indicates plants that grow in the farmplant.
 mixin Plantable on Item {
   Set<Season> get seasons;
   Nutrient get nutrient;
 }
 
+/// It indicates that the item can cook in the crock pot.
+///
+/// The item has the own food values to determine which recipe to be.
 mixin UsingInCrockPot on Item {
   FoodValues? get foodValues;
 }
 
-mixin CookableInCrockPot on Item {
+/// It indicates that the item can be cooked in the crock pot.
+mixin CookableWithCrockPot on Item {
   int get priority;
   Requirements get requirements;
 }

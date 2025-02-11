@@ -108,7 +108,7 @@ class Seed with _$Seed, Item, Edible, Cookable {
 }
 
 @freezed
-class Recipe with _$Recipe, Item, CookableInCrockPot {
+class Recipe with _$Recipe, Item, CookableWithCrockPot {
   const factory Recipe({
     required String code,
     required String assetName,
