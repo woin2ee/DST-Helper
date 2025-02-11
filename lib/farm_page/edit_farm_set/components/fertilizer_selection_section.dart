@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../l10n/l10ns.dart';
 import '../../../models/v2/item/categories.dart';
@@ -22,7 +23,10 @@ class FertilizerSelectionSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const _FertilizerSelectionHeader(),
-        _FertilizerSelectionBody(notifier: _notifier),
+        ChangeNotifierProvider.value(
+          value: _notifier,
+          child: const _FertilizerSelectionBody(),
+        ),
       ],
     );
   }
@@ -71,53 +75,102 @@ class _FertilizerSelectionHeader extends StatelessWidget {
 }
 
 class _FertilizerSelectionBody extends StatelessWidget {
-  const _FertilizerSelectionBody({
-    required SelectedFertilizerNotifier notifier,
-  }) : _notifier = notifier;
+  const _FertilizerSelectionBody();
 
-  final double _spacing = 4;
-  final List<List<Fertilizer>> _fertilizerList = const [
-    Items.compostList,
-    Items.growthFormulaList,
-    Items.manureList,
-    Items.mixList,
-  ];
-
-  final SelectedFertilizerNotifier _notifier;
+  final double _hSpacing = 34;
+  final double _vSpacing = 16;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      spacing: _spacing,
+    return Row(
+      spacing: _hSpacing,
       children: [
-        ..._fertilizerList.map((fertilizers) => Row(
-              spacing: _spacing,
-              children: [
-                ...fertilizers.map((fertilizer) => ValueListenableBuilder(
-                    valueListenable: _notifier,
-                    builder: (context, selectedFertilizer, child) {
-                      return IconButton(
-                        onPressed: () => _notifier.value = fertilizer,
-                        icon: Image(
-                          image: AssetImage('assets/images/items/${fertilizer.assetName}.png'),
-                          width: 40,
-                          height: 40,
-                        ),
-                        style: IconButton.styleFrom(
-                          backgroundColor: selectedFertilizer == fertilizer ? Colors.blue.shade100 : Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              color: selectedFertilizer == fertilizer ? Colors.blue : Colors.grey.shade400,
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                      );
-                    })),
-              ],
-            )),
+        Column(
+          spacing: _vSpacing,
+          children: [
+            const _FertilizersRow(type: _FertilizerType.compost),
+            const _FertilizersRow(type: _FertilizerType.growthFormula),
+          ],
+        ),
+        Column(
+          spacing: _vSpacing,
+          children: [
+            const _FertilizersRow(type: _FertilizerType.manure),
+            const _FertilizersRow(type: _FertilizerType.mix),
+          ],
+        ),
       ],
     );
   }
+}
+
+class _FertilizersRow extends StatelessWidget {
+  const _FertilizersRow({
+    required this.type,
+  });
+
+  final _FertilizerType type;
+
+  List<Fertilizer> get _fertilizers {
+    switch (type) {
+      case _FertilizerType.compost:
+        return Items.compostList;
+      case _FertilizerType.growthFormula:
+        return Items.growthFormulaList;
+      case _FertilizerType.manure:
+        return Items.manureList;
+      case _FertilizerType.mix:
+        return Items.mixList;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final selectedFertilizer = context.watch<SelectedFertilizerNotifier>();
+
+    return Column(
+      spacing: 2,
+      children: [
+        Text(
+          L10ns.of(context).localized(type.name),
+          style: const TextStyle(
+            fontFamily: FontFamily.pretendard,
+            fontSize: 14,
+          ),
+        ),
+        Row(
+          spacing: 4,
+          children: [
+            ..._fertilizers.map((fertilizer) => IconButton(
+                  onPressed: () {
+                    selectedFertilizer.value = fertilizer;
+                  },
+                  icon: Image(
+                    image: AssetImage('assets/images/items/${fertilizer.assetName}.png'),
+                    width: 40,
+                    height: 40,
+                  ),
+                  style: IconButton.styleFrom(
+                    backgroundColor: selectedFertilizer.value == fertilizer ? Colors.blue.shade100 : Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        color: selectedFertilizer.value == fertilizer ? Colors.blue : Colors.grey.shade400,
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                )),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+enum _FertilizerType {
+  compost,
+  growthFormula,
+  manure,
+  mix,
 }

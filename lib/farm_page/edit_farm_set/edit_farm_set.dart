@@ -135,7 +135,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                 CropSelectionSection(notifier: controller.selectedCropNotifier),
                 FertilizerSelectionSection(notifier: controller.selectedFertilizerNotifier),
                 Row(
-                  spacing: 28,
+                  spacing: 20,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ListenableBuilder(
