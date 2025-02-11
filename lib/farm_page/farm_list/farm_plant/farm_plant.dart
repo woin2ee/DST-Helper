@@ -1,6 +1,6 @@
-import 'package:dst_helper/farm_page/farm_list/plant_cell/plant_cell.dart';
 import 'package:flutter/material.dart';
 
+import '../plant_cell/plant_cell.dart';
 import 'farm_plant_model.dart';
 
 export 'farm_plant_model.dart';

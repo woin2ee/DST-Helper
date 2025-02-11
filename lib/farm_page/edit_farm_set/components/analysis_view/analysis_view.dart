@@ -1,11 +1,13 @@
 import 'dart:ui';
 
-import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/family_condition_box.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/nutrient_condition_box.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/season_condition_box.dart';
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../l10n/l10ns.dart';
+import '../../../../utils/font_family.dart';
+import 'analysis_view_controller.dart';
+import 'family_condition_box.dart';
+import 'nutrient_condition_box.dart';
+import 'season_condition_box.dart';
 
 class AnalysisView extends StatelessWidget {
   const AnalysisView({
@@ -106,55 +108,6 @@ class AnalysisView extends StatelessWidget {
   }
 }
 
-class AnalysisViewController {
-  AnalysisViewController._({
-    required this.isSatisfying,
-    required this.isPlacedAnyPlant,
-    required this.seasonConditionBoxController,
-    required this.nutrientConditionBoxController,
-    required this.familyConditionBoxController,
-  });
-
-  factory AnalysisViewController.create({
-    required SeasonConditionBoxController seasonConditionBoxController,
-    required NutrientConditionBoxController nutrientConditionBoxController,
-    required FamilyConditionBoxController familyConditionBoxController,
-    required bool isPlacedAnyPlant,
-  }) {
-    bool isSatisfying() {
-      return seasonConditionBoxController.suitableSeasons.isNotEmpty &&
-          nutrientConditionBoxController.value.isSatisfying &&
-          familyConditionBoxController.value.isSatisfying;
-    }
-
-    final analysisViewController = AnalysisViewController._(
-      seasonConditionBoxController: seasonConditionBoxController,
-      nutrientConditionBoxController: nutrientConditionBoxController,
-      familyConditionBoxController: familyConditionBoxController,
-      isSatisfying: ValueNotifier(isSatisfying()),
-      isPlacedAnyPlant: ValueNotifier(isPlacedAnyPlant),
-    );
-
-    seasonConditionBoxController.addListener(() {
-      analysisViewController.isSatisfying.value = isSatisfying();
-    });
-    nutrientConditionBoxController.addListener(() {
-      analysisViewController.isSatisfying.value = isSatisfying();
-    });
-    familyConditionBoxController.addListener(() {
-      analysisViewController.isSatisfying.value = isSatisfying();
-    });
-    return analysisViewController;
-  }
-
-  final SeasonConditionBoxController seasonConditionBoxController;
-  final NutrientConditionBoxController nutrientConditionBoxController;
-  final FamilyConditionBoxController familyConditionBoxController;
-
-  ValueNotifier<bool> isSatisfying;
-  ValueNotifier<bool> isPlacedAnyPlant;
-}
-
 class _Title extends StatelessWidget {
   const _Title();
 
@@ -223,7 +176,7 @@ class _ConditionGroup extends StatelessWidget {
   });
 
   final SeasonConditionBoxController seasonConditionBoxController;
-  final NutrientConditionBoxController nutrientConditionBoxController;
+  final NutrientConditionBoxNotifier nutrientConditionBoxController;
   final FamilyConditionBoxController familyConditionBoxController;
 
   final BorderRadius borderRadius;

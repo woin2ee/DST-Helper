@@ -1,8 +1,9 @@
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/models/v2/item/item.dart';
-import 'package:dst_helper/models/v2/localization.dart';
-import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
+
+import '../../l10n/l10ns.dart';
+import '../../models/v2/item/item.dart';
+import '../../models/v2/localization.dart';
+import '../../utils/font_family.dart';
 
 enum SettingItem {
   displayingSeedName;

@@ -1,7 +1,8 @@
-import 'package:dst_helper/l10n/gen/messages_all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
+
+import 'gen/messages_all.dart';
 
 class _L10nsDelegate extends LocalizationsDelegate<L10ns> {
   const _L10nsDelegate();

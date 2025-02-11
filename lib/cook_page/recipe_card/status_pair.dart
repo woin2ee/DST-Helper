@@ -1,6 +1,7 @@
-import 'package:dst_helper/models/v2/status_value.dart';
-import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
+
+import '../../models/v2/status_value.dart';
+import '../../utils/font_family.dart';
 
 enum StatusKey {
   hunger,

@@ -1,11 +1,12 @@
-import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/family_condition.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set_model.dart';
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/models/v2/item/categories.dart';
-import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../../../l10n/l10ns.dart';
+import '../../../../models/v2/item/categories.dart';
+import '../../../../utils/font_family.dart';
+import '../../../farm_list/farm_plant/farm_plant_model.dart';
+import '../../../farm_list/farm_plant_set/farm_plant_set_model.dart';
+import 'family_condition.dart';
 
 part 'family_condition_box.freezed.dart';
 

@@ -1,13 +1,14 @@
-import 'package:dst_helper/farm_page/edit_farm_set/edit_farm_set.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_list.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_model.dart';
-import 'package:dst_helper/farm_page/farm_page_controller.dart';
-import 'package:dst_helper/farm_page/season_selection_box.dart';
-import 'package:dst_helper/farm_page/side_info_box/side_info_box.dart';
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../l10n/l10ns.dart';
+import '../models/v1/localization/season_localization.dart';
+import '../models/v1/season.dart';
+import '../utils/font_family.dart';
+import 'edit_farm_set/edit_farm_set.dart';
+import 'farm_list/farm_list.dart';
+import 'farm_page_notifier.dart';
+import 'side_info_box/side_info_box.dart';
 
 class FarmPage extends StatelessWidget {
   const FarmPage({super.key});
@@ -15,11 +16,11 @@ class FarmPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => FarmPageController(),
+      create: (_) => FarmPageNotifier(),
       builder: (context, child) => Builder(
         builder: (context) {
-          final initResult = context.read<FarmPageController>().initFromPrefs();
-          return Consumer<FarmPageController>(
+          final initResult = context.read<FarmPageNotifier>().initFromPrefs();
+          return Consumer<FarmPageNotifier>(
             builder: (context, controller, child) => Theme(
               data: ThemeData(
                 useMaterial3: true,
@@ -37,10 +38,10 @@ class FarmPage extends StatelessWidget {
                           child: Row(
                             spacing: 12,
                             children: [
-                              SeasonSelectionBox(),
-                              const NewButton(),
+                              _SeasonSelectionBox(),
+                              const _NewButton(),
                               const SizedBox(width: 50),
-                              const ShowingHiddenItemsCheckbox(),
+                              const _ShowAndHideCheckbox(),
                             ],
                           ),
                         ),
@@ -79,19 +80,19 @@ class FarmPage extends StatelessWidget {
   }
 }
 
-class ShowingHiddenItemsCheckbox extends StatelessWidget {
-  const ShowingHiddenItemsCheckbox({super.key});
+class _ShowAndHideCheckbox extends StatelessWidget {
+  const _ShowAndHideCheckbox();
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FarmPageController>(
-      builder: (BuildContext context, FarmPageController controller, Widget? checkboxLabel) {
+    return Consumer<FarmPageNotifier>(
+      builder: (BuildContext context, FarmPageNotifier farmPageNotifier, Widget? checkboxLabel) {
         return Row(
           children: [
             Checkbox(
-              value: controller.showHiddenItems,
+              value: farmPageNotifier.showHiddenItems,
               onChanged: (bool? isChecked) {
-                controller.showHiddenItems = isChecked!;
+                farmPageNotifier.showHiddenItems = isChecked!;
               },
             ),
             checkboxLabel!,
@@ -108,8 +109,8 @@ class ShowingHiddenItemsCheckbox extends StatelessWidget {
   }
 }
 
-class NewButton extends StatelessWidget {
-  const NewButton({super.key});
+class _NewButton extends StatelessWidget {
+  const _NewButton();
 
   @override
   Widget build(BuildContext context) {
@@ -123,10 +124,56 @@ class NewButton extends StatelessWidget {
           ),
         );
         if (result is FarmPlantCardModel && context.mounted) {
-          context.read<FarmPageController>().addFarmPlantCard(result);
+          context.read<FarmPageNotifier>().addFarmPlantCard(result);
         }
       },
       child: const Text('New'),
+    );
+  }
+}
+
+class _SeasonSelectionBox extends StatelessWidget {
+  _SeasonSelectionBox();
+
+  final List<Season> _seasons = [
+    Season.spring,
+    Season.summer,
+    Season.autumn,
+    Season.winter,
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<FarmPageNotifier>(
+      builder: (context, model, child) => ToggleButtons(
+        borderRadius: BorderRadius.circular(10),
+        constraints: const BoxConstraints(
+          minWidth: 70,
+          minHeight: 40,
+        ),
+        isSelected: _seasons.map((season) => season == model.selectedSeason).toList(),
+        onPressed: (index) {
+          model.selectedSeason = _seasons[index];
+        },
+        children: [
+          ...Season.values.map((season) => Padding(
+                padding: const EdgeInsets.only(
+                  left: 8.0,
+                  right: 8.0,
+                ),
+                child: Text(
+                  season.localizedName(context),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontFamily: FontFamily.pretendard,
+                    fontVariations: [
+                      FontVariation.weight(500),
+                    ],
+                  ),
+                ),
+              )),
+        ],
+      ),
     );
   }
 }

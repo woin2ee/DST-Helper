@@ -1,7 +1,7 @@
-import 'package:dst_helper/models/v1/season.dart';
-import 'package:dst_helper/models/v2/item/item.dart';
-import 'package:dst_helper/models/v2/item/requirement.dart';
-import 'package:dst_helper/models/v2/status_value.dart';
+import '../../v1/season.dart';
+import '../status_value.dart';
+import 'item.dart';
+import 'requirement.dart';
 
 extension Items on Item {
   static const Food toastedSeeds = Food(

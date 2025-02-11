@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
-import 'package:dst_helper/models/v2/item/categories.dart';
-import 'package:dst_helper/utils/union_find.dart';
+import '../../../../models/v2/item/categories.dart';
+import '../../../../utils/union_find.dart';
+import '../../../farm_list/farm_plant_set/farm_plant_set.dart';
 
 class FamilyCondition {
   const FamilyCondition._({

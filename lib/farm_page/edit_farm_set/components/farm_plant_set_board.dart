@@ -1,8 +1,9 @@
-import 'package:dst_helper/farm_page/edit_farm_set/edit_farm_set_controller.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
-import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter/material.dart';
 
+import '../../farm_list/farm_plant_set/farm_plant_set.dart';
+import '../edit_farm_set_controller.dart';
+
+/// The place where users can set plants.
 class FarmPlantSetBoard extends StatelessWidget {
   const FarmPlantSetBoard({
     super.key,
@@ -23,16 +24,14 @@ class FarmPlantSetBoard extends StatelessWidget {
       height: height,
       child: Center(
         child: ListenableBuilder(
-            listenable: controller.farmPlantSetModelController,
+            listenable: controller.farmPlantSetModelNotifier,
             builder: (context, child) {
               return FarmPlantSet(
                 farmPlantSetModel: controller.farmPlantSetModel,
                 onPressed: (farmPlantIndex) => (plantIndex) => () {
-                      final Plant? placedPlant =
-                          controller.farmPlantSetModel.farmPlantModelList[farmPlantIndex].plants[plantIndex];
                       final selectedCrop = controller.selectedCrop;
                       controller.setPlant(
-                        placedPlant == selectedCrop ? null : selectedCrop,
+                        selectedCrop,
                         farmPlantIndex: farmPlantIndex,
                         plantIndex: plantIndex,
                       );

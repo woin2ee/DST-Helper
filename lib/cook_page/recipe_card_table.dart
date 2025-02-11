@@ -1,6 +1,7 @@
-import 'package:dst_helper/cook_page/recipe_card/recipe_card.dart';
-import 'package:dst_helper/cook_page/recipe_card_table_model.dart';
 import 'package:flutter/material.dart';
+
+import 'recipe_card/recipe_card.dart';
+import 'recipe_card_table_model.dart';
 
 class RecipeCardTable extends StatefulWidget {
   const RecipeCardTable({super.key});
@@ -138,7 +139,7 @@ class _ModeChangeSwitchState extends State<_ModeChangeSwitch> {
   @override
   void initState() {
     super.initState();
-    var index = _order.indexOf(widget.model.recipeCardMode);
+    final index = _order.indexOf(widget.model.recipeCardMode);
     _selectedModes[index] = true;
   }
 

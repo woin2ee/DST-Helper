@@ -1,35 +1,79 @@
-import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter/material.dart';
 
-class CropSelectionTable extends StatelessWidget {
-  CropSelectionTable({
+import '../../../l10n/l10ns.dart';
+import '../../../models/v2/item/item.dart';
+import '../../../utils/font_family.dart';
+
+typedef SelectedCropNotifier = ValueNotifier<Crop?>;
+
+class CropSelectionSection extends StatelessWidget {
+  CropSelectionSection({
     super.key,
-    ValueNotifier<Crop?>? selectedCropController,
-  }) : selectedCropController = selectedCropController ?? ValueNotifier(null);
+    required SelectedCropNotifier? notifier,
+  }) : _notifier = notifier ?? SelectedCropNotifier(null);
 
-  final int countOfRow = 7;
-  int get countOfColumn => (Items.crops.length / countOfRow).ceil();
-  final double spacing = 4;
-
-  final ValueNotifier<Crop?> selectedCropController;
+  final SelectedCropNotifier _notifier;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: spacing,
+      spacing: 6,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const _CropSelectionHeader(),
+        _CropSelectionBody(notifier: _notifier),
+      ],
+    );
+  }
+}
+
+class _CropSelectionHeader extends StatelessWidget {
+  const _CropSelectionHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 4),
+      child: Text(
+        L10ns.of(context).localized('crops'),
+        style: const TextStyle(
+          fontFamily: FontFamily.pretendard,
+          fontVariations: [FontVariation.weight(500)],
+          fontSize: 16,
+        ),
+      ),
+    );
+  }
+}
+
+class _CropSelectionBody extends StatelessWidget {
+  const _CropSelectionBody({
+    required SelectedCropNotifier notifier,
+  }) : _notifier = notifier;
+
+  final int countOfRow = 7;
+  int get countOfColumn => (Items.crops.length / countOfRow).ceil();
+  final double _spacing = 4;
+
+  final ValueNotifier<Crop?> _notifier;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: _spacing,
       children: [
         for (int column = 0; column < countOfColumn; column++)
           Row(
-            spacing: spacing,
+            spacing: _spacing,
             children: [
               for (int row = 0; row < countOfRow; row++)
                 if (Items.crops.elementAtOrNull(countOfRow * column + row) != null)
                   ValueListenableBuilder(
-                      valueListenable: selectedCropController,
+                      valueListenable: _notifier,
                       builder: (context, selectedCrop, child) {
                         return IconButton(
                           onPressed: () {
-                            selectedCropController.value = Items.crops[countOfRow * column + row];
+                            _notifier.value = Items.crops[countOfRow * column + row];
                           },
                           icon: Image(
                             image: AssetImage(

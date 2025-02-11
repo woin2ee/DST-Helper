@@ -1,5 +1,5 @@
-import 'package:dst_helper/models/v2/item/category_mixins.dart';
-import 'package:dst_helper/models/v2/item/food_value.dart';
+import 'category_mixins.dart';
+import 'food_value.dart';
 
 typedef Ingredients = Iterable<UsingInCrockPot>;
 
@@ -74,8 +74,8 @@ class IngredientsAnalyser {
 
   double foodValueFor(FoodValueCategory category) {
     double foodValue = 0;
-    for (var ingredient in ingredients) {
-      var foodValues = ingredient.foodValues;
+    for (final ingredient in ingredients) {
+      final foodValues = ingredient.foodValues;
       if (foodValues != null) {
         try {
           foodValue += foodValues.firstWhere((foodValue) => foodValue.category == category).quantifiedValue;

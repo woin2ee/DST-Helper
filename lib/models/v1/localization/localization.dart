@@ -1,6 +1,7 @@
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/models/v1/item/dst_object.dart';
 import 'package:flutter/material.dart';
+
+import '../../../l10n/l10ns.dart';
+import '../item/dst_object.dart';
 
 extension FertilizerObjectLocalization on FertilizerObject {
   String localizedName(BuildContext context) {

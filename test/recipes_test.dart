@@ -7,7 +7,7 @@ void main() {
 
     group('Success', () {
       test('Usual1', () {
-        bool got = recipe.canBeCookedWith(
+        final bool got = recipe.canBeCookedWith(
           Items.morsel,
           Items.berries,
           Items.berries,
@@ -17,7 +17,7 @@ void main() {
       });
 
       test('2.5 meat', () {
-        bool got = recipe.canBeCookedWith(
+        final bool got = recipe.canBeCookedWith(
           Items.morsel,
           Items.batiliskWing,
           Items.meat,
@@ -29,7 +29,7 @@ void main() {
 
     group('Failure', () {
       test('Contained Twigs', () {
-        bool got = recipe.canBeCookedWith(
+        final bool got = recipe.canBeCookedWith(
           Items.morsel,
           Items.batiliskWing,
           Items.meat,
@@ -39,7 +39,7 @@ void main() {
       });
 
       test('Over meat value(3.0) ', () {
-        bool got = recipe.canBeCookedWith(
+        final bool got = recipe.canBeCookedWith(
           Items.morsel,
           Items.batiliskWing,
           Items.meat,
@@ -53,7 +53,7 @@ void main() {
   group('Meaty Stew', () {
     test('Success_case1', () {
       const recipe = Items.meatyStew;
-      bool got = recipe.canBeCookedWith(
+      final bool got = recipe.canBeCookedWith(
         Items.meat,
         Items.monsterMeat,
         Items.morsel,
@@ -64,7 +64,7 @@ void main() {
 
     test('Failure_Over monster value', () {
       const recipe = Items.meatyStew;
-      bool got = recipe.canBeCookedWith(
+      final bool got = recipe.canBeCookedWith(
         Items.monsterMeat,
         Items.monsterMeat,
         Items.morsel,
@@ -78,7 +78,7 @@ void main() {
     const recipe = Items.honeyNuggets;
 
     test('Success 1', () {
-      bool got = recipe.canBeCookedWith(
+      final bool got = recipe.canBeCookedWith(
         Items.monsterMeat,
         Items.honey,
         Items.honey,
@@ -88,7 +88,7 @@ void main() {
     });
 
     test('Success 2', () {
-      bool got = recipe.canBeCookedWith(
+      final bool got = recipe.canBeCookedWith(
         Items.monsterMeat,
         Items.morsel,
         Items.honey,
@@ -101,7 +101,7 @@ void main() {
   group('Honey Ham', () {
     test('Success_case1', () {
       const recipe = Items.honeyHam;
-      bool got = recipe.canBeCookedWith(
+      final bool got = recipe.canBeCookedWith(
         Items.monsterMeat,
         Items.morsel,
         Items.batiliskWing,
@@ -112,7 +112,7 @@ void main() {
 
     test('Failure_Over monster value', () {
       const recipe = Items.honeyHam;
-      bool got = recipe.canBeCookedWith(
+      final bool got = recipe.canBeCookedWith(
         Items.monsterMeat,
         Items.monsterMeat,
         Items.honey,
@@ -124,7 +124,7 @@ void main() {
 
   test('Froggle Bunwich_success_case1', () {
     const recipe = Items.froggleBunwich;
-    bool got = recipe.canBeCookedWith(
+    final bool got = recipe.canBeCookedWith(
       Items.frogLegs,
       Items.berries,
       Items.berries,
@@ -135,7 +135,7 @@ void main() {
 
   test('Amberosia', () {
     const recipe = Items.amberosia;
-    bool got = recipe.canBeCookedWith(
+    final bool got = recipe.canBeCookedWith(
       Items.collectedDust,
       Items.mandrake,
       Items.mandrake,
@@ -148,7 +148,7 @@ void main() {
     const recipe = Items.powdercake;
     group('Success', () {
       test('Usual case', () {
-        bool got = recipe.canBeCookedWith(
+        final bool got = recipe.canBeCookedWith(
           Items.corn,
           Items.honey,
           Items.twigs,
@@ -158,7 +158,7 @@ void main() {
       });
 
       test('Success_withFish', () {
-        bool got = recipe.canBeCookedWith(
+        final bool got = recipe.canBeCookedWith(
           Items.popperfish,
           Items.honey,
           Items.twigs,
@@ -173,7 +173,7 @@ void main() {
     const recipe = Items.kabobs;
     group('Failure', () {
       test('Over twigs', () {
-        bool got = recipe.canBeCookedWith(
+        final bool got = recipe.canBeCookedWith(
           Items.meat,
           Items.meat,
           Items.twigs,
@@ -188,7 +188,7 @@ void main() {
     const recipe = Items.kabobs;
     group('Failure', () {
       test('Over meat', () {
-        bool got = recipe.canBeCookedWith(
+        final bool got = recipe.canBeCookedWith(
           Items.morsel,
           Items.morsel,
           Items.ice,

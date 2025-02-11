@@ -2,11 +2,12 @@
 
 import 'dart:math';
 
-import 'package:dst_helper/models/v1/item/food_value.dart';
-import 'package:dst_helper/models/v1/item/ingredients_analyser.dart';
-import 'package:dst_helper/models/v1/item/requirement.dart';
-import 'package:dst_helper/models/v1/season.dart';
 import 'package:flutter/foundation.dart';
+
+import '../season.dart';
+import 'food_value.dart';
+import 'ingredients_analyser.dart';
+import 'requirement.dart';
 
 @immutable
 sealed class DSTObject {
@@ -155,9 +156,9 @@ sealed class RecipeObject extends DSTObject {
     final ingredientsAnalyser = IngredientsAnalyser([i1, i2, i3, i4]);
     if (!requirements.isMetFor(ingredientsAnalyser)) return false;
     // The length of recipes is always greater than 0 because the checking above.
-    var satisfiedRecipes = Recipes.recipes.where((recipe) => recipe.requirements.isMetFor(ingredientsAnalyser));
+    final satisfiedRecipes = Recipes.recipes.where((recipe) => recipe.requirements.isMetFor(ingredientsAnalyser));
     if (satisfiedRecipes.length == 1) return true;
-    var maxPriority = satisfiedRecipes.map((recipe) => recipe.priority).reduce(max);
+    final maxPriority = satisfiedRecipes.map((recipe) => recipe.priority).reduce(max);
     if (priority < maxPriority) return false;
     return true;
   }
@@ -166,8 +167,8 @@ sealed class RecipeObject extends DSTObject {
     final requirements = this.requirements.rawRequirements.toList();
     requirements.sort((a, b) => a.runtimeType is ContainingRequirement ? 1 : 0);
 
-    List<String> assets = [];
-    List<IngredientObject> containedIngredient = [];
+    final List<String> assets = [];
+    final List<IngredientObject> containedIngredient = [];
     for (final requirement in requirements) {
       switch (requirement) {
         case AtLeastRequirement(:final categories):

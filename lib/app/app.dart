@@ -1,7 +1,8 @@
-import 'package:dst_helper/app/home_page.dart';
-import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:flutter/material.dart';
 import 'package:universal_io/io.dart';
+
+import '../l10n/l10ns.dart';
+import 'home_page.dart';
 
 class App extends StatefulWidget {
   const App({super.key});

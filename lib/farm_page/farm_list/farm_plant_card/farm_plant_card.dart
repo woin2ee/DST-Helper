@@ -1,12 +1,12 @@
-import 'package:dst_helper/farm_page/edit_farm_set/edit_farm_set.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
-import 'package:dst_helper/farm_page/farm_page_controller.dart';
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/models/v2/localization.dart';
-import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../l10n/l10ns.dart';
+import '../../../models/v2/localization.dart';
+import '../../../utils/font_family.dart';
+import '../../edit_farm_set/edit_farm_set.dart';
+import '../../farm_page_notifier.dart';
+import '../farm_plant_set/farm_plant_set.dart';
 import 'farm_plant_card_model.dart';
 
 export 'farm_plant_card_model.dart';
@@ -72,7 +72,7 @@ class _CardTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     const double sideSpace = 42;
-    final farmPageController = context.read<FarmPageController>();
+    final farmPageController = context.read<FarmPageNotifier>();
 
     return Container(
       color: Colors.black54,
@@ -104,7 +104,7 @@ class _CardTitle extends StatelessWidget {
                         ),
                       );
                       if (result is FarmPlantCardModel && context.mounted) {
-                        context.read<FarmPageController>().updateFarmPlantCard(result);
+                        context.read<FarmPageNotifier>().updateFarmPlantCard(result);
                       }
                     case _CardActionEntry.hide:
                       farmPageController.makeCardHidden(true, id: model.id);

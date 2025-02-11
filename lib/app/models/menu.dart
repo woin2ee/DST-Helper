@@ -1,6 +1,7 @@
-import 'package:dst_helper/l10n/l10ns.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
+
+import '../../l10n/l10ns.dart';
 
 enum Menu {
   farm,

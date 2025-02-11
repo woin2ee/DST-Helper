@@ -1,37 +1,39 @@
 import 'package:built_collection/built_collection.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/analysis_view.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/family_condition_box.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/nutrient_condition_box.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/season_condition_box.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/components/fertilizer_selection_table.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_model.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
-import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter/material.dart';
+
+import '../../models/v2/item/item.dart';
+import '../farm_list/farm_plant/farm_plant_model.dart';
+import '../farm_list/farm_plant_card/farm_plant_card_model.dart';
+import '../farm_list/farm_plant_set/farm_plant_set.dart';
+import 'components/analysis_view/analysis_view_controller.dart';
+import 'components/analysis_view/family_condition_box.dart';
+import 'components/analysis_view/nutrient_condition_box.dart';
+import 'components/analysis_view/season_condition_box.dart';
+import 'components/crop_selection_section.dart';
+import 'components/fertilizer_selection_section.dart';
 
 class EditFarmSetController extends ChangeNotifier {
   EditFarmSetController._({
-    required this.selectedFarmPlantSetStyleController,
+    required this.selectedFarmPlantSetStyleNotifier,
     required this.selectedFarmPlantStyle,
     required this.titleEditingController,
-    required this.farmPlantSetModelController,
+    required this.farmPlantSetModelNotifier,
     required this.analysisViewController,
   });
 
   factory EditFarmSetController.init() {
     return EditFarmSetController._(
-      selectedFarmPlantSetStyleController: ValueNotifier(FarmPlantSetStyle.single),
+      selectedFarmPlantSetStyleNotifier: ValueNotifier(FarmPlantSetStyle.single),
       selectedFarmPlantStyle: FarmPlantStyle.basic,
       titleEditingController: TextEditingController(),
-      farmPlantSetModelController: ValueNotifier(
+      farmPlantSetModelNotifier: ValueNotifier(
         FarmPlantSetModel.single(
           farmPlantModel: FarmPlantModel.empty(FarmPlantStyle.basic),
         ),
       ),
       analysisViewController: AnalysisViewController.create(
         seasonConditionBoxController: SeasonConditionBoxController.init(),
-        nutrientConditionBoxController: NutrientConditionBoxController.init(),
+        nutrientConditionBoxController: NutrientConditionBoxNotifier.init(),
         familyConditionBoxController: FamilyConditionBoxController.init(),
         isPlacedAnyPlant: false,
       ),
@@ -45,7 +47,7 @@ class EditFarmSetController extends ChangeNotifier {
     final farmPlantSetModelController = ValueNotifier(originModel.farmPlantSetModel.copy());
     final seasonConditionBoxController =
         SeasonConditionBoxController(suitableSeasons: originModel.farmPlantSetModel.suitableSeasons.toBuiltSet());
-    final nutrientConditionBoxController = NutrientConditionBoxController.withModel(originModel);
+    final nutrientConditionBoxController = NutrientConditionBoxNotifier.withModel(originModel);
     final familyConditionBoxController = FamilyConditionBoxController.withModel(originModel.farmPlantSetModel);
     final analysisViewController = AnalysisViewController.create(
       seasonConditionBoxController: seasonConditionBoxController,
@@ -54,30 +56,29 @@ class EditFarmSetController extends ChangeNotifier {
       isPlacedAnyPlant: originModel.farmPlantSetModel.hasAnyPlant,
     );
     return EditFarmSetController._(
-      selectedFarmPlantSetStyleController: selectedFarmPlantSetStyleController,
+      selectedFarmPlantSetStyleNotifier: selectedFarmPlantSetStyleController,
       selectedFarmPlantStyle: selectedFarmPlantStyle,
       titleEditingController: titleEditingController,
-      farmPlantSetModelController: farmPlantSetModelController,
+      farmPlantSetModelNotifier: farmPlantSetModelController,
       analysisViewController: analysisViewController,
     );
   }
 
-  final ValueNotifier<FarmPlantSetStyle> selectedFarmPlantSetStyleController;
-  FarmPlantSetStyle get selectedFarmPlantSetStyle => selectedFarmPlantSetStyleController.value;
+  final ValueNotifier<FarmPlantSetStyle> selectedFarmPlantSetStyleNotifier;
+  FarmPlantSetStyle get selectedFarmPlantSetStyle => selectedFarmPlantSetStyleNotifier.value;
 
   FarmPlantStyle selectedFarmPlantStyle;
 
-  final ValueNotifier<Crop?> selectedCropController = ValueNotifier<Crop?>(null);
-  Crop? get selectedCrop => selectedCropController.value;
+  final SelectedCropNotifier selectedCropNotifier = SelectedCropNotifier(null);
+  Crop? get selectedCrop => selectedCropNotifier.value;
 
-  final FertilizerSelectionTableController fertilizerSelectionTableController =
-      FertilizerSelectionTableController(null);
-  Fertilizer? get selectedFertilizer => fertilizerSelectionTableController.selectedFertilizer;
+  final SelectedFertilizerNotifier selectedFertilizerNotifier = SelectedFertilizerNotifier(null);
+  Fertilizer? get selectedFertilizer => selectedFertilizerNotifier.value;
 
   final TextEditingController titleEditingController;
 
-  final ValueNotifier<FarmPlantSetModel> farmPlantSetModelController;
-  FarmPlantSetModel get farmPlantSetModel => farmPlantSetModelController.value;
+  final ValueNotifier<FarmPlantSetModel> farmPlantSetModelNotifier;
+  FarmPlantSetModel get farmPlantSetModel => farmPlantSetModelNotifier.value;
 
   /// Dismiss dialog를 보여줄지 결정하는데 사용됩니다.
   bool hasChanges = false;
@@ -86,20 +87,22 @@ class EditFarmSetController extends ChangeNotifier {
 
   void setSelectedFarmPlantSetStyle(FarmPlantSetStyle style) {
     if (selectedFarmPlantSetStyle == style) return;
-    selectedFarmPlantSetStyleController.value = style;
+
+    selectedFarmPlantSetStyleNotifier.value = style;
+
     switch (selectedFarmPlantSetStyle) {
       case FarmPlantSetStyle.single:
-        farmPlantSetModelController.value =
+        farmPlantSetModelNotifier.value =
             FarmPlantSetModel.single(farmPlantModel: farmPlantSetModel.farmPlantModelList[0]);
       case FarmPlantSetStyle.double:
-        farmPlantSetModelController.value = FarmPlantSetModel.double(
+        farmPlantSetModelNotifier.value = FarmPlantSetModel.double(
             left: farmPlantSetModel.farmPlantModelList[0],
             right: farmPlantSetModel.farmPlantModelList.elementAtOrNull(1) ??
                 FarmPlantModel.empty(selectedFarmPlantStyle, darkTheme: true));
       case FarmPlantSetStyle.square:
         if (selectedFarmPlantStyle == FarmPlantStyle.basic) {
           final List<Plant?> emptyPlants = List.filled(9, null);
-          farmPlantSetModelController.value = FarmPlantSetModel.square(
+          farmPlantSetModelNotifier.value = FarmPlantSetModel.square(
             topLeft: FarmPlantModel.basicWithPlants(farmPlantSetModel.farmPlantModelList[0].plants),
             topRight: FarmPlantModel.basicWithPlants(
               farmPlantSetModel.farmPlantModelList.elementAtOrNull(1)?.plants ?? List.of(emptyPlants),
@@ -114,7 +117,7 @@ class EditFarmSetController extends ChangeNotifier {
           );
         } else {
           selectedFarmPlantStyle = FarmPlantStyle.basic;
-          farmPlantSetModelController.value = FarmPlantSetModel.square(
+          farmPlantSetModelNotifier.value = FarmPlantSetModel.square(
             topLeft: FarmPlantModel.empty(FarmPlantStyle.basic),
             topRight: FarmPlantModel.empty(FarmPlantStyle.basic, darkTheme: true),
             bottomLeft: FarmPlantModel.empty(FarmPlantStyle.basic, darkTheme: true),
@@ -131,9 +134,9 @@ class EditFarmSetController extends ChangeNotifier {
     selectedFarmPlantStyle = style;
     switch (selectedFarmPlantSetStyle) {
       case FarmPlantSetStyle.single:
-        farmPlantSetModelController.value = FarmPlantSetModel.single(farmPlantModel: FarmPlantModel.empty(style));
+        farmPlantSetModelNotifier.value = FarmPlantSetModel.single(farmPlantModel: FarmPlantModel.empty(style));
       case FarmPlantSetStyle.double:
-        farmPlantSetModelController.value = FarmPlantSetModel.double(
+        farmPlantSetModelNotifier.value = FarmPlantSetModel.double(
           left: FarmPlantModel.empty(style),
           right: FarmPlantModel.empty(style, darkTheme: true),
         );
@@ -145,6 +148,12 @@ class EditFarmSetController extends ChangeNotifier {
   }
 
   void setPlant(Plant? plant, {required int farmPlantIndex, required int plantIndex}) {
+    final Plant? placedPlant = getPlacedPlant(farmPlantIndex, plantIndex);
+
+    if (placedPlant == plant) {
+      plant = null;
+    }
+
     farmPlantSetModel.setPlant(plant, farmPlantIndex: farmPlantIndex, plantIndex: plantIndex);
     _updateAnalysisControllers();
     notifyListeners();
@@ -156,5 +165,10 @@ class EditFarmSetController extends ChangeNotifier {
     analysisViewController.nutrientConditionBoxController.updateFarmPlantSetModel(farmPlantSetModel);
     analysisViewController.familyConditionBoxController.updateFarmPlantSetModel(farmPlantSetModel);
     analysisViewController.isPlacedAnyPlant.value = farmPlantSetModel.hasAnyPlant;
+  }
+
+  /// The order of the `farmPlantIndex` is `top-left`, `top-right`, `bottom-left`, `bottom-right`.
+  Plant? getPlacedPlant(int farmPlantIndex, int plantIndex) {
+    return farmPlantSetModel.farmPlantModelList[farmPlantIndex].plants[plantIndex];
   }
 }

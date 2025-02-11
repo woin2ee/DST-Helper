@@ -19,7 +19,7 @@ void main() {
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (style: basic, null 포함)', () {
-    var farmPlantModel = FarmPlantModel.basic(
+    final farmPlantModel = FarmPlantModel.basic(
       null,
       null,
       Items.carrot,
@@ -34,7 +34,7 @@ void main() {
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (style: dense)', () {
-    var farmPlantModel = FarmPlantModel.dense(
+    final farmPlantModel = FarmPlantModel.dense(
       Items.pumpkin,
       Items.garlic,
       Items.pumpkin,
@@ -50,7 +50,7 @@ void main() {
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (style: reverseDense)', () {
-    var farmPlantModel = FarmPlantModel.reverseDense(
+    final farmPlantModel = FarmPlantModel.reverseDense(
       Items.asparagus,
       Items.potato,
       Items.potato,
@@ -66,7 +66,7 @@ void main() {
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (불균형 Plant)', () {
-    var farmPlantModel = FarmPlantModel.basic(
+    final farmPlantModel = FarmPlantModel.basic(
       Items.potato,
       null,
       null,
@@ -81,7 +81,7 @@ void main() {
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (균형 Plant, 잡초 포함)', () {
-    var farmPlantModel = FarmPlantModel.basic(
+    final farmPlantModel = FarmPlantModel.basic(
       Items.forgetMeLots,
       null,
       Items.carrot,

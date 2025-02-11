@@ -1,13 +1,14 @@
 import 'package:built_collection/built_collection.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_model.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set_model.dart';
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/models/v2/item/categories.dart';
-import 'package:dst_helper/models/v2/item/nutrient.dart';
-import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../../../l10n/l10ns.dart';
+import '../../../../models/v2/item/categories.dart';
+import '../../../../models/v2/item/nutrient.dart';
+import '../../../../utils/font_family.dart';
+import '../../../farm_list/farm_plant/farm_plant_model.dart';
+import '../../../farm_list/farm_plant_card/farm_plant_card_model.dart';
+import '../../../farm_list/farm_plant_set/farm_plant_set_model.dart';
 
 part 'nutrient_condition_box.freezed.dart';
 
@@ -42,7 +43,7 @@ class NutrientConditionBox extends StatelessWidget {
   final Color unsatisfiedBoxColor;
   final Color satisfiedBoxColor;
 
-  final NutrientConditionBoxController controller;
+  final NutrientConditionBoxNotifier controller;
 
   @override
   Widget build(BuildContext context) {
@@ -157,8 +158,8 @@ class NutrientConditionBox extends StatelessWidget {
   }
 }
 
-class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxModel> {
-  NutrientConditionBoxController.init()
+class NutrientConditionBoxNotifier extends ValueNotifier<NutrientConditionBoxModel> {
+  NutrientConditionBoxNotifier.init()
       : _farmPlantSetModel = FarmPlantSetModel.single(farmPlantModel: FarmPlantModel.empty(FarmPlantStyle.basic)),
         super(
           const NutrientConditionBoxModel(
@@ -168,8 +169,8 @@ class NutrientConditionBoxController extends ValueNotifier<NutrientConditionBoxM
           ),
         );
 
-  factory NutrientConditionBoxController.withModel(FarmPlantCardModel model) {
-    final controller = NutrientConditionBoxController.init();
+  factory NutrientConditionBoxNotifier.withModel(FarmPlantCardModel model) {
+    final controller = NutrientConditionBoxNotifier.init();
     controller._farmPlantSetModel = model.farmPlantSetModel;
     controller._selectedFertilizer = model.fertilizer;
     controller._updateValue();

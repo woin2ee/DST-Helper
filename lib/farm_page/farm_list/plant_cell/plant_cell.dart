@@ -1,6 +1,6 @@
-import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/v2/item/item.dart';
 import 'plant_cell_model.dart';
 
 export 'plant_cell_model.dart';

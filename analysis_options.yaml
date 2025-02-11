@@ -25,8 +25,11 @@ linter:
   # producing the lint.
   rules:
     prefer_const_constructors: true
+    prefer_relative_imports: true
+    prefer_final_locals: true
+    # prefer_final_parameters: true
+    prefer_final_in_for_each: true
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
-
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

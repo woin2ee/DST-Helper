@@ -1,8 +1,9 @@
-import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set_model.dart';
-import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../../models/v2/item/categories.dart';
+import '../farm_plant_set/farm_plant_set_model.dart';
 
 part 'farm_plant_card_model.g.dart';
 

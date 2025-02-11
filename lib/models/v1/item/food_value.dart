@@ -49,8 +49,8 @@ class FoodValues with Iterable {
   final Set<FoodValue> rawValues;
 
   Set<FoodValue> get values {
-    for (var category in FoodValueCategory.values) {
-      var countPerCategory = rawValues.where((foodValue) => foodValue.category == category).length;
+    for (final category in FoodValueCategory.values) {
+      final countPerCategory = rawValues.where((foodValue) => foodValue.category == category).length;
       if (countPerCategory > 1) assert(false);
     }
     return rawValues;

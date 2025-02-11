@@ -1,13 +1,14 @@
 import 'dart:collection';
 
 import 'package:built_collection/built_collection.dart';
-import 'package:dst_helper/farm_page/farm_list/plant_cell/plant_cell_model.dart';
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/models/v2/item/categories.dart';
-import 'package:dst_helper/models/v2/item/nutrient.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../../l10n/l10ns.dart';
+import '../../../models/v2/item/categories.dart';
+import '../../../models/v2/item/nutrient.dart';
+import '../plant_cell/plant_cell_model.dart';
 
 part 'farm_plant_model.g.dart';
 

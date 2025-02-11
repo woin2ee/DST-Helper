@@ -1,17 +1,18 @@
-import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/analysis_view.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/components/crop_selection_table.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/components/farm_plant_set_board.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/components/fertilizer_selection_table.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/edit_farm_set_controller.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant_card/farm_plant_card_model.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
-import 'package:dst_helper/farm_page/side_info_box/crops_info_box.dart';
-import 'package:dst_helper/farm_page/side_info_box/fertilizers_info_box.dart';
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/models/v2/localization.dart';
-import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
+
+import '../../l10n/l10ns.dart';
+import '../../models/v2/localization.dart';
+import '../../utils/font_family.dart';
+import '../farm_list/farm_plant/farm_plant_model.dart';
+import '../farm_list/farm_plant_card/farm_plant_card_model.dart';
+import '../farm_list/farm_plant_set/farm_plant_set.dart';
+import '../side_info_box/crops_info_box.dart';
+import '../side_info_box/fertilizers_info_box.dart';
+import 'components/analysis_view/analysis_view.dart';
+import 'components/crop_selection_section.dart';
+import 'components/farm_plant_set_board.dart';
+import 'components/fertilizer_selection_section.dart';
+import 'edit_farm_set_controller.dart';
 
 class EditFarmSet extends StatefulWidget {
   const EditFarmSet({
@@ -40,15 +41,15 @@ class _EditFarmSetState extends State<EditFarmSet> {
     } else {
       controller = EditFarmSetController.withModel(originModel);
     }
-    Iterable<Listenable> controllers = [controller, controller.titleEditingController];
+    final Iterable<Listenable> controllers = [controller, controller.titleEditingController];
     for (final e in controllers) {
       e.addListener(() {
         controller.hasChanges = true;
       });
     }
 
-    controller.fertilizerSelectionTableController.addListener(() {
-      final selectedFertilizer = controller.fertilizerSelectionTableController.selectedFertilizer;
+    controller.selectedFertilizerNotifier.addListener(() {
+      final selectedFertilizer = controller.selectedFertilizerNotifier.value;
       controller.analysisViewController.nutrientConditionBoxController.selectFertilizer(selectedFertilizer);
     });
   }
@@ -83,7 +84,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
                   height: 384,
                 ),
                 ValueListenableBuilder(
-                    valueListenable: controller.farmPlantSetModelController,
+                    valueListenable: controller.farmPlantSetModelNotifier,
                     builder: (context, value, child) {
                       return AnalysisView(
                         controller: controller.analysisViewController,
@@ -124,72 +125,15 @@ class _EditFarmSetState extends State<EditFarmSet> {
                   spacing: 8,
                   children: [
                     ValueListenableBuilder(
-                        valueListenable: controller.selectedFarmPlantSetStyleController,
+                        valueListenable: controller.selectedFarmPlantSetStyleNotifier,
                         builder: (context, value, child) {
                           return _buildFarmPlantStyleSelectionBox();
                         }),
                     _buildFarmPlantSetStyleSelectionBox(),
                   ],
                 ),
-                Column(
-                  spacing: 6,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 4),
-                      child: Text(
-                        L10ns.of(context).localized('crops'),
-                        style: const TextStyle(
-                          fontFamily: FontFamily.pretendard,
-                          fontVariations: [FontVariation.weight(500)],
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    CropSelectionTable(selectedCropController: controller.selectedCropController)
-                  ],
-                ),
-                Column(
-                  spacing: 6,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 4),
-                      child: Row(
-                        spacing: 10,
-                        children: [
-                          Text(
-                            L10ns.of(context).localized('fertilizers'),
-                            style: const TextStyle(
-                              fontFamily: FontFamily.pretendard,
-                              fontVariations: [FontVariation.weight(500)],
-                              fontSize: 16,
-                            ),
-                          ),
-                          Tooltip(
-                            message: L10ns.of(context).localized('fertilizer_selection_tooltip'),
-                            textStyle: const TextStyle(
-                              fontFamily: FontFamily.pretendard,
-                              fontSize: 13,
-                              color: Colors.white,
-                            ),
-                            decoration: const BoxDecoration(
-                              color: Colors.black87,
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                            ),
-                            verticalOffset: 15,
-                            padding: const EdgeInsets.only(top: 4, left: 10, right: 10, bottom: 4),
-                            enableTapToDismiss: false,
-                            preferBelow: false,
-                            waitDuration: const Duration(milliseconds: 200),
-                            child: const Icon(Icons.info_outline_rounded),
-                          ),
-                        ],
-                      ),
-                    ),
-                    FertilizerSelectionTable(controller: controller.fertilizerSelectionTableController),
-                  ],
-                ),
+                CropSelectionSection(notifier: controller.selectedCropNotifier),
+                FertilizerSelectionSection(notifier: controller.selectedFertilizerNotifier),
                 Row(
                   spacing: 28,
                   mainAxisAlignment: MainAxisAlignment.end,

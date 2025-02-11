@@ -1,9 +1,10 @@
 import 'package:built_collection/built_collection.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
-import 'package:dst_helper/models/v1/season.dart';
-import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../../models/v1/season.dart';
+import '../../../models/v2/item/categories.dart';
+import '../farm_plant/farm_plant_model.dart';
 
 part 'farm_plant_set_model.g.dart';
 
@@ -27,6 +28,10 @@ class FarmPlantSetModel extends ChangeNotifier {
   final int farmPlantsCount;
 
   List<FarmPlantModel> _farmPlantModelList;
+
+  /// The list of `FarmPlantModel` in the group.
+  /// 
+  /// Indexes are ordered as `top-left`, `top-right`, `bottom-left`, `bottom-right`.
   BuiltList<FarmPlantModel> get farmPlantModelList => BuiltList(_farmPlantModelList);
 
   factory FarmPlantSetModel.single({required FarmPlantModel farmPlantModel}) {

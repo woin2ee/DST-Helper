@@ -1,6 +1,7 @@
-import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../../models/v2/item/item.dart';
 
 part 'plant_cell_model.g.dart';
 

@@ -1,9 +1,10 @@
-import 'package:dst_helper/cook_page/recipe_card/dragging_recipe_image.dart';
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/models/v2/item/categories.dart';
-import 'package:dst_helper/utils/etc.dart';
-import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
+
+import '../../l10n/l10ns.dart';
+import '../../models/v2/item/categories.dart';
+import '../../utils/etc.dart';
+import '../../utils/font_family.dart';
+import 'dragging_recipe_image.dart';
 
 class SimpleRecipeCard extends StatelessWidget {
   const SimpleRecipeCard({

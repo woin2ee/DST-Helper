@@ -1,6 +1,6 @@
-import 'package:dst_helper/models/v1/item/dst_object.dart';
-import 'package:dst_helper/models/v1/item/food_value.dart';
-import 'package:dst_helper/models/v1/item/ingredients_analyser.dart';
+import 'dst_object.dart';
+import 'food_value.dart';
+import 'ingredients_analyser.dart';
 
 sealed class Requirement {
   const Requirement();
