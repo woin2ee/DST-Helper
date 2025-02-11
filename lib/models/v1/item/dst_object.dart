@@ -1289,7 +1289,6 @@ class TurkeyDinner extends RecipeObject implements FoodObject {
               MeetRequirement(FoodValues({FoodValue(FoodValueCategory.vegetable, 0.5)})),
               MeetRequirement(FoodValues({FoodValue(FoodValueCategory.fruit, 0.5)})),
             }),
-            // TODO: When using Barnacle don't add Vegetable.
           }),
         );
 
