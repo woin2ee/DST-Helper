@@ -5,15 +5,15 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (style: basic)', () {
     final farmPlantModel = FarmPlantModel.basic(
-      Crops.potato,
-      Crops.potato,
-      Crops.potato,
-      Crops.potato,
+      Items.potato,
+      Items.potato,
+      Items.potato,
+      Items.potato,
       null,
-      Crops.tomaRoot,
-      Crops.tomaRoot,
-      Crops.tomaRoot,
-      Crops.tomaRoot,
+      Items.tomaRoot,
+      Items.tomaRoot,
+      Items.tomaRoot,
+      Items.tomaRoot,
     );
     expect(farmPlantModel.hasBalancedNutrients, true);
   });
@@ -22,52 +22,52 @@ void main() {
     var farmPlantModel = FarmPlantModel.basic(
       null,
       null,
-      Crops.carrot,
+      Items.carrot,
       null,
       null,
-      Crops.carrot,
-      Crops.corn,
-      Crops.corn,
-      Crops.dragonFruit,
+      Items.carrot,
+      Items.corn,
+      Items.corn,
+      Items.dragonFruit,
     );
     expect(farmPlantModel.hasBalancedNutrients, true);
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (style: dense)', () {
     var farmPlantModel = FarmPlantModel.dense(
-      Crops.pumpkin,
-      Crops.garlic,
-      Crops.pumpkin,
-      Crops.pumpkin,
-      Crops.garlic,
-      Crops.pumpkin,
-      Crops.potato,
-      Crops.potato,
-      Crops.potato,
-      Crops.potato,
+      Items.pumpkin,
+      Items.garlic,
+      Items.pumpkin,
+      Items.pumpkin,
+      Items.garlic,
+      Items.pumpkin,
+      Items.potato,
+      Items.potato,
+      Items.potato,
+      Items.potato,
     );
     expect(farmPlantModel.hasBalancedNutrients, true);
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (style: reverseDense)', () {
     var farmPlantModel = FarmPlantModel.reverseDense(
-      Crops.asparagus,
-      Crops.potato,
-      Crops.potato,
-      Crops.asparagus,
-      Crops.potato,
-      Crops.onion,
-      Crops.asparagus,
-      Crops.potato,
-      Crops.onion,
-      Crops.asparagus,
+      Items.asparagus,
+      Items.potato,
+      Items.potato,
+      Items.asparagus,
+      Items.potato,
+      Items.onion,
+      Items.asparagus,
+      Items.potato,
+      Items.onion,
+      Items.asparagus,
     );
     expect(farmPlantModel.hasBalancedNutrients, true);
   });
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (불균형 Plant)', () {
     var farmPlantModel = FarmPlantModel.basic(
-      Crops.potato,
+      Items.potato,
       null,
       null,
       null,
@@ -82,15 +82,15 @@ void main() {
 
   test('Plant 구성에 따른 영양소 균형 계산 테스트: (균형 Plant, 잡초 포함)', () {
     var farmPlantModel = FarmPlantModel.basic(
-      Weeds.forgetMeLots,
+      Items.forgetMeLots,
       null,
-      Crops.carrot,
+      Items.carrot,
       null,
       null,
-      Crops.carrot,
-      Crops.corn,
-      Crops.corn,
-      Crops.dragonFruit,
+      Items.carrot,
+      Items.corn,
+      Items.corn,
+      Items.dragonFruit,
     );
     expect(farmPlantModel.hasBalancedNutrients, false);
   });
