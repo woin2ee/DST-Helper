@@ -19,7 +19,7 @@ enum FoodType {
   goodies,
 }
 
-mixin Edible on Item {
+mixin Edible implements Item {
   FoodType get type;
 }
 
@@ -29,13 +29,13 @@ mixin Edible on Item {
 /// If the item doesn't have the own cooked name, should not adopt this mixin.
 ///
 /// Some cookable items may have a composite asset that is a combination of the item and the cooked item.
-mixin Cookable on Item {
+mixin Cookable implements Item {
   String get cookedAssetName;
   String? get compositeAssetName;
 }
 
 /// It indicates plants that grow in the farmplant.
-mixin Plantable on Item {
+mixin Plantable implements Item {
   Set<Season> get seasons;
   Nutrient get nutrient;
 }
@@ -43,12 +43,12 @@ mixin Plantable on Item {
 /// It indicates that the item can cook in the crock pot.
 ///
 /// The item has the own food values to determine which recipe to be.
-mixin UsingInCrockPot on Item {
+mixin UsingInCrockPot implements Item {
   FoodValues? get foodValues;
 }
 
 /// It indicates that the item can be cooked in the crock pot.
-mixin CookableWithCrockPot on Item {
+mixin CookableWithCrockPot implements Item {
   int get priority;
   Requirements get requirements;
 }

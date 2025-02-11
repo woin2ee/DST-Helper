@@ -178,6 +178,7 @@ extension Items on Item {
     nutrient: Nutrient(compost: -2, growthFormula: -2, manure: -2),
     seasons: {},
     foodValues: null,
+    type: FoodType.veggie,
   );
 
   static const Weed fireNettleFronds = Weed(
