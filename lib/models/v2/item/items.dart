@@ -1048,7 +1048,7 @@ extension Items on Item {
   static const Fertilizer fermentingGrowthFormula = Fertilizer(
     code: 'soil_amender',
     assetName: 'fermenting_growth_formula',
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
+    nutrient: Nutrient(compost: 0, growthFormula: 16, manure: 0),
   );
 
   static const Fertilizer fermentedGrowthFormula = Fertilizer(
