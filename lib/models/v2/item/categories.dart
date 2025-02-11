@@ -16,17 +16,15 @@ class Food with _$Food, Item, Edible {
     required String assetName,
     required FoodType type,
   }) = _Food;
-}
 
-@freezed
-class CookableFood with _$CookableFood, Item, Edible, Cookable {
-  const factory CookableFood({
+  @With<Cookable>()
+  const factory Food.cookable({
     required String code,
     required String assetName,
     required FoodType type,
     required String cookedAssetName,
     required String? compositeAssetName,
-  }) = _CookableFood;
+  }) = CookableFood;
 }
 
 @freezed
@@ -36,16 +34,14 @@ class Ingredient with _$Ingredient, Item, UsingInCrockPot {
     required String assetName,
     required FoodValues? foodValues,
   }) = _Ingredient;
-}
 
-@freezed
-class EdibleIngredient with _$EdibleIngredient, Item, Edible, UsingInCrockPot {
-  const factory EdibleIngredient({
+  @With<Edible>()
+  const factory Ingredient.edible({
     required String code,
     required String assetName,
     required FoodType type,
     required FoodValues? foodValues,
-  }) = _EdibleIngredient;
+  }) = EdibleIngredient;
 }
 
 @freezed
@@ -57,7 +53,6 @@ class Plant with _$Plant, Item, Plantable {
     required Nutrient nutrient,
   }) = _Plant;
 
-  @With<Item>()
   @With<Edible>()
   @With<UsingInCrockPot>()
   const factory Plant.crop({
@@ -70,7 +65,6 @@ class Plant with _$Plant, Item, Plantable {
     required Seed seed,
   }) = Crop;
 
-  @With<Item>()
   const factory Plant.weed({
     required String code,
     required String assetName,
@@ -78,15 +72,25 @@ class Plant with _$Plant, Item, Plantable {
     required Set<Season> seasons,
   }) = Weed;
 
-  @With<Item>()
+  @With<Edible>()
   @With<UsingInCrockPot>()
   const factory Plant.forgetMeLots({
     required String code,
     required String assetName,
     required Nutrient nutrient,
     required Set<Season> seasons,
+    required FoodType type,
     required FoodValues? foodValues,
   }) = ForgetMeLots;
+
+  @With<Edible>()
+  const factory Plant.edibleWeed({
+    required String code,
+    required String assetName,
+    required Nutrient nutrient,
+    required Set<Season> seasons,
+    required FoodType type,
+  }) = EdibleWeed;
 
   factory Plant.fromJson(Map<String, dynamic> json) => _$PlantFromJson(json);
 }
@@ -108,7 +112,7 @@ class Seed with _$Seed, Item, Edible, Cookable {
 }
 
 @freezed
-class Recipe with _$Recipe, Item, CookableInCrockPot {
+class Recipe with _$Recipe, Item, CookableWithCrockPot {
   const factory Recipe({
     required String code,
     required String assetName,
@@ -121,7 +125,6 @@ class Recipe with _$Recipe, Item, CookableInCrockPot {
     required StatusValue cookTimeValue,
   }) = _Recipe;
 
-  @With<Item>()
   @With<Edible>()
   const factory Recipe.edible({
     required String code,

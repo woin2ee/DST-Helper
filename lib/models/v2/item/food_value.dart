@@ -54,18 +54,18 @@ class FoodValue with _$FoodValue {
 @freezed
 class FoodValues with _$FoodValues, Iterable {
   const factory FoodValues(
-    Set<FoodValue> rawValues,
+    List<FoodValue> rawValues,
   ) = _FoodValues;
   const FoodValues._();
 
   factory FoodValues.fromJson(Map<String, Object?> json) => _$FoodValuesFromJson(json);
 
   Set<FoodValue> get values {
-    for (var category in FoodValueCategory.values) {
-      var countPerCategory = rawValues.where((foodValue) => foodValue.category == category).length;
+    for (final category in FoodValueCategory.values) {
+      final countPerCategory = rawValues.where((foodValue) => foodValue.category == category).length;
       if (countPerCategory > 1) assert(false);
     }
-    return rawValues;
+    return rawValues.toSet();
   }
 
   @override

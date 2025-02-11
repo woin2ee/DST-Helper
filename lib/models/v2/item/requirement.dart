@@ -125,8 +125,8 @@ class NoRequirement extends Requirement {
     // this.excluded = const {},
   });
 
-  final Set<UsingInCrockPot>? ingredients;
-  final Set<FoodValueCategory>? categories;
+  final List<UsingInCrockPot>? ingredients;
+  final List<FoodValueCategory>? categories;
   // final Set<Ingredient> excluded;
 
   @override

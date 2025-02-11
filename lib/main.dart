@@ -18,8 +18,8 @@ Future<void> _clearPrefsIfNeeds() async {
 
   // 버전 명시
   const currentVersion = _PrefsVersion(
-    description: 'Add id(UUID) to `FarmPlantCardModel`',
-    number: 7,
+    description: 'Update model of items',
+    number: 8,
   );
 
   clearAndSet() async {

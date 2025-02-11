@@ -1,27 +1,27 @@
-import 'package:dst_helper/models/v1/item/dst_object.dart';
+import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('Meatballs', () {
-    const recipe = Meatballs();
+    const recipe = Items.meatballs;
 
     group('Success', () {
       test('Usual1', () {
         bool got = recipe.canBeCookedWith(
-          const Morsel(),
-          const Berries(),
-          const Berries(),
-          const Berries(),
+          Items.morsel,
+          Items.berries,
+          Items.berries,
+          Items.berries,
         );
         expect(got, true);
       });
 
       test('2.5 meat', () {
         bool got = recipe.canBeCookedWith(
-          const Morsel(),
-          const BatiliskWing(),
-          const Meat(),
-          const Drumstick(),
+          Items.morsel,
+          Items.batiliskWing,
+          Items.meat,
+          Items.drumstick,
         );
         expect(got, true);
       });
@@ -30,20 +30,20 @@ void main() {
     group('Failure', () {
       test('Contained Twigs', () {
         bool got = recipe.canBeCookedWith(
-          const Morsel(),
-          const BatiliskWing(),
-          const Meat(),
-          const Twigs(),
+          Items.morsel,
+          Items.batiliskWing,
+          Items.meat,
+          Items.twigs,
         );
         expect(got, false);
       });
 
       test('Over meat value(3.0) ', () {
         bool got = recipe.canBeCookedWith(
-          const Morsel(),
-          const BatiliskWing(),
-          const Meat(),
-          const Meat(),
+          Items.morsel,
+          Items.batiliskWing,
+          Items.meat,
+          Items.meat,
         );
         expect(got, false);
       });
@@ -52,47 +52,47 @@ void main() {
 
   group('Meaty Stew', () {
     test('Success_case1', () {
-      const recipe = MeatyStew();
+      const recipe = Items.meatyStew;
       bool got = recipe.canBeCookedWith(
-        const Meat(),
-        const MonsterMeat(),
-        const Morsel(),
-        const FrogLegs(),
+        Items.meat,
+        Items.monsterMeat,
+        Items.morsel,
+        Items.frogLegs,
       );
       expect(got, true);
     });
 
     test('Failure_Over monster value', () {
-      const recipe = MeatyStew();
+      const recipe = Items.meatyStew;
       bool got = recipe.canBeCookedWith(
-        const MonsterMeat(),
-        const MonsterMeat(),
-        const Morsel(),
-        const Morsel(),
+        Items.monsterMeat,
+        Items.monsterMeat,
+        Items.morsel,
+        Items.morsel,
       );
       expect(got, false);
     });
   });
 
-  test('Honey Nuggets_success_case1', () {
-    const recipe = HoneyNuggets();
-    bool got = recipe.canBeCookedWith(
-      const MonsterMeat(),
-      const Honey(),
-      const Honey(),
-      const Honey(),
-    );
-    expect(got, true);
-  });
-
   group('Honey Neggets', () {
-    test('Success_case1', () {
-      const recipe = HoneyHam();
+    const recipe = Items.honeyNuggets;
+
+    test('Success 1', () {
       bool got = recipe.canBeCookedWith(
-        const MonsterMeat(),
-        const Morsel(),
-        const Honey(),
-        const Honey(),
+        Items.monsterMeat,
+        Items.honey,
+        Items.honey,
+        Items.honey,
+      );
+      expect(got, true);
+    });
+
+    test('Success 2', () {
+      bool got = recipe.canBeCookedWith(
+        Items.monsterMeat,
+        Items.morsel,
+        Items.honey,
+        Items.honey,
       );
       expect(got, true);
     });
@@ -100,69 +100,69 @@ void main() {
 
   group('Honey Ham', () {
     test('Success_case1', () {
-      const recipe = HoneyHam();
+      const recipe = Items.honeyHam;
       bool got = recipe.canBeCookedWith(
-        const MonsterMeat(),
-        const Morsel(),
-        const BatiliskWing(),
-        const Honey(),
+        Items.monsterMeat,
+        Items.morsel,
+        Items.batiliskWing,
+        Items.honey,
       );
       expect(got, true);
     });
 
     test('Failure_Over monster value', () {
-      const recipe = HoneyHam();
+      const recipe = Items.honeyHam;
       bool got = recipe.canBeCookedWith(
-        const MonsterMeat(),
-        const MonsterMeat(),
-        const Honey(),
-        const Honey(),
+        Items.monsterMeat,
+        Items.monsterMeat,
+        Items.honey,
+        Items.honey,
       );
       expect(got, false);
     });
   });
 
   test('Froggle Bunwich_success_case1', () {
-    const recipe = FroggleBunwich();
+    const recipe = Items.froggleBunwich;
     bool got = recipe.canBeCookedWith(
-      const FrogLegs(),
-      const Berries(),
-      const Berries(),
-      const RedCap(),
+      Items.frogLegs,
+      Items.berries,
+      Items.berries,
+      Items.redCap,
     );
     expect(got, true);
   });
 
   test('Amberosia', () {
-    const recipe = Amberosia();
+    const recipe = Items.amberosia;
     bool got = recipe.canBeCookedWith(
-      const CollectedDust(),
-      const Mandrake(),
-      const Mandrake(),
-      const Mandrake(),
+      Items.collectedDust,
+      Items.mandrake,
+      Items.mandrake,
+      Items.mandrake,
     );
     expect(got, true);
   });
 
   group('Powdercake', () {
-    const recipe = Powdercake();
+    const recipe = Items.powdercake;
     group('Success', () {
       test('Usual case', () {
         bool got = recipe.canBeCookedWith(
-          const Corn(),
-          const Honey(),
-          const Twigs(),
-          const Twigs(),
+          Items.corn,
+          Items.honey,
+          Items.twigs,
+          Items.twigs,
         );
         expect(got, true);
       });
 
       test('Success_withFish', () {
         bool got = recipe.canBeCookedWith(
-          const Popperfish(),
-          const Honey(),
-          const Twigs(),
-          const Twigs(),
+          Items.popperfish,
+          Items.honey,
+          Items.twigs,
+          Items.twigs,
         );
         expect(got, true);
       });
@@ -170,14 +170,14 @@ void main() {
   });
 
   group('Kabobs', () {
-    const recipe = Kabobs();
+    const recipe = Items.kabobs;
     group('Failure', () {
       test('Over twigs', () {
         bool got = recipe.canBeCookedWith(
-          const Meat(),
-          const Meat(),
-          const Twigs(),
-          const Twigs(),
+          Items.meat,
+          Items.meat,
+          Items.twigs,
+          Items.twigs,
         );
         expect(got, false);
       });
@@ -185,14 +185,14 @@ void main() {
   });
 
   group('Bunny Stew', () {
-    const recipe = Kabobs();
+    const recipe = Items.kabobs;
     group('Failure', () {
       test('Over meat', () {
         bool got = recipe.canBeCookedWith(
-          const Morsel(),
-          const Morsel(),
-          const Ice(),
-          const Ice(),
+          Items.morsel,
+          Items.morsel,
+          Items.ice,
+          Items.ice,
         );
         expect(got, false);
       });
