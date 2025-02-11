@@ -2026,7 +2026,12 @@ extension Items on Item {
     code: 'seafoodgumbo',
     assetName: 'seafood_gumbo',
     priority: 10,
-    requirements: Requirements({}),
+    requirements: Requirements({
+      ContainingRequirement(Items.eel),
+      ExcessRequirement(
+        FoodValues([FoodValue(FoodValueCategory.fish, 1.0 + 1.0)]), // Due to Eel (1.0 value)
+      ),
+    }),
     hungerValue: NumericStatusValue(37.5),
     sanityValue: NumericStatusValue(20),
     healthValue: NumericStatusValue(40),
