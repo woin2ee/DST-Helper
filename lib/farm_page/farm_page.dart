@@ -5,7 +5,7 @@ import '../l10n/l10ns.dart';
 import '../models/v1/localization/season_localization.dart';
 import '../models/v1/season.dart';
 import '../utils/font_family.dart';
-import 'edit_farm_set/edit_farm_set.dart';
+import 'edit_farm_set/farm_group_edit_window.dart';
 import 'farm_list/farm_list.dart';
 import 'farm_page_notifier.dart';
 import 'side_info_box/side_info_box.dart';
@@ -90,9 +90,9 @@ class _ShowAndHideCheckbox extends StatelessWidget {
         return Row(
           children: [
             Checkbox(
-              value: farmPageNotifier.showHiddenItems,
+              value: farmPageNotifier.showingHiddenItems,
               onChanged: (bool? isChecked) {
-                farmPageNotifier.showHiddenItems = isChecked!;
+                farmPageNotifier.showingHiddenItems = isChecked!;
               },
             ),
             checkboxLabel!,
@@ -120,11 +120,11 @@ class _NewButton extends StatelessWidget {
           barrierColor: Colors.black.withOpacity(0.35),
           context: context,
           builder: (context) => const Dialog(
-            child: EditFarmSet(isEditingNew: true),
+            child: FarmGroupEditWindow(isEditingNewOne: true),
           ),
         );
-        if (result is FarmPlantCardModel && context.mounted) {
-          context.read<FarmPageNotifier>().addFarmPlantCard(result);
+        if (result is FarmCardModel && context.mounted) {
+          context.read<FarmPageNotifier>().addFarmCard(result);
         }
       },
       child: const Text('New'),

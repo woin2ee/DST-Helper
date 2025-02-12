@@ -1,32 +1,29 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/v1/season.dart';
-import 'farm_list/farm_plant_card/farm_plant_card_model.dart';
-import 'farm_list/farm_plant_set/farm_plant_set_model_sample.dart';
+import 'farm_list/farm_group/farm_group_model.dart';
+import 'farm_list/farm_plant_card/farm_card_model.dart';
 
-enum _CacheKey {
-  farmPlantCardModelList,
-}
+String _cacheKey = 'FARM_CARD_MODEL_LIST';
 
 class FarmPageNotifier extends ChangeNotifier {
   FarmPageNotifier._({
-    required List<FarmPlantCardModel> farmPlantCardModels,
-    required Season initSeason,
-    required bool showHiddenItems,
-  })  : _showHiddenItems = showHiddenItems,
-        _selectedSeason = initSeason,
-        _farmPlantCardModels = farmPlantCardModels;
+    required List<FarmCardModel> farmCardModels,
+    required Season initialSeason,
+    required bool showingHiddenItems,
+  })  : _showingHiddenItems = showingHiddenItems,
+        _selectedSeason = initialSeason,
+        _farmCardModels = farmCardModels;
 
   factory FarmPageNotifier() {
     final self = FarmPageNotifier._(
-      farmPlantCardModels: const [],
-      initSeason: Season.spring,
-      showHiddenItems: false,
+      farmCardModels: const [],
+      initialSeason: Season.spring,
+      showingHiddenItems: false,
     );
     self.initFromPrefs();
     return self;
@@ -35,16 +32,15 @@ class FarmPageNotifier extends ChangeNotifier {
   final Future<SharedPreferencesWithCache> _prefs = SharedPreferencesWithCache.create(
     cacheOptions: SharedPreferencesWithCacheOptions(
       allowList: {
-        _CacheKey.farmPlantCardModelList.name,
+        _cacheKey,
       },
     ),
   );
 
-  /// The data of farm plant cards to be displayed.
-  List<FarmPlantCardModel> _farmPlantCardModels;
-  BuiltList<FarmPlantCardModel> get farmPlantCardModels => BuiltList(_farmPlantCardModels);
-  set farmPlantCardModels(Iterable<FarmPlantCardModel> value) {
-    _farmPlantCardModels = value.toList();
+  /// The data of farm cards to be displayed.
+  List<FarmCardModel> _farmCardModels;
+  set farmCardModels(Iterable<FarmCardModel> value) {
+    _farmCardModels = value.toList();
     notifyListeners();
   }
 
@@ -57,18 +53,18 @@ class FarmPageNotifier extends ChangeNotifier {
   }
 
   /// Whether to show hidden items or not.
-  bool _showHiddenItems;
-  bool get showHiddenItems => _showHiddenItems;
-  set showHiddenItems(bool value) {
-    _showHiddenItems = value;
+  bool _showingHiddenItems;
+  bool get showingHiddenItems => _showingHiddenItems;
+  set showingHiddenItems(bool value) {
+    _showingHiddenItems = value;
     notifyListeners();
   }
 
-  UnmodifiableListView<FarmPlantCardModel> get farmPlantCardModelsBySelectedSeason {
-    final result = farmPlantCardModels.where((farmPlantCardModel) {
-      return farmPlantCardModel.farmPlantSetModel.suitableSeasons.contains(selectedSeason);
+  UnmodifiableListView<FarmCardModel> get farmCardModelsBySelectedSeason {
+    final result = _farmCardModels.where((farmCardModel) {
+      return farmCardModel.farmGroupModel.suitableSeasons.contains(selectedSeason);
     });
-    if (showHiddenItems) {
+    if (showingHiddenItems) {
       return UnmodifiableListView(result);
     } else {
       final filteredResult = result.where((e) => !e.isHidden);
@@ -78,53 +74,53 @@ class FarmPageNotifier extends ChangeNotifier {
 
   Future<void> initFromPrefs() async {
     final prefs = await _prefs;
-    final jsonString = prefs.getString(_CacheKey.farmPlantCardModelList.name);
+    final jsonString = prefs.getString(_cacheKey);
     if (jsonString == null) {
-      final sampleData = FarmPlantSetModelSample.preDefinedList.map((sampleModel) => FarmPlantCardModel.create(
-            farmPlantSetModel: sampleModel,
+      final sampleData = SampleFarmGroupModel.preDefinedList.map((sampleModel) => FarmCardModel.create(
+            farmGroupModel: sampleModel,
             createType: CreateType.sample,
             fertilizer: null,
           ));
-      farmPlantCardModels = sampleData.toList();
+      farmCardModels = sampleData.toList();
       return;
     }
     final List<dynamic> decodedList = jsonDecode(jsonString);
-    final List<FarmPlantCardModel> loadedData = List.of(decodedList.map((e) => FarmPlantCardModel.fromJson(e)));
-    farmPlantCardModels = loadedData;
+    final List<FarmCardModel> loadedData = List.of(decodedList.map((e) => FarmCardModel.fromJson(e)));
+    farmCardModels = loadedData;
   }
 
-  Future<void> addFarmPlantCard(FarmPlantCardModel model) async {
+  Future<void> addFarmCard(FarmCardModel model) async {
     final prefs = await _prefs;
-    final copy = List<FarmPlantCardModel>.from(farmPlantCardModels);
+    final copy = List<FarmCardModel>.from(_farmCardModels);
     copy.add(model);
     final jsonString = jsonEncode(copy);
-    await prefs.setString(_CacheKey.farmPlantCardModelList.name, jsonString);
-    farmPlantCardModels = copy;
+    await prefs.setString(_cacheKey, jsonString);
+    farmCardModels = copy;
     notifyListeners();
   }
 
-  void updateFarmPlantCard(FarmPlantCardModel model) {
-    final targetIndex = _farmPlantCardModels.indexWhere((e) => e.id == model.id);
-    _farmPlantCardModels[targetIndex] = model;
+  void updateFarmCard(FarmCardModel model) {
+    final targetIndex = _farmCardModels.indexWhere((e) => e.id == model.id);
+    _farmCardModels[targetIndex] = model;
     notifyListeners();
     _save();
   }
 
   void markCardAsFavorite(bool favorite, {required String id}) async {
-    final target = _farmPlantCardModels.singleWhere((e) => e.id == id);
-    target.favorite.value = favorite;
+    final target = _farmCardModels.singleWhere((e) => e.id == id);
+    target.isFavorited.value = favorite;
     _save();
   }
 
   void makeCardHidden(bool isHidden, {required String id}) {
-    final target = _farmPlantCardModels.singleWhere((e) => e.id == id);
+    final target = _farmCardModels.singleWhere((e) => e.id == id);
     target.isHidden = isHidden;
     notifyListeners();
     _save();
   }
 
   void deleteCard({required String id}) {
-    _farmPlantCardModels.removeWhere((model) => model.id == id);
+    _farmCardModels.removeWhere((model) => model.id == id);
     notifyListeners();
     _save();
   }
@@ -132,7 +128,7 @@ class FarmPageNotifier extends ChangeNotifier {
   /// Save the current data to the shared preferences.
   Future<void> _save() async {
     final prefs = await _prefs;
-    final jsonString = jsonEncode(_farmPlantCardModels);
-    await prefs.setString(_CacheKey.farmPlantCardModelList.name, jsonString);
+    final jsonString = jsonEncode(_farmCardModels);
+    await prefs.setString(_cacheKey, jsonString);
   }
 }

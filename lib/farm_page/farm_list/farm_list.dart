@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../farm_page_notifier.dart';
-import 'farm_plant_card/farm_plant_card.dart';
+import 'farm_plant_card/farm_card.dart';
 
-export 'farm_plant_card/farm_plant_card.dart';
+export 'farm_plant_card/farm_card.dart';
 
 class FarmList extends StatelessWidget {
   const FarmList({super.key});
@@ -18,8 +18,8 @@ class FarmList extends StatelessWidget {
           spacing: 10.0,
           runSpacing: 10.0,
           children: [
-            ...context.watch<FarmPageNotifier>().farmPlantCardModelsBySelectedSeason.map((model) => IntrinsicWidth(
-                  child: FarmPlantCard(
+            ...context.watch<FarmPageNotifier>().farmCardModelsBySelectedSeason.map((model) => IntrinsicWidth(
+                  child: FarmCard(
                     model: model,
                   ),
                 )),

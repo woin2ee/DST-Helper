@@ -6,9 +6,9 @@ import '../../../../l10n/l10ns.dart';
 import '../../../../models/v2/item/categories.dart';
 import '../../../../models/v2/item/nutrient.dart';
 import '../../../../utils/font_family.dart';
-import '../../../farm_list/farm_plant/farm_plant_model.dart';
-import '../../../farm_list/farm_plant_card/farm_plant_card_model.dart';
-import '../../../farm_list/farm_plant_set/farm_plant_set_model.dart';
+import '../../../farm_list/farm_group/farm_group_model.dart';
+import '../../../farm_list/farm_plant/farm_view_model.dart';
+import '../../../farm_list/farm_plant_card/farm_card_model.dart';
 
 part 'nutrient_condition_box.freezed.dart';
 
@@ -160,7 +160,7 @@ class NutrientConditionBox extends StatelessWidget {
 
 class NutrientConditionBoxNotifier extends ValueNotifier<NutrientConditionBoxModel> {
   NutrientConditionBoxNotifier.init()
-      : _farmPlantSetModel = FarmPlantSetModel.single(farmPlantModel: FarmPlantModel.empty(FarmPlantStyle.basic)),
+      : _farmGroupModel = FarmGroupModel.single(farmViewModel: FarmViewModel.empty(FarmType.basic)),
         super(
           const NutrientConditionBoxModel(
             isSatisfying: false,
@@ -169,26 +169,25 @@ class NutrientConditionBoxNotifier extends ValueNotifier<NutrientConditionBoxMod
           ),
         );
 
-  factory NutrientConditionBoxNotifier.withModel(FarmPlantCardModel model) {
+  factory NutrientConditionBoxNotifier.withModel(FarmCardModel model) {
     final controller = NutrientConditionBoxNotifier.init();
-    controller._farmPlantSetModel = model.farmPlantSetModel;
-    controller._selectedFertilizer = model.fertilizer;
+    controller._farmGroupModel = model.farmGroupModel;
+    controller._selectedFertilizer = model.linkedFertilizer;
     controller._updateValue();
     return controller;
   }
 
-  BuiltList<Nutrient> get _nutrientsByFarmPlant =>
-      _farmPlantSetModel.farmPlantModelList.map((e) => e.totalNutrient).toBuiltList();
+  BuiltList<Nutrient> get _nutrientsByFarm => _farmGroupModel.farmViewModels.map((e) => e.totalNutrient).toBuiltList();
   Fertilizer? _selectedFertilizer;
-  FarmPlantSetModel _farmPlantSetModel;
+  FarmGroupModel _farmGroupModel;
 
   void selectFertilizer(Fertilizer? fertilizer) {
     _selectedFertilizer = fertilizer;
     _updateValue();
   }
 
-  void updateFarmPlantSetModel(FarmPlantSetModel farmPlantSetModel) {
-    _farmPlantSetModel = farmPlantSetModel;
+  void updateFarmGroupModel(FarmGroupModel farmGroupModel) {
+    _farmGroupModel = farmGroupModel;
     _updateValue();
   }
 
@@ -199,12 +198,12 @@ class NutrientConditionBoxNotifier extends ValueNotifier<NutrientConditionBoxMod
       countOfNeededFertilizer: 0,
     );
 
-    if (!_farmPlantSetModel.hasAnyPlant) {
+    if (!_farmGroupModel.hasAnyPlant) {
       value = unsatisfiedModel;
       return;
     }
 
-    final bool isSatisfying = _verifyNutrientsBalance(nutrientsByFarmPlant: _nutrientsByFarmPlant);
+    final bool isSatisfying = _verifyNutrientsBalance(nutrientsByFarm: _nutrientsByFarm);
     if (isSatisfying) {
       value = value.copyWith(
         isSatisfying: true,
@@ -234,8 +233,8 @@ class NutrientConditionBoxNotifier extends ValueNotifier<NutrientConditionBoxMod
     return;
   }
 
-  bool _verifyNutrientsBalance({required BuiltList<Nutrient> nutrientsByFarmPlant}) {
-    return nutrientsByFarmPlant
+  bool _verifyNutrientsBalance({required BuiltList<Nutrient> nutrientsByFarm}) {
+    return nutrientsByFarm
         .every((nutrient) => nutrient.compost >= 0 && nutrient.growthFormula >= 0 && nutrient.manure >= 0);
   }
 
@@ -243,18 +242,18 @@ class NutrientConditionBoxNotifier extends ValueNotifier<NutrientConditionBoxMod
   ///
   /// 선택한 비료로 영양소 균형을 이루지 못할 경우 null 을 반환합니다.
   int? _calculateCountOfNeededFertilizer(Fertilizer selectedFertilizer) {
-    if (_verifyNutrientsBalance(nutrientsByFarmPlant: _nutrientsByFarmPlant)) {
+    if (_verifyNutrientsBalance(nutrientsByFarm: _nutrientsByFarm)) {
       return 0;
     }
 
-    var adjustedNutrientsByFarmPlant = List.of(_nutrientsByFarmPlant.map((e) => e.copyWith()));
+    var adjustedNutrientsByFarm = List.of(_nutrientsByFarm.map((e) => e.copyWith()));
 
     // The max count is 10, because a farm can have a maximum of 10 plants thus its maximum negative value is -80.
     // And a minimum positive value out of nutrients is 8 so, it is.
     for (var i = 0; i < 10; i++) {
-      adjustedNutrientsByFarmPlant =
-          adjustedNutrientsByFarmPlant.map((nutrient) => nutrient + selectedFertilizer.nutrient).toList();
-      if (_verifyNutrientsBalance(nutrientsByFarmPlant: adjustedNutrientsByFarmPlant.toBuiltList())) {
+      adjustedNutrientsByFarm =
+          adjustedNutrientsByFarm.map((nutrient) => nutrient + selectedFertilizer.nutrient).toList();
+      if (_verifyNutrientsBalance(nutrientsByFarm: adjustedNutrientsByFarm.toBuiltList())) {
         return i + 1;
       }
     }

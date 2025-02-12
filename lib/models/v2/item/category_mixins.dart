@@ -34,7 +34,7 @@ mixin Cookable implements Item {
   String? get compositeAssetName;
 }
 
-/// It indicates plants that grow in the farmplant.
+/// It indicates plants that grow in the farm.
 mixin Plantable implements Item {
   Set<Season> get seasons;
   Nutrient get nutrient;

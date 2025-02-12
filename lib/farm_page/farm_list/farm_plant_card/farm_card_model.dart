@@ -3,9 +3,9 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../models/v2/item/categories.dart';
-import '../farm_plant_set/farm_plant_set_model.dart';
+import '../farm_group/farm_group_model.dart';
 
-part 'farm_plant_card_model.g.dart';
+part 'farm_card_model.g.dart';
 
 enum CreateType {
   sample,
@@ -13,32 +13,32 @@ enum CreateType {
 }
 
 @JsonSerializable()
-class FarmPlantCardModel extends ChangeNotifier {
+class FarmCardModel extends ChangeNotifier {
   @visibleForTesting
-  FarmPlantCardModel({
+  FarmCardModel({
     required this.id,
     required this.title,
-    required this.farmPlantSetModel,
-    required this.favorite,
+    required this.farmGroupModel,
+    required this.isFavorited,
     required this.createType,
     required bool isHidden,
-    required this.fertilizer,
+    required this.linkedFertilizer,
   }) : _isHidden = isHidden;
 
-  factory FarmPlantCardModel.create({
+  factory FarmCardModel.create({
     String? title,
-    required FarmPlantSetModel farmPlantSetModel,
+    required FarmGroupModel farmGroupModel,
     required CreateType createType,
     required Fertilizer? fertilizer,
   }) {
-    return FarmPlantCardModel(
+    return FarmCardModel(
       id: const Uuid().v4(),
       title: title,
-      farmPlantSetModel: farmPlantSetModel,
+      farmGroupModel: farmGroupModel,
       createType: createType,
       isHidden: false,
-      favorite: ValueNotifier(false),
-      fertilizer: fertilizer,
+      isFavorited: ValueNotifier(false),
+      linkedFertilizer: fertilizer,
     );
   }
 
@@ -46,10 +46,10 @@ class FarmPlantCardModel extends ChangeNotifier {
 
   final String? title;
 
-  final FarmPlantSetModel farmPlantSetModel;
+  final FarmGroupModel farmGroupModel;
 
   @BooleanValueNotifierConverter()
-  final ValueNotifier<bool> favorite;
+  final ValueNotifier<bool> isFavorited;
 
   final CreateType createType;
 
@@ -60,28 +60,28 @@ class FarmPlantCardModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  final Fertilizer? fertilizer;
+  final Fertilizer? linkedFertilizer;
 
-  factory FarmPlantCardModel.fromJson(Map<String, dynamic> json) => _$FarmPlantCardModelFromJson(json);
-  Map<String, dynamic> toJson() => _$FarmPlantCardModelToJson(this);
+  factory FarmCardModel.fromJson(Map<String, dynamic> json) => _$FarmCardModelFromJson(json);
+  Map<String, dynamic> toJson() => _$FarmCardModelToJson(this);
 
-  FarmPlantCardModel copyWith({
+  FarmCardModel copyWith({
     String? id,
     String? title,
-    FarmPlantSetModel? farmPlantSetModel,
-    bool? favorite,
+    FarmGroupModel? farmGroupModel,
+    bool? isFavorited,
     CreateType? createType,
     bool? isHidden,
-    Fertilizer? fertilizer,
+    Fertilizer? linkedFertilizer,
   }) {
-    return FarmPlantCardModel(
+    return FarmCardModel(
       id: id ?? this.id,
       title: title ?? this.title,
-      farmPlantSetModel: farmPlantSetModel ?? this.farmPlantSetModel.copy(),
-      favorite: favorite != null ? ValueNotifier(favorite) : ValueNotifier(this.favorite.value),
+      farmGroupModel: farmGroupModel ?? this.farmGroupModel.copy(),
+      isFavorited: isFavorited != null ? ValueNotifier(isFavorited) : ValueNotifier(this.isFavorited.value),
       createType: createType ?? this.createType,
       isHidden: isHidden ?? this.isHidden,
-      fertilizer: fertilizer ?? this.fertilizer,
+      linkedFertilizer: linkedFertilizer ?? this.linkedFertilizer,
     );
   }
 }

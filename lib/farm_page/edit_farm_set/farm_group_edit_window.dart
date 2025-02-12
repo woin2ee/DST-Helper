@@ -3,55 +3,60 @@ import 'package:flutter/material.dart';
 import '../../l10n/l10ns.dart';
 import '../../models/v2/localization.dart';
 import '../../utils/font_family.dart';
-import '../farm_list/farm_plant/farm_plant_model.dart';
-import '../farm_list/farm_plant_card/farm_plant_card_model.dart';
-import '../farm_list/farm_plant_set/farm_plant_set.dart';
+import '../farm_list/farm_group/farm_group_model.dart';
+import '../farm_list/farm_plant/farm_view_model.dart';
+import '../farm_list/farm_plant_card/farm_card_model.dart';
 import '../side_info_box/crops_info_box.dart';
 import '../side_info_box/fertilizers_info_box.dart';
 import 'components/analysis_view/analysis_view.dart';
 import 'components/crop_selection_section.dart';
 import 'components/farm_plant_set_board.dart';
 import 'components/fertilizer_selection_section.dart';
-import 'edit_farm_set_controller.dart';
+import 'farm_group_edit_controller.dart';
 
-class EditFarmSet extends StatefulWidget {
-  const EditFarmSet({
+class FarmGroupEditWindow extends StatefulWidget {
+  const FarmGroupEditWindow({
     super.key,
-    required this.isEditingNew,
-    this.originModel,
-  }) : assert((isEditingNew == true && originModel == null) || (isEditingNew == false && originModel != null));
+    required this.isEditingNewOne,
+    this.initialModel,
+  }) : assert((isEditingNewOne == true && initialModel == null) || (isEditingNewOne == false && initialModel != null));
 
-  final bool isEditingNew;
-  final FarmPlantCardModel? originModel;
+  final bool isEditingNewOne;
+  final FarmCardModel? initialModel;
 
   @override
-  State<EditFarmSet> createState() => _EditFarmSetState();
+  State<FarmGroupEditWindow> createState() => _FarmGroupEditWindowState();
 }
 
-class _EditFarmSetState extends State<EditFarmSet> {
-  late final EditFarmSetController controller;
+class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
+  late final FarmGroupEditController controller;
 
   @override
   void initState() {
     super.initState();
 
-    final originModel = widget.originModel;
-    if (originModel == null) {
-      controller = EditFarmSetController.init();
+    final initialModel = widget.initialModel;
+    if (initialModel == null) {
+      controller = FarmGroupEditController.init();
     } else {
-      controller = EditFarmSetController.withModel(originModel);
+      controller = FarmGroupEditController.withModel(initialModel);
     }
-    final Iterable<Listenable> controllers = [controller, controller.titleEditingController];
-    for (final e in controllers) {
-      e.addListener(() {
-        controller.hasChanges = true;
-      });
-    }
+
+    _addChangesDetectingListener();
 
     controller.selectedFertilizerNotifier.addListener(() {
       final selectedFertilizer = controller.selectedFertilizerNotifier.value;
       controller.analysisViewController.nutrientConditionBoxController.selectFertilizer(selectedFertilizer);
     });
+  }
+
+  void _addChangesDetectingListener() {
+    final controllers = [controller, controller.titleEditingController];
+    for (final e in controllers) {
+      e.addListener(() {
+        controller.hasChanges = true;
+      });
+    }
   }
 
   @override
@@ -78,13 +83,13 @@ class _EditFarmSetState extends State<EditFarmSet> {
             Column(
               spacing: 34,
               children: [
-                FarmPlantSetBoard(
+                FarmCanvas(
                   controller: controller,
                   width: 384,
                   height: 384,
                 ),
                 ValueListenableBuilder(
-                    valueListenable: controller.farmPlantSetModelNotifier,
+                    valueListenable: controller.farmGroupModelNotifier,
                     builder: (context, value, child) {
                       return AnalysisView(
                         controller: controller.analysisViewController,
@@ -102,15 +107,15 @@ class _EditFarmSetState extends State<EditFarmSet> {
                   padding: const EdgeInsets.only(left: 8.0),
                   width: 400,
                   child: ListenableBuilder(
-                      listenable: controller.farmPlantSetModel,
+                      listenable: controller.farmGroupModel,
                       builder: (context, child) {
                         return TextField(
                           controller: controller.titleEditingController,
                           decoration: InputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             labelText: 'Name',
-                            hintText: (controller.farmPlantSetModel.hasAnyPlant)
-                                ? '${controller.farmPlantSetModel.suitableSeasons.map((season) => season.localizedName(context))}'
+                            hintText: (controller.farmGroupModel.hasAnyPlant)
+                                ? '${controller.farmGroupModel.suitableSeasons.map((season) => season.localizedName(context))}'
                                 : '',
                             hintStyle: const TextStyle(
                               fontFamily: FontFamily.pretendard,
@@ -125,11 +130,11 @@ class _EditFarmSetState extends State<EditFarmSet> {
                   spacing: 8,
                   children: [
                     ValueListenableBuilder(
-                        valueListenable: controller.selectedFarmPlantSetStyleNotifier,
+                        valueListenable: controller.selectedFarmGroupTypeNotifier,
                         builder: (context, value, child) {
-                          return _buildFarmPlantStyleSelectionBox();
+                          return _buildFarmTypeSelectionBox();
                         }),
-                    _buildFarmPlantSetStyleSelectionBox(),
+                    _buildFarmGroupTypeSelectionBox(),
                   ],
                 ),
                 CropSelectionSection(notifier: controller.selectedCropNotifier),
@@ -177,21 +182,21 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         foregroundColor: WidgetStatePropertyAll(Colors.white),
                       ),
                       onPressed: () {
-                        final originModel = widget.originModel;
-                        final FarmPlantCardModel model;
+                        final originModel = widget.initialModel;
+                        final FarmCardModel model;
                         final title = controller.titleEditingController.text.isNotEmpty
                             ? controller.titleEditingController.text
                             : null;
-                        if (widget.isEditingNew == false && originModel != null) {
+                        if (widget.isEditingNewOne == false && originModel != null) {
                           model = originModel.copyWith(
                             title: title,
-                            farmPlantSetModel: controller.farmPlantSetModel,
+                            farmGroupModel: controller.farmGroupModel,
                             createType: CreateType.userCustom,
                           );
                         } else {
-                          model = FarmPlantCardModel.create(
+                          model = FarmCardModel.create(
                             title: title,
-                            farmPlantSetModel: controller.farmPlantSetModel,
+                            farmGroupModel: controller.farmGroupModel,
                             createType: CreateType.userCustom,
                             fertilizer: controller.selectedFertilizer,
                           );
@@ -199,7 +204,9 @@ class _EditFarmSetState extends State<EditFarmSet> {
                         Navigator.pop(context, model);
                       },
                       child: Text(
-                        widget.isEditingNew ? L10ns.of(context).localized('add') : L10ns.of(context).localized('done'),
+                        widget.isEditingNewOne
+                            ? L10ns.of(context).localized('add')
+                            : L10ns.of(context).localized('done'),
                         style: const TextStyle(
                           fontFamily: FontFamily.pretendard,
                           fontSize: 15,
@@ -216,24 +223,24 @@ class _EditFarmSetState extends State<EditFarmSet> {
     );
   }
 
-  Widget _buildFarmPlantStyleSelectionBox() {
+  Widget _buildFarmTypeSelectionBox() {
     return Builder(builder: (context) {
       return Row(
         spacing: 10,
         children: <Widget>[
-          ...FarmPlantStyle.values.map((style) => OutlinedButton(
-                onPressed: switch (controller.selectedFarmPlantSetStyle) {
-                  FarmPlantSetStyle.single || FarmPlantSetStyle.double => () {
-                      controller.setSelectedFarmPlantStyle(style);
+          ...FarmType.values.map((type) => OutlinedButton(
+                onPressed: switch (controller.selectedFarmGroupType) {
+                  FarmGroupType.single || FarmGroupType.double => () {
+                      controller.setFarmType(type);
                     },
-                  FarmPlantSetStyle.square => switch (style) {
-                      FarmPlantStyle.basic => () {},
-                      FarmPlantStyle.dense => null,
-                      FarmPlantStyle.reverseDense => null,
+                  FarmGroupType.square => switch (type) {
+                      FarmType.basic => () {},
+                      FarmType.dense => null,
+                      FarmType.reverseDense => null,
                     },
                 },
                 child: Text(
-                  style.localizedName(context),
+                  type.localizedName(context),
                   style: const TextStyle(
                     fontFamily: FontFamily.pretendard,
                   ),
@@ -244,14 +251,14 @@ class _EditFarmSetState extends State<EditFarmSet> {
     });
   }
 
-  Widget _buildFarmPlantSetStyleSelectionBox() {
+  Widget _buildFarmGroupTypeSelectionBox() {
     return Row(
       spacing: 10.0,
       children: [
-        ...FarmPlantSetStyle.values.map((style) => OutlinedButton(
-              onPressed: () => controller.setSelectedFarmPlantSetStyle(style),
+        ...FarmGroupType.values.map((type) => OutlinedButton(
+              onPressed: () => controller.setFarmGroupType(type),
               child: Text(
-                style.name,
+                type.name,
                 style: const TextStyle(
                   fontFamily: FontFamily.pretendard,
                 ),
@@ -262,7 +269,7 @@ class _EditFarmSetState extends State<EditFarmSet> {
   }
 }
 
-extension on _EditFarmSetState {
+extension on _FarmGroupEditWindowState {
   /// Shows a dialog and resolves to true when the user has indicated that they
   /// want to pop.
   ///

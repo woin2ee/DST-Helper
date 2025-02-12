@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../../farm_list/farm_plant_set/farm_plant_set.dart';
-import '../edit_farm_set_controller.dart';
+import '../../farm_list/farm_group/farm_group.dart';
+import '../farm_group_edit_controller.dart';
 
 /// The place where users can set plants.
-class FarmPlantSetBoard extends StatelessWidget {
-  const FarmPlantSetBoard({
+class FarmCanvas extends StatelessWidget {
+  const FarmCanvas({
     super.key,
     required this.controller,
     required this.width,
     required this.height,
   });
 
-  final EditFarmSetController controller;
+  final FarmGroupEditController controller;
   final double width;
   final double height;
 
@@ -24,15 +24,14 @@ class FarmPlantSetBoard extends StatelessWidget {
       height: height,
       child: Center(
         child: ListenableBuilder(
-            listenable: controller.farmPlantSetModelNotifier,
+            listenable: controller.farmGroupModelNotifier,
             builder: (context, child) {
-              return FarmPlantSet(
-                farmPlantSetModel: controller.farmPlantSetModel,
-                onPressed: (farmPlantIndex) => (plantIndex) => () {
-                      final selectedCrop = controller.selectedCrop;
+              return FarmGroup(
+                model: controller.farmGroupModel,
+                onPressed: (farmIndex) => (plantIndex) => () {
                       controller.setPlant(
-                        selectedCrop,
-                        farmPlantIndex: farmPlantIndex,
+                        controller.selectedCrop,
+                        farmIndex: farmIndex,
                         plantIndex: plantIndex,
                       );
                     },

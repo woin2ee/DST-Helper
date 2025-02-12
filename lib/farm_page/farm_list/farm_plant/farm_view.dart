@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 
 import '../plant_cell/plant_cell.dart';
-import 'farm_plant_model.dart';
+import 'farm_view_model.dart';
 
-export 'farm_plant_model.dart';
+export 'farm_view_model.dart';
 
-class FarmPlant extends StatelessWidget {
-  FarmPlant({
+/// A widget that plant cells are placed.
+///
+/// The index order of the plant cells are top-left to bottom-right and direction is horizontal.
+class FarmView extends StatelessWidget {
+  FarmView({
     super.key,
-    FarmPlantModel? model,
+    FarmViewModel? model,
     this.onPressedByIndex,
-  }) : model = model ?? FarmPlantModel.empty(FarmPlantStyle.basic);
+  }) : model = model ?? FarmViewModel.empty(FarmType.basic);
 
-  final FarmPlantModel model;
+  final FarmViewModel model;
   final VoidCallback Function(int index)? onPressedByIndex;
 
   @override
   Widget build(BuildContext context) {
-    return switch (model.farmPlantStyle) {
-      FarmPlantStyle.basic => SizedBox(
+    return switch (model.farmType) {
+      FarmType.basic => SizedBox(
           width: 180,
           height: 180,
           child: Column(
@@ -74,7 +77,7 @@ class FarmPlant extends StatelessWidget {
             ],
           ),
         ),
-      FarmPlantStyle.dense => SizedBox(
+      FarmType.dense => SizedBox(
           width: 180,
           height: 220,
           child: Column(
@@ -146,7 +149,7 @@ class FarmPlant extends StatelessWidget {
             ],
           ),
         ),
-      FarmPlantStyle.reverseDense => SizedBox(
+      FarmType.reverseDense => SizedBox(
           width: 180,
           height: 220,
           child: Column(
