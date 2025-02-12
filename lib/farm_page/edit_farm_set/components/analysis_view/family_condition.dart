@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
-import 'package:dst_helper/models/v2/item/categories.dart';
-import 'package:dst_helper/utils/union_find.dart';
+import '../../../../models/v2/item/categories.dart';
+import '../../../../utils/union_find.dart';
+import '../../../farm_list/farm_group/farm_group_model.dart';
 
 class FamilyCondition {
   const FamilyCondition._({
@@ -15,43 +15,43 @@ class FamilyCondition {
         _plantArray = plantArray,
         _flatPlantArray = flatPlantArray;
 
-  factory FamilyCondition.withModel(FarmPlantSetModel model) {
-    final rowCount = switch (model.farmPlantSetStyle) {
-      FarmPlantSetStyle.single => 3,
-      FarmPlantSetStyle.double || FarmPlantSetStyle.square => 6,
+  factory FamilyCondition.withModel(FarmGroupModel model) {
+    final rowCount = switch (model.groupType) {
+      FarmGroupType.single => 3,
+      FarmGroupType.double || FarmGroupType.square => 6,
     };
 
-    final colCount = switch (model.farmPlantSetStyle) {
-      FarmPlantSetStyle.single || FarmPlantSetStyle.double => 3,
-      FarmPlantSetStyle.square => 6,
+    final colCount = switch (model.groupType) {
+      FarmGroupType.single || FarmGroupType.double => 3,
+      FarmGroupType.square => 6,
     };
 
-    final List<List<_PlantInfo>> plantArray = switch (model.farmPlantSetStyle) {
-      FarmPlantSetStyle.single => List.generate(
+    final List<List<_PlantInfo>> plantArray = switch (model.groupType) {
+      FarmGroupType.single => List.generate(
           colCount,
           (col) => List.generate(
             rowCount,
             (row) => _PlantInfo(
-              plant: model.farmPlantModelList[0].plants[col * 3 + row],
+              plant: model.farmViewModels[0].plants[col * 3 + row],
               point: Point(col, row),
             ),
             growable: false,
           ),
           growable: false,
         ),
-      FarmPlantSetStyle.double => List.generate(
+      FarmGroupType.double => List.generate(
           colCount,
           (col) => List.generate(
             rowCount,
             (row) {
               if (row < 3) {
                 return _PlantInfo(
-                  plant: model.farmPlantModelList[0].plants[col * 3 + row],
+                  plant: model.farmViewModels[0].plants[col * 3 + row],
                   point: Point(col, row),
                 );
               } else {
                 return _PlantInfo(
-                  plant: model.farmPlantModelList[1].plants[col * 3 + row - 3],
+                  plant: model.farmViewModels[1].plants[col * 3 + row - 3],
                   point: Point(col, row),
                 );
               }
@@ -60,7 +60,7 @@ class FamilyCondition {
           ),
           growable: false,
         ),
-      FarmPlantSetStyle.square => List.generate(
+      FarmGroupType.square => List.generate(
           colCount,
           (col) => List.generate(
             rowCount,
@@ -68,24 +68,24 @@ class FamilyCondition {
               if (col < 3) {
                 if (row < 3) {
                   return _PlantInfo(
-                    plant: model.farmPlantModelList[0].plants[col * 3 + row],
+                    plant: model.farmViewModels[0].plants[col * 3 + row],
                     point: Point(col, row),
                   );
                 } else {
                   return _PlantInfo(
-                    plant: model.farmPlantModelList[1].plants[col * 3 + row - 3],
+                    plant: model.farmViewModels[1].plants[col * 3 + row - 3],
                     point: Point(col, row),
                   );
                 }
               } else {
                 if (row < 3) {
                   return _PlantInfo(
-                    plant: model.farmPlantModelList[2].plants[(col - 3) * 3 + row],
+                    plant: model.farmViewModels[2].plants[(col - 3) * 3 + row],
                     point: Point(col, row),
                   );
                 } else {
                   return _PlantInfo(
-                    plant: model.farmPlantModelList[3].plants[(col - 3) * 3 + row - 3],
+                    plant: model.farmViewModels[3].plants[(col - 3) * 3 + row - 3],
                     point: Point(col, row),
                   );
                 }

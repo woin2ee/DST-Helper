@@ -1,7 +1,8 @@
-import 'package:dst_helper/farm_page/side_info_box/crops_info_box.dart';
-import 'package:dst_helper/farm_page/side_info_box/fertilizers_info_box.dart';
-import 'package:dst_helper/farm_page/side_info_box/seeds_info_box.dart';
 import 'package:flutter/material.dart';
+
+import 'crops_info_box.dart';
+import 'fertilizers_info_box.dart';
+import 'seeds_info_box.dart';
 
 enum SideInfoMenu {
   seed,

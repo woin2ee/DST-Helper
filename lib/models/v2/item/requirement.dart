@@ -1,6 +1,6 @@
-import 'package:dst_helper/models/v2/item/category_mixins.dart';
-import 'package:dst_helper/models/v2/item/food_value.dart';
-import 'package:dst_helper/models/v2/item/ingredients_analyser.dart';
+import 'category_mixins.dart';
+import 'food_value.dart';
+import 'ingredients_analyser.dart';
 
 sealed class Requirement implements Comparable<Requirement> {
   const Requirement();

@@ -1,6 +1,7 @@
-import 'package:dst_helper/app/app.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'app/app.dart';
 
 void main() async {
   await _clearPrefsIfNeeds();
@@ -18,8 +19,8 @@ Future<void> _clearPrefsIfNeeds() async {
 
   // 버전 명시
   const currentVersion = _PrefsVersion(
-    description: 'Update model of items',
-    number: 8,
+    description: 'Update encoding keys due to refactoring',
+    number: 9,
   );
 
   clearAndSet() async {

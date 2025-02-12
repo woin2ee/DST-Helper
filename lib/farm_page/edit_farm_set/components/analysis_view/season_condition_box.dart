@@ -1,10 +1,11 @@
 import 'package:built_collection/built_collection.dart';
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/models/v1/season.dart';
-import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 import 'package:intersperse/intersperse.dart';
 import 'package:styled_text/styled_text.dart';
+
+import '../../../../l10n/l10ns.dart';
+import '../../../../models/v1/season.dart';
+import '../../../../utils/font_family.dart';
 
 class SeasonConditionBox extends StatelessWidget {
   const SeasonConditionBox({

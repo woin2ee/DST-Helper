@@ -1,7 +1,7 @@
-import 'package:dst_helper/models/v1/season.dart';
-import 'package:dst_helper/models/v2/item/food_value.dart';
-import 'package:dst_helper/models/v2/item/nutrient.dart';
-import 'package:dst_helper/models/v2/item/requirement.dart';
+import '../../v1/season.dart';
+import 'food_value.dart';
+import 'nutrient.dart';
+import 'requirement.dart';
 
 /// It defines the common properties of items.
 ///
@@ -34,7 +34,7 @@ mixin Cookable implements Item {
   String? get compositeAssetName;
 }
 
-/// It indicates plants that grow in the farmplant.
+/// It indicates plants that grow in the farm.
 mixin Plantable implements Item {
   Set<Season> get seasons;
   Nutrient get nutrient;

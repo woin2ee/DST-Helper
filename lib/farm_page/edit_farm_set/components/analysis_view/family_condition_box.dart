@@ -1,11 +1,12 @@
-import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/family_condition.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set_model.dart';
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/models/v2/item/categories.dart';
-import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../../../l10n/l10ns.dart';
+import '../../../../models/v2/item/categories.dart';
+import '../../../../utils/font_family.dart';
+import '../../../farm_list/farm_group/farm_group_model.dart';
+import '../../../farm_list/farm_plant/farm_view_model.dart';
+import 'family_condition.dart';
 
 part 'family_condition_box.freezed.dart';
 
@@ -70,7 +71,7 @@ class FamilyConditionBox extends StatelessWidget {
       ),
       height: boxHeight,
       child: Padding(
-        padding: EdgeInsets.only(left: horizontalTextPadding, right: horizontalTextPadding),
+        padding: EdgeInsets.symmetric(horizontal: horizontalTextPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -116,7 +117,7 @@ class FamilyConditionBox extends StatelessWidget {
       ),
       height: boxHeight,
       child: Padding(
-        padding: EdgeInsets.only(left: horizontalTextPadding, right: horizontalTextPadding),
+        padding: EdgeInsets.symmetric(horizontal: horizontalTextPadding),
         child: FittedBox(
           child: Text(
             L10ns.of(context).localized('family_condition_satisfying_text'),
@@ -135,7 +136,7 @@ class FamilyConditionBox extends StatelessWidget {
 
 class FamilyConditionBoxController extends ValueNotifier<FamilyConditionBoxModel> {
   FamilyConditionBoxController.init()
-      : _farmPlantSetModel = FarmPlantSetModel.single(farmPlantModel: FarmPlantModel.empty(FarmPlantStyle.basic)),
+      : _farmGroupModel = FarmGroupModel.single(farmViewModel: FarmViewModel.empty(FarmType.basic)),
         super(
           const FamilyConditionBoxModel(
             isSatisfying: false,
@@ -143,22 +144,22 @@ class FamilyConditionBoxController extends ValueNotifier<FamilyConditionBoxModel
           ),
         );
 
-  factory FamilyConditionBoxController.withModel(FarmPlantSetModel model) {
+  factory FamilyConditionBoxController.withModel(FarmGroupModel model) {
     final self = FamilyConditionBoxController.init();
-    self._farmPlantSetModel = model;
+    self._farmGroupModel = model;
     self._updateValue();
     return self;
   }
 
-  FarmPlantSetModel _farmPlantSetModel;
+  FarmGroupModel _farmGroupModel;
 
-  void updateFarmPlantSetModel(FarmPlantSetModel farmPlantSetModel) {
-    _farmPlantSetModel = farmPlantSetModel;
+  void updateFarmGroupModel(FarmGroupModel farmGroupModel) {
+    _farmGroupModel = farmGroupModel;
     _updateValue();
   }
 
   void _updateValue() {
-    final condition = FamilyCondition.withModel(_farmPlantSetModel);
+    final condition = FamilyCondition.withModel(_farmGroupModel);
     if (condition.isSatisfied) {
       _satisfy();
     } else {

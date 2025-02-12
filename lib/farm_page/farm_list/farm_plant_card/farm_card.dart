@@ -1,23 +1,23 @@
-import 'package:dst_helper/farm_page/edit_farm_set/edit_farm_set.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
-import 'package:dst_helper/farm_page/farm_page_controller.dart';
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/models/v2/localization.dart';
-import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'farm_plant_card_model.dart';
+import '../../../l10n/l10ns.dart';
+import '../../../models/v2/localization.dart';
+import '../../../utils/font_family.dart';
+import '../../edit_farm_set/farm_group_edit_window.dart';
+import '../../farm_page_notifier.dart';
+import '../farm_group/farm_group.dart';
+import 'farm_card_model.dart';
 
-export 'farm_plant_card_model.dart';
+export 'farm_card_model.dart';
 
-class FarmPlantCard extends StatelessWidget {
-  const FarmPlantCard({
+class FarmCard extends StatelessWidget {
+  const FarmCard({
     super.key,
     required this.model,
   });
 
-  final FarmPlantCardModel model;
+  final FarmCardModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +40,10 @@ class FarmPlantCard extends StatelessWidget {
                 children: [
                   _CardTitle(
                     title:
-                        '${model.title ?? model.farmPlantSetModel.suitableSeasons.map((season) => season.localizedName(context))}',
+                        '${model.title ?? model.farmGroupModel.suitableSeasons.map((season) => season.localizedName(context))}',
                     model: model,
                   ),
-                  FarmPlantSet(farmPlantSetModel: model.farmPlantSetModel),
+                  FarmGroup(model: model.farmGroupModel),
                 ],
               ),
             ),
@@ -66,13 +66,13 @@ class _CardTitle extends StatelessWidget {
   });
 
   final String title;
-  final FarmPlantCardModel model;
+  final FarmCardModel model;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     const double sideSpace = 42;
-    final farmPageController = context.read<FarmPageController>();
+    final farmPageController = context.read<FarmPageNotifier>();
 
     return Container(
       color: Colors.black54,
@@ -97,14 +97,14 @@ class _CardTitle extends StatelessWidget {
                         barrierColor: Colors.black.withOpacity(0.35),
                         context: context,
                         builder: (context) => Dialog(
-                          child: EditFarmSet(
-                            isEditingNew: false,
-                            originModel: model,
+                          child: FarmGroupEditWindow(
+                            isEditingNewOne: false,
+                            initialModel: model,
                           ),
                         ),
                       );
-                      if (result is FarmPlantCardModel && context.mounted) {
-                        context.read<FarmPageController>().updateFarmPlantCard(result);
+                      if (result is FarmCardModel && context.mounted) {
+                        context.read<FarmPageNotifier>().updateFarmCard(result);
                       }
                     case _CardActionEntry.hide:
                       farmPageController.makeCardHidden(true, id: model.id);
@@ -169,7 +169,7 @@ class _CardTitle extends StatelessWidget {
             width: sideSpace,
             child: Center(
               child: ValueListenableBuilder(
-                valueListenable: model.favorite,
+                valueListenable: model.isFavorited,
                 builder: (BuildContext context, bool favorite, Widget? child) {
                   return IconButton(
                     padding: const EdgeInsets.all(0),

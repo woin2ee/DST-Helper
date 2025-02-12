@@ -1,6 +1,7 @@
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/models/v1/season.dart';
 import 'package:flutter/material.dart';
+
+import '../../../l10n/l10ns.dart';
+import '../season.dart';
 
 extension SeasonLocalization on Season {
   String localizedName(BuildContext context) {

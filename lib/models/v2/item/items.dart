@@ -1,7 +1,7 @@
-import 'package:dst_helper/models/v1/season.dart';
-import 'package:dst_helper/models/v2/item/item.dart';
-import 'package:dst_helper/models/v2/item/requirement.dart';
-import 'package:dst_helper/models/v2/status_value.dart';
+import '../../v1/season.dart';
+import '../status_value.dart';
+import 'item.dart';
+import 'requirement.dart';
 
 extension Items on Item {
   static const Food toastedSeeds = Food(
@@ -1003,6 +1003,13 @@ extension Items on Item {
     compostWrap,
   ];
 
+  static const List<Fertilizer> growthFormulaVariants = [
+    growthFormulaStarter,
+    fermentingGrowthFormula,
+    fermentedGrowthFormula,
+    superGrowthFormula,
+  ];
+
   static const Fertilizer manure = Fertilizer(
     code: 'poop',
     assetName: 'manure',
@@ -1048,7 +1055,7 @@ extension Items on Item {
   static const Fertilizer fermentingGrowthFormula = Fertilizer(
     code: 'soil_amender',
     assetName: 'fermenting_growth_formula',
-    nutrient: Nutrient(compost: 0, growthFormula: 0, manure: 0),
+    nutrient: Nutrient(compost: 0, growthFormula: 16, manure: 0),
   );
 
   static const Fertilizer fermentedGrowthFormula = Fertilizer(

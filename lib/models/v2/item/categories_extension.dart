@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:dst_helper/models/v2/item/categories.dart';
-import 'package:dst_helper/models/v2/item/category_mixins.dart';
-import 'package:dst_helper/models/v2/item/ingredients_analyser.dart';
-import 'package:dst_helper/models/v2/item/items.dart';
-import 'package:dst_helper/models/v2/item/requirement.dart';
+import 'categories.dart';
+import 'category_mixins.dart';
+import 'ingredients_analyser.dart';
+import 'items.dart';
+import 'requirement.dart';
 
 extension RecipeExtension on Recipe {
   /// A value indicating whether the recipe can be cooked with given ingredients.
@@ -28,8 +28,8 @@ extension RecipeExtension on Recipe {
     final requirements = this.requirements.rawRequirements.toList();
     requirements.sort((a, b) => a.compareTo(b));
 
-    List<String> assets = [];
-    List<UsingInCrockPot> containedIngredient = [];
+    final List<String> assets = [];
+    final List<UsingInCrockPot> containedIngredient = [];
 
     /// Extract assets that appropriately represent a given requirement.
     List<String> assetsRepresenting(Requirement requirement) {
@@ -72,7 +72,8 @@ extension RecipeExtension on Recipe {
     }
 
     for (final requirement in requirements.reversed) {
-      assets += assetsRepresenting(requirement);
+      final assetsForRequirement = assetsRepresenting(requirement);
+      assets.addAll(assetsForRequirement);
     }
 
     assert(assets.length <= 4);

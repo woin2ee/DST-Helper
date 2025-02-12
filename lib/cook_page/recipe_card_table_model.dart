@@ -1,7 +1,8 @@
-import 'package:dst_helper/cook_page/recipe_card/recipe_card.dart';
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter/material.dart';
+
+import '../l10n/l10ns.dart';
+import '../models/v2/item/item.dart';
+import 'recipe_card/recipe_card.dart';
 
 class RecipeCardTableModel extends ChangeNotifier {
   RecipeCardMode _recipeCardMode = RecipeCardMode.basic;
@@ -18,16 +19,16 @@ class RecipeCardTableModel extends ChangeNotifier {
   }
 
   List<Recipe> getRecipes(BuildContext context) {
-    var entireRecipes = Items.recipes;
+    final entireRecipes = Items.recipes;
 
     if (_searchKeyword.isEmpty) {
       return entireRecipes;
     }
 
-    var searchedRecipes = entireRecipes.where((recipe) {
-      var recipeName = L10ns.of(context).localized('${recipe.code}_name');
-      var adjustedName = recipeName.replaceAll(' ', '').toLowerCase();
-      var searchKeyword = _searchKeyword.toLowerCase();
+    final searchedRecipes = entireRecipes.where((recipe) {
+      final recipeName = L10ns.of(context).localized('${recipe.code}_name');
+      final adjustedName = recipeName.replaceAll(' ', '').toLowerCase();
+      final searchKeyword = _searchKeyword.toLowerCase();
       return adjustedName.contains(searchKeyword);
     });
 

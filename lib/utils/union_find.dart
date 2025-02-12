@@ -19,8 +19,8 @@ class UnionFind<Element> {
   }
 
   void union(Element e1, Element e2) {
-    Element root1 = find(e1);
-    Element root2 = find(e2);
+    final Element root1 = find(e1);
+    final Element root2 = find(e2);
     if (root1 != root2) {
       parent[root2] = root1;
     }

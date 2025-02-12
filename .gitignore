@@ -49,7 +49,7 @@ lib/**/*.freezed.dart
 lib/**/*.g.dart
 
 # Personal
-lib/example
+example/**
 design/
 
 # l10n

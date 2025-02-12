@@ -1,12 +1,139 @@
 import 'package:built_collection/built_collection.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant/farm_plant_model.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set_model.dart';
-import 'package:dst_helper/models/v2/item/items.dart';
+import 'package:flutter/foundation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class FarmPlantSetModelSample {
-  FarmPlantSetModelSample._();
+import '../../../models/v1/season.dart';
+import '../../../models/v2/item/categories.dart';
+import '../../../models/v2/item/items.dart';
+import '../farm_plant/farm_view_model.dart';
 
-  static BuiltList<FarmPlantSetModel> get preDefinedList {
+part 'farm_group_model.g.dart';
+
+enum FarmGroupType {
+  single,
+  double,
+  square;
+}
+
+@JsonSerializable()
+class FarmGroupModel extends ChangeNotifier {
+  @visibleForTesting
+  FarmGroupModel({
+    required this.groupType,
+    required this.count,
+    required List<FarmViewModel> farmViewModels,
+  }) : _farmViewModels = farmViewModels;
+
+  final FarmGroupType groupType;
+
+  /// The number of farms in the group.
+  final int count;
+
+  List<FarmViewModel> _farmViewModels;
+
+  /// The list of `FarmViewModel` in the group.
+  ///
+  /// Indexes are ordered as `top-left`, `top-right`, `bottom-left`, `bottom-right`.
+  BuiltList<FarmViewModel> get farmViewModels => BuiltList(_farmViewModels);
+
+  factory FarmGroupModel.single({required FarmViewModel farmViewModel}) {
+    return FarmGroupModel(
+      groupType: FarmGroupType.single,
+      count: 1,
+      farmViewModels: [farmViewModel],
+    );
+  }
+
+  factory FarmGroupModel.double({
+    required FarmViewModel left,
+    required FarmViewModel right,
+  }) {
+    return FarmGroupModel(
+      groupType: FarmGroupType.double,
+      count: 2,
+      farmViewModels: [left, right],
+    );
+  }
+
+  factory FarmGroupModel.square({
+    required FarmViewModel topLeft,
+    required FarmViewModel topRight,
+    required FarmViewModel bottomLeft,
+    required FarmViewModel bottomRight,
+  }) {
+    return FarmGroupModel(
+      groupType: FarmGroupType.square,
+      count: 4,
+      farmViewModels: [
+        topLeft,
+        topRight,
+        bottomLeft,
+        bottomRight,
+      ],
+    );
+  }
+
+  Seasons get suitableSeasons {
+    if (!hasAnyPlant) return {};
+    Seasons seasons = {
+      Season.spring,
+      Season.summer,
+      Season.autumn,
+      Season.winter,
+    };
+    for (final farm in farmViewModels) {
+      for (final plant in farm.plantCellModels.map((e) => e.plant)) {
+        if (plant == null) continue;
+        seasons = seasons.intersection(plant.seasons);
+      }
+    }
+    return seasons;
+  }
+
+  bool get hasAnyPlant {
+    return farmViewModels.any((model) => model.plants.any((plant) => plant != null));
+  }
+
+  bool get hasBalancedNutrients {
+    return farmViewModels.every((model) => model.hasBalancedNutrients);
+  }
+
+  void setPlant(Plant? plant, {required int farmIndex, required int plantIndex}) {
+    farmViewModels[farmIndex].plantCellModels[plantIndex].plant = plant;
+    notifyListeners();
+  }
+
+  factory FarmGroupModel.fromJson(Map<String, dynamic> json) => _$FarmGroupModelFromJson(json);
+  Map<String, dynamic> toJson() => _$FarmGroupModelToJson(this);
+
+  @override
+  bool operator ==(Object other) {
+    return other is FarmGroupModel &&
+        groupType == other.groupType &&
+        count == other.count &&
+        listEquals(_farmViewModels, other._farmViewModels);
+  }
+
+  @override
+  int get hashCode => Object.hash(
+        groupType,
+        count,
+        farmViewModels,
+      );
+
+  FarmGroupModel copy() {
+    return FarmGroupModel(
+      groupType: groupType,
+      count: count,
+      farmViewModels: farmViewModels.map((e) => e.copyWith()).toList(),
+    );
+  }
+}
+
+class SampleFarmGroupModel {
+  SampleFarmGroupModel._();
+
+  static BuiltList<FarmGroupModel> get preDefinedList {
     return BuiltList.of([
       preDefined1,
       preDefined2,
@@ -27,9 +154,9 @@ class FarmPlantSetModelSample {
     ]);
   }
 
-  static FarmPlantSetModel get preDefined1 {
-    return FarmPlantSetModel.single(
-      farmPlantModel: FarmPlantModel.basic(
+  static FarmGroupModel get preDefined1 {
+    return FarmGroupModel.single(
+      farmViewModel: FarmViewModel.basic(
         Items.potato,
         Items.potato,
         Items.potato,
@@ -43,9 +170,9 @@ class FarmPlantSetModelSample {
     );
   }
 
-  static FarmPlantSetModel get preDefined2 {
-    return FarmPlantSetModel.double(
-      left: FarmPlantModel.basic(
+  static FarmGroupModel get preDefined2 {
+    return FarmGroupModel.double(
+      left: FarmViewModel.basic(
         Items.dragonFruit,
         Items.dragonFruit,
         Items.dragonFruit,
@@ -56,7 +183,7 @@ class FarmPlantSetModelSample {
         Items.tomaRoot,
         Items.tomaRoot,
       ),
-      right: FarmPlantModel.basic(
+      right: FarmViewModel.basic(
         Items.dragonFruit,
         Items.dragonFruit,
         Items.dragonFruit,
@@ -66,42 +193,42 @@ class FarmPlantSetModelSample {
         Items.tomaRoot,
         Items.tomaRoot,
         Items.tomaRoot,
-      ),
-    );
-  }
-
-  static FarmPlantSetModel get preDefined3 {
-    return FarmPlantSetModel.double(
-      left: FarmPlantModel.dense(
-        Items.pumpkin,
-        Items.garlic,
-        Items.pumpkin,
-        Items.pumpkin,
-        Items.garlic,
-        Items.pumpkin,
-        Items.potato,
-        Items.potato,
-        Items.potato,
-        Items.potato,
-      ),
-      right: FarmPlantModel.reverseDense(
-        Items.garlic,
-        Items.pumpkin,
-        Items.pumpkin,
-        Items.garlic,
-        Items.pumpkin,
-        Items.potato,
-        Items.potato,
-        Items.pumpkin,
-        Items.potato,
-        Items.potato,
       ),
     );
   }
 
-  static FarmPlantSetModel get preDefined4 {
-    return FarmPlantSetModel.double(
-      left: FarmPlantModel.basic(
+  static FarmGroupModel get preDefined3 {
+    return FarmGroupModel.double(
+      left: FarmViewModel.dense(
+        Items.pumpkin,
+        Items.garlic,
+        Items.pumpkin,
+        Items.pumpkin,
+        Items.garlic,
+        Items.pumpkin,
+        Items.potato,
+        Items.potato,
+        Items.potato,
+        Items.potato,
+      ),
+      right: FarmViewModel.reverseDense(
+        Items.garlic,
+        Items.pumpkin,
+        Items.pumpkin,
+        Items.garlic,
+        Items.pumpkin,
+        Items.potato,
+        Items.potato,
+        Items.pumpkin,
+        Items.potato,
+        Items.potato,
+      ),
+    );
+  }
+
+  static FarmGroupModel get preDefined4 {
+    return FarmGroupModel.double(
+      left: FarmViewModel.basic(
         Items.onion,
         Items.onion,
         Items.onion,
@@ -112,7 +239,7 @@ class FarmPlantSetModelSample {
         Items.dragonFruit,
         Items.dragonFruit,
       ),
-      right: FarmPlantModel.basic(
+      right: FarmViewModel.basic(
         Items.onion,
         Items.onion,
         Items.onion,
@@ -126,9 +253,9 @@ class FarmPlantSetModelSample {
     );
   }
 
-  static FarmPlantSetModel get preDefined5 {
-    return FarmPlantSetModel.double(
-      left: FarmPlantModel.basic(
+  static FarmGroupModel get preDefined5 {
+    return FarmGroupModel.double(
+      left: FarmViewModel.basic(
         Items.onion,
         Items.onion,
         Items.onion,
@@ -139,7 +266,7 @@ class FarmPlantSetModelSample {
         Items.watermelon,
         Items.watermelon,
       ),
-      right: FarmPlantModel.basic(
+      right: FarmViewModel.basic(
         Items.onion,
         Items.onion,
         Items.onion,
@@ -153,9 +280,9 @@ class FarmPlantSetModelSample {
     );
   }
 
-  static FarmPlantSetModel get preDefined6 {
-    return FarmPlantSetModel.double(
-      left: FarmPlantModel.basic(
+  static FarmGroupModel get preDefined6 {
+    return FarmGroupModel.double(
+      left: FarmViewModel.basic(
         Items.potato,
         Items.potato,
         Items.garlic,
@@ -166,7 +293,7 @@ class FarmPlantSetModelSample {
         Items.onion,
         Items.onion,
       ),
-      right: FarmPlantModel.basic(
+      right: FarmViewModel.basic(
         Items.garlic,
         Items.potato,
         Items.potato,
@@ -180,9 +307,9 @@ class FarmPlantSetModelSample {
     );
   }
 
-  static FarmPlantSetModel get preDefined7 {
-    return FarmPlantSetModel.double(
-      left: FarmPlantModel.basic(
+  static FarmGroupModel get preDefined7 {
+    return FarmGroupModel.double(
+      left: FarmViewModel.basic(
         Items.asparagus,
         Items.asparagus,
         Items.asparagus,
@@ -193,7 +320,7 @@ class FarmPlantSetModelSample {
         Items.pumpkin,
         Items.pumpkin,
       ),
-      right: FarmPlantModel.basic(
+      right: FarmViewModel.basic(
         Items.asparagus,
         Items.asparagus,
         Items.asparagus,
@@ -207,9 +334,9 @@ class FarmPlantSetModelSample {
     );
   }
 
-  static FarmPlantSetModel get preDefined8 {
-    return FarmPlantSetModel.single(
-      farmPlantModel: FarmPlantModel.basic(
+  static FarmGroupModel get preDefined8 {
+    return FarmGroupModel.single(
+      farmViewModel: FarmViewModel.basic(
         Items.watermelon,
         Items.watermelon,
         Items.watermelon,
@@ -223,9 +350,9 @@ class FarmPlantSetModelSample {
     );
   }
 
-  static FarmPlantSetModel get preDefined9 {
-    return FarmPlantSetModel.single(
-      farmPlantModel: FarmPlantModel.basic(
+  static FarmGroupModel get preDefined9 {
+    return FarmGroupModel.single(
+      farmViewModel: FarmViewModel.basic(
         Items.onion,
         Items.onion,
         Items.onion,
@@ -239,9 +366,9 @@ class FarmPlantSetModelSample {
     );
   }
 
-  static FarmPlantSetModel get preDefined10 {
-    return FarmPlantSetModel.square(
-      topLeft: FarmPlantModel.basic(
+  static FarmGroupModel get preDefined10 {
+    return FarmGroupModel.square(
+      topLeft: FarmViewModel.basic(
         null,
         null,
         Items.potato,
@@ -252,7 +379,7 @@ class FarmPlantSetModelSample {
         Items.pumpkin,
         Items.garlic,
       ),
-      topRight: FarmPlantModel.basic(
+      topRight: FarmViewModel.basic(
         Items.potato,
         null,
         null,
@@ -263,7 +390,7 @@ class FarmPlantSetModelSample {
         Items.pumpkin,
         Items.pumpkin,
       ),
-      bottomLeft: FarmPlantModel.basic(
+      bottomLeft: FarmViewModel.basic(
         Items.pumpkin,
         Items.pumpkin,
         Items.garlic,
@@ -274,7 +401,7 @@ class FarmPlantSetModelSample {
         null,
         Items.potato,
       ),
-      bottomRight: FarmPlantModel.basic(
+      bottomRight: FarmViewModel.basic(
         Items.garlic,
         Items.pumpkin,
         Items.pumpkin,
@@ -288,9 +415,9 @@ class FarmPlantSetModelSample {
     );
   }
 
-  static FarmPlantSetModel get preDefined11 {
-    return FarmPlantSetModel.square(
-      topLeft: FarmPlantModel.basic(
+  static FarmGroupModel get preDefined11 {
+    return FarmGroupModel.square(
+      topLeft: FarmViewModel.basic(
         Items.potato,
         Items.potato,
         Items.onion,
@@ -301,7 +428,7 @@ class FarmPlantSetModelSample {
         Items.asparagus,
         Items.garlic,
       ),
-      topRight: FarmPlantModel.basic(
+      topRight: FarmViewModel.basic(
         Items.onion,
         Items.potato,
         Items.potato,
@@ -312,7 +439,7 @@ class FarmPlantSetModelSample {
         Items.asparagus,
         Items.asparagus,
       ),
-      bottomLeft: FarmPlantModel.basic(
+      bottomLeft: FarmViewModel.basic(
         Items.asparagus,
         Items.asparagus,
         Items.garlic,
@@ -323,7 +450,7 @@ class FarmPlantSetModelSample {
         Items.potato,
         Items.onion,
       ),
-      bottomRight: FarmPlantModel.basic(
+      bottomRight: FarmViewModel.basic(
         Items.garlic,
         Items.asparagus,
         Items.asparagus,

@@ -1,7 +1,8 @@
-import 'package:dst_helper/cook_page/recipe_list/recipe_list_notifier.dart';
-import 'package:dst_helper/models/v2/item/categories.dart';
-import 'package:dst_helper/models/v2/item/categories_extension.dart';
 import 'package:flutter/material.dart';
+
+import '../../models/v2/item/categories.dart';
+import '../../models/v2/item/categories_extension.dart';
+import 'recipe_list_notifier.dart';
 
 class DraggableRecipeListItem extends StatelessWidget {
   const DraggableRecipeListItem({

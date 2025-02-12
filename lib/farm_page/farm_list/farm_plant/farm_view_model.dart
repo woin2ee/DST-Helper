@@ -1,44 +1,45 @@
 import 'dart:collection';
 
 import 'package:built_collection/built_collection.dart';
-import 'package:dst_helper/farm_page/farm_list/plant_cell/plant_cell_model.dart';
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/models/v2/item/categories.dart';
-import 'package:dst_helper/models/v2/item/nutrient.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'farm_plant_model.g.dart';
+import '../../../l10n/l10ns.dart';
+import '../../../models/v2/item/categories.dart';
+import '../../../models/v2/item/nutrient.dart';
+import '../plant_cell/plant_cell_model.dart';
 
-enum FarmPlantStyle {
+part 'farm_view_model.g.dart';
+
+enum FarmType {
   basic,
   dense,
   reverseDense;
 
   String localizedName(BuildContext context) {
     switch (this) {
-      case FarmPlantStyle.basic:
+      case FarmType.basic:
         return L10ns.of(context).localized('basic');
-      case FarmPlantStyle.dense:
+      case FarmType.dense:
         return L10ns.of(context).localized('dense');
-      case FarmPlantStyle.reverseDense:
+      case FarmType.reverseDense:
         return L10ns.of(context).localized('reverse_dense');
     }
   }
 }
 
 @JsonSerializable()
-class FarmPlantModel extends ChangeNotifier {
+class FarmViewModel extends ChangeNotifier {
   @visibleForTesting
-  FarmPlantModel({
+  FarmViewModel({
     required List<PlantCellModel> plantCellModels,
-    required this.farmPlantStyle,
-    required this.countOfPlants,
+    required this.farmType,
+    required this.plantCount,
   }) : _plantCellModels = plantCellModels;
 
   /// (top) 3 : 3 : 3 (bottom)
-  factory FarmPlantModel.basic(
+  factory FarmViewModel.basic(
     Plant? c1,
     Plant? c2,
     Plant? c3,
@@ -50,7 +51,7 @@ class FarmPlantModel extends ChangeNotifier {
     Plant? c9, {
     bool darkTheme = false,
   }) {
-    return FarmPlantModel(
+    return FarmViewModel(
       plantCellModels: [
         PlantCellModel(plant: c1, darkTheme: darkTheme),
         PlantCellModel(plant: c2, darkTheme: darkTheme),
@@ -62,13 +63,13 @@ class FarmPlantModel extends ChangeNotifier {
         PlantCellModel(plant: c8, darkTheme: darkTheme),
         PlantCellModel(plant: c9, darkTheme: darkTheme),
       ],
-      farmPlantStyle: FarmPlantStyle.basic,
-      countOfPlants: 9,
+      farmType: FarmType.basic,
+      plantCount: 9,
     );
   }
 
   /// (top) 2 : 3 : 2 : 3 (bottom)
-  factory FarmPlantModel.dense(
+  factory FarmViewModel.dense(
     Plant? c1,
     Plant? c2,
     Plant? c3,
@@ -81,7 +82,7 @@ class FarmPlantModel extends ChangeNotifier {
     Plant? c10, {
     bool darkTheme = false,
   }) {
-    return FarmPlantModel(
+    return FarmViewModel(
       plantCellModels: [
         PlantCellModel(plant: c1, darkTheme: darkTheme),
         PlantCellModel(plant: c2, darkTheme: darkTheme),
@@ -94,13 +95,13 @@ class FarmPlantModel extends ChangeNotifier {
         PlantCellModel(plant: c9, darkTheme: darkTheme),
         PlantCellModel(plant: c10, darkTheme: darkTheme),
       ],
-      farmPlantStyle: FarmPlantStyle.dense,
-      countOfPlants: 10,
+      farmType: FarmType.dense,
+      plantCount: 10,
     );
   }
 
   /// (top) 3 : 2 : 3 : 2 (bottom)
-  factory FarmPlantModel.reverseDense(
+  factory FarmViewModel.reverseDense(
     Plant? c1,
     Plant? c2,
     Plant? c3,
@@ -113,7 +114,7 @@ class FarmPlantModel extends ChangeNotifier {
     Plant? c10, {
     bool darkTheme = false,
   }) {
-    return FarmPlantModel(
+    return FarmViewModel(
       plantCellModels: [
         PlantCellModel(plant: c1, darkTheme: darkTheme),
         PlantCellModel(plant: c2, darkTheme: darkTheme),
@@ -126,38 +127,38 @@ class FarmPlantModel extends ChangeNotifier {
         PlantCellModel(plant: c9, darkTheme: darkTheme),
         PlantCellModel(plant: c10, darkTheme: darkTheme),
       ],
-      farmPlantStyle: FarmPlantStyle.reverseDense,
-      countOfPlants: 10,
+      farmType: FarmType.reverseDense,
+      plantCount: 10,
     );
   }
 
-  factory FarmPlantModel.empty(FarmPlantStyle farmPlantStyle, {bool darkTheme = false}) {
-    final countOfPlants = switch (farmPlantStyle) {
-      FarmPlantStyle.basic => 9,
-      FarmPlantStyle.dense || FarmPlantStyle.reverseDense => 10,
+  factory FarmViewModel.empty(FarmType farmType, {bool darkTheme = false}) {
+    final plantCount = switch (farmType) {
+      FarmType.basic => 9,
+      FarmType.dense || FarmType.reverseDense => 10,
     };
-    return FarmPlantModel(
-      plantCellModels: List.generate(countOfPlants, (_) => PlantCellModel(plant: null, darkTheme: darkTheme)),
-      farmPlantStyle: farmPlantStyle,
-      countOfPlants: countOfPlants,
+    return FarmViewModel(
+      plantCellModels: List.generate(plantCount, (_) => PlantCellModel(plant: null, darkTheme: darkTheme)),
+      farmType: farmType,
+      plantCount: plantCount,
     );
   }
 
-  factory FarmPlantModel.basicWithPlants(List<Plant?> plants, {bool darkTheme = false}) {
+  factory FarmViewModel.basicWithPlants(List<Plant?> plants, {bool darkTheme = false}) {
     assert(plants.length == 9);
-    return FarmPlantModel(
+    return FarmViewModel(
       plantCellModels: plants.map((plant) => PlantCellModel(plant: plant, darkTheme: darkTheme)).toList(),
-      farmPlantStyle: FarmPlantStyle.basic,
-      countOfPlants: 9,
+      farmType: FarmType.basic,
+      plantCount: 9,
     );
   }
 
   final List<PlantCellModel> _plantCellModels;
   BuiltList<PlantCellModel> get plantCellModels => BuiltList(_plantCellModels);
 
-  final FarmPlantStyle farmPlantStyle;
+  final FarmType farmType;
 
-  final int countOfPlants;
+  final int plantCount;
 
   bool get hasBalancedNutrients => totalNutrient == Nutrient.zero();
   Nutrient get totalNutrient => _plantCellModels
@@ -170,30 +171,30 @@ class FarmPlantModel extends ChangeNotifier {
     _plantCellModels[index].plant = plant;
   }
 
-  FarmPlantModel copyWith({bool? darkTheme}) {
-    return FarmPlantModel(
+  FarmViewModel copyWith({bool? darkTheme}) {
+    return FarmViewModel(
       plantCellModels: _plantCellModels.map((model) => model.copyWith(darkTheme: darkTheme)).toList(),
-      farmPlantStyle: farmPlantStyle,
-      countOfPlants: countOfPlants,
+      farmType: farmType,
+      plantCount: plantCount,
     );
   }
 
-  factory FarmPlantModel.fromJson(Map<String, dynamic> json) => _$FarmPlantModelFromJson(json);
-  Map<String, dynamic> toJson() => _$FarmPlantModelToJson(this);
+  factory FarmViewModel.fromJson(Map<String, dynamic> json) => _$FarmViewModelFromJson(json);
+  Map<String, dynamic> toJson() => _$FarmViewModelToJson(this);
 
   @override
   bool operator ==(Object other) {
-    return other is FarmPlantModel &&
+    return other is FarmViewModel &&
         other.runtimeType == runtimeType &&
         listEquals(other._plantCellModels, _plantCellModels) &&
-        other.farmPlantStyle == farmPlantStyle &&
-        other.countOfPlants == countOfPlants;
+        other.farmType == farmType &&
+        other.plantCount == plantCount;
   }
 
   @override
   int get hashCode => Object.hash(
         _plantCellModels,
-        farmPlantStyle,
-        countOfPlants,
+        farmType,
+        plantCount,
       );
 }

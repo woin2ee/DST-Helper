@@ -1,5 +1,6 @@
-import 'package:dst_helper/app/models/menu.dart';
 import 'package:flutter/material.dart';
+
+import 'models/menu.dart';
 
 class SideBar extends StatelessWidget {
   const SideBar({

@@ -1,10 +1,11 @@
-import 'package:dst_helper/cook_page/recipe_list/recipe_list_item.dart';
-import 'package:dst_helper/cook_page/recipe_list/recipe_list_notifier.dart';
-import 'package:dst_helper/l10n/l10ns.dart';
-import 'package:dst_helper/models/v2/item/item.dart';
-import 'package:dst_helper/utils/font_family.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
+
+import '../../l10n/l10ns.dart';
+import '../../models/v2/item/item.dart';
+import '../../utils/font_family.dart';
+import 'recipe_list_item.dart';
+import 'recipe_list_notifier.dart';
 
 class RecipeList extends StatefulWidget {
   RecipeList() : super(key: GlobalKey());
@@ -22,7 +23,7 @@ class _RecipeListState extends State<RecipeList> {
   Widget build(BuildContext context) {
     return DragTarget<Recipe>(
       onAcceptWithDetails: (details) {
-        var recipe = details.data;
+        final recipe = details.data;
         if (_recipeListNotifier.value.contains(recipe)) {
           _showToast(context);
           return;

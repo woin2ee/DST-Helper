@@ -1,17 +1,18 @@
-import 'package:dst_helper/farm_page/edit_farm_set/edit_farm_set_controller.dart';
-import 'package:dst_helper/farm_page/farm_list/farm_plant_set/farm_plant_set.dart';
-import 'package:dst_helper/models/v2/item/item.dart';
 import 'package:flutter/material.dart';
 
-class FarmPlantSetBoard extends StatelessWidget {
-  const FarmPlantSetBoard({
+import '../../farm_list/farm_group/farm_group.dart';
+import '../farm_group_edit_controller.dart';
+
+/// The place where users can set plants.
+class FarmCanvas extends StatelessWidget {
+  const FarmCanvas({
     super.key,
     required this.controller,
     required this.width,
     required this.height,
   });
 
-  final EditFarmSetController controller;
+  final FarmGroupEditController controller;
   final double width;
   final double height;
 
@@ -23,17 +24,14 @@ class FarmPlantSetBoard extends StatelessWidget {
       height: height,
       child: Center(
         child: ListenableBuilder(
-            listenable: controller.farmPlantSetModelController,
+            listenable: controller.farmGroupModelNotifier,
             builder: (context, child) {
-              return FarmPlantSet(
-                farmPlantSetModel: controller.farmPlantSetModel,
-                onPressed: (farmPlantIndex) => (plantIndex) => () {
-                      final Plant? placedPlant =
-                          controller.farmPlantSetModel.farmPlantModelList[farmPlantIndex].plants[plantIndex];
-                      final selectedCrop = controller.selectedCrop;
+              return FarmGroup(
+                model: controller.farmGroupModel,
+                onPressed: (farmIndex) => (plantIndex) => () {
                       controller.setPlant(
-                        placedPlant == selectedCrop ? null : selectedCrop,
-                        farmPlantIndex: farmPlantIndex,
+                        controller.selectedCrop,
+                        farmIndex: farmIndex,
                         plantIndex: plantIndex,
                       );
                     },

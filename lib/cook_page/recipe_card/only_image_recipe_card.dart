@@ -1,6 +1,7 @@
-import 'package:dst_helper/cook_page/recipe_card/dragging_recipe_image.dart';
-import 'package:dst_helper/models/v2/item/categories.dart';
 import 'package:flutter/material.dart';
+
+import '../../models/v2/item/categories.dart';
+import 'dragging_recipe_image.dart';
 
 class OnlyImageRecipeCard extends StatelessWidget {
   const OnlyImageRecipeCard({
