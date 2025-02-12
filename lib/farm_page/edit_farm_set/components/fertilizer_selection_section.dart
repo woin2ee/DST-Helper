@@ -7,7 +7,17 @@ import '../../../models/v2/item/items.dart';
 import '../../../utils/font_family.dart';
 import '../farm_group_edit_window.dart';
 
-typedef SelectedFertilizerNotifier = ValueNotifier<Fertilizer?>;
+class SelectedFertilizerNotifier extends ValueNotifier<Fertilizer?> {
+  SelectedFertilizerNotifier(super.value);
+
+  void apply(Fertilizer fertilizer) {
+    if (value == fertilizer) {
+      value = null;
+      return;
+    }
+    value = fertilizer;
+  }
+}
 
 enum _FertilizerType {
   compost,
@@ -159,7 +169,7 @@ class _FertilizersRow extends StatelessWidget {
               }
               return _FertilizerIconButton(
                 fertilizer: fertilizer,
-                onPressed: () => selectedFertilizer.value = fertilizer,
+                onPressed: () => selectedFertilizer.apply(fertilizer),
               );
             }),
           ],
@@ -272,7 +282,7 @@ class _GrowthFormulaButtonState extends State<_GrowthFormulaButton> {
                     return _FertilizerIconButton(
                       fertilizer: fertilizer,
                       onPressed: () {
-                        selectedFertilizer.value = fertilizer;
+                        selectedFertilizer.apply(fertilizer);
                         _overlayController.hide();
                         setState(() {
                           _lastSelected = fertilizer;
