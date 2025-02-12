@@ -1003,6 +1003,13 @@ extension Items on Item {
     compostWrap,
   ];
 
+  static const List<Fertilizer> growthFormulaVariants = [
+    growthFormulaStarter,
+    fermentingGrowthFormula,
+    fermentedGrowthFormula,
+    superGrowthFormula,
+  ];
+
   static const Fertilizer manure = Fertilizer(
     code: 'poop',
     assetName: 'manure',

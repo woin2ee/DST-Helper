@@ -119,8 +119,11 @@ class _NewButton extends StatelessWidget {
         final result = await showDialog(
           barrierColor: Colors.black.withOpacity(0.35),
           context: context,
-          builder: (context) => const Dialog(
-            child: FarmGroupEditWindow(isEditingNewOne: true),
+          builder: (context) => Dialog(
+            child: FarmGroupEditWindow(
+              key: GlobalKey(),
+              isEditingNewOne: true,
+            ),
           ),
         );
         if (result is FarmCardModel && context.mounted) {
