@@ -83,18 +83,40 @@ class _TopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Row(
-        spacing: 12,
-        children: [
-          _SeasonSelectionBox(),
-          const _NewButton(),
-          const SizedBox(width: 50),
-          const _ShowAndHideCheckbox(),
-        ],
-      ),
-    );
+    final windowWidth = MediaQuery.of(context).size.width;
+    return Builder(builder: (context) {
+      if (windowWidth > 740) {
+        return Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            spacing: 12,
+            children: [
+              _SeasonSelectionBox(),
+              const _NewButton(),
+              const SizedBox(width: 50),
+              const _ShowAndHideCheckbox(),
+            ],
+          ),
+        );
+      } else {
+        return Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            spacing: 4,
+            children: [
+              Row(
+                spacing: 12,
+                children: [
+                  _SeasonSelectionBox(),
+                  const _NewButton(),
+                ],
+              ),
+              const _ShowAndHideCheckbox(),
+            ],
+          ),
+        );
+      }
+    });
   }
 }
 
@@ -104,13 +126,13 @@ class _ShowAndHideCheckbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<FarmPageNotifier>(
-      builder: (BuildContext context, FarmPageNotifier farmPageNotifier, Widget? checkboxLabel) {
+      builder: (BuildContext context, FarmPageNotifier notifier, Widget? checkboxLabel) {
         return Row(
           children: [
             Checkbox(
-              value: farmPageNotifier.showingHiddenItems,
+              value: notifier.showingHiddenItems,
               onChanged: (bool? isChecked) {
-                farmPageNotifier.showingHiddenItems = isChecked!;
+                notifier.showingHiddenItems = isChecked!;
               },
             ),
             checkboxLabel!,
