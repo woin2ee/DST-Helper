@@ -2,37 +2,17 @@ import 'category_mixins.dart';
 import 'food_value.dart';
 import 'ingredients_analyser.dart';
 
-sealed class Requirement implements Comparable<Requirement> {
+sealed class Requirement {
   const Requirement();
-
-  int get order => switch (this) {
-        AndRequirements() => 0,
-        OrRequirement() => 20,
-
-        /// These 2 values below must be less than the order value of `ContainingRequirement`.
-        /// Because, when it makes up ingredient list for a recipe,
-        /// `ExcessRequirement` should be considered after considering `ContainingRequirement`.
-        MeetRequirement() => -2,
-        ExcessRequirement() => -1,
-
-        //
-        AtLeastRequirement() => 2,
-        ContainingRequirement() => 10,
-        NoRequirement() => 0,
-        MaxRequirement() => 0,
-      };
-
-  @override
-  int compareTo(Requirement other) => order.compareTo(other.order);
 
   bool isMetFor(IngredientsAnalyser ingredientsAnalyser);
 }
 
-typedef Requirements = AndRequirements;
+typedef Requirements = AndRequirement;
 
 /// A requirement indicating `and` logic for a couple of requirements.
-class AndRequirements extends Requirement {
-  const AndRequirements(this.rawRequirements);
+class AndRequirement extends Requirement {
+  const AndRequirement(this.rawRequirements);
 
   final Set<Requirement> rawRequirements;
 
@@ -73,9 +53,9 @@ class MeetRequirement extends Requirement {
 
 /// A requirement indicating the threshold must be exceeded.
 ///
-/// This requirement really only applies to some recipes such as `Honey Ham`.
+/// This requirement really only applies to some recipes such as [HoneyHam].
 ///
-/// Setting the threashold value to 0 is the same as using `AtLeastRequirement`, but it is recommended to use `AtLeastRequirement`.
+/// Setting the threashold value to 0 is the same as using [AtLeastRequirement], but it is recommended to use [AtLeastRequirement].
 class ExcessRequirement extends Requirement {
   const ExcessRequirement(this.thresholdValues);
 
@@ -90,7 +70,10 @@ class ExcessRequirement extends Requirement {
   }
 }
 
-/// A requirement indicating containing at least one even if the smallest.
+/// A requirement indicating that the value of a category must be contained at least.
+///
+/// This requirement must be used only the case that there is no other requirements interfering this requirement.
+/// For instance, The recipe already has [ContainingRequirement], it must not be used for the same categories.
 class AtLeastRequirement extends Requirement {
   const AtLeastRequirement(this.categories);
 
@@ -102,9 +85,9 @@ class AtLeastRequirement extends Requirement {
   }
 }
 
-/// A requirement indicating that a specific item must contain.
+/// A requirement indicating that it must contain a specific item.
 ///
-/// It is useful for `Mandrake` or `Tallbird Egg` such as.
+/// It is useful for [Mandrake] or [TallbirdEgg] such as.
 class ContainingRequirement extends Requirement {
   const ContainingRequirement(this.ingredient, [this.count = 1]);
 

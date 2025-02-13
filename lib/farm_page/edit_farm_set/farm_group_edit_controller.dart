@@ -167,7 +167,7 @@ class FarmGroupEditController extends ChangeNotifier {
     analysisViewController.isPlacedAnyPlant.value = farmGroupModel.hasAnyPlant;
   }
 
-  /// The order of the `farmIndex` is `top-left`, `top-right`, `bottom-left`, `bottom-right`.
+  /// The order of the [farmIndex] is `top-left`, `top-right`, `bottom-left`, `bottom-right`.
   Plant? getPlacedPlant(int farmIndex, int plantIndex) {
     return farmGroupModel.farmViewModels[farmIndex].plants[plantIndex];
   }

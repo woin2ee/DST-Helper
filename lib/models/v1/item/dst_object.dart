@@ -976,7 +976,8 @@ class Fishsticks extends RecipeObject {
           requirements: const Requirements({
             AtLeastRequirement({FoodValueCategory.fish}),
             ContainingRequirement(Twigs()),
-            MaxRequirement(FoodValue(FoodValueCategory.inedible, 1.0)), // Fillers cannot be `Inedibles`.
+            // For here, it's equal to filtering it can not contain other `Inedibles` except `Twigs`.
+            MaxRequirement(FoodValue(FoodValueCategory.inedible, 1.0)),
           }),
         );
 

@@ -31,7 +31,7 @@ class FarmGroupModel extends ChangeNotifier {
 
   List<FarmViewModel> _farmViewModels;
 
-  /// The list of `FarmViewModel` in the group.
+  /// The list of [FarmViewModel] in the group.
   ///
   /// Indexes are ordered as `top-left`, `top-right`, `bottom-left`, `bottom-right`.
   BuiltList<FarmViewModel> get farmViewModels => BuiltList(_farmViewModels);
