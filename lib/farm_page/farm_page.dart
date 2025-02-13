@@ -10,71 +10,89 @@ import 'farm_list/farm_list.dart';
 import 'farm_page_notifier.dart';
 import 'side_info_box/side_info_box.dart';
 
-class FarmPage extends StatelessWidget {
+class FarmPage extends StatefulWidget {
   const FarmPage({super.key});
 
   @override
+  State<FarmPage> createState() => _FarmPageState();
+}
+
+class _FarmPageState extends State<FarmPage> {
+  final _notifier = FarmPageNotifier();
+  Future<void>? initResult;
+
+  @override
+  void initState() {
+    super.initState();
+    initResult = _notifier.initFromPrefs();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => FarmPageNotifier(),
-      builder: (context, child) => Builder(
-        builder: (context) {
-          final initResult = context.read<FarmPageNotifier>().initFromPrefs();
-          return Consumer<FarmPageNotifier>(
-            builder: (context, controller, child) => Theme(
-              data: ThemeData(
-                useMaterial3: true,
-                colorScheme: ColorScheme.fromSeed(seedColor: controller.selectedSeason.personalColor),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Row(
-                            spacing: 12,
-                            children: [
-                              _SeasonSelectionBox(),
-                              const _NewButton(),
-                              const SizedBox(width: 50),
-                              const _ShowAndHideCheckbox(),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8, right: 8),
-                            child: FutureBuilder(
-                              future: initResult,
-                              builder: (context, snapshot) {
-                                switch (snapshot.connectionState) {
-                                  case ConnectionState.none:
-                                  case ConnectionState.waiting:
-                                    return const Center(child: Text('Loading...'));
-                                  case ConnectionState.active:
-                                  case ConnectionState.done:
-                                    if (snapshot.hasError) {
-                                      return Text('Error: ${snapshot.error}');
-                                    }
-                                    return const FarmList();
+    return ChangeNotifierProvider.value(
+      value: _notifier,
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData(
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(seedColor: _notifier.selectedSeason.personalColor),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const _TopBar(),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: FutureBuilder(
+                          future: initResult,
+                          builder: (context, snapshot) {
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.none:
+                              case ConnectionState.waiting:
+                                return const Center(child: Text('Loading...'));
+                              case ConnectionState.active:
+                              case ConnectionState.done:
+                                if (snapshot.hasError) {
+                                  return Text('Error: ${snapshot.error}');
                                 }
-                              },
-                            ),
-                          ),
+                                return const FarmList();
+                            }
+                          },
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                  const SideInfoBox(),
-                ],
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+              const SideInfoBox(),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _TopBar extends StatelessWidget {
+  const _TopBar();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: Row(
+        spacing: 12,
+        children: [
+          _SeasonSelectionBox(),
+          const _NewButton(),
+          const SizedBox(width: 50),
+          const _ShowAndHideCheckbox(),
+        ],
       ),
     );
   }
