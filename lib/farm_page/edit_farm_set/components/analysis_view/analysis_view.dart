@@ -1,10 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../l10n/l10ns.dart';
 import '../../../../utils/font_family.dart';
-import 'analysis_view_controller.dart';
+import '../../farm_group_edit_controller.dart';
 import 'family_condition_box.dart';
 import 'nutrient_condition_box.dart';
 import 'season_condition_box.dart';
@@ -12,22 +13,16 @@ import 'season_condition_box.dart';
 class AnalysisView extends StatelessWidget {
   const AnalysisView({
     super.key,
-    required this.width,
-    required this.height,
-    required this.controller,
   });
-
-  final AnalysisViewController controller;
-
-  final double width;
-  final double height;
 
   @override
   Widget build(BuildContext context) {
     const BorderRadius conditionGroupBorderRadius = BorderRadius.all(Radius.circular(12));
+    final controller = context.read<FarmGroupEditController>().analysisViewController;
+
     return SizedBox(
-      width: width,
-      height: height,
+      width: 400,
+      height: 356,
       child: ValueListenableBuilder(
         valueListenable: controller.isSatisfying,
         builder: (context, isSatisfying, child) {
