@@ -10,8 +10,8 @@ import 'farm_list/farm_plant_card/farm_card_model.dart';
 
 String _cacheKey = 'FARM_CARD_MODEL_LIST';
 
-class FarmPageNotifier extends ChangeNotifier {
-  FarmPageNotifier()
+class FarmPageController extends ChangeNotifier {
+  FarmPageController()
       : _showingHiddenItems = false,
         _selectedSeason = Season.spring,
         _farmCardModels = [];

@@ -7,7 +7,7 @@ import '../models/v1/season.dart';
 import '../utils/font_family.dart';
 import 'edit_farm_set/farm_group_edit_window.dart';
 import 'farm_list/farm_list.dart';
-import 'farm_page_notifier.dart';
+import 'farm_page_controller.dart';
 import 'side_info_box/side_info_box.dart';
 
 class FarmPage extends StatefulWidget {
@@ -18,24 +18,24 @@ class FarmPage extends StatefulWidget {
 }
 
 class _FarmPageState extends State<FarmPage> {
-  final _notifier = FarmPageNotifier();
+  final _controller = FarmPageController();
   Future<void>? initResult;
 
   @override
   void initState() {
     super.initState();
-    initResult = _notifier.initFromPrefs();
+    initResult = _controller.initFromPrefs();
   }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
-      value: _notifier,
+      value: _controller,
       builder: (context, child) {
         return Theme(
           data: ThemeData(
             useMaterial3: true,
-            colorScheme: ColorScheme.fromSeed(seedColor: _notifier.selectedSeason.personalColor),
+            colorScheme: ColorScheme.fromSeed(seedColor: _controller.selectedSeason.personalColor),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,14 +125,14 @@ class _ShowAndHideCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FarmPageNotifier>(
-      builder: (BuildContext context, FarmPageNotifier notifier, Widget? checkboxLabel) {
+    return Consumer<FarmPageController>(
+      builder: (BuildContext context, FarmPageController controller, Widget? checkboxLabel) {
         return Row(
           children: [
             Checkbox(
-              value: notifier.showingHiddenItems,
+              value: controller.showingHiddenItems,
               onChanged: (bool? isChecked) {
-                notifier.showingHiddenItems = isChecked!;
+                controller.showingHiddenItems = isChecked!;
               },
             ),
             checkboxLabel!,
@@ -154,9 +154,11 @@ class _NewButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.read<FarmPageController>();
+
     return ElevatedButton(
       onPressed: () async {
-        final result = await showDialog(
+        final maybeFarmCardModel = await showDialog(
           barrierColor: Colors.black.withOpacity(0.35),
           context: context,
           builder: (context) => Dialog(
@@ -166,8 +168,9 @@ class _NewButton extends StatelessWidget {
             ),
           ),
         );
-        if (result is FarmCardModel && context.mounted) {
-          context.read<FarmPageNotifier>().addFarmCard(result);
+        if (maybeFarmCardModel is FarmCardModel) {
+          final farmCardModel = maybeFarmCardModel;
+          controller.addFarmCard(farmCardModel);
         }
       },
       child: const Text('New'),
@@ -187,7 +190,7 @@ class _SeasonSelectionBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FarmPageNotifier>(
+    return Consumer<FarmPageController>(
       builder: (context, model, child) => ToggleButtons(
         borderRadius: BorderRadius.circular(10),
         constraints: const BoxConstraints(

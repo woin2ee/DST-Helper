@@ -99,28 +99,7 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
                 spacing: 30.0,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    width: 400,
-                    child: ListenableBuilder(
-                        listenable: controller.farmGroupModel,
-                        builder: (context, child) {
-                          return TextField(
-                            controller: controller.titleEditingController,
-                            decoration: InputDecoration(
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                              labelText: 'Name',
-                              hintText: (controller.farmGroupModel.hasAnyPlant)
-                                  ? '${controller.farmGroupModel.suitableSeasons.map((season) => season.localizedName(context))}'
-                                  : '',
-                              hintStyle: const TextStyle(
-                                fontFamily: FontFamily.pretendard,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          );
-                        }),
-                  ),
+                  const _TitleTextField(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: 8,
@@ -135,7 +114,13 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
                   ),
                   CropSelectionSection(notifier: controller.selectedCropNotifier),
                   FertilizerSelectionSection(notifier: controller.selectedFertilizerNotifier),
-                  const _ActionButtonGroup(),
+                  const Row(
+                    spacing: 20,
+                    children: [
+                      _CancelButton(),
+                      _OkButton(),
+                    ],
+                  ),
                 ],
               ),
             ],
@@ -191,87 +176,123 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
   }
 }
 
-class _ActionButtonGroup extends StatelessWidget {
-  const _ActionButtonGroup();
+class _TitleTextField extends StatelessWidget {
+  const _TitleTextField();
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = context.read<FarmGroupEditController>();
+
+    return Container(
+      padding: const EdgeInsets.only(left: 8.0),
+      width: 400,
+      child: ListenableBuilder(
+          listenable: controller.farmGroupModel,
+          builder: (context, child) {
+            return TextField(
+              controller: controller.titleEditingController,
+              decoration: InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                labelText: 'Name',
+                hintText: (controller.farmGroupModel.hasAnyPlant)
+                    ? '${controller.farmGroupModel.suitableSeasons.map((season) => season.localizedName(context))}'
+                    : '',
+                hintStyle: const TextStyle(
+                  fontFamily: FontFamily.pretendard,
+                  color: Colors.grey,
+                ),
+              ),
+            );
+          }),
+    );
+  }
+}
+
+class _OkButton extends StatelessWidget {
+  const _OkButton();
 
   @override
   Widget build(BuildContext context) {
     final parent = context.read<_FarmGroupEditWindowState>().widget;
     final controller = context.read<FarmGroupEditController>();
 
-    return Row(
-      spacing: 20,
-      children: [
-        ListenableBuilder(
-          listenable: Listenable.merge([
-            controller,
-            controller.titleEditingController,
-          ]),
-          builder: (context, child) {
-            return PopScope(
-              canPop: !controller.hasChanges,
-              onPopInvokedWithResult: (didPop, result) async {
-                if (didPop) return;
-                final bool shouldPop = await showBackDialog(context) ?? false;
-                if (context.mounted && shouldPop) {
-                  Navigator.pop(context);
-                }
-              },
-              child: child!,
-            );
-          },
-          child: ElevatedButton(
-            style: const ButtonStyle(
-              backgroundColor: WidgetStatePropertyAll(Colors.red),
-              foregroundColor: WidgetStatePropertyAll(Colors.white),
-            ),
-            onPressed: () {
-              controller.hasChanges ? Navigator.maybePop(context) : Navigator.pop(context);
-            },
-            child: Text(
-              L10ns.of(context).localized('cancel'),
-              style: const TextStyle(
-                fontFamily: FontFamily.pretendard,
-                fontSize: 15,
-              ),
-            ),
-          ),
+    return ElevatedButton(
+      style: const ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(Colors.blue),
+        foregroundColor: WidgetStatePropertyAll(Colors.white),
+      ),
+      onPressed: () {
+        final originModel = parent.initialModel;
+        final FarmCardModel model;
+        final title = controller.titleEditingController.text.isNotEmpty ? controller.titleEditingController.text : null;
+        if (parent.isEditingNewOne == false && originModel != null) {
+          model = originModel.copyWith(
+            title: title,
+            farmGroupModel: controller.farmGroupModel,
+            createType: CreateType.userCustom,
+          );
+        } else {
+          model = FarmCardModel.create(
+            title: title,
+            farmGroupModel: controller.farmGroupModel,
+            createType: CreateType.userCustom,
+            fertilizer: controller.selectedFertilizer,
+          );
+        }
+        Navigator.pop(context, model);
+      },
+      child: Text(
+        parent.isEditingNewOne ? L10ns.of(context).localized('add') : L10ns.of(context).localized('done'),
+        style: const TextStyle(
+          fontFamily: FontFamily.pretendard,
+          fontSize: 15,
         ),
-        ElevatedButton(
-          style: const ButtonStyle(
-            backgroundColor: WidgetStatePropertyAll(Colors.blue),
-            foregroundColor: WidgetStatePropertyAll(Colors.white),
-          ),
-          onPressed: () {
-            final originModel = parent.initialModel;
-            final FarmCardModel model;
-            final title =
-                controller.titleEditingController.text.isNotEmpty ? controller.titleEditingController.text : null;
-            if (parent.isEditingNewOne == false && originModel != null) {
-              model = originModel.copyWith(
-                title: title,
-                farmGroupModel: controller.farmGroupModel,
-                createType: CreateType.userCustom,
-              );
-            } else {
-              model = FarmCardModel.create(
-                title: title,
-                farmGroupModel: controller.farmGroupModel,
-                createType: CreateType.userCustom,
-                fertilizer: controller.selectedFertilizer,
-              );
+      ),
+    );
+  }
+}
+
+class _CancelButton extends StatelessWidget {
+  const _CancelButton();
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = context.read<FarmGroupEditController>();
+
+    return ListenableBuilder(
+      listenable: Listenable.merge([
+        controller,
+        controller.titleEditingController,
+      ]),
+      builder: (context, child) {
+        return PopScope(
+          canPop: !controller.hasChanges,
+          onPopInvokedWithResult: (didPop, result) async {
+            if (didPop) return;
+            final bool shouldPop = await showBackDialog(context) ?? false;
+            if (context.mounted && shouldPop) {
+              Navigator.pop(context);
             }
-            Navigator.pop(context, model);
           },
-          child: Text(
-            parent.isEditingNewOne ? L10ns.of(context).localized('add') : L10ns.of(context).localized('done'),
-            style: const TextStyle(
-              fontFamily: FontFamily.pretendard,
-              fontSize: 15,
-            ),
+          child: child!,
+        );
+      },
+      child: ElevatedButton(
+        style: const ButtonStyle(
+          backgroundColor: WidgetStatePropertyAll(Colors.red),
+          foregroundColor: WidgetStatePropertyAll(Colors.white),
+        ),
+        onPressed: () {
+          controller.hasChanges ? Navigator.maybePop(context) : Navigator.pop(context);
+        },
+        child: Text(
+          L10ns.of(context).localized('cancel'),
+          style: const TextStyle(
+            fontFamily: FontFamily.pretendard,
+            fontSize: 15,
           ),
         ),
-      ],
+      ),
     );
   }
 
