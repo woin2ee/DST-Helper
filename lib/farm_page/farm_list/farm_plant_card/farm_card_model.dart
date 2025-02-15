@@ -29,7 +29,7 @@ class FarmCardModel extends ChangeNotifier {
     String? title,
     required FarmGroupModel farmGroupModel,
     required CreateType createType,
-    required Fertilizer? fertilizer,
+    required Fertilizer? linkedFertilizer,
   }) {
     return FarmCardModel(
       id: const Uuid().v4(),
@@ -38,7 +38,7 @@ class FarmCardModel extends ChangeNotifier {
       createType: createType,
       isHidden: false,
       isFavorited: ValueNotifier(false),
-      linkedFertilizer: fertilizer,
+      linkedFertilizer: linkedFertilizer,
     );
   }
 

@@ -66,7 +66,7 @@ class FarmPageController extends ChangeNotifier {
       final sampleData = SampleFarmGroupModel.preDefinedList.map((sampleModel) => FarmCardModel.create(
             farmGroupModel: sampleModel,
             createType: CreateType.sample,
-            fertilizer: null,
+            linkedFertilizer: null,
           ));
       farmCardModels = sampleData.toList();
       return;
@@ -77,13 +77,9 @@ class FarmPageController extends ChangeNotifier {
   }
 
   Future<void> addFarmCard(FarmCardModel model) async {
-    final prefs = await _prefs;
-    final copy = List<FarmCardModel>.from(_farmCardModels);
-    copy.add(model);
-    final jsonString = jsonEncode(copy);
-    await prefs.setString(_cacheKey, jsonString);
-    farmCardModels = copy;
+    _farmCardModels.add(model);
     notifyListeners();
+    _save();
   }
 
   void updateFarmCard(FarmCardModel model) {

@@ -57,13 +57,17 @@ class FarmGroupEditController extends ChangeNotifier {
       isPlacedAnyPlant: model.farmGroupModel.hasAnyPlant,
     );
 
-    return FarmGroupEditController._(
+    final self = FarmGroupEditController._(
       selectedFarmGroupTypeNotifier: selectedFarmGroupTypeNotifier,
       selectedFarmType: selectedFarmType,
       titleEditingController: titleEditingController,
       farmGroupModelNotifier: farmGroupModelNotifier,
       analysisViewController: analysisViewController,
     );
+
+    self.selectedFertilizerNotifier.value = model.linkedFertilizer;
+
+    return self;
   }
 
   final ValueNotifier<FarmGroupType> selectedFarmGroupTypeNotifier;

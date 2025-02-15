@@ -236,7 +236,7 @@ class _OkButton extends StatelessWidget {
             title: title,
             farmGroupModel: controller.farmGroupModel,
             createType: CreateType.userCustom,
-            fertilizer: controller.selectedFertilizer,
+            linkedFertilizer: controller.selectedFertilizer,
           );
         }
         Navigator.pop(context, model);
