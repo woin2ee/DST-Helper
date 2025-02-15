@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/v1/season.dart';
-import 'farm_list/farm_group/farm_group_model.dart';
-import 'farm_list/farm_plant_card/farm_card_model.dart';
+import 'farm_grid/farm_card/farm_card_model.dart';
+import 'farm_grid/farm_group/farm_group_model.dart';
 
 String _cacheKey = 'FARM_CARD_MODEL_LIST';
 

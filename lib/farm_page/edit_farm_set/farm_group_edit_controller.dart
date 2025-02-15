@@ -2,9 +2,9 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/v2/item/item.dart';
-import '../farm_list/farm_group/farm_group_model.dart';
-import '../farm_list/farm_plant/farm_view_model.dart';
-import '../farm_list/farm_plant_card/farm_card_model.dart';
+import '../farm_grid/farm_card/farm_card_model.dart';
+import '../farm_grid/farm_group/farm_group_model.dart';
+import '../farm_grid/farm_view/farm_view_model.dart';
 import 'components/analysis_view/analysis_view_controller.dart';
 import 'components/analysis_view/family_condition_box.dart';
 import 'components/analysis_view/nutrient_condition_box.dart';

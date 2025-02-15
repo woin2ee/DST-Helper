@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../farm_plant/farm_view.dart';
+import '../farm_view/farm_view.dart';
 import 'farm_group_model.dart';
 
 export 'farm_group_model.dart';

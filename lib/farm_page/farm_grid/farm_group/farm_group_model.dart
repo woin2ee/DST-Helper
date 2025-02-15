@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../../../models/v1/season.dart';
 import '../../../models/v2/item/categories.dart';
 import '../../../models/v2/item/items.dart';
-import '../farm_plant/farm_view_model.dart';
+import '../farm_view/farm_view_model.dart';
 
 part 'farm_group_model.g.dart';
 

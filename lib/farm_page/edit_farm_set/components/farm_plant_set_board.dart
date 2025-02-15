@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../farm_list/farm_group/farm_group.dart';
+import '../../farm_grid/farm_group/farm_group.dart';
 import '../farm_group_edit_controller.dart';
 
 /// The place where users can set plants.

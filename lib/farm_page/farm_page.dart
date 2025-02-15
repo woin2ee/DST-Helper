@@ -6,7 +6,7 @@ import '../models/v1/localization/season_localization.dart';
 import '../models/v1/season.dart';
 import '../utils/font_family.dart';
 import 'edit_farm_set/farm_group_edit_window.dart';
-import 'farm_list/farm_list.dart';
+import 'farm_grid/farm_grid.dart';
 import 'farm_page_controller.dart';
 import 'side_info_box/side_info_box.dart';
 
@@ -60,7 +60,7 @@ class _FarmPageState extends State<FarmPage> {
                                 if (snapshot.hasError) {
                                   return Text('Error: ${snapshot.error}');
                                 }
-                                return const FarmList();
+                                return const FarmGrid();
                             }
                           },
                         ),

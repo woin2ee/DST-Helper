@@ -2,7 +2,7 @@ import 'dart:math';
 
 import '../../../../models/v2/item/categories.dart';
 import '../../../../utils/union_find.dart';
-import '../../../farm_list/farm_group/farm_group_model.dart';
+import '../../../farm_grid/farm_group/farm_group_model.dart';
 
 class FamilyCondition {
   const FamilyCondition._({

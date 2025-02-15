@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../farm_page_controller.dart';
-import 'farm_plant_card/farm_card.dart';
+import 'farm_card/farm_card.dart';
 
-export 'farm_plant_card/farm_card.dart';
+export 'farm_card/farm_card.dart';
 
-class FarmList extends StatelessWidget {
-  const FarmList({super.key});
+class FarmGrid extends StatelessWidget {
+  const FarmGrid({super.key});
 
   @override
   Widget build(BuildContext context) {
