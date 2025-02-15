@@ -11,23 +11,10 @@ import 'farm_list/farm_plant_card/farm_card_model.dart';
 String _cacheKey = 'FARM_CARD_MODEL_LIST';
 
 class FarmPageNotifier extends ChangeNotifier {
-  FarmPageNotifier._({
-    required List<FarmCardModel> farmCardModels,
-    required Season initialSeason,
-    required bool showingHiddenItems,
-  })  : _showingHiddenItems = showingHiddenItems,
-        _selectedSeason = initialSeason,
-        _farmCardModels = farmCardModels;
-
-  factory FarmPageNotifier() {
-    final self = FarmPageNotifier._(
-      farmCardModels: const [],
-      initialSeason: Season.spring,
-      showingHiddenItems: false,
-    );
-    self.initFromPrefs();
-    return self;
-  }
+  FarmPageNotifier()
+      : _showingHiddenItems = false,
+        _selectedSeason = Season.spring,
+        _farmCardModels = [];
 
   final Future<SharedPreferencesWithCache> _prefs = SharedPreferencesWithCache.create(
     cacheOptions: SharedPreferencesWithCacheOptions(
