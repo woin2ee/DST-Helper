@@ -97,7 +97,7 @@ class FamilyCondition {
         ),
     };
     final unionFind = UnionFind<_PlantInfo>();
-    final Iterable<_PlantInfo> flatPlantArray = plantArray.expand((e) => e.toList());
+    final Iterable<_PlantInfo> flatPlantArray = plantArray.expand((e) => e).toList();
     unionFind.initialize(flatPlantArray.toList());
 
     return FamilyCondition._(
