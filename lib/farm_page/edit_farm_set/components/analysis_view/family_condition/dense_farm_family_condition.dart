@@ -122,14 +122,14 @@ class DenseFarmFamilyCondition extends FamilyCondition {
     for (final node in plantNodeList) {
       final currentPlant = node.plant;
 
-      // No needs the case of empty plant.
+      // No need to go for the case of empty plant.
       if (currentPlant == null) continue;
 
       final adjacentNodeIds = adjacencyList[node.id];
       for (final adjacentNodeId in adjacentNodeIds) {
         final adjacentNode = plantNodeList.firstWhere((e) => e.id == adjacentNodeId);
 
-        // No needs the previous nodes.
+        // No need to union for the previous nodes.
         if (adjacentNodeId > node.id && adjacentNode.plant != null && currentPlant == adjacentNode.plant) {
           unionFind.union(node, adjacentNode);
         }
