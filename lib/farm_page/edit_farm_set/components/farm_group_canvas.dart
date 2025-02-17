@@ -5,8 +5,8 @@ import '../../farm_grid/farm_group/farm_group.dart';
 import '../farm_group_edit_controller.dart';
 
 /// The place where users can set plants.
-class FarmCanvas extends StatelessWidget {
-  const FarmCanvas({
+class FarmGroupCanvas extends StatelessWidget {
+  const FarmGroupCanvas({
     super.key,
   });
 

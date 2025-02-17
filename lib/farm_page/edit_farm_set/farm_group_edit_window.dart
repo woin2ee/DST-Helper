@@ -11,7 +11,7 @@ import '../side_info_box/crops_info_box.dart';
 import '../side_info_box/fertilizers_info_box.dart';
 import 'components/analysis_view/analysis_view.dart';
 import 'components/crop_selection_section.dart';
-import 'components/farm_plant_set_board.dart';
+import 'components/farm_group_canvas.dart';
 import 'components/fertilizer_selection_section.dart';
 import 'farm_group_edit_controller.dart';
 
@@ -89,7 +89,7 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
               Column(
                 spacing: 34,
                 children: [
-                  const FarmCanvas(),
+                  const FarmGroupCanvas(),
                   ValueListenableBuilder(
                       valueListenable: controller.farmGroupModelNotifier,
                       builder: (context, value, child) => const AnalysisView()),
