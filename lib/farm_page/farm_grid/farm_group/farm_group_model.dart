@@ -193,6 +193,7 @@ class SampleFarmGroupModel {
         Items.tomaRoot,
         Items.tomaRoot,
         Items.tomaRoot,
+        darkTheme: true,
       ),
     );
   }
@@ -222,6 +223,7 @@ class SampleFarmGroupModel {
         Items.pumpkin,
         Items.potato,
         Items.potato,
+        darkTheme: true,
       ),
     );
   }
@@ -249,6 +251,7 @@ class SampleFarmGroupModel {
         Items.dragonFruit,
         Items.dragonFruit,
         Items.dragonFruit,
+        darkTheme: true,
       ),
     );
   }
@@ -276,6 +279,7 @@ class SampleFarmGroupModel {
         Items.watermelon,
         Items.watermelon,
         Items.watermelon,
+        darkTheme: true,
       ),
     );
   }
@@ -303,6 +307,7 @@ class SampleFarmGroupModel {
         Items.onion,
         Items.onion,
         Items.potato,
+        darkTheme: true,
       ),
     );
   }
@@ -330,6 +335,7 @@ class SampleFarmGroupModel {
         Items.pumpkin,
         Items.pumpkin,
         Items.pumpkin,
+        darkTheme: true,
       ),
     );
   }
@@ -389,6 +395,7 @@ class SampleFarmGroupModel {
         Items.garlic,
         Items.pumpkin,
         Items.pumpkin,
+        darkTheme: true,
       ),
       bottomLeft: FarmViewModel.basic(
         Items.pumpkin,
@@ -400,6 +407,7 @@ class SampleFarmGroupModel {
         null,
         null,
         Items.potato,
+        darkTheme: true,
       ),
       bottomRight: FarmViewModel.basic(
         Items.garlic,
@@ -438,6 +446,7 @@ class SampleFarmGroupModel {
         Items.garlic,
         Items.asparagus,
         Items.asparagus,
+        darkTheme: true,
       ),
       bottomLeft: FarmViewModel.basic(
         Items.asparagus,
@@ -449,6 +458,7 @@ class SampleFarmGroupModel {
         Items.potato,
         Items.potato,
         Items.onion,
+        darkTheme: true,
       ),
       bottomRight: FarmViewModel.basic(
         Items.garlic,
