@@ -161,9 +161,11 @@ class FarmViewModel extends ChangeNotifier {
   final int plantCount;
 
   bool get hasBalancedNutrients => totalNutrient == Nutrient.zero();
+
   Nutrient get totalNutrient => _plantCellModels
       .map((e) => e.plant)
       .fold(Nutrient.zero(), (partial, next) => partial + (next?.nutrient ?? Nutrient.zero()));
+
   UnmodifiableListView<Plant?> get plants => UnmodifiableListView(_plantCellModels.map((model) => model.plant));
 
   void setPlant(Plant? plant, {required int index}) {
