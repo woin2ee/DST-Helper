@@ -103,7 +103,7 @@ class FarmGroupEditController extends ChangeNotifier {
         farmGroupModelNotifier.value = FarmGroupModel.double(
             left: farmGroupModel.farmViewModels[0],
             right: farmGroupModel.farmViewModels.elementAtOrNull(1) ??
-                FarmViewModel.empty(selectedFarmType, darkTheme: true));
+                FarmViewModel.empty(selectedFarmType, darkTheme: true).reversed);
       case FarmGroupType.square:
         if (selectedFarmType == FarmType.basic) {
           final List<Plant?> emptyPlants = List.filled(9, null);
@@ -143,7 +143,7 @@ class FarmGroupEditController extends ChangeNotifier {
       case FarmGroupType.double:
         farmGroupModelNotifier.value = FarmGroupModel.double(
           left: FarmViewModel.empty(type),
-          right: FarmViewModel.empty(type, darkTheme: true),
+          right: FarmViewModel.empty(type, darkTheme: true).reversed,
         );
       case FarmGroupType.square:
         assert(type != FarmType.dense && type != FarmType.reverseDense);

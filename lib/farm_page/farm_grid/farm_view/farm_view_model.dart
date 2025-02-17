@@ -171,10 +171,13 @@ class FarmViewModel extends ChangeNotifier {
     _plantCellModels[index].plant = plant;
   }
 
-  FarmViewModel copyWith({bool? darkTheme}) {
+  FarmViewModel copyWith({
+    FarmType? farmType,
+    bool? darkTheme,
+  }) {
     return FarmViewModel(
       plantCellModels: _plantCellModels.map((model) => model.copyWith(darkTheme: darkTheme)).toList(),
-      farmType: farmType,
+      farmType: farmType ?? this.farmType,
       plantCount: plantCount,
     );
   }
@@ -197,4 +200,15 @@ class FarmViewModel extends ChangeNotifier {
         farmType,
         plantCount,
       );
+
+  FarmViewModel get reversed {
+    switch (farmType) {
+      case FarmType.basic:
+        return this;
+      case FarmType.dense:
+        return copyWith(farmType: FarmType.reverseDense);
+      case FarmType.reverseDense:
+        return copyWith(farmType: FarmType.dense);
+    }
+  }
 }
