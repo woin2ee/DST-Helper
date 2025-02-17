@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'family_condition_box.dart';
+import 'family_condition/family_condition_box.dart';
 import 'nutrient_condition_box.dart';
 import 'season_condition_box.dart';
 

@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../../l10n/l10ns.dart';
 import '../../../../utils/font_family.dart';
 import '../../farm_group_edit_controller.dart';
-import 'family_condition_box.dart';
+import 'family_condition/family_condition_box.dart';
 import 'nutrient_condition_box.dart';
 import 'season_condition_box.dart';
 

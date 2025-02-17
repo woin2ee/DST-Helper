@@ -1,5 +1,5 @@
 class UnionFind<Element> {
-  Map<Element, Element> map = {};
+  final Map<Element, Element> map = {};
 
   void initialize(List<Element> elements) {
     for (final element in elements) {

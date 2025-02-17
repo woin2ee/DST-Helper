@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../l10n/l10ns.dart';
-import '../../../../models/v2/item/categories.dart';
-import '../../../../utils/font_family.dart';
-import '../../../farm_grid/farm_group/farm_group_model.dart';
-import '../../../farm_grid/farm_view/farm_view_model.dart';
+import '../../../../../l10n/l10ns.dart';
+import '../../../../../models/v2/item/categories.dart';
+import '../../../../../utils/font_family.dart';
+import '../../../../farm_grid/farm_group/farm_group_model.dart';
+import '../../../../farm_grid/farm_view/farm_view_model.dart';
 import 'family_condition.dart';
 
 part 'family_condition_box.freezed.dart';

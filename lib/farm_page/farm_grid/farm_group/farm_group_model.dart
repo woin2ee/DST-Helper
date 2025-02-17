@@ -20,14 +20,14 @@ class FarmGroupModel extends ChangeNotifier {
   @visibleForTesting
   FarmGroupModel({
     required this.groupType,
-    required this.count,
+    required this.farmCount,
     required List<FarmViewModel> farmViewModels,
   }) : _farmViewModels = farmViewModels;
 
   final FarmGroupType groupType;
 
   /// The number of farms in the group.
-  final int count;
+  final int farmCount;
 
   List<FarmViewModel> _farmViewModels;
 
@@ -39,7 +39,7 @@ class FarmGroupModel extends ChangeNotifier {
   factory FarmGroupModel.single({required FarmViewModel farmViewModel}) {
     return FarmGroupModel(
       groupType: FarmGroupType.single,
-      count: 1,
+      farmCount: 1,
       farmViewModels: [farmViewModel],
     );
   }
@@ -50,7 +50,7 @@ class FarmGroupModel extends ChangeNotifier {
   }) {
     return FarmGroupModel(
       groupType: FarmGroupType.double,
-      count: 2,
+      farmCount: 2,
       farmViewModels: [left, right],
     );
   }
@@ -63,7 +63,7 @@ class FarmGroupModel extends ChangeNotifier {
   }) {
     return FarmGroupModel(
       groupType: FarmGroupType.square,
-      count: 4,
+      farmCount: 4,
       farmViewModels: [
         topLeft,
         topRight,
@@ -110,21 +110,21 @@ class FarmGroupModel extends ChangeNotifier {
   bool operator ==(Object other) {
     return other is FarmGroupModel &&
         groupType == other.groupType &&
-        count == other.count &&
+        farmCount == other.farmCount &&
         listEquals(_farmViewModels, other._farmViewModels);
   }
 
   @override
   int get hashCode => Object.hash(
         groupType,
-        count,
+        farmCount,
         farmViewModels,
       );
 
   FarmGroupModel copy() {
     return FarmGroupModel(
       groupType: groupType,
-      count: count,
+      farmCount: farmCount,
       farmViewModels: farmViewModels.map((e) => e.copyWith()).toList(),
     );
   }
