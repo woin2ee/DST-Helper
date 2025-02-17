@@ -30,6 +30,8 @@ abstract class FamilyCondition {
     }
   }
 
+  static const requiredCount = 4;
+
   final FarmGroupModel farmGroupModel;
 
   bool get isSatisfied;

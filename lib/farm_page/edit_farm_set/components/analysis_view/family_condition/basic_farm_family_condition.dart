@@ -131,6 +131,6 @@ class BasicFarmFamilyCondition extends FamilyCondition {
     final countByRoot = super.countByRoot(flatPlantArray2D, unionFind);
 
     if (countByRoot.isEmpty) return false;
-    return countByRoot.entries.every((entry) => entry.value >= 4);
+    return countByRoot.entries.every((entry) => entry.value >= FamilyCondition.requiredCount);
   }
 }

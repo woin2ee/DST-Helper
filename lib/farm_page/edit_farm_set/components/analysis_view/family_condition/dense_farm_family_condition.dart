@@ -139,7 +139,7 @@ class DenseFarmFamilyCondition extends FamilyCondition {
     final countByRoot = super.countByRoot(plantNodeList, unionFind);
 
     if (countByRoot.isEmpty) return false;
-    return countByRoot.entries.every((entry) => entry.value >= 4);
+    return countByRoot.entries.every((entry) => entry.value >= FamilyCondition.requiredCount);
   }
 
   List<_PlantNode> _initPlantNodeList() {
