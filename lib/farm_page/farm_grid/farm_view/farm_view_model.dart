@@ -45,7 +45,6 @@ class FarmViewModel extends ChangeNotifier {
   FarmViewModel({
     required List<PlantCellModel> plantCellModels,
     required this.farmType,
-    required this.plantCount,
   }) : _plantCellModels = plantCellModels;
 
   /// {@template dst_helper/farm_page/farm_grid/farm_view/farm_view_model/basic}
@@ -86,7 +85,6 @@ class FarmViewModel extends ChangeNotifier {
         PlantCellModel(plant: p8, darkTheme: darkTheme),
       ],
       farmType: FarmType.basic,
-      plantCount: 9,
     );
   }
 
@@ -111,7 +109,6 @@ class FarmViewModel extends ChangeNotifier {
         PlantCellModel(plant: p678[2], darkTheme: darkTheme),
       ],
       farmType: FarmType.basic,
-      plantCount: 9,
     );
   }
 
@@ -157,7 +154,6 @@ class FarmViewModel extends ChangeNotifier {
         PlantCellModel(plant: p9, darkTheme: darkTheme),
       ],
       farmType: FarmType.dense,
-      plantCount: 10,
     );
   }
 
@@ -184,7 +180,6 @@ class FarmViewModel extends ChangeNotifier {
         PlantCellModel(plant: p789[2], darkTheme: darkTheme),
       ],
       farmType: FarmType.dense,
-      plantCount: 10,
     );
   }
 
@@ -230,7 +225,6 @@ class FarmViewModel extends ChangeNotifier {
         PlantCellModel(plant: p9, darkTheme: darkTheme),
       ],
       farmType: FarmType.reverseDense,
-      plantCount: 10,
     );
   }
 
@@ -257,7 +251,6 @@ class FarmViewModel extends ChangeNotifier {
         PlantCellModel(plant: p89[1], darkTheme: darkTheme),
       ],
       farmType: FarmType.reverseDense,
-      plantCount: 10,
     );
   }
 
@@ -269,7 +262,6 @@ class FarmViewModel extends ChangeNotifier {
     return FarmViewModel(
       plantCellModels: List.generate(plantCount, (_) => PlantCellModel(plant: null, darkTheme: darkTheme)),
       farmType: farmType,
-      plantCount: plantCount,
     );
   }
 
@@ -278,7 +270,6 @@ class FarmViewModel extends ChangeNotifier {
     return FarmViewModel(
       plantCellModels: plants.map((plant) => PlantCellModel(plant: plant, darkTheme: darkTheme)).toList(),
       farmType: FarmType.basic,
-      plantCount: 9,
     );
   }
 
@@ -287,7 +278,7 @@ class FarmViewModel extends ChangeNotifier {
 
   final FarmType farmType;
 
-  final int plantCount;
+  int get plantCount => farmType.plantCount;
 
   bool get hasBalancedNutrients => totalNutrient == Nutrient.zero();
 
@@ -309,7 +300,6 @@ class FarmViewModel extends ChangeNotifier {
     return FarmViewModel(
       plantCellModels: _plantCellModels.map((model) => model.copyWith(darkTheme: darkTheme)).toList(),
       farmType: farmType ?? this.farmType,
-      plantCount: plantCount,
     );
   }
 
