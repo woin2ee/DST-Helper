@@ -104,11 +104,7 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: 8,
                     children: [
-                      ValueListenableBuilder(
-                          valueListenable: controller.selectedFarmGroupTypeNotifier,
-                          builder: (context, value, child) {
-                            return _buildFarmTypeSelectionBox();
-                          }),
+                      _buildFarmTypeSelectionBox(),
                       _buildFarmGroupTypeSelectionBox(),
                     ],
                   ),
@@ -132,6 +128,9 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
 
   Widget _buildFarmTypeSelectionBox() {
     return Builder(builder: (context) {
+      final controller = context.watch<FarmGroupEditController>();
+      final colorScheme = Theme.of(context).colorScheme;
+
       return Row(
         spacing: 10,
         children: <Widget>[
@@ -146,6 +145,10 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
                       FarmType.reverseDense => null,
                     },
                 },
+                style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(
+                      controller.selectedFarmType == type ? colorScheme.primaryContainer : Colors.white),
+                ),
                 child: Text(
                   type.localizedName(context),
                   style: const TextStyle(
@@ -159,20 +162,29 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
   }
 
   Widget _buildFarmGroupTypeSelectionBox() {
-    return Row(
-      spacing: 10.0,
-      children: [
-        ...FarmGroupType.values.map((type) => OutlinedButton(
-              onPressed: () => controller.setFarmGroupType(type),
-              child: Text(
-                type.name,
-                style: const TextStyle(
-                  fontFamily: FontFamily.pretendard,
+    return Builder(builder: (context) {
+      final controller = context.watch<FarmGroupEditController>();
+      final colorScheme = Theme.of(context).colorScheme;
+
+      return Row(
+        spacing: 10.0,
+        children: [
+          ...FarmGroupType.values.map((type) => OutlinedButton(
+                onPressed: () => controller.setFarmGroupType(type),
+                style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(
+                      controller.selectedFarmGroupType == type ? colorScheme.primaryContainer : Colors.white),
                 ),
-              ),
-            )),
-      ],
-    );
+                child: Text(
+                  type.name,
+                  style: const TextStyle(
+                    fontFamily: FontFamily.pretendard,
+                  ),
+                ),
+              )),
+        ],
+      );
+    });
   }
 }
 
@@ -181,30 +193,28 @@ class _TitleTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.read<FarmGroupEditController>();
+    return Builder(builder: (context) {
+      final controller = context.watch<FarmGroupEditController>();
 
-    return Container(
-      padding: const EdgeInsets.only(left: 8.0),
-      width: 400,
-      child: ListenableBuilder(
-          listenable: controller.farmGroupModel,
-          builder: (context, child) {
-            return TextField(
-              controller: controller.titleEditingController,
-              decoration: InputDecoration(
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                labelText: 'Name',
-                hintText: (controller.farmGroupModel.hasAnyPlant)
-                    ? '${controller.farmGroupModel.suitableSeasons.map((season) => season.localizedName(context))}'
-                    : '',
-                hintStyle: const TextStyle(
-                  fontFamily: FontFamily.pretendard,
-                  color: Colors.grey,
-                ),
-              ),
-            );
-          }),
-    );
+      return Container(
+        padding: const EdgeInsets.only(left: 8.0),
+        width: 400,
+        child: TextField(
+          controller: controller.titleEditingController,
+          decoration: InputDecoration(
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            labelText: 'Name',
+            hintText: (controller.farmGroupModel.hasAnyPlant)
+                ? '${controller.farmGroupModel.suitableSeasons.map((season) => season.localizedName(context))}'
+                : '',
+            hintStyle: const TextStyle(
+              fontFamily: FontFamily.pretendard,
+              color: Colors.grey,
+            ),
+          ),
+        ),
+      );
+    });
   }
 }
 
