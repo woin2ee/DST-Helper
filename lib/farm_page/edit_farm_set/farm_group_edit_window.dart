@@ -193,30 +193,28 @@ class _TitleTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.read<FarmGroupEditController>();
+    return Builder(builder: (context) {
+      final controller = context.watch<FarmGroupEditController>();
 
-    return Container(
-      padding: const EdgeInsets.only(left: 8.0),
-      width: 400,
-      child: ListenableBuilder(
-          listenable: controller.farmGroupModel,
-          builder: (context, child) {
-            return TextField(
-              controller: controller.titleEditingController,
-              decoration: InputDecoration(
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                labelText: 'Name',
-                hintText: (controller.farmGroupModel.hasAnyPlant)
-                    ? '${controller.farmGroupModel.suitableSeasons.map((season) => season.localizedName(context))}'
-                    : '',
-                hintStyle: const TextStyle(
-                  fontFamily: FontFamily.pretendard,
-                  color: Colors.grey,
-                ),
-              ),
-            );
-          }),
-    );
+      return Container(
+        padding: const EdgeInsets.only(left: 8.0),
+        width: 400,
+        child: TextField(
+          controller: controller.titleEditingController,
+          decoration: InputDecoration(
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            labelText: 'Name',
+            hintText: (controller.farmGroupModel.hasAnyPlant)
+                ? '${controller.farmGroupModel.suitableSeasons.map((season) => season.localizedName(context))}'
+                : '',
+            hintStyle: const TextStyle(
+              fontFamily: FontFamily.pretendard,
+              color: Colors.grey,
+            ),
+          ),
+        ),
+      );
+    });
   }
 }
 
