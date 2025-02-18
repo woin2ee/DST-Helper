@@ -143,7 +143,6 @@ class SampleFarmGroupModel {
       preDefined6,
       preDefined7,
       preDefined8,
-      preDefined9,
       preDefined10,
       preDefined11,
       // preDefined12,
@@ -352,22 +351,6 @@ class SampleFarmGroupModel {
         Items.carrot,
         Items.carrot,
         Items.carrot,
-      ),
-    );
-  }
-
-  static FarmGroupModel get preDefined9 {
-    return FarmGroupModel.single(
-      farmViewModel: FarmViewModel.basic(
-        Items.onion,
-        Items.onion,
-        Items.onion,
-        Items.garlic,
-        Items.garlic,
-        Items.garlic,
-        Items.pepper,
-        Items.pepper,
-        Items.pepper,
       ),
     );
   }

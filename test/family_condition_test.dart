@@ -145,11 +145,11 @@ void main() {
               [null, null],
               [null, null, null],
             ),
-            right: FarmViewModel.denseWithTable(
-              [Items.potato, null],
+            right: FarmViewModel.reverseDenseWithTable(
               [Items.potato, null, null],
-              [null, null],
+              [Items.potato, null],
               [null, null, null],
+              [null, null],
             ));
         final subject = FamilyCondition.withModel(farmGroupModel);
 

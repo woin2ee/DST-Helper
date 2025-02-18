@@ -22,11 +22,8 @@ abstract class FamilyCondition {
     switch (farmType) {
       case FarmType.basic:
         return BasicFarmFamilyCondition.withModel(model);
-      case FarmType.dense:
+      case FarmType.dense || FarmType.reverseDense:
         return DenseFarmFamilyCondition.withModel(model);
-      case FarmType.reverseDense:
-        // TODO: Handle this case.
-        throw UnimplementedError();
     }
   }
 

@@ -27,6 +27,16 @@ enum FarmType {
         return L10ns.of(context).localized('reverse_dense');
     }
   }
+
+  int get plantCount {
+    switch (this) {
+      case FarmType.basic:
+        return 9;
+      case FarmType.dense:
+      case FarmType.reverseDense:
+        return 10;
+    }
+  }
 }
 
 @JsonSerializable()
@@ -178,6 +188,7 @@ class FarmViewModel extends ChangeNotifier {
     );
   }
 
+  /// {@template dst_helper/farm_page/farm_grid/farm_view/farm_view_model/reverse_dense}
   /// (top) 3 : 2 : 3 : 2 (bottom)
   ///
   /// ```
@@ -191,6 +202,7 @@ class FarmViewModel extends ChangeNotifier {
   /// |   8    |   9    |
   /// -------------------
   /// ```
+  /// {@endtemplate}
   factory FarmViewModel.reverseDense(
     Plant? p0,
     Plant? p1,
@@ -216,6 +228,33 @@ class FarmViewModel extends ChangeNotifier {
         PlantCellModel(plant: p7, darkTheme: darkTheme),
         PlantCellModel(plant: p8, darkTheme: darkTheme),
         PlantCellModel(plant: p9, darkTheme: darkTheme),
+      ],
+      farmType: FarmType.reverseDense,
+      plantCount: 10,
+    );
+  }
+
+  /// {@macro dst_helper/farm_page/farm_grid/farm_view/farm_view_model/reverse_dense}
+  factory FarmViewModel.reverseDenseWithTable(
+    List<Plant?> p012,
+    List<Plant?> p34,
+    List<Plant?> p567,
+    List<Plant?> p89, {
+    bool darkTheme = false,
+  }) {
+    assert(p012.length == 3 && p34.length == 2 && p567.length == 3 && p89.length == 2);
+    return FarmViewModel(
+      plantCellModels: [
+        PlantCellModel(plant: p012[0], darkTheme: darkTheme),
+        PlantCellModel(plant: p012[1], darkTheme: darkTheme),
+        PlantCellModel(plant: p012[2], darkTheme: darkTheme),
+        PlantCellModel(plant: p34[0], darkTheme: darkTheme),
+        PlantCellModel(plant: p34[1], darkTheme: darkTheme),
+        PlantCellModel(plant: p567[0], darkTheme: darkTheme),
+        PlantCellModel(plant: p567[1], darkTheme: darkTheme),
+        PlantCellModel(plant: p567[2], darkTheme: darkTheme),
+        PlantCellModel(plant: p89[0], darkTheme: darkTheme),
+        PlantCellModel(plant: p89[1], darkTheme: darkTheme),
       ],
       farmType: FarmType.reverseDense,
       plantCount: 10,
