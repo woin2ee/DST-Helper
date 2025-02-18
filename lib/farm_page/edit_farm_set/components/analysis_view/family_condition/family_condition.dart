@@ -21,9 +21,9 @@ abstract class FamilyCondition {
     final farmType = model.farmViewModels[0].farmType;
     switch (farmType) {
       case FarmType.basic:
-        return BasicFarmFamilyCondition.withModel(farmGroupModel: model);
+        return BasicFarmFamilyCondition.withModel(model);
       case FarmType.dense:
-        return DenseFarmFamilyCondition.withModel(farmGroupModel: model);
+        return DenseFarmFamilyCondition.withModel(model);
       case FarmType.reverseDense:
         // TODO: Handle this case.
         throw UnimplementedError();

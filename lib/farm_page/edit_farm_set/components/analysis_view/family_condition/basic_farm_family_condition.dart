@@ -19,10 +19,10 @@ class _PlantInfo with PlantData {
 }
 
 class BasicFarmFamilyCondition extends FamilyCondition {
-  BasicFarmFamilyCondition.withModel({
-    required super.farmGroupModel,
-  })  : assert(farmGroupModel.farmViewModels[0].farmType == FarmType.basic),
-        super();
+  BasicFarmFamilyCondition.withModel(
+    FarmGroupModel farmGroupModel,
+  )   : assert(farmGroupModel.farmViewModels[0].farmType == FarmType.basic),
+        super(farmGroupModel: farmGroupModel);
 
   @override
   bool get isSatisfied {

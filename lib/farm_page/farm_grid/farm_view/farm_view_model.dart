@@ -38,62 +38,140 @@ class FarmViewModel extends ChangeNotifier {
     required this.plantCount,
   }) : _plantCellModels = plantCellModels;
 
+  /// {@template dst_helper/farm_page/farm_grid/farm_view/farm_view_model/basic}
   /// (top) 3 : 3 : 3 (bottom)
+  ///
+  /// ```
+  /// -------------------
+  /// |  0  |  1  |  2  |
+  /// -------------------
+  /// |  3  |  4  |  5  |
+  /// -------------------
+  /// |  6  |  7  |  8  |
+  /// -------------------
+  /// ```
+  /// {@endtemplate}
   factory FarmViewModel.basic(
-    Plant? c1,
-    Plant? c2,
-    Plant? c3,
-    Plant? c4,
-    Plant? c5,
-    Plant? c6,
-    Plant? c7,
-    Plant? c8,
-    Plant? c9, {
+    Plant? p0,
+    Plant? p1,
+    Plant? p2,
+    Plant? p3,
+    Plant? p4,
+    Plant? p5,
+    Plant? p6,
+    Plant? p7,
+    Plant? p8, {
     bool darkTheme = false,
   }) {
     return FarmViewModel(
       plantCellModels: [
-        PlantCellModel(plant: c1, darkTheme: darkTheme),
-        PlantCellModel(plant: c2, darkTheme: darkTheme),
-        PlantCellModel(plant: c3, darkTheme: darkTheme),
-        PlantCellModel(plant: c4, darkTheme: darkTheme),
-        PlantCellModel(plant: c5, darkTheme: darkTheme),
-        PlantCellModel(plant: c6, darkTheme: darkTheme),
-        PlantCellModel(plant: c7, darkTheme: darkTheme),
-        PlantCellModel(plant: c8, darkTheme: darkTheme),
-        PlantCellModel(plant: c9, darkTheme: darkTheme),
+        PlantCellModel(plant: p0, darkTheme: darkTheme),
+        PlantCellModel(plant: p1, darkTheme: darkTheme),
+        PlantCellModel(plant: p2, darkTheme: darkTheme),
+        PlantCellModel(plant: p3, darkTheme: darkTheme),
+        PlantCellModel(plant: p4, darkTheme: darkTheme),
+        PlantCellModel(plant: p5, darkTheme: darkTheme),
+        PlantCellModel(plant: p6, darkTheme: darkTheme),
+        PlantCellModel(plant: p7, darkTheme: darkTheme),
+        PlantCellModel(plant: p8, darkTheme: darkTheme),
       ],
       farmType: FarmType.basic,
       plantCount: 9,
     );
   }
 
+  /// {@macro dst_helper/farm_page/farm_grid/farm_view/farm_view_model/basic}
+  factory FarmViewModel.basicWithTable(
+    List<Plant?> p012,
+    List<Plant?> p345,
+    List<Plant?> p678, {
+    bool darkTheme = false,
+  }) {
+    assert(p012.length == 3 && p345.length == 3 && p678.length == 3);
+    return FarmViewModel(
+      plantCellModels: [
+        PlantCellModel(plant: p012[0], darkTheme: darkTheme),
+        PlantCellModel(plant: p012[1], darkTheme: darkTheme),
+        PlantCellModel(plant: p012[2], darkTheme: darkTheme),
+        PlantCellModel(plant: p345[0], darkTheme: darkTheme),
+        PlantCellModel(plant: p345[1], darkTheme: darkTheme),
+        PlantCellModel(plant: p345[2], darkTheme: darkTheme),
+        PlantCellModel(plant: p678[0], darkTheme: darkTheme),
+        PlantCellModel(plant: p678[1], darkTheme: darkTheme),
+        PlantCellModel(plant: p678[2], darkTheme: darkTheme),
+      ],
+      farmType: FarmType.basic,
+      plantCount: 9,
+    );
+  }
+
+  /// {@template dst_helper/farm_page/farm_grid/farm_view/farm_view_model/dense}
   /// (top) 2 : 3 : 2 : 3 (bottom)
+  ///
+  /// ```
+  /// -------------------
+  /// |   0    |    1   |
+  /// -------------------
+  /// |  2  |  3  |  4  |
+  /// -------------------
+  /// |   5    |    6   |
+  /// -------------------
+  /// |  7  |  8  |  9  |
+  /// -------------------
+  /// ```
+  /// {@endtemplate}
   factory FarmViewModel.dense(
-    Plant? c1,
-    Plant? c2,
-    Plant? c3,
-    Plant? c4,
-    Plant? c5,
-    Plant? c6,
-    Plant? c7,
-    Plant? c8,
-    Plant? c9,
-    Plant? c10, {
+    Plant? p0,
+    Plant? p1,
+    Plant? p2,
+    Plant? p3,
+    Plant? p4,
+    Plant? p5,
+    Plant? p6,
+    Plant? p7,
+    Plant? p8,
+    Plant? p9, {
     bool darkTheme = false,
   }) {
     return FarmViewModel(
       plantCellModels: [
-        PlantCellModel(plant: c1, darkTheme: darkTheme),
-        PlantCellModel(plant: c2, darkTheme: darkTheme),
-        PlantCellModel(plant: c3, darkTheme: darkTheme),
-        PlantCellModel(plant: c4, darkTheme: darkTheme),
-        PlantCellModel(plant: c5, darkTheme: darkTheme),
-        PlantCellModel(plant: c6, darkTheme: darkTheme),
-        PlantCellModel(plant: c7, darkTheme: darkTheme),
-        PlantCellModel(plant: c8, darkTheme: darkTheme),
-        PlantCellModel(plant: c9, darkTheme: darkTheme),
-        PlantCellModel(plant: c10, darkTheme: darkTheme),
+        PlantCellModel(plant: p0, darkTheme: darkTheme),
+        PlantCellModel(plant: p1, darkTheme: darkTheme),
+        PlantCellModel(plant: p2, darkTheme: darkTheme),
+        PlantCellModel(plant: p3, darkTheme: darkTheme),
+        PlantCellModel(plant: p4, darkTheme: darkTheme),
+        PlantCellModel(plant: p5, darkTheme: darkTheme),
+        PlantCellModel(plant: p6, darkTheme: darkTheme),
+        PlantCellModel(plant: p7, darkTheme: darkTheme),
+        PlantCellModel(plant: p8, darkTheme: darkTheme),
+        PlantCellModel(plant: p9, darkTheme: darkTheme),
+      ],
+      farmType: FarmType.dense,
+      plantCount: 10,
+    );
+  }
+
+  /// {@macro dst_helper/farm_page/farm_grid/farm_view/farm_view_model/dense}
+  factory FarmViewModel.denseWithTable(
+    List<Plant?> p01,
+    List<Plant?> p234,
+    List<Plant?> p56,
+    List<Plant?> p789, {
+    bool darkTheme = false,
+  }) {
+    assert(p01.length == 2 && p234.length == 3 && p56.length == 2 && p789.length == 3);
+    return FarmViewModel(
+      plantCellModels: [
+        PlantCellModel(plant: p01[0], darkTheme: darkTheme),
+        PlantCellModel(plant: p01[1], darkTheme: darkTheme),
+        PlantCellModel(plant: p234[0], darkTheme: darkTheme),
+        PlantCellModel(plant: p234[1], darkTheme: darkTheme),
+        PlantCellModel(plant: p234[2], darkTheme: darkTheme),
+        PlantCellModel(plant: p56[0], darkTheme: darkTheme),
+        PlantCellModel(plant: p56[1], darkTheme: darkTheme),
+        PlantCellModel(plant: p789[0], darkTheme: darkTheme),
+        PlantCellModel(plant: p789[1], darkTheme: darkTheme),
+        PlantCellModel(plant: p789[2], darkTheme: darkTheme),
       ],
       farmType: FarmType.dense,
       plantCount: 10,
@@ -101,31 +179,43 @@ class FarmViewModel extends ChangeNotifier {
   }
 
   /// (top) 3 : 2 : 3 : 2 (bottom)
+  ///
+  /// ```
+  /// -------------------
+  /// |  0  |  1  |  2  |
+  /// -------------------
+  /// |   3    |    4   |
+  /// -------------------
+  /// |  5  |  6  |  7  |
+  /// -------------------
+  /// |   8    |   9    |
+  /// -------------------
+  /// ```
   factory FarmViewModel.reverseDense(
-    Plant? c1,
-    Plant? c2,
-    Plant? c3,
-    Plant? c4,
-    Plant? c5,
-    Plant? c6,
-    Plant? c7,
-    Plant? c8,
-    Plant? c9,
-    Plant? c10, {
+    Plant? p0,
+    Plant? p1,
+    Plant? p2,
+    Plant? p3,
+    Plant? p4,
+    Plant? p5,
+    Plant? p6,
+    Plant? p7,
+    Plant? p8,
+    Plant? p9, {
     bool darkTheme = false,
   }) {
     return FarmViewModel(
       plantCellModels: [
-        PlantCellModel(plant: c1, darkTheme: darkTheme),
-        PlantCellModel(plant: c2, darkTheme: darkTheme),
-        PlantCellModel(plant: c3, darkTheme: darkTheme),
-        PlantCellModel(plant: c4, darkTheme: darkTheme),
-        PlantCellModel(plant: c5, darkTheme: darkTheme),
-        PlantCellModel(plant: c6, darkTheme: darkTheme),
-        PlantCellModel(plant: c7, darkTheme: darkTheme),
-        PlantCellModel(plant: c8, darkTheme: darkTheme),
-        PlantCellModel(plant: c9, darkTheme: darkTheme),
-        PlantCellModel(plant: c10, darkTheme: darkTheme),
+        PlantCellModel(plant: p0, darkTheme: darkTheme),
+        PlantCellModel(plant: p1, darkTheme: darkTheme),
+        PlantCellModel(plant: p2, darkTheme: darkTheme),
+        PlantCellModel(plant: p3, darkTheme: darkTheme),
+        PlantCellModel(plant: p4, darkTheme: darkTheme),
+        PlantCellModel(plant: p5, darkTheme: darkTheme),
+        PlantCellModel(plant: p6, darkTheme: darkTheme),
+        PlantCellModel(plant: p7, darkTheme: darkTheme),
+        PlantCellModel(plant: p8, darkTheme: darkTheme),
+        PlantCellModel(plant: p9, darkTheme: darkTheme),
       ],
       farmType: FarmType.reverseDense,
       plantCount: 10,

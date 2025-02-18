@@ -22,11 +22,11 @@ class _PlantNode with PlantData {
 }
 
 class DenseFarmFamilyCondition extends FamilyCondition {
-  DenseFarmFamilyCondition.withModel({
-    required super.farmGroupModel,
-  })  : assert((farmGroupModel.farmViewModels[0].farmType != FarmType.basic) &&
+  DenseFarmFamilyCondition.withModel(
+    FarmGroupModel farmGroupModel,
+  )   : assert((farmGroupModel.farmViewModels[0].farmType != FarmType.basic) &&
             (farmGroupModel.groupType != FarmGroupType.square)),
-        super();
+        super(farmGroupModel: farmGroupModel);
 
   static const Map<(FarmGroupType, FarmType), AdjacencyList> adjacencyListByType = {
     // single(normal)
