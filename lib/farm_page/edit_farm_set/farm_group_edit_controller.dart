@@ -2,11 +2,11 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/v2/item/item.dart';
-import '../farm_list/farm_group/farm_group_model.dart';
-import '../farm_list/farm_plant/farm_view_model.dart';
-import '../farm_list/farm_plant_card/farm_card_model.dart';
+import '../farm_grid/farm_card/farm_card_model.dart';
+import '../farm_grid/farm_group/farm_group_model.dart';
+import '../farm_grid/farm_view/farm_view_model.dart';
 import 'components/analysis_view/analysis_view_controller.dart';
-import 'components/analysis_view/family_condition_box.dart';
+import 'components/analysis_view/family_condition/family_condition_box.dart';
 import 'components/analysis_view/nutrient_condition_box.dart';
 import 'components/analysis_view/season_condition_box.dart';
 import 'components/crop_selection_section.dart';
@@ -57,13 +57,17 @@ class FarmGroupEditController extends ChangeNotifier {
       isPlacedAnyPlant: model.farmGroupModel.hasAnyPlant,
     );
 
-    return FarmGroupEditController._(
+    final self = FarmGroupEditController._(
       selectedFarmGroupTypeNotifier: selectedFarmGroupTypeNotifier,
       selectedFarmType: selectedFarmType,
       titleEditingController: titleEditingController,
       farmGroupModelNotifier: farmGroupModelNotifier,
       analysisViewController: analysisViewController,
     );
+
+    self.selectedFertilizerNotifier.value = model.linkedFertilizer;
+
+    return self;
   }
 
   final ValueNotifier<FarmGroupType> selectedFarmGroupTypeNotifier;
@@ -99,7 +103,7 @@ class FarmGroupEditController extends ChangeNotifier {
         farmGroupModelNotifier.value = FarmGroupModel.double(
             left: farmGroupModel.farmViewModels[0],
             right: farmGroupModel.farmViewModels.elementAtOrNull(1) ??
-                FarmViewModel.empty(selectedFarmType, darkTheme: true));
+                FarmViewModel.empty(selectedFarmType, darkTheme: true).reversed);
       case FarmGroupType.square:
         if (selectedFarmType == FarmType.basic) {
           final List<Plant?> emptyPlants = List.filled(9, null);
@@ -139,7 +143,7 @@ class FarmGroupEditController extends ChangeNotifier {
       case FarmGroupType.double:
         farmGroupModelNotifier.value = FarmGroupModel.double(
           left: FarmViewModel.empty(type),
-          right: FarmViewModel.empty(type, darkTheme: true),
+          right: FarmViewModel.empty(type, darkTheme: true).reversed,
         );
       case FarmGroupType.square:
         assert(type != FarmType.dense && type != FarmType.reverseDense);
@@ -167,7 +171,7 @@ class FarmGroupEditController extends ChangeNotifier {
     analysisViewController.isPlacedAnyPlant.value = farmGroupModel.hasAnyPlant;
   }
 
-  /// The order of the `farmIndex` is `top-left`, `top-right`, `bottom-left`, `bottom-right`.
+  /// The order of the [farmIndex] is `top-left`, `top-right`, `bottom-left`, `bottom-right`.
   Plant? getPlacedPlant(int farmIndex, int plantIndex) {
     return farmGroupModel.farmViewModels[farmIndex].plants[plantIndex];
   }

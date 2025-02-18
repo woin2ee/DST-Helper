@@ -1,11 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../cook_page/cook_page.dart';
 import '../farm_page/farm_page.dart';
 import '../utils/custom_icon/custom_icon_icons.dart';
 import '../utils/font_family.dart';
+import 'app_state.dart';
 import 'models/menu.dart';
 
 enum AvailableLanguage {
@@ -16,12 +18,7 @@ enum AvailableLanguage {
 class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
-    required this.onSelectedLocale,
-    required this.selectedLocale,
   });
-
-  final void Function(Locale) onSelectedLocale;
-  final Locale selectedLocale;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -39,8 +36,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-
     final selectedMenu = _selectedMenuState.firstWhere((element) => element.$2 == true).$1;
+    final appState = context.watch<AppState>();
 
     return Scaffold(
       backgroundColor: colorScheme.surfaceContainerLowest,
@@ -59,9 +56,9 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(width: 20),
           LanguagePopupMenuButton(
-            selectedLocaleName: widget.selectedLocale.localizedName,
+            selectedLocaleName: appState.currentLocale.localizedName,
             onSelected: (AvailableLanguage item) {
-              widget.onSelectedLocale(Locale(item.name));
+              appState.currentLocale = Locale(item.name);
             },
           ),
           const SizedBox(width: 30),

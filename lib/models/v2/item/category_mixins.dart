@@ -5,7 +5,7 @@ import 'requirement.dart';
 
 /// It defines the common properties of items.
 ///
-/// The classes that adopt this mixin have `code` identifying the item and `assetName` that it is the same name as the image file.
+/// The classes that adopt this mixin have [code] identifying the item and [assetName] that it is the same name as the image file.
 mixin Item {
   String get code;
   String get assetName;

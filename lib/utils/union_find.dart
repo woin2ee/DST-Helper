@@ -1,18 +1,18 @@
 class UnionFind<Element> {
-  Map<Element, Element> parent = {};
+  final Map<Element, Element> map = {};
 
   void initialize(List<Element> elements) {
     for (final element in elements) {
-      if (!parent.containsKey(element)) {
-        parent[element] = element;
+      if (!map.containsKey(element)) {
+        map[element] = element;
       }
     }
   }
 
   Element find(Element element) {
-    if (parent[element] != element) {
-      final root = find(parent[element] as Element);
-      parent[element] = root;
+    if (map[element] != element) {
+      final root = find(map[element] as Element);
+      map[element] = root;
       return root;
     }
     return element;
@@ -22,7 +22,7 @@ class UnionFind<Element> {
     final Element root1 = find(e1);
     final Element root2 = find(e2);
     if (root1 != root2) {
-      parent[root2] = root1;
+      map[root2] = root1;
     }
   }
 }

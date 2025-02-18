@@ -6,9 +6,9 @@ import '../../../../l10n/l10ns.dart';
 import '../../../../models/v2/item/categories.dart';
 import '../../../../models/v2/item/nutrient.dart';
 import '../../../../utils/font_family.dart';
-import '../../../farm_list/farm_group/farm_group_model.dart';
-import '../../../farm_list/farm_plant/farm_view_model.dart';
-import '../../../farm_list/farm_plant_card/farm_card_model.dart';
+import '../../../farm_grid/farm_card/farm_card_model.dart';
+import '../../../farm_grid/farm_group/farm_group_model.dart';
+import '../../../farm_grid/farm_view/farm_view_model.dart';
 
 part 'nutrient_condition_box.freezed.dart';
 

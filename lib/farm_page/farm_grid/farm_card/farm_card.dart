@@ -5,7 +5,7 @@ import '../../../l10n/l10ns.dart';
 import '../../../models/v2/localization.dart';
 import '../../../utils/font_family.dart';
 import '../../edit_farm_set/farm_group_edit_window.dart';
-import '../../farm_page_notifier.dart';
+import '../../farm_page_controller.dart';
 import '../farm_group/farm_group.dart';
 import 'farm_card_model.dart';
 
@@ -72,7 +72,7 @@ class _CardTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     const double sideSpace = 42;
-    final farmPageController = context.read<FarmPageNotifier>();
+    final farmPageController = context.read<FarmPageController>();
 
     return Container(
       color: Colors.black54,
@@ -93,7 +93,7 @@ class _CardTitle extends StatelessWidget {
                 onSelected: (_CardActionEntry action) async {
                   switch (action) {
                     case _CardActionEntry.edit:
-                      final result = await showDialog(
+                      final maybeFarmCardModel = await showDialog(
                         barrierColor: Colors.black.withOpacity(0.35),
                         context: context,
                         builder: (context) => Dialog(
@@ -103,8 +103,9 @@ class _CardTitle extends StatelessWidget {
                           ),
                         ),
                       );
-                      if (result is FarmCardModel && context.mounted) {
-                        context.read<FarmPageNotifier>().updateFarmCard(result);
+                      if (maybeFarmCardModel is FarmCardModel) {
+                        final farmCardModel = maybeFarmCardModel;
+                        farmPageController.updateFarmCard(farmCardModel);
                       }
                     case _CardActionEntry.hide:
                       farmPageController.makeCardHidden(true, id: model.id);

@@ -19,8 +19,8 @@ Future<void> _clearPrefsIfNeeds() async {
 
   // 버전 명시
   const currentVersion = _PrefsVersion(
-    description: 'Update encoding keys due to refactoring',
-    number: 9,
+    description: 'Update model',
+    number: 11,
   );
 
   clearAndSet() async {

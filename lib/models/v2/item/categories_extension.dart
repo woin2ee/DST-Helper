@@ -23,11 +23,8 @@ extension RecipeExtension on Recipe {
     return true;
   }
 
-  /// 4개의 asset name 을 가진 List 를 반화합니다.
+  /// A list containing exactly 4 asset names.
   List<String> get ingredientListAssetNames {
-    final requirements = this.requirements.rawRequirements.toList();
-    requirements.sort((a, b) => a.compareTo(b));
-
     final List<String> assets = [];
     final List<UsingInCrockPot> containedIngredient = [];
 
@@ -63,23 +60,54 @@ extension RecipeExtension on Recipe {
           });
           return assetNamesByCategory.fold([], (a, b) => a + b);
         case OrRequirement(:final requirements):
+          // TODO: For now, it doesn't consider the other side requirement.
           return assetsRepresenting(requirements.first);
         case NoRequirement():
-        case AndRequirements():
+        case AndRequirement():
         case MaxRequirement():
           return [];
       }
     }
 
-    for (final requirement in requirements.reversed) {
-      final assetsForRequirement = assetsRepresenting(requirement);
+    final orderableRequirements = requirements.rawRequirements.map((e) => OrderableRequirement(e)).toList();
+    orderableRequirements.sort();
+
+    for (final requirement in orderableRequirements.reversed) {
+      final assetsForRequirement = assetsRepresenting(requirement.base);
       assets.addAll(assetsForRequirement);
     }
 
     assert(assets.length <= 4);
+
     while (assets.length < 4) {
       assets.add('none');
     }
-    return assets;
+    return assets.getRange(0, 4).toList();
   }
+}
+
+class OrderableRequirement implements Comparable<Requirement> {
+  const OrderableRequirement(this.base);
+
+  final Requirement base;
+
+  int get order => switch (base) {
+        AndRequirement() => 0,
+        OrRequirement() => 20,
+
+        // These 2 values of requirements below must be less than the value of [ContainingRequirement].
+        // Because, when it makes up ingredient list for a recipe,
+        // these should be get after considering [ContainingRequirement].
+        MeetRequirement() => -2,
+        ExcessRequirement() => -1,
+
+        //
+        AtLeastRequirement() => 2,
+        ContainingRequirement() => 10,
+        NoRequirement() => 0,
+        MaxRequirement() => 0,
+      };
+
+  @override
+  int compareTo(Requirement other) => order.compareTo(OrderableRequirement(other).order);
 }

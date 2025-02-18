@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../../../models/v1/season.dart';
 import '../../../models/v2/item/categories.dart';
 import '../../../models/v2/item/items.dart';
-import '../farm_plant/farm_view_model.dart';
+import '../farm_view/farm_view_model.dart';
 
 part 'farm_group_model.g.dart';
 
@@ -20,18 +20,18 @@ class FarmGroupModel extends ChangeNotifier {
   @visibleForTesting
   FarmGroupModel({
     required this.groupType,
-    required this.count,
+    required this.farmCount,
     required List<FarmViewModel> farmViewModels,
   }) : _farmViewModels = farmViewModels;
 
   final FarmGroupType groupType;
 
   /// The number of farms in the group.
-  final int count;
+  final int farmCount;
 
   List<FarmViewModel> _farmViewModels;
 
-  /// The list of `FarmViewModel` in the group.
+  /// The list of [FarmViewModel] in the group.
   ///
   /// Indexes are ordered as `top-left`, `top-right`, `bottom-left`, `bottom-right`.
   BuiltList<FarmViewModel> get farmViewModels => BuiltList(_farmViewModels);
@@ -39,7 +39,7 @@ class FarmGroupModel extends ChangeNotifier {
   factory FarmGroupModel.single({required FarmViewModel farmViewModel}) {
     return FarmGroupModel(
       groupType: FarmGroupType.single,
-      count: 1,
+      farmCount: 1,
       farmViewModels: [farmViewModel],
     );
   }
@@ -50,7 +50,7 @@ class FarmGroupModel extends ChangeNotifier {
   }) {
     return FarmGroupModel(
       groupType: FarmGroupType.double,
-      count: 2,
+      farmCount: 2,
       farmViewModels: [left, right],
     );
   }
@@ -63,7 +63,7 @@ class FarmGroupModel extends ChangeNotifier {
   }) {
     return FarmGroupModel(
       groupType: FarmGroupType.square,
-      count: 4,
+      farmCount: 4,
       farmViewModels: [
         topLeft,
         topRight,
@@ -110,21 +110,21 @@ class FarmGroupModel extends ChangeNotifier {
   bool operator ==(Object other) {
     return other is FarmGroupModel &&
         groupType == other.groupType &&
-        count == other.count &&
+        farmCount == other.farmCount &&
         listEquals(_farmViewModels, other._farmViewModels);
   }
 
   @override
   int get hashCode => Object.hash(
         groupType,
-        count,
+        farmCount,
         farmViewModels,
       );
 
   FarmGroupModel copy() {
     return FarmGroupModel(
       groupType: groupType,
-      count: count,
+      farmCount: farmCount,
       farmViewModels: farmViewModels.map((e) => e.copyWith()).toList(),
     );
   }
@@ -143,7 +143,6 @@ class SampleFarmGroupModel {
       preDefined6,
       preDefined7,
       preDefined8,
-      preDefined9,
       preDefined10,
       preDefined11,
       // preDefined12,
@@ -193,6 +192,7 @@ class SampleFarmGroupModel {
         Items.tomaRoot,
         Items.tomaRoot,
         Items.tomaRoot,
+        darkTheme: true,
       ),
     );
   }
@@ -222,6 +222,7 @@ class SampleFarmGroupModel {
         Items.pumpkin,
         Items.potato,
         Items.potato,
+        darkTheme: true,
       ),
     );
   }
@@ -249,6 +250,7 @@ class SampleFarmGroupModel {
         Items.dragonFruit,
         Items.dragonFruit,
         Items.dragonFruit,
+        darkTheme: true,
       ),
     );
   }
@@ -276,6 +278,7 @@ class SampleFarmGroupModel {
         Items.watermelon,
         Items.watermelon,
         Items.watermelon,
+        darkTheme: true,
       ),
     );
   }
@@ -303,6 +306,7 @@ class SampleFarmGroupModel {
         Items.onion,
         Items.onion,
         Items.potato,
+        darkTheme: true,
       ),
     );
   }
@@ -330,6 +334,7 @@ class SampleFarmGroupModel {
         Items.pumpkin,
         Items.pumpkin,
         Items.pumpkin,
+        darkTheme: true,
       ),
     );
   }
@@ -346,22 +351,6 @@ class SampleFarmGroupModel {
         Items.carrot,
         Items.carrot,
         Items.carrot,
-      ),
-    );
-  }
-
-  static FarmGroupModel get preDefined9 {
-    return FarmGroupModel.single(
-      farmViewModel: FarmViewModel.basic(
-        Items.onion,
-        Items.onion,
-        Items.onion,
-        Items.garlic,
-        Items.garlic,
-        Items.garlic,
-        Items.pepper,
-        Items.pepper,
-        Items.pepper,
       ),
     );
   }
@@ -389,6 +378,7 @@ class SampleFarmGroupModel {
         Items.garlic,
         Items.pumpkin,
         Items.pumpkin,
+        darkTheme: true,
       ),
       bottomLeft: FarmViewModel.basic(
         Items.pumpkin,
@@ -400,6 +390,7 @@ class SampleFarmGroupModel {
         null,
         null,
         Items.potato,
+        darkTheme: true,
       ),
       bottomRight: FarmViewModel.basic(
         Items.garlic,
@@ -438,6 +429,7 @@ class SampleFarmGroupModel {
         Items.garlic,
         Items.asparagus,
         Items.asparagus,
+        darkTheme: true,
       ),
       bottomLeft: FarmViewModel.basic(
         Items.asparagus,
@@ -449,6 +441,7 @@ class SampleFarmGroupModel {
         Items.potato,
         Items.potato,
         Items.onion,
+        darkTheme: true,
       ),
       bottomRight: FarmViewModel.basic(
         Items.garlic,

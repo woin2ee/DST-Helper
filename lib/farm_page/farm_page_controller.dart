@@ -5,29 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/v1/season.dart';
-import 'farm_list/farm_group/farm_group_model.dart';
-import 'farm_list/farm_plant_card/farm_card_model.dart';
+import 'farm_grid/farm_card/farm_card_model.dart';
+import 'farm_grid/farm_group/farm_group_model.dart';
 
 String _cacheKey = 'FARM_CARD_MODEL_LIST';
 
-class FarmPageNotifier extends ChangeNotifier {
-  FarmPageNotifier._({
-    required List<FarmCardModel> farmCardModels,
-    required Season initialSeason,
-    required bool showingHiddenItems,
-  })  : _showingHiddenItems = showingHiddenItems,
-        _selectedSeason = initialSeason,
-        _farmCardModels = farmCardModels;
-
-  factory FarmPageNotifier() {
-    final self = FarmPageNotifier._(
-      farmCardModels: const [],
-      initialSeason: Season.spring,
-      showingHiddenItems: false,
-    );
-    self.initFromPrefs();
-    return self;
-  }
+class FarmPageController extends ChangeNotifier {
+  FarmPageController()
+      : _showingHiddenItems = false,
+        _selectedSeason = Season.spring,
+        _farmCardModels = [];
 
   final Future<SharedPreferencesWithCache> _prefs = SharedPreferencesWithCache.create(
     cacheOptions: SharedPreferencesWithCacheOptions(
@@ -79,7 +66,7 @@ class FarmPageNotifier extends ChangeNotifier {
       final sampleData = SampleFarmGroupModel.preDefinedList.map((sampleModel) => FarmCardModel.create(
             farmGroupModel: sampleModel,
             createType: CreateType.sample,
-            fertilizer: null,
+            linkedFertilizer: null,
           ));
       farmCardModels = sampleData.toList();
       return;
@@ -90,13 +77,9 @@ class FarmPageNotifier extends ChangeNotifier {
   }
 
   Future<void> addFarmCard(FarmCardModel model) async {
-    final prefs = await _prefs;
-    final copy = List<FarmCardModel>.from(_farmCardModels);
-    copy.add(model);
-    final jsonString = jsonEncode(copy);
-    await prefs.setString(_cacheKey, jsonString);
-    farmCardModels = copy;
+    _farmCardModels.add(model);
     notifyListeners();
+    _save();
   }
 
   void updateFarmCard(FarmCardModel model) {

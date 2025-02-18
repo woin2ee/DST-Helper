@@ -53,9 +53,9 @@ class MeetRequirement extends Requirement {
 
 /// A requirement indicating the threshold must be exceeded.
 ///
-/// This requirement really only applies to some recipes such as `Honey Ham`.
+/// This requirement really only applies to some recipes such as [HoneyHam].
 ///
-/// Setting the threashold value to 0 is the same as using `AtLeastRequirement`, but it is recommended to use `AtLeastRequirement`.
+/// Setting the threashold value to 0 is the same as using [AtLeastRequirement], but it is recommended to use [AtLeastRequirement].
 class ExcessRequirement extends Requirement {
   const ExcessRequirement(this.thresholdValues);
 
@@ -82,9 +82,9 @@ class AtLeastRequirement extends Requirement {
   }
 }
 
-/// A requirement indicating that a specific item must contain.
+/// A requirement indicating that it must contain a specific item.
 ///
-/// It is useful for `Mandrake` or `Tallbird Egg` such as.
+/// It is useful for [Mandrake] or [TallbirdEgg] such as.
 class ContainingRequirement extends Requirement {
   const ContainingRequirement(this.ingredient, [this.count = 1]);
 
