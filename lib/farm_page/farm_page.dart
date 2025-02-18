@@ -32,10 +32,12 @@ class _FarmPageState extends State<FarmPage> {
     return ChangeNotifierProvider.value(
       value: _controller,
       builder: (context, child) {
+        final controller = context.watch<FarmPageController>();
+
         return Theme(
           data: ThemeData(
             useMaterial3: true,
-            colorScheme: ColorScheme.fromSeed(seedColor: _controller.selectedSeason.personalColor),
+            colorScheme: ColorScheme.fromSeed(seedColor: controller.selectedSeason.personalColor),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,9 +181,9 @@ class _NewButton extends StatelessWidget {
 }
 
 class _SeasonSelectionBox extends StatelessWidget {
-  _SeasonSelectionBox();
+  const _SeasonSelectionBox();
 
-  final List<Season> _seasons = [
+  static const List<Season> _seasons = [
     Season.spring,
     Season.summer,
     Season.autumn,
@@ -191,15 +193,15 @@ class _SeasonSelectionBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<FarmPageController>(
-      builder: (context, model, child) => ToggleButtons(
+      builder: (context, controller, child) => ToggleButtons(
         borderRadius: BorderRadius.circular(10),
         constraints: const BoxConstraints(
           minWidth: 70,
           minHeight: 40,
         ),
-        isSelected: _seasons.map((season) => season == model.selectedSeason).toList(),
+        isSelected: _seasons.map((season) => season == controller.selectedSeason).toList(),
         onPressed: (index) {
-          model.selectedSeason = _seasons[index];
+          controller.selectedSeason = _seasons[index];
         },
         children: [
           ...Season.values.map((season) => Padding(
