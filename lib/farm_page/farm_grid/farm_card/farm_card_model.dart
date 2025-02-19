@@ -72,7 +72,7 @@ class FarmCardModel extends ChangeNotifier {
     bool? isFavorited,
     CreateType? createType,
     bool? isHidden,
-    Fertilizer? linkedFertilizer,
+    Fertilizer? Function()? linkedFertilizer,
   }) {
     return FarmCardModel(
       id: id ?? this.id,
@@ -81,7 +81,7 @@ class FarmCardModel extends ChangeNotifier {
       isFavorited: isFavorited != null ? ValueNotifier(isFavorited) : ValueNotifier(this.isFavorited.value),
       createType: createType ?? this.createType,
       isHidden: isHidden ?? this.isHidden,
-      linkedFertilizer: linkedFertilizer ?? this.linkedFertilizer,
+      linkedFertilizer: linkedFertilizer != null ? linkedFertilizer() : this.linkedFertilizer,
     );
   }
 }
