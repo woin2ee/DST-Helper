@@ -240,6 +240,7 @@ class _OkButton extends StatelessWidget {
             title: title,
             farmGroupModel: controller.farmGroupModel,
             createType: CreateType.userCustom,
+            linkedFertilizer: controller.selectedFertilizer,
           );
         } else {
           model = FarmCardModel.create(
