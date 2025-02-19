@@ -6,7 +6,7 @@ import '../farm_grid/farm_card/farm_card_model.dart';
 import '../farm_grid/farm_group/farm_group_model.dart';
 import '../farm_grid/farm_view/farm_view_model.dart';
 import 'components/analysis_view/analysis_view_controller.dart';
-import 'components/analysis_view/family_condition/family_condition_box.dart';
+import 'components/analysis_view/family_condition_box.dart';
 import 'components/analysis_view/nutrient_condition_box.dart';
 import 'components/analysis_view/season_condition_box.dart';
 import 'components/crop_selection_section.dart';
