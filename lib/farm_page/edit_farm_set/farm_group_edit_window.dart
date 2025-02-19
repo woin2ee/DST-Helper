@@ -235,6 +235,7 @@ class _OkButton extends StatelessWidget {
         final originModel = parent.initialModel;
         final FarmCardModel model;
         final title = controller.titleEditingController.text.isNotEmpty ? controller.titleEditingController.text : null;
+
         if (parent.isEditingNewOne == false && originModel != null) {
           model = originModel.copyWith(
             title: title,
@@ -250,6 +251,7 @@ class _OkButton extends StatelessWidget {
             linkedFertilizer: controller.selectedFertilizer,
           );
         }
+
         Navigator.pop(context, model);
       },
       child: Text(
