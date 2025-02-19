@@ -124,6 +124,7 @@ class NutrientConditionBox extends StatelessWidget {
       phrases += [
         FittedBox(
           child: Text(
+            // TODO: Localize this string
             '각 성장마다 선택한 비료를 $countOfNeededFertilizer번 사용해야 합니다.',
             style: TextStyle(
               fontFamily: FontFamily.pretendard,
@@ -172,7 +173,7 @@ class NutrientConditionBoxNotifier extends ValueNotifier<NutrientConditionBoxMod
   factory NutrientConditionBoxNotifier.withModel(FarmCardModel model) {
     final controller = NutrientConditionBoxNotifier.init();
     controller._farmGroupModel = model.farmGroupModel;
-    controller._selectedFertilizer = model.linkedFertilizer;
+    controller._selectedFertilizer = model.linkedFertilizer?.fertilizer;
     controller._updateValue();
     return controller;
   }

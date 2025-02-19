@@ -19,8 +19,8 @@ Future<void> _clearPrefsIfNeeds() async {
 
   // 버전 명시
   const currentVersion = _PrefsVersion(
-    description: 'Update model',
-    number: 11,
+    description: 'Update farm card model',
+    number: 15,
   );
 
   clearAndSet() async {

@@ -65,7 +65,7 @@ class FarmGroupEditController extends ChangeNotifier {
       analysisViewController: analysisViewController,
     );
 
-    self.selectedFertilizerNotifier.value = model.linkedFertilizer;
+    self.selectedFertilizerNotifier.value = model.linkedFertilizer?.fertilizer;
 
     return self;
   }
