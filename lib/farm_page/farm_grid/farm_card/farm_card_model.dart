@@ -1,10 +1,11 @@
 import 'package:flutter/foundation.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../models/v2/item/categories.dart';
 import '../farm_group/farm_group_model.dart';
 
+part 'farm_card_model.freezed.dart';
 part 'farm_card_model.g.dart';
 
 enum CreateType {
@@ -29,7 +30,7 @@ class FarmCardModel extends ChangeNotifier {
     String? title,
     required FarmGroupModel farmGroupModel,
     required CreateType createType,
-    required Fertilizer? linkedFertilizer,
+    required LinkedFertilizer? linkedFertilizer,
   }) {
     return FarmCardModel(
       id: const Uuid().v4(),
@@ -60,7 +61,7 @@ class FarmCardModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  final Fertilizer? linkedFertilizer;
+  final LinkedFertilizer? linkedFertilizer;
 
   factory FarmCardModel.fromJson(Map<String, dynamic> json) => _$FarmCardModelFromJson(json);
   Map<String, dynamic> toJson() => _$FarmCardModelToJson(this);
@@ -72,7 +73,7 @@ class FarmCardModel extends ChangeNotifier {
     bool? isFavorited,
     CreateType? createType,
     bool? isHidden,
-    Fertilizer? linkedFertilizer,
+    LinkedFertilizer? Function()? linkedFertilizer,
   }) {
     return FarmCardModel(
       id: id ?? this.id,
@@ -81,9 +82,19 @@ class FarmCardModel extends ChangeNotifier {
       isFavorited: isFavorited != null ? ValueNotifier(isFavorited) : ValueNotifier(this.isFavorited.value),
       createType: createType ?? this.createType,
       isHidden: isHidden ?? this.isHidden,
-      linkedFertilizer: linkedFertilizer ?? this.linkedFertilizer,
+      linkedFertilizer: linkedFertilizer != null ? linkedFertilizer() : this.linkedFertilizer,
     );
   }
+}
+
+@freezed
+class LinkedFertilizer with _$LinkedFertilizer {
+  const factory LinkedFertilizer({
+    required Fertilizer fertilizer,
+    required int amount,
+  }) = _LinkedFertilizer;
+
+  factory LinkedFertilizer.fromJson(Map<String, dynamic> json) => _$LinkedFertilizerFromJson(json);
 }
 
 class BooleanValueNotifierConverter implements JsonConverter<ValueNotifier<bool>, bool> {

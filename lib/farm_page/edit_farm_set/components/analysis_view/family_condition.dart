@@ -1,15 +1,182 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
-import '../../../../../models/v2/item/categories.dart';
-import '../../../../../utils/union_find.dart';
-import '../../../../farm_grid/farm_group/farm_group_model.dart';
-import '../../../../farm_grid/farm_view/farm_view_model.dart';
-import 'family_condition.dart';
+import '../../../../models/v2/item/categories.dart';
+import '../../../../utils/union_find.dart';
+import '../../../farm_grid/farm_group/farm_group_model.dart';
+import '../../../farm_grid/farm_view/farm_view_model.dart';
 
-typedef AdjacencyList = List<List<int>>;
+mixin _PlantData {
+  Plant? get plant;
+}
 
-class _PlantNode with PlantData {
+abstract class FamilyCondition {
+  const FamilyCondition._({
+    required this.farmGroupModel,
+  });
+
+  factory FamilyCondition.withModel(FarmGroupModel model) {
+    final farmType = model.farmViewModels[0].farmType;
+    switch (farmType) {
+      case FarmType.basic:
+        return _BasicFarmFamilyCondition.withModel(model);
+      case FarmType.dense || FarmType.reverseDense:
+        return _DenseFarmFamilyCondition.withModel(model);
+    }
+  }
+
+  static const _requiredCount = 4;
+
+  final FarmGroupModel farmGroupModel;
+
+  bool get isSatisfied;
+
+  Map<T, int> _countByRoot<T extends _PlantData>(List<T> elements, UnionFind<T> unionFind) {
+    final Map<T, int> countByRoot = {};
+    for (final element in elements) {
+      final root = unionFind.find(element);
+      if (root.plant != null) {
+        countByRoot.update(root, (value) => value + 1, ifAbsent: () => 1);
+      }
+    }
+    return countByRoot;
+  }
+}
+
+class _PlantInfo with _PlantData {
+  _PlantInfo({
+    this.plant,
+    required this.point,
+  });
+
+  @override
+  final Plant? plant;
+
+  final Point<int> point;
+}
+
+class _BasicFarmFamilyCondition extends FamilyCondition {
+  _BasicFarmFamilyCondition.withModel(
+    FarmGroupModel farmGroupModel,
+  )   : assert(farmGroupModel.farmViewModels[0].farmType == FarmType.basic),
+        super._(farmGroupModel: farmGroupModel);
+
+  @override
+  bool get isSatisfied {
+    final rowCount = switch (farmGroupModel.groupType) {
+      FarmGroupType.single => 3,
+      FarmGroupType.double || FarmGroupType.square => 6,
+    };
+
+    final colCount = switch (farmGroupModel.groupType) {
+      FarmGroupType.single || FarmGroupType.double => 3,
+      FarmGroupType.square => 6,
+    };
+
+    final List<List<_PlantInfo>> plantArray2D = switch (farmGroupModel.groupType) {
+      FarmGroupType.single => List.generate(
+          colCount,
+          (col) => List.generate(
+            rowCount,
+            (row) => _PlantInfo(
+              plant: farmGroupModel.farmViewModels[0].plants[col * 3 + row],
+              point: Point(col, row),
+            ),
+            growable: false,
+          ),
+          growable: false,
+        ),
+      FarmGroupType.double => List.generate(
+          colCount,
+          (col) => List.generate(
+            rowCount,
+            (row) {
+              if (row < 3) {
+                return _PlantInfo(
+                  plant: farmGroupModel.farmViewModels[0].plants[col * 3 + row],
+                  point: Point(col, row),
+                );
+              } else {
+                return _PlantInfo(
+                  plant: farmGroupModel.farmViewModels[1].plants[col * 3 + row - 3],
+                  point: Point(col, row),
+                );
+              }
+            },
+            growable: false,
+          ),
+          growable: false,
+        ),
+      FarmGroupType.square => List.generate(
+          colCount,
+          (col) => List.generate(
+            rowCount,
+            (row) {
+              if (col < 3) {
+                if (row < 3) {
+                  return _PlantInfo(
+                    plant: farmGroupModel.farmViewModels[0].plants[col * 3 + row],
+                    point: Point(col, row),
+                  );
+                } else {
+                  return _PlantInfo(
+                    plant: farmGroupModel.farmViewModels[1].plants[col * 3 + row - 3],
+                    point: Point(col, row),
+                  );
+                }
+              } else {
+                if (row < 3) {
+                  return _PlantInfo(
+                    plant: farmGroupModel.farmViewModels[2].plants[(col - 3) * 3 + row],
+                    point: Point(col, row),
+                  );
+                } else {
+                  return _PlantInfo(
+                    plant: farmGroupModel.farmViewModels[3].plants[(col - 3) * 3 + row - 3],
+                    point: Point(col, row),
+                  );
+                }
+              }
+            },
+            growable: false,
+          ),
+          growable: false,
+        ),
+    };
+    final flatPlantArray2D = plantArray2D.expand((e) => e).toList();
+    final unionFind = UnionFind<_PlantInfo>();
+
+    unionFind.initialize(flatPlantArray2D.toList());
+
+    for (int col = 0; col < colCount; col++) {
+      for (int row = 0; row < rowCount; row++) {
+        final currentPlant = plantArray2D[col][row];
+        if (currentPlant.plant == null) continue;
+
+        final nextPlant = plantArray2D.elementAtOrNull(col)?.elementAtOrNull(row + 1);
+        if (nextPlant != null && currentPlant.plant == nextPlant.plant) {
+          unionFind.union(currentPlant, nextPlant);
+        }
+
+        final belowPlant = plantArray2D.elementAtOrNull(col + 1)?.elementAtOrNull(row);
+        if (belowPlant != null && currentPlant.plant == belowPlant.plant) {
+          unionFind.union(currentPlant, belowPlant);
+        }
+      }
+    }
+
+    final countByRoot = super._countByRoot(flatPlantArray2D, unionFind);
+
+    if (countByRoot.isEmpty) return false;
+    return countByRoot.entries.every((entry) => entry.value >= FamilyCondition._requiredCount);
+  }
+}
+
+typedef _AdjacencyList = List<List<int>>;
+
+class _PlantNode with _PlantData {
   _PlantNode({
     required this.id,
     this.plant,
@@ -21,14 +188,14 @@ class _PlantNode with PlantData {
   final Plant? plant;
 }
 
-class DenseFarmFamilyCondition extends FamilyCondition {
-  DenseFarmFamilyCondition.withModel(
+class _DenseFarmFamilyCondition extends FamilyCondition {
+  _DenseFarmFamilyCondition.withModel(
     FarmGroupModel farmGroupModel,
   )   : assert((farmGroupModel.farmViewModels[0].farmType != FarmType.basic) &&
             (farmGroupModel.groupType != FarmGroupType.square)),
-        super(farmGroupModel: farmGroupModel);
+        super._(farmGroupModel: farmGroupModel);
 
-  static const Map<(FarmGroupType, FarmType), AdjacencyList> adjacencyListByType = {
+  static const Map<(FarmGroupType, FarmType), _AdjacencyList> adjacencyListByType = {
     // single(normal)
     // -------------------
     // |   0    |    1   |
@@ -177,10 +344,10 @@ class DenseFarmFamilyCondition extends FamilyCondition {
       }
     }
 
-    final countByRoot = super.countByRoot(plantNodeList, unionFind);
+    final countByRoot = super._countByRoot(plantNodeList, unionFind);
 
     if (countByRoot.isEmpty) return false;
-    return countByRoot.entries.every((entry) => entry.value >= FamilyCondition.requiredCount);
+    return countByRoot.entries.every((entry) => entry.value >= FamilyCondition._requiredCount);
   }
 
   List<_PlantNode> _initPlantNodeList() {

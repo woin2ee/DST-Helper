@@ -88,21 +88,21 @@ class _TopBar extends StatelessWidget {
     final windowWidth = MediaQuery.of(context).size.width;
     return Builder(builder: (context) {
       if (windowWidth > 740) {
-        return Padding(
-          padding: const EdgeInsets.all(12),
+        return const Padding(
+          padding: EdgeInsets.all(12),
           child: Row(
             spacing: 12,
             children: [
               _SeasonSelectionBox(),
-              const _NewButton(),
-              const SizedBox(width: 50),
-              const _ShowAndHideCheckbox(),
+              _NewButton(),
+              SizedBox(width: 50),
+              _ShowAndHideCheckbox(),
             ],
           ),
         );
       } else {
-        return Padding(
-          padding: const EdgeInsets.all(8),
+        return const Padding(
+          padding: EdgeInsets.all(8),
           child: Column(
             spacing: 4,
             children: [
@@ -110,10 +110,10 @@ class _TopBar extends StatelessWidget {
                 spacing: 12,
                 children: [
                   _SeasonSelectionBox(),
-                  const _NewButton(),
+                  _NewButton(),
                 ],
               ),
-              const _ShowAndHideCheckbox(),
+              _ShowAndHideCheckbox(),
             ],
           ),
         );

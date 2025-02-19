@@ -35,17 +35,7 @@ class CropsInfoBox extends StatelessWidget {
           ),
           SizedBox(
             width: seasonWidth,
-            child: Center(
-              child: FittedBox(
-                child: Text(
-                  L10ns.of(context).localized('season'),
-                  style: const TextStyle(
-                    fontFamily: FontFamily.pretendard,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ),
+            child: const Image(image: AssetImage('assets/images/season_table.png')),
           ),
         ],
       ),
@@ -95,6 +85,16 @@ class CropsInfoBox extends StatelessWidget {
         ),
         SizedBox(
           width: seasonWidth,
+          child: Center(
+            child: FittedBox(
+              child: Text(
+                L10ns.of(context).localized('season'),
+                style: const TextStyle(
+                  fontFamily: FontFamily.pretendard,
+                ),
+              ),
+            ),
+          ),
         ),
       ],
     );

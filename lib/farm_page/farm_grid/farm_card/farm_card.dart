@@ -22,33 +22,73 @@ class FarmCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return ListenableBuilder(
-        listenable: model,
-        builder: (context, child) {
-          return Opacity(
-            opacity: model.isHidden ? 0.7 : 1.0,
-            child: Card(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                ),
-              ),
-              clipBehavior: Clip.antiAlias,
-              color: theme.colorScheme.secondary.withOpacity(0.9),
-              child: Column(
-                children: [
-                  _CardTitle(
-                    title:
-                        '${model.title ?? model.farmGroupModel.suitableSeasons.map((season) => season.localizedName(context))}',
-                    model: model,
-                  ),
-                  FarmGroup(model: model.farmGroupModel),
-                ],
+
+    return ChangeNotifierProvider.value(
+      value: model,
+      builder: (context, child) {
+        final model = context.watch<FarmCardModel>();
+
+        return Opacity(
+          opacity: model.isHidden ? 0.7 : 1.0,
+          child: Card(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
               ),
             ),
-          );
-        });
+            clipBehavior: Clip.antiAlias,
+            color: theme.colorScheme.secondary.withOpacity(0.9),
+            child: Column(
+              children: [
+                const _CardTitle(),
+                FarmGroup(model: model.farmGroupModel),
+                Visibility(
+                  visible: model.linkedFertilizer != null,
+                  child: _FarmCardFooter(),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _FarmCardFooter extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final model = context.watch<FarmCardModel>();
+    final fertilizerAsset = model.linkedFertilizer?.fertilizer.assetName;
+    final fertilizerAmount = model.linkedFertilizer?.amount;
+
+    return Container(
+      height: 44,
+      margin: const EdgeInsets.all(1),
+      padding: const EdgeInsets.all(4),
+      color: colorScheme.surfaceContainerHighest,
+      child: Center(
+        // TODO: Wrap below Row with Tooltip.
+        child: Row(
+          spacing: 4,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image(
+              image: AssetImage('assets/images/items/$fertilizerAsset.png'),
+            ),
+            Text(
+              'x $fertilizerAmount',
+              style: const TextStyle(
+                fontFamily: FontFamily.pretendard,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -60,19 +100,14 @@ enum _CardActionEntry {
 }
 
 class _CardTitle extends StatelessWidget {
-  const _CardTitle({
-    required this.title,
-    required this.model,
-  });
-
-  final String title;
-  final FarmCardModel model;
+  const _CardTitle();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     const double sideSpace = 42;
     final farmPageController = context.read<FarmPageController>();
+    final model = context.watch<FarmCardModel>();
 
     return Container(
       color: Colors.black54,
@@ -98,6 +133,7 @@ class _CardTitle extends StatelessWidget {
                         context: context,
                         builder: (context) => Dialog(
                           child: FarmGroupEditWindow(
+                            key: GlobalKey(),
                             isEditingNewOne: false,
                             initialModel: model,
                           ),
@@ -156,7 +192,7 @@ class _CardTitle extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              title,
+              '${model.title ?? model.farmGroupModel.suitableSeasons.map((season) => season.localizedName(context))}',
               maxLines: 1,
               textAlign: TextAlign.center,
               style: TextStyle(

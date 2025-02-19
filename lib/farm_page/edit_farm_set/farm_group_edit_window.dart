@@ -235,20 +235,31 @@ class _OkButton extends StatelessWidget {
         final originModel = parent.initialModel;
         final FarmCardModel model;
         final title = controller.titleEditingController.text.isNotEmpty ? controller.titleEditingController.text : null;
+        LinkedFertilizer? linkedFertilizer() {
+          final selectedFertilizer = controller.selectedFertilizer;
+          if (selectedFertilizer == null) return null;
+          return LinkedFertilizer(
+            fertilizer: selectedFertilizer,
+            amount: controller.analysisViewController.nutrientConditionBoxController.value.countOfNeededFertilizer,
+          );
+        }
+
         if (parent.isEditingNewOne == false && originModel != null) {
           model = originModel.copyWith(
             title: title,
             farmGroupModel: controller.farmGroupModel,
             createType: CreateType.userCustom,
+            linkedFertilizer: linkedFertilizer,
           );
         } else {
           model = FarmCardModel.create(
             title: title,
             farmGroupModel: controller.farmGroupModel,
             createType: CreateType.userCustom,
-            linkedFertilizer: controller.selectedFertilizer,
+            linkedFertilizer: linkedFertilizer(),
           );
         }
+
         Navigator.pop(context, model);
       },
       child: Text(
