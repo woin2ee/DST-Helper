@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 
+import '../utils/etc.dart';
 import 'gen/messages_all.dart';
 
 class _L10nsDelegate extends LocalizationsDelegate<L10ns> {
@@ -636,6 +637,8 @@ extension L10nsContextualizing on L10ns {
   L10nsRecipeListContext get recipeList => L10nsRecipeListContext(localeName);
 
   L10nsNutrientConditionBoxContext get nutrientConditionBox => L10nsNutrientConditionBoxContext(localeName);
+
+  L10nsFarmCardContext get farmCard => L10nsFarmCardContext(localeName);
 }
 
 class L10nsRecipeListContext {
@@ -664,6 +667,26 @@ class L10nsNutrientConditionBoxContext {
       name: 'L10nsNutrientConditionBoxContext_secondaryText',
       desc: 'It is a secondary text of nutrient condition box.',
       args: [countOfNeededFertilizer],
+      locale: localeName,
+    );
+  }
+}
+
+class L10nsFarmCardContext {
+  const L10nsFarmCardContext(this.localeName);
+
+  final String localeName;
+
+  String footerFertilizerTooltip(String fertilizerName, int countOfNeededFertilizer) {
+    if (localeName == 'ko') {
+      fertilizerName = fertilizerName.postpositioned('을', '를');
+    }
+
+    return Intl.message(
+      'You need to use $fertilizerName $countOfNeededFertilizer times for each growth to get giant crops.',
+      name: 'L10nsFarmCardContext_footerFertilizerTooltip',
+      desc: 'It is a tooltip message of the fertilizer in farm card\'s footer.',
+      args: [fertilizerName, countOfNeededFertilizer],
       locale: localeName,
     );
   }

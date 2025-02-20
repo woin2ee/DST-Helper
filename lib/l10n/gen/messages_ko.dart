@@ -21,15 +21,18 @@ class MessageLookup extends MessageLookupByLibrary {
   @override
   String get localeName => 'ko';
 
-  static m0(countOfNeededFertilizer) => "각 성장마다 선택한 비료를 ${countOfNeededFertilizer}번 사용해야 합니다.";
+  static m0(fertilizerName, countOfNeededFertilizer) => "거대 작물이 되려면 각 성장마다 ${fertilizerName} ${countOfNeededFertilizer}번 사용해야 합니다.";
 
-  static m1(seasonsText) => "${seasonsText}에 거대 작물이 됩니다!";
+  static m1(countOfNeededFertilizer) => "각 성장마다 선택한 비료를 ${countOfNeededFertilizer}번 사용해야 합니다.";
+
+  static m2(seasonsText) => "${seasonsText}에 거대 작물이 됩니다!";
 
   @override
   final Map<String, dynamic> messages = _notInlinedMessages(_notInlinedMessages);
 
   static Map<String, dynamic> _notInlinedMessages(_) => {
-      'L10nsNutrientConditionBoxContext_secondaryText': m0,
+      'L10nsFarmCardContext_footerFertilizerTooltip': m0,
+    'L10nsNutrientConditionBoxContext_secondaryText': m1,
     'L10nsRecipeListContext_toastMessage': MessageLookupByLibrary.simpleMessage('이미 등록되어 있는 레시피입니다.'),
     'add': MessageLookupByLibrary.simpleMessage('추가'),
     'asparagus_seeds_assumed_name': MessageLookupByLibrary.simpleMessage('관모양 씨앗'),
@@ -138,7 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
     'salsa_name': MessageLookupByLibrary.simpleMessage('살사 프레스카'),
     'seafoodgumbo_name': MessageLookupByLibrary.simpleMessage('해산물 검보'),
     'season': MessageLookupByLibrary.simpleMessage('계절'),
-    'seasonConditionSatisfyingText': m1,
+    'seasonConditionSatisfyingText': m2,
     'season_condition_unsatisfying_first_text': MessageLookupByLibrary.simpleMessage('거대 작물이 될 수 있는 계절이 없습니다.'),
     'season_condition_unsatisfying_secondary_text': MessageLookupByLibrary.simpleMessage('같은 계절의 작물들로 밭을 구성하세요.'),
     'seeds': MessageLookupByLibrary.simpleMessage('씨앗'),
