@@ -210,37 +210,3 @@ class FertilizersInfoBox extends StatelessWidget {
     }
   }
 }
-
-class FertilizersInfoBoxTag extends StatelessWidget {
-  const FertilizersInfoBoxTag({
-    super.key,
-    this.onPressed,
-    required this.size,
-    required this.color,
-  });
-
-  final Color color;
-  final Size size;
-  final void Function()? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size.width,
-      height: size.height,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20),
-          bottomLeft: Radius.circular(20),
-        ),
-        boxShadow: kElevationToShadow[2],
-      ),
-      child: IconButton(
-        padding: const EdgeInsets.only(top: 4, bottom: 2),
-        onPressed: onPressed,
-        icon: Image.asset("assets/images/items/${Items.fertilizer.assetName}.png"),
-      ),
-    );
-  }
-}

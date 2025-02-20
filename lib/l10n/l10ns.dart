@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 
+import '../utils/etc.dart';
 import 'gen/messages_all.dart';
 
 class _L10nsDelegate extends LocalizationsDelegate<L10ns> {
@@ -21,7 +22,7 @@ class _L10nsDelegate extends LocalizationsDelegate<L10ns> {
 }
 
 class L10ns {
-  L10ns(this.localeName);
+  L10ns._(this.localeName);
 
   static const LocalizationsDelegate<L10ns> delegate = _L10nsDelegate();
 
@@ -44,7 +45,7 @@ class L10ns {
     final String localeName = Intl.canonicalizedLocale(name);
 
     return initializeMessages(localeName).then((_) {
-      return L10ns(localeName);
+      return L10ns._(localeName);
     });
   }
 
@@ -65,10 +66,10 @@ class L10ns {
   }
 
   String localized(String key) {
-    return strings[key] as String;
+    return _strings[key] as String;
   }
 
-  Map<String, String> get strings => {
+  Map<String, String> get _strings => {
         "recipe_list_guide_message": Intl.message(
           "recipe_list_guide_message",
           locale: localeName,
@@ -345,10 +346,10 @@ class L10ns {
           "winter",
           locale: localeName,
         ),
-        ...recipeNames,
+        ..._recipeNames,
       };
 
-  Map<String, String> get recipeNames => {
+  Map<String, String> get _recipeNames => {
         "dustmeringue_name": Intl.message(
           "dustmeringue_name",
           locale: localeName,
@@ -634,6 +635,10 @@ class L10ns {
 
 extension L10nsContextualizing on L10ns {
   L10nsRecipeListContext get recipeList => L10nsRecipeListContext(localeName);
+
+  L10nsNutrientConditionBoxContext get nutrientConditionBox => L10nsNutrientConditionBoxContext(localeName);
+
+  L10nsFarmCardContext get farmCard => L10nsFarmCardContext(localeName);
 }
 
 class L10nsRecipeListContext {
@@ -646,6 +651,42 @@ class L10nsRecipeListContext {
       'The recipe is already registered.',
       name: 'L10nsRecipeListContext_toastMessage',
       desc: "It's showed up when a duplicated recipe card is registered to list.",
+      locale: localeName,
+    );
+  }
+}
+
+class L10nsNutrientConditionBoxContext {
+  const L10nsNutrientConditionBoxContext(this.localeName);
+
+  final String localeName;
+
+  String secondaryText(int countOfNeededFertilizer) {
+    return Intl.message(
+      'You need to use the selected fertilizer $countOfNeededFertilizer times for each growth.',
+      name: 'L10nsNutrientConditionBoxContext_secondaryText',
+      desc: 'It is a secondary text of nutrient condition box.',
+      args: [countOfNeededFertilizer],
+      locale: localeName,
+    );
+  }
+}
+
+class L10nsFarmCardContext {
+  const L10nsFarmCardContext(this.localeName);
+
+  final String localeName;
+
+  String footerFertilizerTooltip(String fertilizerName, int countOfNeededFertilizer) {
+    if (localeName == 'ko') {
+      fertilizerName = fertilizerName.postpositioned('을', '를');
+    }
+
+    return Intl.message(
+      'You need to use $fertilizerName $countOfNeededFertilizer times for each growth to get giant crops.',
+      name: 'L10nsFarmCardContext_footerFertilizerTooltip',
+      desc: 'It is a tooltip message of the fertilizer in farm card\'s footer.',
+      args: [fertilizerName, countOfNeededFertilizer],
       locale: localeName,
     );
   }

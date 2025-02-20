@@ -30,9 +30,13 @@ class FertilizerSelectionSection extends StatelessWidget {
   FertilizerSelectionSection({
     super.key,
     SelectedFertilizerNotifier? notifier,
-  }) : _notifier = notifier ?? SelectedFertilizerNotifier(null);
+    OverlayPortalController? overlayController,
+  })  : _overlayController = overlayController ?? OverlayPortalController(),
+        _notifier = notifier ?? SelectedFertilizerNotifier(null);
 
   final SelectedFertilizerNotifier _notifier;
+
+  final OverlayPortalController _overlayController;
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +45,11 @@ class FertilizerSelectionSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const _FertilizerSelectionHeader(),
-        ChangeNotifierProvider.value(
-          value: _notifier,
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider.value(value: _notifier),
+            Provider.value(value: _overlayController),
+          ],
           child: const _FertilizerSelectionBody(),
         ),
       ],
@@ -230,9 +237,7 @@ class _GrowthFormulaButton extends StatefulWidget {
 }
 
 class _GrowthFormulaButtonState extends State<_GrowthFormulaButton> {
-  final _overlayController = OverlayPortalController();
-
-  Fertilizer _lastSelected = Items.growthFormulaStarter;
+  Fertilizer _lastSelectedFertilizer = Items.growthFormulaStarter;
 
   @override
   void initState() {
@@ -243,7 +248,7 @@ class _GrowthFormulaButtonState extends State<_GrowthFormulaButton> {
   void _initLastSelectedFertilizer() {
     final initialValue = widget.initialValue;
     if (initialValue != null) {
-      _lastSelected = initialValue;
+      _lastSelectedFertilizer = initialValue;
     }
   }
 
@@ -265,9 +270,10 @@ class _GrowthFormulaButtonState extends State<_GrowthFormulaButton> {
   @override
   Widget build(BuildContext context) {
     final selectedFertilizer = context.watch<SelectedFertilizerNotifier>();
+    final overlayController = context.read<OverlayPortalController>();
 
     return OverlayPortal(
-      controller: _overlayController,
+      controller: overlayController,
       overlayChildBuilder: (context) {
         return Positioned(
           top: _computeOverlayOffset(context).dy,
@@ -283,9 +289,9 @@ class _GrowthFormulaButtonState extends State<_GrowthFormulaButton> {
                       fertilizer: fertilizer,
                       onPressed: () {
                         selectedFertilizer.apply(fertilizer);
-                        _overlayController.hide();
+                        overlayController.hide();
                         setState(() {
-                          _lastSelected = fertilizer;
+                          _lastSelectedFertilizer = fertilizer;
                         });
                       },
                     );
@@ -297,8 +303,8 @@ class _GrowthFormulaButtonState extends State<_GrowthFormulaButton> {
         );
       },
       child: _FertilizerIconButton(
-        fertilizer: _lastSelected,
-        onPressed: _overlayController.toggle,
+        fertilizer: _lastSelectedFertilizer,
+        onPressed: overlayController.toggle,
       ),
     );
   }

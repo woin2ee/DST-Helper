@@ -23,7 +23,7 @@ Future<void> _clearPrefsIfNeeds() async {
     number: 15,
   );
 
-  clearAndSet() async {
+  Future<void> clearAndSet() async {
     await prefs.clear();
     prefs.setInt('prefs_version', currentVersion.number);
   }

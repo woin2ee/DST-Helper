@@ -15,3 +15,14 @@ git push
 [tasks.run-web-release]
 description = 'Run for web server with given ip-address on release. | [ip_address]'
 run = 'flutter run -d web-server --web-hostname {{arg()}} --web-port 8080 --release'
+
+[tasks.extract_to_arb]
+description = 'Generate a `.arb` file from `l10ns.dart`'
+run = '''
+dart run intl_translation:extract_to_arb --output-dir lib/l10n/arbs lib/l10n/l10ns.dart
+open -a /Applications/Visual\ Studio\ Code.app lib/l10n/arbs/intl_messages.arb
+'''
+
+[tasks.generate_from_arb]
+description = 'Generate message lookup classes from `.arb` translation files'
+run = 'dart run intl_translation:generate_from_arb lib/l10n/l10ns.dart lib/l10n/arbs/intl_*.arb --output-dir=lib/l10n/gen --no-use-deferred-loading'

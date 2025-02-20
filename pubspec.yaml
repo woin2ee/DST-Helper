@@ -54,6 +54,7 @@ dependencies:
   intl_translation: ^0.20.0
   styled_text: ^8.1.0
   toastification: ^2.3.0
+  characters: ^1.3.0
 
 dev_dependencies:
   flutter_test:

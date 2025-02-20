@@ -61,8 +61,14 @@ class _FarmCardFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final model = context.watch<FarmCardModel>();
-    final fertilizerAsset = model.linkedFertilizer?.fertilizer.assetName;
-    final fertilizerAmount = model.linkedFertilizer?.amount;
+
+    final linkedFertilizer = model.linkedFertilizer;
+
+    if (linkedFertilizer == null) {
+      return const SizedBox();
+    }
+
+    final fertilizerName = L10ns.of(context).localized(linkedFertilizer.fertilizer.code);
 
     return Container(
       height: 44,
@@ -70,22 +76,24 @@ class _FarmCardFooter extends StatelessWidget {
       padding: const EdgeInsets.all(4),
       color: colorScheme.surfaceContainerHighest,
       child: Center(
-        // TODO: Wrap below Row with Tooltip.
-        child: Row(
-          spacing: 4,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image(
-              image: AssetImage('assets/images/items/$fertilizerAsset.png'),
-            ),
-            Text(
-              'x $fertilizerAmount',
-              style: const TextStyle(
-                fontFamily: FontFamily.pretendard,
-                fontSize: 14,
+        child: Tooltip(
+          message: L10ns.of(context).farmCard.footerFertilizerTooltip(fertilizerName, linkedFertilizer.amount),
+          child: Row(
+            spacing: 4,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image(
+                image: AssetImage('assets/images/items/${linkedFertilizer.fertilizer.assetName}.png'),
               ),
-            ),
-          ],
+              Text(
+                'x ${linkedFertilizer.amount}',
+                style: const TextStyle(
+                  fontFamily: FontFamily.pretendard,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

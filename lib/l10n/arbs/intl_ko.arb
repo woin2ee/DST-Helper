@@ -1,6 +1,24 @@
 {
   "@@last_modified": "2025-02-06T14:22:32.438287",
   "@@locale": "ko",
+
+  "L10nsFarmCardContext_footerFertilizerTooltip": "거대 작물이 되려면 각 성장마다 {fertilizerName} {countOfNeededFertilizer}번 사용해야 합니다.",
+  "@L10nsFarmCardContext_footerFertilizerTooltip": {
+    "description": "It is a tooltip message of the fertilizer in farm card's footer.",
+    "type": "text",
+    "placeholders": {
+      "fertilizerName": {},
+      "countOfNeededFertilizer": {}
+    }
+  },
+  "L10nsNutrientConditionBoxContext_secondaryText": "각 성장마다 선택한 비료를 {countOfNeededFertilizer}번 사용해야 합니다.",
+  "@L10nsNutrientConditionBoxContext_secondaryText": {
+    "description": "It is a secondary text of nutrient condition box.",
+    "type": "text",
+    "placeholders": {
+      "countOfNeededFertilizer": {}
+    }
+  },
   "L10nsRecipeListContext_toastMessage": "이미 등록되어 있는 레시피입니다.",
   "@L10nsRecipeListContext_toastMessage": {
     "description": "It's showed up when a duplicated recipe card is registered to list.",

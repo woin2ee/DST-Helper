@@ -35,7 +35,7 @@ class DetailRecipeCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           spacing: spacing,
           children: <Widget>[
-            _TitleBox(keepKoreanWord(L10ns.of(context).localized('${recipe.code}_name'))),
+            _TitleBox(L10ns.of(context).localized('${recipe.code}_name').untruncatedKoreanByNewline),
             Image.asset(
               'assets/images/items/${recipe.assetName}.png',
               width: imageSize,

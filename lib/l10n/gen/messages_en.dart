@@ -21,13 +21,19 @@ class MessageLookup extends MessageLookupByLibrary {
   @override
   String get localeName => 'en';
 
-  static m0(seasonsText) => "Becomes a giant crop in the ${seasonsText}!";
+  static m0(fertilizerName, countOfNeededFertilizer) => "You need to use ${fertilizerName} ${countOfNeededFertilizer} times for each growth to get giant crops.";
+
+  static m1(countOfNeededFertilizer) => "You need to use the selected fertilizer ${countOfNeededFertilizer} times for each growth.";
+
+  static m2(seasonsText) => "Becomes a giant crop in the ${seasonsText}!";
 
   @override
   final Map<String, dynamic> messages = _notInlinedMessages(_notInlinedMessages);
 
   static Map<String, dynamic> _notInlinedMessages(_) => {
-      'L10nsRecipeListContext_toastMessage': MessageLookupByLibrary.simpleMessage('The recipe is already registered.'),
+      'L10nsFarmCardContext_footerFertilizerTooltip': m0,
+    'L10nsNutrientConditionBoxContext_secondaryText': m1,
+    'L10nsRecipeListContext_toastMessage': MessageLookupByLibrary.simpleMessage('The recipe is already registered.'),
     'add': MessageLookupByLibrary.simpleMessage('Add'),
     'asparagus_seeds_assumed_name': MessageLookupByLibrary.simpleMessage('Tubular Seeds'),
     'asparagussoup_name': MessageLookupByLibrary.simpleMessage('Asparagus Soup'),
@@ -135,7 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
     'salsa_name': MessageLookupByLibrary.simpleMessage('Salsa Fresca'),
     'seafoodgumbo_name': MessageLookupByLibrary.simpleMessage('Seafood Gumbo'),
     'season': MessageLookupByLibrary.simpleMessage('Season'),
-    'seasonConditionSatisfyingText': m0,
+    'seasonConditionSatisfyingText': m2,
     'season_condition_unsatisfying_first_text': MessageLookupByLibrary.simpleMessage('There are no seasons to be a giant crop.'),
     'season_condition_unsatisfying_secondary_text': MessageLookupByLibrary.simpleMessage('Compose the farm with crops sharing a season.'),
     'seeds': MessageLookupByLibrary.simpleMessage('Seeds'),
