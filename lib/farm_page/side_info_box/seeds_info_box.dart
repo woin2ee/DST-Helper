@@ -7,14 +7,11 @@ import '../../utils/font_family.dart';
 
 enum SettingItem {
   displayingSeedName;
-  // displayingCropName;
 
   String description(BuildContext context) {
     switch (this) {
       case SettingItem.displayingSeedName:
         return L10ns.of(context).localized('show_seeds_alias');
-      // case SettingItem.displayingCropName:
-      //   return '작물 이름 표시';
     }
   }
 }
@@ -29,7 +26,6 @@ class SeedsInfoBox extends StatefulWidget {
 class _SeedsInfoBoxState extends State<SeedsInfoBox> {
   final Map<SettingItem, bool> _settings = {
     SettingItem.displayingSeedName: false,
-    // SettingItem.displayingCropName: false,
   };
 
   @override
@@ -106,44 +102,6 @@ class _SeedsInfoBoxState extends State<SeedsInfoBox> {
                 ),
               )),
         ],
-      ),
-    );
-  }
-}
-
-class SeedsInfoBoxTag extends StatelessWidget {
-  const SeedsInfoBoxTag({
-    super.key,
-    this.onPressed,
-    required this.size,
-    required this.color,
-  });
-
-  final Size size;
-  final Color color;
-  final void Function()? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size.width,
-      height: size.height,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20),
-          bottomLeft: Radius.circular(20),
-        ),
-        boxShadow: kElevationToShadow[2],
-      ),
-      child: IconButton(
-        padding: const EdgeInsets.only(left: 10, right: 8, bottom: 3),
-        iconSize: 20,
-        onPressed: onPressed,
-        icon: Image.asset(
-          "assets/images/items/${Items.seeds.assetName}.png",
-          width: 50,
-        ),
       ),
     );
   }

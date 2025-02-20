@@ -148,40 +148,6 @@ class CropsInfoBox extends StatelessWidget {
   }
 }
 
-class CropsInfoBoxTag extends StatelessWidget {
-  const CropsInfoBoxTag({
-    super.key,
-    this.onPressed,
-    this.size = const Size(50, 50),
-    required this.color,
-  });
-
-  final Color color;
-  final Size size;
-  final void Function()? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size.width,
-      height: size.height,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20),
-          bottomLeft: Radius.circular(20),
-        ),
-        boxShadow: kElevationToShadow[2],
-      ),
-      child: IconButton(
-        padding: const EdgeInsets.only(top: 4, bottom: 2),
-        onPressed: onPressed,
-        icon: Image.asset("assets/images/nutrients_manure_icon.png"),
-      ),
-    );
-  }
-}
-
 class SeasonIndicator extends StatelessWidget {
   const SeasonIndicator({
     super.key,
