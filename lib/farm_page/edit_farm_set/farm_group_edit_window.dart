@@ -74,52 +74,66 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
             borderRadius: BorderRadius.circular(18.0),
           ),
           padding: const EdgeInsets.all(18.0),
-          child: Row(
-            spacing: 34,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Row(
-                spacing: 30,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  FertilizersInfoBox(),
-                  CropsInfoBox(),
-                ],
-              ),
-              Column(
-                spacing: 34,
-                children: [
-                  const FarmGroupCanvas(),
-                  ValueListenableBuilder(
-                      valueListenable: controller.farmGroupModelNotifier,
-                      builder: (context, value, child) => const AnalysisView()),
-                ],
-              ),
-              Column(
-                spacing: 30.0,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const _TitleTextField(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 8,
-                    children: [
-                      _buildFarmTypeSelectionBox(),
-                      _buildFarmGroupTypeSelectionBox(),
-                    ],
-                  ),
-                  CropSelectionSection(notifier: controller.selectedCropNotifier),
-                  FertilizerSelectionSection(notifier: controller.selectedFertilizerNotifier),
-                  const Row(
-                    spacing: 20,
-                    children: [
-                      _CancelButton(),
-                      _OkButton(),
-                    ],
-                  ),
-                ],
-              ),
-            ],
+          child: IntrinsicHeight(
+            child: Row(
+              spacing: 20,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  spacing: 30,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const FertilizersInfoBox(),
+                    VerticalDivider(
+                      width: 1.0,
+                      color: Colors.grey.shade300,
+                    ),
+                    const CropsInfoBox(),
+                  ],
+                ),
+                VerticalDivider(
+                  width: 1.0,
+                  color: Colors.grey.shade300,
+                ),
+                Column(
+                  spacing: 34,
+                  children: [
+                    const FarmGroupCanvas(),
+                    ValueListenableBuilder(
+                        valueListenable: controller.farmGroupModelNotifier,
+                        builder: (context, value, child) => const AnalysisView()),
+                  ],
+                ),
+                VerticalDivider(
+                  width: 1.0,
+                  color: Colors.grey.shade300,
+                ),
+                Column(
+                  spacing: 30.0,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const _TitleTextField(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 8,
+                      children: [
+                        _buildFarmTypeSelectionBox(),
+                        _buildFarmGroupTypeSelectionBox(),
+                      ],
+                    ),
+                    CropSelectionSection(notifier: controller.selectedCropNotifier),
+                    FertilizerSelectionSection(notifier: controller.selectedFertilizerNotifier),
+                    const Row(
+                      spacing: 20,
+                      children: [
+                        _CancelButton(),
+                        _OkButton(),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
