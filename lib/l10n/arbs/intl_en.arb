@@ -1,6 +1,15 @@
 {
   "@@last_modified": "2025-02-06T14:22:32.438287",
   "@@locale": "en",
+
+  "L10nsNutrientConditionBoxContext_secondaryText": "You need to use the selected fertilizer {countOfNeededFertilizer} times for each growth.",
+  "@L10nsNutrientConditionBoxContext_secondaryText": {
+    "description": "It is a secondary text of nutrient condition box.",
+    "type": "text",
+    "placeholders": {
+      "countOfNeededFertilizer": {}
+    }
+  },
   "L10nsRecipeListContext_toastMessage": "The recipe is already registered.",
   "@L10nsRecipeListContext_toastMessage": {
     "description": "It's showed up when a duplicated recipe card is registered to list.",

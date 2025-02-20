@@ -124,8 +124,7 @@ class NutrientConditionBox extends StatelessWidget {
       phrases += [
         FittedBox(
           child: Text(
-            // TODO: Localize this string
-            '각 성장마다 선택한 비료를 $countOfNeededFertilizer번 사용해야 합니다.',
+            L10ns.of(context).nutrientConditionBox.secondaryText(countOfNeededFertilizer),
             style: TextStyle(
               fontFamily: FontFamily.pretendard,
               fontSize: 14,
