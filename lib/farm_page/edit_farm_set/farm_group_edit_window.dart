@@ -31,6 +31,7 @@ class FarmGroupEditWindow extends StatefulWidget {
 
 class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
   late final FarmGroupEditController controller;
+  final _overlayController = OverlayPortalController();
 
   @override
   void initState() {
@@ -67,72 +68,78 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
         Provider.value(value: this),
         ChangeNotifierProvider.value(value: controller),
       ],
-      child: FittedBox(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(18.0),
-          ),
-          padding: const EdgeInsets.all(18.0),
-          child: IntrinsicHeight(
-            child: Row(
-              spacing: 20,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  spacing: 30,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const FertilizersInfoBox(),
-                    VerticalDivider(
-                      width: 1.0,
-                      color: Colors.grey.shade300,
-                    ),
-                    const CropsInfoBox(),
-                  ],
-                ),
-                VerticalDivider(
-                  width: 1.0,
-                  color: Colors.grey.shade300,
-                ),
-                Column(
-                  spacing: 34,
-                  children: [
-                    const FarmGroupCanvas(),
-                    ValueListenableBuilder(
-                        valueListenable: controller.farmGroupModelNotifier,
-                        builder: (context, value, child) => const AnalysisView()),
-                  ],
-                ),
-                VerticalDivider(
-                  width: 1.0,
-                  color: Colors.grey.shade300,
-                ),
-                Column(
-                  spacing: 30.0,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const _TitleTextField(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      spacing: 8,
-                      children: [
-                        _buildFarmTypeSelectionBox(),
-                        _buildFarmGroupTypeSelectionBox(),
-                      ],
-                    ),
-                    CropSelectionSection(notifier: controller.selectedCropNotifier),
-                    FertilizerSelectionSection(notifier: controller.selectedFertilizerNotifier),
-                    const Row(
-                      spacing: 20,
-                      children: [
-                        _CancelButton(),
-                        _OkButton(),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+      child: GestureDetector(
+        onTap: () => _overlayController.hide(),
+        child: FittedBox(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(18.0),
+            ),
+            padding: const EdgeInsets.all(18.0),
+            child: IntrinsicHeight(
+              child: Row(
+                spacing: 20,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    spacing: 30,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      const FertilizersInfoBox(),
+                      VerticalDivider(
+                        width: 1.0,
+                        color: Colors.grey.shade300,
+                      ),
+                      const CropsInfoBox(),
+                    ],
+                  ),
+                  VerticalDivider(
+                    width: 1.0,
+                    color: Colors.grey.shade300,
+                  ),
+                  Column(
+                    spacing: 34,
+                    children: [
+                      const FarmGroupCanvas(),
+                      ValueListenableBuilder(
+                          valueListenable: controller.farmGroupModelNotifier,
+                          builder: (context, value, child) => const AnalysisView()),
+                    ],
+                  ),
+                  VerticalDivider(
+                    width: 1.0,
+                    color: Colors.grey.shade300,
+                  ),
+                  Column(
+                    spacing: 30.0,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const _TitleTextField(),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: 8,
+                        children: [
+                          _buildFarmTypeSelectionBox(),
+                          _buildFarmGroupTypeSelectionBox(),
+                        ],
+                      ),
+                      CropSelectionSection(notifier: controller.selectedCropNotifier),
+                      FertilizerSelectionSection(
+                        notifier: controller.selectedFertilizerNotifier,
+                        overlayController: _overlayController,
+                      ),
+                      const Row(
+                        spacing: 20,
+                        children: [
+                          _CancelButton(),
+                          _OkButton(),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
