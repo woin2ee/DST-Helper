@@ -95,7 +95,6 @@ class _TopBar extends StatelessWidget {
             children: [
               _SeasonSelectionBox(),
               _NewButton(),
-              SizedBox(width: 50),
               _ShowAndHideCheckbox(),
             ],
           ),
