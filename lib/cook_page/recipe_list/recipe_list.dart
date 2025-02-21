@@ -5,7 +5,7 @@ import '../../l10n/l10ns.dart';
 import '../../models/v2/item/item.dart';
 import '../../utils/font_family.dart';
 import 'recipe_list_item.dart';
-import 'recipe_list_notifier.dart';
+import 'recipe_list_model.dart';
 
 class RecipeList extends StatefulWidget {
   RecipeList() : super(key: GlobalKey());
@@ -17,18 +17,18 @@ class RecipeList extends StatefulWidget {
 }
 
 class _RecipeListState extends State<RecipeList> {
-  final RecipeListNotifier _recipeListNotifier = RecipeListNotifier();
+  final RecipeListModel _recipeListModel = RecipeListModel(usingSample: true);
 
   @override
   Widget build(BuildContext context) {
     return DragTarget<Recipe>(
       onAcceptWithDetails: (details) {
         final recipe = details.data;
-        if (_recipeListNotifier.value.contains(recipe)) {
+        if (_recipeListModel.recipeList.contains(recipe)) {
           _showToast(context);
           return;
         }
-        _recipeListNotifier.add(details.data);
+        _recipeListModel.add(details.data);
       },
       builder: (context, candidateItems, rejectedItems) {
         return Container(
@@ -50,28 +50,28 @@ class _RecipeListState extends State<RecipeList> {
 
   Widget recipeListContent() {
     return ListenableBuilder(
-      listenable: _recipeListNotifier,
+      listenable: _recipeListModel,
       builder: (context, child) {
-        final recipeList = _recipeListNotifier.value;
+        final recipeList = _recipeListModel.recipeList;
         if (recipeList.isEmpty) {
           return const _EmptyListText();
         }
         return ReorderableListView(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           children: [
-            ..._recipeListNotifier.value.asMap().entries.map((recipe) => DraggableRecipeListItem(
+            ..._recipeListModel.recipeList.asMap().entries.map((recipe) => DraggableRecipeListItem(
                   key: Key('${recipe.key}'),
                   recipe: recipe.value,
                   recipeListWidgetKey: widget.key as GlobalKey,
-                  recipeListNotifier: _recipeListNotifier,
+                  recipeListModel: _recipeListModel,
                 )),
           ],
           onReorder: (oldIndex, newIndex) => setState(() {
             if (oldIndex < newIndex) {
               newIndex -= 1;
             }
-            final item = _recipeListNotifier.removeAt(oldIndex);
-            _recipeListNotifier.insert(newIndex, item);
+            final item = _recipeListModel.removeAt(oldIndex);
+            _recipeListModel.insert(newIndex, item);
           }),
         );
       },

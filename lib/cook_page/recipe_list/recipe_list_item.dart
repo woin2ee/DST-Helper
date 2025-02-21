@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../../models/v2/item/categories.dart';
 import '../../models/v2/item/categories_extension.dart';
-import 'recipe_list_notifier.dart';
+import 'recipe_list_model.dart';
 
 class DraggableRecipeListItem extends StatelessWidget {
   const DraggableRecipeListItem({
     super.key,
     required this.recipe,
     required this.recipeListWidgetKey,
-    required this.recipeListNotifier,
+    required this.recipeListModel,
   });
 
   final Recipe recipe;
   final GlobalKey recipeListWidgetKey;
-  final RecipeListNotifier recipeListNotifier;
+  final RecipeListModel recipeListModel;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class DraggableRecipeListItem extends StatelessWidget {
         final globalPoint = details.offset;
         final recipeListBox = _getRecipeListRenderBox();
         if (!recipeListBox.contains(globalPoint + draggingOffset)) {
-          recipeListNotifier.removeRecipe(recipe);
+          recipeListModel.remove(recipe);
         }
       },
       feedback: Opacity(
