@@ -3,15 +3,16 @@ import 'package:flutter/foundation.dart';
 import '../../models/v2/item/item.dart';
 
 class RecipeListNotifier extends ChangeNotifier {
-  List<Recipe> _value = [];
+  final List<Recipe> _value = [];
   List<Recipe> get value => _value.toList();
 
   RecipeListNotifier();
 
   /// It's useful for developing.
   factory RecipeListNotifier.withSample() {
-    assert(!kReleaseMode);
-    final List<Recipe> sample = [
+    assert(kDebugMode);
+
+    final List<Recipe> sampleList = [
       Items.meatballs,
       Items.creamyPotatoPuree,
       Items.fancySpiralledTubers,
@@ -30,12 +31,15 @@ class RecipeListNotifier extends ChangeNotifier {
       Items.soothingTea,
       Items.trailMix,
     ];
+
     final instance = RecipeListNotifier();
-    instance._value = sample;
+    for (final recipe in sampleList) {
+      instance.add(recipe);
+    }
     return instance;
   }
 
-  void addRecipe(Recipe recipe) {
+  void add(Recipe recipe) {
     _value.add(recipe);
     notifyListeners();
   }

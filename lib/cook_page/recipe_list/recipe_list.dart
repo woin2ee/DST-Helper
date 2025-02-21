@@ -28,7 +28,7 @@ class _RecipeListState extends State<RecipeList> {
           _showToast(context);
           return;
         }
-        _recipeListNotifier.addRecipe(details.data);
+        _recipeListNotifier.add(details.data);
       },
       builder: (context, candidateItems, rejectedItems) {
         return Container(

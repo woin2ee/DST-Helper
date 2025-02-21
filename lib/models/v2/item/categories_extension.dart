@@ -86,7 +86,7 @@ extension RecipeExtension on Recipe {
   }
 }
 
-class OrderableRequirement implements Comparable<Requirement> {
+class OrderableRequirement implements Comparable<OrderableRequirement> {
   const OrderableRequirement(this.base);
 
   final Requirement base;
@@ -109,5 +109,5 @@ class OrderableRequirement implements Comparable<Requirement> {
       };
 
   @override
-  int compareTo(Requirement other) => order.compareTo(OrderableRequirement(other).order);
+  int compareTo(OrderableRequirement other) => order.compareTo(other.order);
 }
