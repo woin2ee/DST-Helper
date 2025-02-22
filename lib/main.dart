@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app/app.dart';
+import 'cook_page/recipe_list.dart' as recipe_list;
 
 void main() async {
   await _clearPrefsIfNeeds();
@@ -10,7 +12,24 @@ void main() async {
     FlutterError.presentError(details);
   };
 
-  runApp(const App());
+  runApp(
+    MultiProvider(providers: [
+      Provider(
+        create: (context) => SharedPreferencesWithCache.create(
+          cacheOptions: const SharedPreferencesWithCacheOptions(
+            allowList: {
+              'recipeList',
+            },
+          ),
+        ),
+      ),
+      Provider(
+        create: (context) => recipe_list.SharedPreferencesRepository(
+          prefs: context.read(),
+        ),
+      ),
+    ], child: const App()),
+  );
 }
 
 Future<void> _clearPrefsIfNeeds() async {

@@ -1,5 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toastification/toastification.dart';
 
 import '../l10n/l10ns.dart';
@@ -16,62 +17,77 @@ class RecipeList extends StatefulWidget {
 }
 
 class _RecipeListState extends State<RecipeList> {
-  final _RecipeListModel _recipeListModel = _RecipeListModel(usingSample: true);
+  late final _RecipeListModel _recipeListModel;
 
   @override
-  Widget build(BuildContext context) {
-    return DragTarget<Recipe>(
-      onAcceptWithDetails: (details) {
-        final recipe = details.data;
-        if (_recipeListModel.recipeList.contains(recipe)) {
-          _showToast(context);
-          return;
-        }
-        _recipeListModel.add(details.data);
-      },
-      builder: (context, candidateItems, rejectedItems) {
-        return Container(
-          width: RecipeList.width,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            border: Border(
-              left: BorderSide(
-                color: Colors.black12,
-                width: 1,
-              ),
-            ),
-          ),
-          child: recipeListContent(),
-        );
-      },
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _recipeListModel = _RecipeListModel(
+      repository: Provider.of<SharedPreferencesRepository>(context),
     );
   }
 
-  Widget recipeListContent() {
+  @override
+  Widget build(BuildContext context) {
     return ListenableBuilder(
       listenable: _recipeListModel,
       builder: (context, child) {
-        final recipeList = _recipeListModel.recipeList;
-        if (recipeList.isEmpty) {
-          return const _EmptyListText();
+        if (!_recipeListModel.isLoaded) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
-        return ReorderableListView(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          children: [
-            ..._recipeListModel.recipeList.asMap().entries.map((recipe) => _DraggableRecipeListItem(
-                  key: Key('${recipe.key}'),
-                  recipe: recipe.value,
-                  recipeListWidgetKey: widget.key as GlobalKey,
-                  recipeListModel: _recipeListModel,
-                )),
-          ],
-          onReorder: (oldIndex, newIndex) => setState(() {
-            if (oldIndex < newIndex) {
-              newIndex -= 1;
+
+        return DragTarget<Recipe>(
+          onAcceptWithDetails: (details) {
+            final recipe = details.data;
+            if (_recipeListModel.recipeList.contains(recipe)) {
+              _showToast(context);
+              return;
             }
-            final item = _recipeListModel.removeAt(oldIndex);
-            _recipeListModel.insert(newIndex, item);
-          }),
+            _recipeListModel.add(details.data);
+          },
+          builder: (context, candidateItems, rejectedItems) {
+            return Container(
+              width: RecipeList.width,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  left: BorderSide(
+                    color: Colors.black12,
+                    width: 1,
+                  ),
+                ),
+              ),
+              child: ListenableBuilder(
+                listenable: _recipeListModel,
+                builder: (context, child) {
+                  final recipeList = _recipeListModel.recipeList;
+                  if (recipeList.isEmpty) {
+                    return const _EmptyListText();
+                  }
+                  return ReorderableListView(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                    children: [
+                      ..._recipeListModel.recipeList.asMap().entries.map((recipe) => _DraggableListItem(
+                            key: Key('${recipe.key}'),
+                            recipe: recipe.value,
+                            recipeListWidgetKey: widget.key as GlobalKey,
+                            recipeListModel: _recipeListModel,
+                          )),
+                    ],
+                    onReorder: (oldIndex, newIndex) => setState(() {
+                      if (oldIndex < newIndex) {
+                        newIndex -= 1;
+                      }
+                      final item = _recipeListModel.removeAt(oldIndex);
+                      _recipeListModel.insert(newIndex, item);
+                    }),
+                  );
+                },
+              ),
+            );
+          },
         );
       },
     );
@@ -112,8 +128,8 @@ class _EmptyListText extends StatelessWidget {
   }
 }
 
-class _DraggableRecipeListItem extends StatelessWidget {
-  const _DraggableRecipeListItem({
+class _DraggableListItem extends StatelessWidget {
+  const _DraggableListItem({
     super.key,
     required this.recipe,
     required this.recipeListWidgetKey,
@@ -141,12 +157,12 @@ class _DraggableRecipeListItem extends StatelessWidget {
         opacity: 0.85,
         child: Image(
           image: AssetImage('assets/images/items/${recipe.assetName}.png'),
-          width: _RecipeListItemImage.recipeFrameSize,
-          height: _RecipeListItemImage.recipeFrameSize,
+          width: _ListItemImage.recipeFrameSize,
+          height: _ListItemImage.recipeFrameSize,
         ),
       ),
       hitTestBehavior: HitTestBehavior.opaque,
-      child: _RecipeListItem(recipe: recipe),
+      child: _ListItem(recipe: recipe),
     );
   }
 
@@ -160,8 +176,8 @@ class _DraggableRecipeListItem extends StatelessWidget {
   }
 }
 
-class _RecipeListItem extends StatelessWidget {
-  const _RecipeListItem({
+class _ListItem extends StatelessWidget {
+  const _ListItem({
     required this.recipe,
   });
 
@@ -175,16 +191,16 @@ class _RecipeListItem extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          _RecipeListItemImage(assetName: recipe.assetName),
-          _RecipeListItemIngredients(recipe: recipe),
+          _ListItemImage(assetName: recipe.assetName),
+          _ListItemIngredients(recipe: recipe),
         ],
       ),
     );
   }
 }
 
-class _RecipeListItemImage extends StatelessWidget {
-  const _RecipeListItemImage({
+class _ListItemImage extends StatelessWidget {
+  const _ListItemImage({
     required this.assetName,
   });
 
@@ -215,8 +231,8 @@ class _RecipeListItemImage extends StatelessWidget {
   }
 }
 
-class _RecipeListItemIngredients extends StatelessWidget {
-  const _RecipeListItemIngredients({
+class _ListItemIngredients extends StatelessWidget {
+  const _ListItemIngredients({
     required this.recipe,
   });
 
@@ -257,43 +273,34 @@ class _RecipeListItemIngredients extends StatelessWidget {
 }
 
 class _RecipeListModel extends ChangeNotifier {
-  _RecipeListModel._(this.recipeList);
+  _RecipeListModel._({
+    required this.recipeList,
+    required _Repository repository,
+  }) : _repository = repository;
 
   factory _RecipeListModel({
-    // It's useful for developing.
-    bool usingSample = false,
+    required _Repository repository,
   }) {
-    List<Recipe> initialList = [];
+    final self = _RecipeListModel._(
+      recipeList: [],
+      repository: repository,
+    );
 
-    if (usingSample) {
-      assert(kDebugMode);
-      initialList = sampleRecipeList.toList();
-    }
+    repository.getRecipes().then((recipeList) {
+      self.recipeList.addAll(recipeList);
+      self.notifyListeners();
+      self.isLoaded = true;
+    });
 
-    return _RecipeListModel._(initialList);
+    return self;
   }
 
   final List<Recipe> recipeList;
 
-  static const List<Recipe> sampleRecipeList = [
-    Items.meatballs,
-    Items.creamyPotatoPuree,
-    Items.fancySpiralledTubers,
-    Items.veggieBurger,
-    Items.honeyHam,
-    Items.iceCream,
-    Items.jellySalad,
-    Items.kabobs,
-    Items.pierogi,
-    Items.salsaFresca,
-    Items.vegetableStinger,
-    Items.taffy,
-    Items.baconAndEggs,
-    Items.figatoni,
-    Items.figkabab,
-    Items.soothingTea,
-    Items.trailMix,
-  ];
+  /// Whether it has been loaded from [_repository].
+  bool isLoaded = false;
+
+  final _Repository _repository;
 
   void add(Recipe recipe) {
     recipeList.add(recipe);
@@ -314,5 +321,67 @@ class _RecipeListModel extends ChangeNotifier {
     final removed = recipeList.removeAt(index);
     notifyListeners();
     return removed;
+  }
+
+  @protected
+  @override
+  void notifyListeners() {
+    super.notifyListeners();
+    _repository.saveRecipes(recipeList);
+  }
+}
+
+abstract interface class _Repository {
+  // TODO: Move to the sample data class.
+  static const List<Recipe> sampleRecipeList = [
+    Items.meatballs,
+    Items.creamyPotatoPuree,
+    Items.fancySpiralledTubers,
+    Items.veggieBurger,
+    Items.honeyHam,
+    Items.iceCream,
+    Items.jellySalad,
+    Items.kabobs,
+    Items.pierogi,
+    Items.salsaFresca,
+    Items.vegetableStinger,
+    Items.taffy,
+    Items.baconAndEggs,
+    Items.figatoni,
+    Items.figkabab,
+    Items.soothingTea,
+    Items.trailMix,
+  ];
+
+  Future<void> saveRecipes(List<Recipe> recipes);
+
+  Future<List<Recipe>> getRecipes();
+}
+
+class SharedPreferencesRepository implements _Repository {
+  const SharedPreferencesRepository({
+    required Future<SharedPreferencesWithCache> prefs,
+  }) : _prefs = prefs;
+
+  final Future<SharedPreferencesWithCache> _prefs;
+
+  @override
+  Future<void> saveRecipes(List<Recipe> recipes) async {
+    final prefs = await _prefs;
+    final recipeCodeList = recipes.map((recipe) => recipe.code).toList();
+    return prefs.setStringList('recipeList', recipeCodeList);
+  }
+
+  @override
+  Future<List<Recipe>> getRecipes() async {
+    final prefs = await _prefs;
+    final recipeCodeList = prefs.getStringList('recipeList');
+
+    if (recipeCodeList == null) {
+      return [];
+    }
+
+    final recipeList = recipeCodeList.map((code) => Items.recipes.firstWhere((recipe) => recipe.code == code)).toList();
+    return recipeList;
   }
 }
