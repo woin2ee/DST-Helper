@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'app/app.dart';
-import 'cook_page/recipe_list.dart' as recipe_list;
+import '../../../cook_page/recipe_list.dart' as recipe_list;
+import '../app.dart';
 
-void main() async {
+typedef CreateRecipeListRepository = recipe_list.AsyncRepository Function(BuildContext);
+
+/// Boot the app.
+///
+/// If you want to overwrite the defaults, pass the optional parameters.
+void bootApp({
+  CreateRecipeListRepository? recipeListRepository,
+}) async {
   await _clearPrefsIfNeeds();
 
   FlutterError.onError = (details) {
@@ -13,22 +20,26 @@ void main() async {
   };
 
   runApp(
-    MultiProvider(providers: [
-      Provider(
-        create: (context) => SharedPreferencesWithCache.create(
-          cacheOptions: const SharedPreferencesWithCacheOptions(
-            allowList: {
-              'recipeList',
-            },
+    MultiProvider(
+      providers: [
+        Provider(
+          create: (context) => SharedPreferencesWithCache.create(
+            cacheOptions: const SharedPreferencesWithCacheOptions(
+              allowList: {
+                'recipeList',
+              },
+            ),
           ),
         ),
-      ),
-      Provider(
-        create: (context) => recipe_list.SharedPreferencesRepository(
-          prefs: context.read(),
+        Provider(
+          create: recipeListRepository ??
+              (context) => recipe_list.SharedPreferencesRepository(
+                    prefs: context.read(),
+                  ),
         ),
-      ),
-    ], child: const App()),
+      ],
+      child: const App(),
+    ),
   );
 }
 

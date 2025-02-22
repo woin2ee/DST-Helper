@@ -23,7 +23,7 @@ class _RecipeListState extends State<RecipeList> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _recipeListModel = _RecipeListModel(
-      repository: Provider.of<SharedPreferencesRepository>(context),
+      repository: Provider.of<AsyncRepository>(context),
     );
   }
 
@@ -275,11 +275,11 @@ class _ListItemIngredients extends StatelessWidget {
 class _RecipeListModel extends ChangeNotifier {
   _RecipeListModel._({
     required this.recipeList,
-    required _Repository repository,
+    required AsyncRepository repository,
   }) : _repository = repository;
 
   factory _RecipeListModel({
-    required _Repository repository,
+    required AsyncRepository repository,
   }) {
     final self = _RecipeListModel._(
       recipeList: [],
@@ -300,7 +300,7 @@ class _RecipeListModel extends ChangeNotifier {
   /// Whether it has been loaded from [_repository].
   bool isLoaded = false;
 
-  final _Repository _repository;
+  final AsyncRepository _repository;
 
   void add(Recipe recipe) {
     recipeList.add(recipe);
@@ -331,34 +331,13 @@ class _RecipeListModel extends ChangeNotifier {
   }
 }
 
-abstract interface class _Repository {
-  // TODO: Move to the sample data class.
-  static const List<Recipe> sampleRecipeList = [
-    Items.meatballs,
-    Items.creamyPotatoPuree,
-    Items.fancySpiralledTubers,
-    Items.veggieBurger,
-    Items.honeyHam,
-    Items.iceCream,
-    Items.jellySalad,
-    Items.kabobs,
-    Items.pierogi,
-    Items.salsaFresca,
-    Items.vegetableStinger,
-    Items.taffy,
-    Items.baconAndEggs,
-    Items.figatoni,
-    Items.figkabab,
-    Items.soothingTea,
-    Items.trailMix,
-  ];
-
+abstract interface class AsyncRepository {
   Future<void> saveRecipes(List<Recipe> recipes);
 
   Future<List<Recipe>> getRecipes();
 }
 
-class SharedPreferencesRepository implements _Repository {
+class SharedPreferencesRepository implements AsyncRepository {
   const SharedPreferencesRepository({
     required Future<SharedPreferencesWithCache> prefs,
   }) : _prefs = prefs;
