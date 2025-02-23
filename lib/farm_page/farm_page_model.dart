@@ -143,9 +143,11 @@ class FarmPageRepository extends SharedPreferencesRepository<FarmPageModel> {
             createType: CreateType.sample,
             linkedFertilizer: null,
           ));
-      return FarmPageModel._(
+      final initialModel = FarmPageModel._(
         farmCardModels: sampleData.toList(),
+        selectedSeason: Season.spring,
       );
+      return initialModel;
     }
 
     final Map<String, dynamic> decoded = jsonDecode(jsonString);
