@@ -1,18 +1,42 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../l10n/l10ns.dart';
 import '../cook_page/cook_page.dart';
 import '../farm_page/farm_page.dart';
 import '../utils/custom_icon/custom_icon_icons.dart';
 import '../utils/font_family.dart';
 import 'app_state.dart';
-import 'models/menu.dart';
 
 enum AvailableLanguage {
   en,
   ko,
+}
+
+enum Menu {
+  farm,
+  cook;
+
+  String localized(BuildContext context) {
+    switch (this) {
+      case Menu.farm:
+        return L10ns.of(context).localized('menu_farm');
+      case Menu.cook:
+        return L10ns.of(context).localized('menu_cook');
+    }
+  }
+
+  Widget get icon {
+    switch (this) {
+      case Menu.farm:
+        return const Icon(Icons.grid_4x4);
+      case Menu.cook:
+        return const Icon(Symbols.cooking);
+    }
+  }
 }
 
 class HomePage extends StatefulWidget {

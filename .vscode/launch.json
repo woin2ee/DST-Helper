@@ -5,27 +5,37 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Flutter for Chrome",
+            "name": "Run on Chrome",
             "request": "launch",
             "type": "dart",
-            "program": "lib/main.dart",
+            "program": "lib/app/entry_point/release/main.dart",
             "args": [
                 "-d",
                 "chrome",
             ]
         },
         {
-            "name": "Flutter for MacOS",
+            "name": "Run on MacOS",
             "request": "launch",
             "type": "dart",
-            "program": "lib/main.dart",
+            "program": "lib/app/entry_point/release/main.dart",
             "args": [
                 "-d",
                 "macos",
             ]
         },
         {
-            "name": "Flutter(example) for MacOS",
+            "name": "Run on MacOS(Sample data)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/app/entry_point/debug/main.dart",
+            "args": [
+                "-d",
+                "macos",
+            ]
+        },
+        {
+            "name": "Run(example) on MacOS",
             "request": "launch",
             "type": "dart",
             "program": "example/main.dart",

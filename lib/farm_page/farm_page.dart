@@ -7,7 +7,7 @@ import '../models/v1/season.dart';
 import '../utils/font_family.dart';
 import 'edit_farm_set/farm_group_edit_window.dart';
 import 'farm_grid/farm_grid.dart';
-import 'farm_page_controller.dart';
+import 'farm_page_model.dart';
 import 'side_info_box/side_info_box.dart';
 
 class FarmPage extends StatefulWidget {
@@ -18,26 +18,29 @@ class FarmPage extends StatefulWidget {
 }
 
 class _FarmPageState extends State<FarmPage> {
-  final _controller = FarmPageController();
-  Future<void>? initResult;
+  late final FarmPageModel _model;
 
   @override
-  void initState() {
-    super.initState();
-    initResult = _controller.initFromPrefs();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    _model = FarmPageModel(
+      repository: Provider.of<FarmPageRepository>(context),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
-      value: _controller,
+      value: _model,
       builder: (context, child) {
-        final controller = context.watch<FarmPageController>();
+        final model = context.watch<FarmPageModel>();
+        final selectedSeason = model.selectedSeason;
 
         return Theme(
           data: ThemeData(
             useMaterial3: true,
-            colorScheme: ColorScheme.fromSeed(seedColor: controller.selectedSeason.personalColor),
+            colorScheme: selectedSeason != null ? ColorScheme.fromSeed(seedColor: selectedSeason.personalColor) : null,
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,20 +53,14 @@ class _FarmPageState extends State<FarmPage> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: FutureBuilder(
-                          future: initResult,
-                          builder: (context, snapshot) {
-                            switch (snapshot.connectionState) {
-                              case ConnectionState.none:
-                              case ConnectionState.waiting:
-                                return const Center(child: Text('Loading...'));
-                              case ConnectionState.active:
-                              case ConnectionState.done:
-                                if (snapshot.hasError) {
-                                  return Text('Error: ${snapshot.error}');
-                                }
-                                return const FarmGrid();
+                        child: Builder(
+                          builder: (context) {
+                            if (!model.isLoaded) {
+                              return const Center(
+                                child: Text('Loading...'),
+                              );
                             }
+                            return const FarmGrid();
                           },
                         ),
                       ),
@@ -126,14 +123,14 @@ class _ShowAndHideCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FarmPageController>(
-      builder: (BuildContext context, FarmPageController controller, Widget? checkboxLabel) {
+    return Consumer<FarmPageModel>(
+      builder: (BuildContext context, FarmPageModel model, Widget? checkboxLabel) {
         return Row(
           children: [
             Checkbox(
-              value: controller.showingHiddenItems,
+              value: model.showingHiddenItems,
               onChanged: (bool? isChecked) {
-                controller.showingHiddenItems = isChecked!;
+                model.showingHiddenItems = isChecked!;
               },
             ),
             checkboxLabel!,
@@ -155,7 +152,7 @@ class _NewButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.read<FarmPageController>();
+    final model = context.read<FarmPageModel>();
 
     return ElevatedButton(
       onPressed: () async {
@@ -171,7 +168,7 @@ class _NewButton extends StatelessWidget {
         );
         if (maybeFarmCardModel is FarmCardModel) {
           final farmCardModel = maybeFarmCardModel;
-          controller.addFarmCard(farmCardModel);
+          model.addFarmCard(farmCardModel);
         }
       },
       child: const Text('New'),
@@ -191,16 +188,16 @@ class _SeasonSelectionBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FarmPageController>(
-      builder: (context, controller, child) => ToggleButtons(
+    return Consumer<FarmPageModel>(
+      builder: (context, model, child) => ToggleButtons(
         borderRadius: BorderRadius.circular(10),
         constraints: const BoxConstraints(
           minWidth: 70,
           minHeight: 40,
         ),
-        isSelected: _seasons.map((season) => season == controller.selectedSeason).toList(),
+        isSelected: _seasons.map((season) => season == model.selectedSeason).toList(),
         onPressed: (index) {
-          controller.selectedSeason = _seasons[index];
+          model.selectedSeason = _seasons[index];
         },
         children: [
           ...Season.values.map((season) => Padding(

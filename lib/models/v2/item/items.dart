@@ -2259,7 +2259,10 @@ extension Items on Item {
         ContainingRequirement(Items.berries),
         ContainingRequirement(Items.juicyBerries),
       }),
-      MeetRequirement(FoodValues([FoodValue(FoodValueCategory.fruit, 0.5)])),
+      MeetRequirement(
+        // Due to contain Berries(0.5 value)
+        FoodValues([FoodValue(FoodValueCategory.fruit, 0.5 + 0.5)]),
+      ),
       NoRequirement(categories: [
         FoodValueCategory.meat,
         FoodValueCategory.egg,
