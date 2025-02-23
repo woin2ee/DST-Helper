@@ -5,7 +5,7 @@ import '../../../l10n/l10ns.dart';
 import '../../../models/v2/localization.dart';
 import '../../../utils/font_family.dart';
 import '../../edit_farm_set/farm_group_edit_window.dart';
-import '../../farm_page_controller.dart';
+import '../../farm_page_model.dart';
 import '../farm_group/farm_group.dart';
 import 'farm_card_model.dart';
 
@@ -114,7 +114,7 @@ class _CardTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     const double sideSpace = 42;
-    final farmPageController = context.read<FarmPageController>();
+    final farmPageController = context.read<FarmPageModel>();
     final model = context.watch<FarmCardModel>();
 
     return Container(

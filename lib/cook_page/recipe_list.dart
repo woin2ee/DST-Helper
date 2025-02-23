@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toastification/toastification.dart';
 
+import '../common/async_repository.dart';
 import '../l10n/l10ns.dart';
 import '../models/v2/item/item.dart';
 import '../utils/font_family.dart';
@@ -23,7 +23,7 @@ class _RecipeListState extends State<RecipeList> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _recipeListModel = _RecipeListModel(
-      repository: Provider.of<AsyncRepository>(context),
+      repository: Provider.of<RecipeListRepository>(context),
     );
   }
 
@@ -275,18 +275,18 @@ class _ListItemIngredients extends StatelessWidget {
 class _RecipeListModel extends ChangeNotifier {
   _RecipeListModel._({
     required this.recipeList,
-    required AsyncRepository repository,
+    required RecipeListRepository repository,
   }) : _repository = repository;
 
   factory _RecipeListModel({
-    required AsyncRepository repository,
+    required RecipeListRepository repository,
   }) {
     final self = _RecipeListModel._(
       recipeList: [],
       repository: repository,
     );
 
-    repository.getRecipes().then((recipeList) {
+    repository.fetch().then((recipeList) {
       self.recipeList.addAll(recipeList);
       self.notifyListeners();
       self.isLoaded = true;
@@ -300,7 +300,7 @@ class _RecipeListModel extends ChangeNotifier {
   /// Whether it has been loaded from [_repository].
   bool isLoaded = false;
 
-  final AsyncRepository _repository;
+  final RecipeListRepository _repository;
 
   void add(Recipe recipe) {
     recipeList.add(recipe);
@@ -327,39 +327,31 @@ class _RecipeListModel extends ChangeNotifier {
   @override
   void notifyListeners() {
     super.notifyListeners();
-    _repository.saveRecipes(recipeList);
+    _repository.save(recipeList);
   }
 }
 
-abstract interface class AsyncRepository {
-  Future<void> saveRecipes(List<Recipe> recipes);
+class RecipeListRepository extends SharedPreferencesRepository<List<Recipe>> {
+  RecipeListRepository({
+    required super.prefs,
+  });
 
-  Future<List<Recipe>> getRecipes();
-}
-
-class SharedPreferencesRepository implements AsyncRepository {
-  const SharedPreferencesRepository({
-    required Future<SharedPreferencesWithCache> prefs,
-  }) : _prefs = prefs;
-
-  final Future<SharedPreferencesWithCache> _prefs;
+  static const String key = 'recipeList';
 
   @override
-  Future<void> saveRecipes(List<Recipe> recipes) async {
-    final prefs = await _prefs;
-    final recipeCodeList = recipes.map((recipe) => recipe.code).toList();
-    return prefs.setStringList('recipeList', recipeCodeList);
+  Future<void> save(List<Recipe> data) async {
+    final prefs = await this.prefs;
+    final recipeCodeList = data.map((recipe) => recipe.code).toList();
+    return prefs.setStringList(key, recipeCodeList);
   }
 
   @override
-  Future<List<Recipe>> getRecipes() async {
-    final prefs = await _prefs;
-    final recipeCodeList = prefs.getStringList('recipeList');
-
+  Future<List<Recipe>> fetch() async {
+    final prefs = await this.prefs;
+    final recipeCodeList = prefs.getStringList(key);
     if (recipeCodeList == null) {
       return [];
     }
-
     final recipeList = recipeCodeList.map((code) => Items.recipes.firstWhere((recipe) => recipe.code == code)).toList();
     return recipeList;
   }
