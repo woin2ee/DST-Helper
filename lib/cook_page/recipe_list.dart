@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 
+import '../app/di.dart';
 import '../common/async_repository.dart';
 import '../l10n/l10ns.dart';
 import '../models/v2/item/item.dart';
@@ -17,22 +17,14 @@ class RecipeList extends StatefulWidget {
 }
 
 class _RecipeListState extends State<RecipeList> {
-  late _RecipeListModel _recipeListModel;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _recipeListModel = _RecipeListModel(
-      repository: Provider.of<RecipeListRepository>(context),
-    );
-  }
+  final ViewModel _viewModel = DI().resolve();
 
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: _recipeListModel,
+      listenable: _viewModel,
       builder: (context, child) {
-        if (!_recipeListModel.isLoaded) {
+        if (!_viewModel.isLoaded) {
           return const Center(
             child: CircularProgressIndicator(),
           );
@@ -41,11 +33,11 @@ class _RecipeListState extends State<RecipeList> {
         return DragTarget<Recipe>(
           onAcceptWithDetails: (details) {
             final recipe = details.data;
-            if (_recipeListModel.recipeList.contains(recipe)) {
+            if (_viewModel.recipeList.contains(recipe)) {
               _showToast(context);
               return;
             }
-            _recipeListModel.add(details.data);
+            _viewModel.add(details.data);
           },
           builder: (context, candidateItems, rejectedItems) {
             return Container(
@@ -60,28 +52,28 @@ class _RecipeListState extends State<RecipeList> {
                 ),
               ),
               child: ListenableBuilder(
-                listenable: _recipeListModel,
+                listenable: _viewModel,
                 builder: (context, child) {
-                  final recipeList = _recipeListModel.recipeList;
+                  final recipeList = _viewModel.recipeList;
                   if (recipeList.isEmpty) {
                     return const _EmptyListText();
                   }
                   return ReorderableListView(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                     children: [
-                      ..._recipeListModel.recipeList.asMap().entries.map((recipe) => _DraggableListItem(
+                      ..._viewModel.recipeList.asMap().entries.map((recipe) => _DraggableListItem(
                             key: Key('${recipe.key}'),
                             recipe: recipe.value,
                             recipeListWidgetKey: widget.key as GlobalKey,
-                            recipeListModel: _recipeListModel,
+                            recipeListModel: _viewModel,
                           )),
                     ],
                     onReorder: (oldIndex, newIndex) => setState(() {
                       if (oldIndex < newIndex) {
                         newIndex -= 1;
                       }
-                      final item = _recipeListModel.removeAt(oldIndex);
-                      _recipeListModel.insert(newIndex, item);
+                      final item = _viewModel.removeAt(oldIndex);
+                      _viewModel.insert(newIndex, item);
                     }),
                   );
                 },
@@ -138,7 +130,7 @@ class _DraggableListItem extends StatelessWidget {
 
   final Recipe recipe;
   final GlobalKey recipeListWidgetKey;
-  final _RecipeListModel recipeListModel;
+  final ViewModel recipeListModel;
 
   @override
   Widget build(BuildContext context) {
@@ -272,16 +264,16 @@ class _ListItemIngredients extends StatelessWidget {
   }
 }
 
-class _RecipeListModel extends ChangeNotifier {
-  _RecipeListModel._({
+class ViewModel extends ChangeNotifier {
+  ViewModel._({
     required this.recipeList,
     required RecipeListRepository repository,
   }) : _repository = repository;
 
-  factory _RecipeListModel({
+  factory ViewModel({
     required RecipeListRepository repository,
   }) {
-    final self = _RecipeListModel._(
+    final self = ViewModel._(
       recipeList: [],
       repository: repository,
     );

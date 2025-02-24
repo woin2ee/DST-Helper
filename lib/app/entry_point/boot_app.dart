@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../cook_page/recipe_list.dart';
-import '../../farm_page/farm_page_model.dart';
 import '../app.dart';
 
 typedef CreateRecipeListRepository = RecipeListRepository Function(BuildContext);
@@ -21,32 +19,7 @@ void bootApp({
   };
 
   runApp(
-    MultiProvider(
-      providers: [
-        Provider(
-          create: (context) => SharedPreferencesWithCache.create(
-            cacheOptions: const SharedPreferencesWithCacheOptions(
-              allowList: {
-                RecipeListRepository.key,
-                FarmPageRepository.key,
-              },
-            ),
-          ),
-        ),
-        Provider(
-          create: recipeListRepository ??
-              (context) => RecipeListRepository(
-                    prefs: context.read(),
-                  ),
-        ),
-        Provider(
-          create: (context) => FarmPageRepository(
-            prefs: context.read(),
-          ),
-        ),
-      ],
-      child: const App(),
-    ),
+    const App(),
   );
 }
 
