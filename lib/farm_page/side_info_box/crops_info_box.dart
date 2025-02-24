@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../l10n/l10ns.dart';
 import '../../models/v1/season.dart';
 import '../../models/v2/item/item.dart';
 import '../../utils/font_family.dart';
 
-class CropsInfoBox extends StatelessWidget {
-  const CropsInfoBox({super.key});
+class CropsInfoBox extends StatefulWidget {
+  const CropsInfoBox({
+    super.key,
+  });
 
   static const double horizontalSpacing = 4;
   static const double imageWidth = 40;
@@ -14,51 +17,64 @@ class CropsInfoBox extends StatelessWidget {
   static const double seasonWidth = 50;
 
   @override
+  State<CropsInfoBox> createState() => _CropsInfoBoxState();
+}
+
+class _CropsInfoBoxState extends State<CropsInfoBox> {
+  final _viewModel = _ViewModel();
+
+  @override
   Widget build(BuildContext context) {
-    return FittedBox(
-      child: Column(
-        children: [
-          const _Header(),
-          Column(
-            spacing: 2,
-            children: ListTile.divideTiles(
-              context: context,
-              color: Colors.grey.shade300,
-              tiles: <Widget>[
-                ...Items.crops.map((crop) => Row(
-                      spacing: horizontalSpacing,
-                      children: [
-                        Image(
-                          image: AssetImage('assets/images/items/${crop.assetName}.png'),
-                          width: imageWidth,
-                        ),
-                        ...[crop.nutrient.compost, crop.nutrient.growthFormula, crop.nutrient.manure]
-                            .map((nutrient) => SizedBox(
-                                  width: amountWidth,
-                                  child: Text(
-                                    nutrient > 0 ? '+${nutrient.toString()}' : nutrient.toString(),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontFamily: FontFamily.pretendard,
-                                      fontVariations: const [FontVariation.weight(550)],
-                                      fontSize: 15,
-                                      color: nutrient > 0 ? Colors.green.shade700 : Colors.red,
-                                    ),
-                                  ),
-                                )),
-                        Container(
-                          padding: const EdgeInsets.all(4),
-                          width: seasonWidth,
-                          height: seasonWidth,
-                          child: _SeasonColumn(seasonSet: crop.seasons),
-                        ),
-                      ],
-                    )),
-              ],
-            ).toList(),
+    return ChangeNotifierProvider.value(
+      value: _viewModel,
+      builder: (context, child) {
+        context.watch<_ViewModel>();
+        return FittedBox(
+          child: Column(
+            children: [
+              const _Header(),
+              Column(
+                spacing: 2,
+                children: ListTile.divideTiles(
+                  context: context,
+                  color: Colors.grey.shade300,
+                  tiles: <Widget>[
+                    ..._viewModel.sortedCropList.map((crop) => Row(
+                          spacing: CropsInfoBox.horizontalSpacing,
+                          children: [
+                            Image(
+                              image: AssetImage('assets/images/items/${crop.assetName}.png'),
+                              width: CropsInfoBox.imageWidth,
+                            ),
+                            ...[crop.nutrient.compost, crop.nutrient.growthFormula, crop.nutrient.manure]
+                                .map((nutrient) => SizedBox(
+                                      width: CropsInfoBox.amountWidth,
+                                      child: Text(
+                                        nutrient > 0 ? '+${nutrient.toString()}' : nutrient.toString(),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontFamily: FontFamily.pretendard,
+                                          fontVariations: const [FontVariation.weight(550)],
+                                          fontSize: 15,
+                                          color: nutrient > 0 ? Colors.green.shade700 : Colors.red,
+                                        ),
+                                      ),
+                                    )),
+                            Container(
+                              padding: const EdgeInsets.all(4),
+                              width: CropsInfoBox.seasonWidth,
+                              height: CropsInfoBox.seasonWidth,
+                              child: _SeasonColumn(seasonSet: crop.seasons),
+                            ),
+                          ],
+                        )),
+                  ],
+                ).toList(),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -76,168 +92,129 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<_ViewModel>();
+
     return Container(
       margin: const EdgeInsets.only(left: CropsInfoBox.imageWidth),
-      child: Column(
+      child: Row(
+        spacing: CropsInfoBox.horizontalSpacing,
         children: [
-          const SizedBox(
-            height: _imageSize,
-            child: Row(
-              spacing: CropsInfoBox.horizontalSpacing,
-              children: [
-                SizedBox(
-                  width: CropsInfoBox.amountWidth,
-                  child: Image(
-                    image: AssetImage('assets/images/nutrients_compost_icon.png'),
-                  ),
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => viewModel.didTapHeaderOf(_SortingType.compost),
+              child: SizedBox(
+                width: CropsInfoBox.amountWidth,
+                child: Column(
+                  children: [
+                    const Image(
+                      image: AssetImage('assets/images/nutrients_compost_icon.png'),
+                      height: _imageSize,
+                    ),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: SizedBox(
+                        height: _textHeight,
+                        child: Text(
+                          L10ns.of(context).localized('compost'),
+                          style: _textStyle,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  width: CropsInfoBox.amountWidth,
-                  child: Image(
-                    image: AssetImage('assets/images/nutrients_growth_formula_icon.png'),
-                  ),
-                ),
-                SizedBox(
-                  width: CropsInfoBox.amountWidth,
-                  child: Image(
-                    image: AssetImage('assets/images/nutrients_manure_icon.png'),
-                  ),
-                ),
-                SizedBox(
-                  width: CropsInfoBox.seasonWidth,
-                  child: Image(
-                    image: AssetImage('assets/images/season_table.png'),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-          SizedBox(
-            height: _textHeight,
-            child: Row(
-              spacing: CropsInfoBox.horizontalSpacing,
-              children: [
-                SizedBox(
-                  width: CropsInfoBox.amountWidth,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      L10ns.of(context).localized('compost'),
-                      style: _textStyle,
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => viewModel.didTapHeaderOf(_SortingType.growthFormula),
+              child: SizedBox(
+                width: CropsInfoBox.amountWidth,
+                child: Column(
+                  children: [
+                    const Image(
+                      image: AssetImage('assets/images/nutrients_growth_formula_icon.png'),
+                      height: _imageSize,
                     ),
-                  ),
-                ),
-                SizedBox(
-                  width: CropsInfoBox.amountWidth,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      L10ns.of(context).localized('growthFormula'),
-                      style: _textStyle,
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: SizedBox(
+                        height: _textHeight,
+                        child: Text(
+                          L10ns.of(context).localized('growthFormula'),
+                          style: _textStyle,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                SizedBox(
-                  width: CropsInfoBox.amountWidth,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      L10ns.of(context).localized('manure'),
-                      style: _textStyle,
+              ),
+            ),
+          ),
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => viewModel.didTapHeaderOf(_SortingType.manure),
+              child: SizedBox(
+                width: CropsInfoBox.amountWidth,
+                child: Column(
+                  children: [
+                    const Image(
+                      image: AssetImage('assets/images/nutrients_manure_icon.png'),
+                      height: _imageSize,
                     ),
-                  ),
-                ),
-                SizedBox(
-                  width: CropsInfoBox.seasonWidth,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      L10ns.of(context).localized('season'),
-                      style: _textStyle,
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: SizedBox(
+                        height: _textHeight,
+                        child: Text(
+                          L10ns.of(context).localized('manure'),
+                          style: _textStyle,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
+            ),
+          ),
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => viewModel.didTapHeaderOfSeason(),
+              child: SizedBox(
+                width: CropsInfoBox.seasonWidth,
+                child: Column(
+                  children: [
+                    const Image(
+                      image: AssetImage('assets/images/season_table.png'),
+                      height: _imageSize,
+                    ),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: SizedBox(
+                        height: _textHeight,
+                        child: Text(
+                          L10ns.of(context).localized('season'),
+                          style: _textStyle,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ],
       ),
     );
   }
-
-  // f() {
-  //   SizedBox(
-  //     width: amountWidth,
-  //     child: const Image(image: AssetImage('assets/images/nutrients_compost_icon.png')),
-  //   );;,
-  //   SizedBox(
-  //     width: amountWidth,
-  //     child: const Image(image: AssetImage('assets/images/nutrients_growth_formula_icon.png')),
-  //   );,
-  //   SizedBox(
-  //     width: amountWidth,
-  //     child: const Image(image: AssetImage('assets/images/nutrients_manure_icon.png')),
-  //   );,
-  //   SizedBox(
-  //     width: seasonWidth,
-  //     child: const Image(image: AssetImage('assets/images/season_table.png')),
-  //   );,
-  // }
-
-  // l() {
-  //   SizedBox(
-  //     width: amountWidth,
-  //     child: Center(
-  //       child: FittedBox(
-  //         child: Text(
-  //           L10ns.of(context).localized('compost'),
-  //           style: const TextStyle(
-  //             fontFamily: FontFamily.pretendard,
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );,
-  //   SizedBox(
-  //     width: amountWidth,
-  //     child: Center(
-  //       child: FittedBox(
-  //         child: Text(
-  //           L10ns.of(context).localized('growthFormula'),
-  //           style: const TextStyle(
-  //             fontFamily: FontFamily.pretendard,
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );,
-  //   SizedBox(
-  //     width: amountWidth,
-  //     child: Center(
-  //       child: FittedBox(
-  //         child: Text(
-  //           L10ns.of(context).localized('manure'),
-  //           style: const TextStyle(
-  //             fontFamily: FontFamily.pretendard,
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );,
-  //   SizedBox(
-  //     width: seasonWidth,
-  //     child: Center(
-  //       child: FittedBox(
-  //         child: Text(
-  //           L10ns.of(context).localized('season'),
-  //           style: const TextStyle(
-  //             fontFamily: FontFamily.pretendard,
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );,
-  // }
 }
 
 class _SeasonColumn extends StatelessWidget {
@@ -287,5 +264,110 @@ class _SeasonColumn extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+enum _SortingType {
+  compost,
+  growthFormula,
+  manure,
+}
+
+class _SortingRule {
+  _SortingRule({
+    required this.type,
+    this.isAscending = false,
+  });
+
+  final _SortingType type;
+  final bool isAscending;
+}
+
+class _ViewModel with ChangeNotifier {
+  Season? _sortingSeason;
+
+  _SortingRule? _sortingRule;
+
+  List<Crop> get sortedCropList {
+    final cropList = Items.crops.toList();
+
+    final sortingSeason = _sortingSeason;
+    if (sortingSeason != null) {
+      cropList._sortBySeason(sortingSeason);
+    }
+
+    final sortingRule = _sortingRule;
+    if (sortingRule == null) {
+      return cropList;
+    }
+
+    final seasonMatchedList = cropList.takeWhile((e) => e.seasons.contains(sortingSeason)).toList();
+    final remainList = cropList.skip(seasonMatchedList.length).toList();
+
+    seasonMatchedList._sortByNutrientValueOf(sortingRule.type, ascending: sortingRule.isAscending);
+    remainList._sortByNutrientValueOf(sortingRule.type, ascending: sortingRule.isAscending);
+
+    return [...seasonMatchedList, ...remainList];
+  }
+
+  void didTapHeaderOf(_SortingType type) {
+    final sortingRule = _sortingRule;
+    if (sortingRule == null || sortingRule.type != type) {
+      _sortingRule = _SortingRule(type: type);
+    } else {
+      _sortingRule = _SortingRule(type: type, isAscending: !sortingRule.isAscending);
+    }
+    notifyListeners();
+  }
+
+  void didTapHeaderOfSeason() {
+    final sortingSeason = _sortingSeason;
+    if (sortingSeason == null) {
+      _sortingSeason = Season.summer;
+    } else {
+      _sortingSeason = Season.values[(Season.values.indexOf(sortingSeason) + 1) % Season.values.length];
+    }
+    notifyListeners();
+  }
+}
+
+extension on List<Crop> {
+  void _sortBySeason(Season season) {
+    sort((a, b) {
+      final aSeason = a.seasons.contains(season);
+      final bSeason = b.seasons.contains(season);
+      if (aSeason && !bSeason) {
+        return -1;
+      } else if (!aSeason && bSeason) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  void _sortByNutrientValueOf(_SortingType type, {bool ascending = false}) {
+    sort((a, b) {
+      final aValue = a._nutrientValueBy(type);
+      final bValue = b._nutrientValueBy(type);
+      if (ascending) {
+        return aValue.compareTo(bValue);
+      } else {
+        return bValue.compareTo(aValue);
+      }
+    });
+  }
+}
+
+extension on Crop {
+  int _nutrientValueBy(_SortingType type) {
+    switch (type) {
+      case _SortingType.compost:
+        return nutrient.compost;
+      case _SortingType.growthFormula:
+        return nutrient.growthFormula;
+      case _SortingType.manure:
+        return nutrient.manure;
+    }
   }
 }
