@@ -2,8 +2,11 @@ name: Deploy by tag
 
 on:
   push:
-    tags:
-      - "*.*.*"
+    branches:
+      - main
+
+    # tags:
+    #   - "*.*.*"
 
 jobs:
   deploy_web_by_tag:
@@ -11,8 +14,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
-        with:
-          ref: ${{ github.ref_name }}
       - name: Flutter action
         uses: subosito/flutter-action@v2.18.0
         with:
@@ -39,4 +40,3 @@ jobs:
           destination-repository-name: "DST-Helper-web"
           user-email: woin2ee@gmail.com
           target-branch: main
-          commit-message: "Deploy ${{ github.ref_name }}"

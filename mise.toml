@@ -25,4 +25,4 @@ open -a /Applications/Visual\ Studio\ Code.app lib/l10n/arbs/intl_messages.arb
 
 [tasks.generate_from_arb]
 description = 'Generate message lookup classes from `.arb` translation files'
-run = 'dart run intl_translation:generate_from_arb lib/l10n/l10ns.dart lib/l10n/arbs/intl_*.arb --output-dir=lib/l10n/gen --no-use-deferred-loading'
+run = 'dart run intl_translation:generate_from_arb lib/l10n/l10ns.dart lib/l10n/arbs/intl_en.arb lib/l10n/arbs/intl_ko.arb --output-dir=lib/l10n/gen --no-use-deferred-loading'
