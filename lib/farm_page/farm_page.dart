@@ -18,7 +18,7 @@ class FarmPage extends StatefulWidget {
 }
 
 class _FarmPageState extends State<FarmPage> {
-  late final FarmPageModel _model;
+  late FarmPageModel _model;
 
   @override
   void didChangeDependencies() {

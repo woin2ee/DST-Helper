@@ -17,7 +17,7 @@ class RecipeList extends StatefulWidget {
 }
 
 class _RecipeListState extends State<RecipeList> {
-  late final _RecipeListModel _recipeListModel;
+  late _RecipeListModel _recipeListModel;
 
   @override
   void didChangeDependencies() {

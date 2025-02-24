@@ -8,107 +8,22 @@ import '../../utils/font_family.dart';
 class CropsInfoBox extends StatelessWidget {
   const CropsInfoBox({super.key});
 
-  final double horizontalSpacing = 4;
-  final double imageWidth = 40;
-  final double amountWidth = 70;
-  final double seasonWidth = 50;
+  static const double horizontalSpacing = 4;
+  static const double imageWidth = 40;
+  static const double amountWidth = 70;
+  static const double seasonWidth = 50;
 
   @override
   Widget build(BuildContext context) {
-    final nutrientsImageRow = SizedBox(
-      height: 30,
-      child: Row(
-        spacing: horizontalSpacing,
-        children: [
-          SizedBox(width: imageWidth),
-          SizedBox(
-            width: amountWidth,
-            child: const Image(image: AssetImage('assets/images/nutrients_compost_icon.png')),
-          ),
-          SizedBox(
-            width: amountWidth,
-            child: const Image(image: AssetImage('assets/images/nutrients_growth_formula_icon.png')),
-          ),
-          SizedBox(
-            width: amountWidth,
-            child: const Image(image: AssetImage('assets/images/nutrients_manure_icon.png')),
-          ),
-          SizedBox(
-            width: seasonWidth,
-            child: const Image(image: AssetImage('assets/images/season_table.png')),
-          ),
-        ],
-      ),
-    );
-    final nutrientsNameRow = Row(
-      spacing: horizontalSpacing,
-      children: <Widget>[
-        SizedBox(width: imageWidth),
-        SizedBox(
-          width: amountWidth,
-          child: Center(
-            child: FittedBox(
-              child: Text(
-                L10ns.of(context).localized('compost'),
-                style: const TextStyle(
-                  fontFamily: FontFamily.pretendard,
-                ),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(
-          width: amountWidth,
-          child: Center(
-            child: FittedBox(
-              child: Text(
-                L10ns.of(context).localized('growthFormula'),
-                style: const TextStyle(
-                  fontFamily: FontFamily.pretendard,
-                ),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(
-          width: amountWidth,
-          child: Center(
-            child: FittedBox(
-              child: Text(
-                L10ns.of(context).localized('manure'),
-                style: const TextStyle(
-                  fontFamily: FontFamily.pretendard,
-                ),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(
-          width: seasonWidth,
-          child: Center(
-            child: FittedBox(
-              child: Text(
-                L10ns.of(context).localized('season'),
-                style: const TextStyle(
-                  fontFamily: FontFamily.pretendard,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-
     return FittedBox(
       child: Column(
         children: [
-          nutrientsImageRow,
-          nutrientsNameRow,
+          const _Header(),
           Column(
             spacing: 2,
             children: ListTile.divideTiles(
               context: context,
-              color: Colors.transparent,
+              color: Colors.grey.shade300,
               tiles: <Widget>[
                 ...Items.crops.map((crop) => Row(
                       spacing: horizontalSpacing,
@@ -135,7 +50,7 @@ class CropsInfoBox extends StatelessWidget {
                           padding: const EdgeInsets.all(4),
                           width: seasonWidth,
                           height: seasonWidth,
-                          child: SeasonIndicator(seasonSet: crop.seasons),
+                          child: _SeasonColumn(seasonSet: crop.seasons),
                         ),
                       ],
                     )),
@@ -148,9 +63,185 @@ class CropsInfoBox extends StatelessWidget {
   }
 }
 
-class SeasonIndicator extends StatelessWidget {
-  const SeasonIndicator({
-    super.key,
+class _Header extends StatelessWidget {
+  const _Header();
+
+  final _textStyle = const TextStyle(
+    fontFamily: FontFamily.pretendard,
+    fontSize: 12,
+  );
+
+  static const double _imageSize = 30;
+  static const double _textHeight = 20;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(left: CropsInfoBox.imageWidth),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: _imageSize,
+            child: Row(
+              spacing: CropsInfoBox.horizontalSpacing,
+              children: [
+                SizedBox(
+                  width: CropsInfoBox.amountWidth,
+                  child: Image(
+                    image: AssetImage('assets/images/nutrients_compost_icon.png'),
+                  ),
+                ),
+                SizedBox(
+                  width: CropsInfoBox.amountWidth,
+                  child: Image(
+                    image: AssetImage('assets/images/nutrients_growth_formula_icon.png'),
+                  ),
+                ),
+                SizedBox(
+                  width: CropsInfoBox.amountWidth,
+                  child: Image(
+                    image: AssetImage('assets/images/nutrients_manure_icon.png'),
+                  ),
+                ),
+                SizedBox(
+                  width: CropsInfoBox.seasonWidth,
+                  child: Image(
+                    image: AssetImage('assets/images/season_table.png'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: _textHeight,
+            child: Row(
+              spacing: CropsInfoBox.horizontalSpacing,
+              children: [
+                SizedBox(
+                  width: CropsInfoBox.amountWidth,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      L10ns.of(context).localized('compost'),
+                      style: _textStyle,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: CropsInfoBox.amountWidth,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      L10ns.of(context).localized('growthFormula'),
+                      style: _textStyle,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: CropsInfoBox.amountWidth,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      L10ns.of(context).localized('manure'),
+                      style: _textStyle,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: CropsInfoBox.seasonWidth,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      L10ns.of(context).localized('season'),
+                      style: _textStyle,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // f() {
+  //   SizedBox(
+  //     width: amountWidth,
+  //     child: const Image(image: AssetImage('assets/images/nutrients_compost_icon.png')),
+  //   );;,
+  //   SizedBox(
+  //     width: amountWidth,
+  //     child: const Image(image: AssetImage('assets/images/nutrients_growth_formula_icon.png')),
+  //   );,
+  //   SizedBox(
+  //     width: amountWidth,
+  //     child: const Image(image: AssetImage('assets/images/nutrients_manure_icon.png')),
+  //   );,
+  //   SizedBox(
+  //     width: seasonWidth,
+  //     child: const Image(image: AssetImage('assets/images/season_table.png')),
+  //   );,
+  // }
+
+  // l() {
+  //   SizedBox(
+  //     width: amountWidth,
+  //     child: Center(
+  //       child: FittedBox(
+  //         child: Text(
+  //           L10ns.of(context).localized('compost'),
+  //           style: const TextStyle(
+  //             fontFamily: FontFamily.pretendard,
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );,
+  //   SizedBox(
+  //     width: amountWidth,
+  //     child: Center(
+  //       child: FittedBox(
+  //         child: Text(
+  //           L10ns.of(context).localized('growthFormula'),
+  //           style: const TextStyle(
+  //             fontFamily: FontFamily.pretendard,
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );,
+  //   SizedBox(
+  //     width: amountWidth,
+  //     child: Center(
+  //       child: FittedBox(
+  //         child: Text(
+  //           L10ns.of(context).localized('manure'),
+  //           style: const TextStyle(
+  //             fontFamily: FontFamily.pretendard,
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );,
+  //   SizedBox(
+  //     width: seasonWidth,
+  //     child: Center(
+  //       child: FittedBox(
+  //         child: Text(
+  //           L10ns.of(context).localized('season'),
+  //           style: const TextStyle(
+  //             fontFamily: FontFamily.pretendard,
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );,
+  // }
+}
+
+class _SeasonColumn extends StatelessWidget {
+  const _SeasonColumn({
     required this.seasonSet,
   });
 
