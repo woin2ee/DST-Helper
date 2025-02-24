@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../l10n/l10ns.dart';
 import '../../../models/v2/localization.dart';
 import '../../../utils/font_family.dart';
-import '../../edit_farm_set/farm_group_edit_window.dart';
+import '../../farm_group_editor/farm_group_editor.dart';
 import '../../farm_page_model.dart';
 import '../farm_group/farm_group.dart';
 import 'farm_card_model.dart';
@@ -140,7 +140,7 @@ class _CardTitle extends StatelessWidget {
                         barrierColor: Colors.black.withOpacity(0.35),
                         context: context,
                         builder: (context) => Dialog(
-                          child: FarmGroupEditWindow(
+                          child: FarmGroupEditor(
                             key: GlobalKey(),
                             isEditingNewOne: false,
                             initialModel: model,

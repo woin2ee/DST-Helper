@@ -5,8 +5,8 @@ import '../l10n/l10ns.dart';
 import '../models/v1/localization/season_localization.dart';
 import '../models/v1/season.dart';
 import '../utils/font_family.dart';
-import 'edit_farm_set/farm_group_edit_window.dart';
 import 'farm_grid/farm_grid.dart';
+import 'farm_group_editor/farm_group_editor.dart';
 import 'farm_page_model.dart';
 import 'side_info_box/side_info_box.dart';
 
@@ -160,7 +160,7 @@ class _NewButton extends StatelessWidget {
           barrierColor: Colors.black.withOpacity(0.35),
           context: context,
           builder: (context) => Dialog(
-            child: FarmGroupEditWindow(
+            child: FarmGroupEditor(
               key: GlobalKey(),
               isEditingNewOne: true,
             ),

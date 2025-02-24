@@ -12,8 +12,8 @@ import 'components/analysis_view/season_condition_box.dart';
 import 'components/crop_selection_section.dart';
 import 'components/fertilizer_selection_section.dart';
 
-class FarmGroupEditController extends ChangeNotifier {
-  FarmGroupEditController._({
+class FarmGroupEditorModel extends ChangeNotifier {
+  FarmGroupEditorModel._({
     required this.selectedFarmGroupTypeNotifier,
     required this.selectedFarmType,
     required this.titleEditingController,
@@ -21,7 +21,7 @@ class FarmGroupEditController extends ChangeNotifier {
     required this.analysisViewController,
   });
 
-  factory FarmGroupEditController.init() {
+  factory FarmGroupEditorModel.init() {
     final initialFarmGroupModel = FarmGroupModel.single(
       farmViewModel: FarmViewModel.empty(FarmType.basic),
     );
@@ -32,7 +32,7 @@ class FarmGroupEditController extends ChangeNotifier {
       isPlacedAnyPlant: false,
     );
 
-    return FarmGroupEditController._(
+    return FarmGroupEditorModel._(
       selectedFarmGroupTypeNotifier: ValueNotifier(FarmGroupType.single),
       selectedFarmType: FarmType.basic,
       titleEditingController: TextEditingController(),
@@ -41,7 +41,7 @@ class FarmGroupEditController extends ChangeNotifier {
     );
   }
 
-  factory FarmGroupEditController.withModel(FarmCardModel model) {
+  factory FarmGroupEditorModel.withModel(FarmCardModel model) {
     final selectedFarmGroupTypeNotifier = ValueNotifier(model.farmGroupModel.groupType);
     final selectedFarmType = model.farmGroupModel.farmViewModels[0].farmType;
     final titleEditingController = TextEditingController(text: model.title);
@@ -57,7 +57,7 @@ class FarmGroupEditController extends ChangeNotifier {
       isPlacedAnyPlant: model.farmGroupModel.hasAnyPlant,
     );
 
-    final self = FarmGroupEditController._(
+    final self = FarmGroupEditorModel._(
       selectedFarmGroupTypeNotifier: selectedFarmGroupTypeNotifier,
       selectedFarmType: selectedFarmType,
       titleEditingController: titleEditingController,
