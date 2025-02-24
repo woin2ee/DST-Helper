@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../l10n/l10ns.dart';
 import '../../../../utils/font_family.dart';
-import '../../farm_group_edit_controller.dart';
+import '../../farm_group_editor_model.dart';
 import 'family_condition_box.dart';
 import 'nutrient_condition_box.dart';
 import 'season_condition_box.dart';
@@ -18,7 +18,7 @@ class AnalysisView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const BorderRadius conditionGroupBorderRadius = BorderRadius.all(Radius.circular(12));
-    final controller = context.read<FarmGroupEditController>().analysisViewController;
+    final controller = context.read<FarmGroupEditorModel>().analysisViewController;
 
     return SizedBox(
       width: 400,

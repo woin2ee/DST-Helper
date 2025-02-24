@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../farm_page_model.dart';
+import '../farm_page.dart' as farm_page;
 import 'farm_card/farm_card.dart';
 
 export 'farm_card/farm_card.dart';
@@ -11,7 +11,7 @@ class FarmGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final farmPageModel = context.watch<FarmPageModel>();
+    final farmPageModel = context.watch<farm_page.ViewModel>();
 
     return SingleChildScrollView(
       child: Padding(

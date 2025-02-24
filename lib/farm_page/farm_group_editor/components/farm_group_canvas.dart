@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../farm_grid/farm_group/farm_group.dart';
-import '../farm_group_edit_controller.dart';
+import '../farm_group_editor_model.dart';
 
 /// The place where users can set plants.
 class FarmGroupCanvas extends StatelessWidget {
@@ -12,7 +12,7 @@ class FarmGroupCanvas extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.watch<FarmGroupEditController>();
+    final controller = context.watch<FarmGroupEditorModel>();
 
     return Container(
       width: 384,

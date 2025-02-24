@@ -1,7 +1,7 @@
 import 'package:dst_helper/app/sample_data.dart';
-import 'package:dst_helper/farm_page/edit_farm_set/components/analysis_view/family_condition.dart';
 import 'package:dst_helper/farm_page/farm_grid/farm_group/farm_group_model.dart';
 import 'package:dst_helper/farm_page/farm_grid/farm_view/farm_view_model.dart';
+import 'package:dst_helper/farm_page/farm_group_editor/components/analysis_view/family_condition.dart';
 import 'package:dst_helper/models/v2/item/items.dart';
 import 'package:flutter_test/flutter_test.dart';
 

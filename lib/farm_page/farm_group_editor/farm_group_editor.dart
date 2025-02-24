@@ -13,10 +13,10 @@ import 'components/analysis_view/analysis_view.dart';
 import 'components/crop_selection_section.dart';
 import 'components/farm_group_canvas.dart';
 import 'components/fertilizer_selection_section.dart';
-import 'farm_group_edit_controller.dart';
+import 'farm_group_editor_model.dart';
 
-class FarmGroupEditWindow extends StatefulWidget {
-  const FarmGroupEditWindow({
+class FarmGroupEditor extends StatefulWidget {
+  const FarmGroupEditor({
     super.key,
     required this.isEditingNewOne,
     this.initialModel,
@@ -26,11 +26,11 @@ class FarmGroupEditWindow extends StatefulWidget {
   final FarmCardModel? initialModel;
 
   @override
-  State<FarmGroupEditWindow> createState() => _FarmGroupEditWindowState();
+  State<FarmGroupEditor> createState() => _FarmGroupEditorState();
 }
 
-class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
-  late final FarmGroupEditController controller;
+class _FarmGroupEditorState extends State<FarmGroupEditor> {
+  late final FarmGroupEditorModel model;
   final _overlayController = OverlayPortalController();
 
   @override
@@ -39,24 +39,24 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
 
     final initialModel = widget.initialModel;
     if (initialModel == null) {
-      controller = FarmGroupEditController.init();
+      model = FarmGroupEditorModel.init();
     } else {
-      controller = FarmGroupEditController.withModel(initialModel);
+      model = FarmGroupEditorModel.withModel(initialModel);
     }
 
     _addChangesDetectingListener();
 
-    controller.selectedFertilizerNotifier.addListener(() {
-      final selectedFertilizer = controller.selectedFertilizerNotifier.value;
-      controller.analysisViewController.nutrientConditionBoxController.selectFertilizer(selectedFertilizer);
+    model.selectedFertilizerNotifier.addListener(() {
+      final selectedFertilizer = model.selectedFertilizerNotifier.value;
+      model.analysisViewController.nutrientConditionBoxController.selectFertilizer(selectedFertilizer);
     });
   }
 
   void _addChangesDetectingListener() {
-    final controllers = [controller, controller.titleEditingController];
-    for (final e in controllers) {
+    final notifiers = [model, model.titleEditingController];
+    for (final e in notifiers) {
       e.addListener(() {
-        controller.hasChanges = true;
+        model.hasChanges = true;
       });
     }
   }
@@ -66,7 +66,7 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
     return MultiProvider(
       providers: [
         Provider.value(value: this),
-        ChangeNotifierProvider.value(value: controller),
+        ChangeNotifierProvider.value(value: model),
       ],
       child: GestureDetector(
         onTap: () => _overlayController.hide(),
@@ -103,7 +103,7 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
                     children: [
                       const FarmGroupCanvas(),
                       ValueListenableBuilder(
-                          valueListenable: controller.farmGroupModelNotifier,
+                          valueListenable: model.farmGroupModelNotifier,
                           builder: (context, value, child) => const AnalysisView()),
                     ],
                   ),
@@ -124,9 +124,9 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
                           _buildFarmGroupTypeSelectionBox(),
                         ],
                       ),
-                      CropSelectionSection(notifier: controller.selectedCropNotifier),
+                      CropSelectionSection(notifier: model.selectedCropNotifier),
                       FertilizerSelectionSection(
-                        notifier: controller.selectedFertilizerNotifier,
+                        notifier: model.selectedFertilizerNotifier,
                         overlayController: _overlayController,
                       ),
                       const Row(
@@ -149,16 +149,16 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
 
   Widget _buildFarmTypeSelectionBox() {
     return Builder(builder: (context) {
-      final controller = context.watch<FarmGroupEditController>();
+      final model = context.watch<FarmGroupEditorModel>();
       final colorScheme = Theme.of(context).colorScheme;
 
       return Row(
         spacing: 10,
         children: <Widget>[
           ...FarmType.values.map((type) => OutlinedButton(
-                onPressed: switch (controller.selectedFarmGroupType) {
+                onPressed: switch (model.selectedFarmGroupType) {
                   FarmGroupType.single || FarmGroupType.double => () {
-                      controller.setFarmType(type);
+                      model.setFarmType(type);
                     },
                   FarmGroupType.square => switch (type) {
                       FarmType.basic => () {},
@@ -168,7 +168,7 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
                 },
                 style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(
-                      controller.selectedFarmType == type ? colorScheme.primaryContainer : Colors.white),
+                      model.selectedFarmType == type ? colorScheme.primaryContainer : Colors.white),
                 ),
                 child: Text(
                   type.localizedName(context),
@@ -184,17 +184,17 @@ class _FarmGroupEditWindowState extends State<FarmGroupEditWindow> {
 
   Widget _buildFarmGroupTypeSelectionBox() {
     return Builder(builder: (context) {
-      final controller = context.watch<FarmGroupEditController>();
+      final model = context.watch<FarmGroupEditorModel>();
       final colorScheme = Theme.of(context).colorScheme;
 
       return Row(
         spacing: 10.0,
         children: [
           ...FarmGroupType.values.map((type) => OutlinedButton(
-                onPressed: () => controller.setFarmGroupType(type),
+                onPressed: () => model.setFarmGroupType(type),
                 style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(
-                      controller.selectedFarmGroupType == type ? colorScheme.primaryContainer : Colors.white),
+                      model.selectedFarmGroupType == type ? colorScheme.primaryContainer : Colors.white),
                 ),
                 child: Text(
                   type.name,
@@ -215,18 +215,18 @@ class _TitleTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
-      final controller = context.watch<FarmGroupEditController>();
+      final model = context.watch<FarmGroupEditorModel>();
 
       return Container(
         padding: const EdgeInsets.only(left: 8.0),
         width: 400,
         child: TextField(
-          controller: controller.titleEditingController,
+          controller: model.titleEditingController,
           decoration: InputDecoration(
             floatingLabelBehavior: FloatingLabelBehavior.always,
             labelText: 'Name',
-            hintText: (controller.farmGroupModel.hasAnyPlant)
-                ? '${controller.farmGroupModel.suitableSeasons.map((season) => season.localizedName(context))}'
+            hintText: (model.farmGroupModel.hasAnyPlant)
+                ? '${model.farmGroupModel.suitableSeasons.map((season) => season.localizedName(context))}'
                 : '',
             hintStyle: const TextStyle(
               fontFamily: FontFamily.pretendard,
@@ -244,8 +244,8 @@ class _OkButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final parent = context.read<_FarmGroupEditWindowState>().widget;
-    final controller = context.read<FarmGroupEditController>();
+    final parent = context.read<_FarmGroupEditorState>().widget;
+    final parentModel = context.read<FarmGroupEditorModel>();
 
     return ElevatedButton(
       style: const ButtonStyle(
@@ -255,27 +255,28 @@ class _OkButton extends StatelessWidget {
       onPressed: () {
         final originModel = parent.initialModel;
         final FarmCardModel model;
-        final title = controller.titleEditingController.text.isNotEmpty ? controller.titleEditingController.text : null;
+        final title =
+            parentModel.titleEditingController.text.isNotEmpty ? parentModel.titleEditingController.text : null;
         LinkedFertilizer? linkedFertilizer() {
-          final selectedFertilizer = controller.selectedFertilizer;
+          final selectedFertilizer = parentModel.selectedFertilizer;
           if (selectedFertilizer == null) return null;
           return LinkedFertilizer(
             fertilizer: selectedFertilizer,
-            amount: controller.analysisViewController.nutrientConditionBoxController.value.countOfNeededFertilizer,
+            amount: parentModel.analysisViewController.nutrientConditionBoxController.value.countOfNeededFertilizer,
           );
         }
 
         if (parent.isEditingNewOne == false && originModel != null) {
           model = originModel.copyWith(
             title: title,
-            farmGroupModel: controller.farmGroupModel,
+            farmGroupModel: parentModel.farmGroupModel,
             createType: CreateType.userCustom,
             linkedFertilizer: linkedFertilizer,
           );
         } else {
           model = FarmCardModel.create(
             title: title,
-            farmGroupModel: controller.farmGroupModel,
+            farmGroupModel: parentModel.farmGroupModel,
             createType: CreateType.userCustom,
             linkedFertilizer: linkedFertilizer(),
           );
@@ -299,16 +300,16 @@ class _CancelButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.read<FarmGroupEditController>();
+    final model = context.read<FarmGroupEditorModel>();
 
     return ListenableBuilder(
       listenable: Listenable.merge([
-        controller,
-        controller.titleEditingController,
+        model,
+        model.titleEditingController,
       ]),
       builder: (context, child) {
         return PopScope(
-          canPop: !controller.hasChanges,
+          canPop: !model.hasChanges,
           onPopInvokedWithResult: (didPop, result) async {
             if (didPop) return;
             final bool shouldPop = await showBackDialog(context) ?? false;
@@ -325,7 +326,7 @@ class _CancelButton extends StatelessWidget {
           foregroundColor: WidgetStatePropertyAll(Colors.white),
         ),
         onPressed: () {
-          controller.hasChanges ? Navigator.maybePop(context) : Navigator.pop(context);
+          model.hasChanges ? Navigator.maybePop(context) : Navigator.pop(context);
         },
         child: Text(
           L10ns.of(context).localized('cancel'),

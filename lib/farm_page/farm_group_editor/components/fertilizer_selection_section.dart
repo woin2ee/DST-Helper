@@ -5,7 +5,7 @@ import '../../../l10n/l10ns.dart';
 import '../../../models/v2/item/categories.dart';
 import '../../../models/v2/item/items.dart';
 import '../../../utils/font_family.dart';
-import '../farm_group_edit_window.dart';
+import '../farm_group_editor.dart';
 
 class SelectedFertilizerNotifier extends ValueNotifier<Fertilizer?> {
   SelectedFertilizerNotifier(super.value);
@@ -259,7 +259,7 @@ class _GrowthFormulaButtonState extends State<_GrowthFormulaButton> {
   }
 
   double get _selectableGrowthFormulaBoxWidth {
-    final FarmGroupEditWindow? editWindow = context.findAncestorWidgetOfExactType();
+    final FarmGroupEditor? editWindow = context.findAncestorWidgetOfExactType();
     final renderObject = (editWindow?.key as GlobalKey).currentContext?.findRenderObject();
     if (renderObject == null) return 0;
     final renderBox = renderObject as RenderBox;
