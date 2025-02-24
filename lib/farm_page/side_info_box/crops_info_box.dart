@@ -64,7 +64,10 @@ class _CropsInfoBoxState extends State<CropsInfoBox> {
                               padding: const EdgeInsets.all(4),
                               width: CropsInfoBox.seasonWidth,
                               height: CropsInfoBox.seasonWidth,
-                              child: _SeasonColumn(seasonSet: crop.seasons),
+                              child: _SeasonColumn(
+                                seasonSet: crop.seasons,
+                                sortingSeason: _viewModel._sortingSeason,
+                              ),
                             ),
                           ],
                         )),
@@ -220,12 +223,19 @@ class _Header extends StatelessWidget {
 class _SeasonColumn extends StatelessWidget {
   const _SeasonColumn({
     required this.seasonSet,
+    required this.sortingSeason,
   });
 
   final Set<Season> seasonSet;
+  final Season? sortingSeason;
+
+  static const double _boxSize = 50.0;
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<_ViewModel>();
+    viewModel._sortingSeason;
+
     return FittedBox(
       child: SizedBox(
         width: 100,
@@ -235,28 +245,28 @@ class _SeasonColumn extends StatelessWidget {
             Row(
               children: <Widget>[
                 Container(
-                  color: seasonSet.contains(Season.summer) ? Season.summer.personalColor : Colors.transparent,
-                  width: 50,
-                  height: 50,
+                  color: _decideColor(Season.summer),
+                  width: _boxSize,
+                  height: _boxSize,
                 ),
                 Container(
-                  color: seasonSet.contains(Season.autumn) ? Season.autumn.personalColor : Colors.transparent,
-                  width: 50,
-                  height: 50,
+                  color: _decideColor(Season.autumn),
+                  width: _boxSize,
+                  height: _boxSize,
                 ),
               ],
             ),
             Row(
               children: <Widget>[
                 Container(
-                  color: seasonSet.contains(Season.spring) ? Season.spring.personalColor : Colors.transparent,
-                  width: 50,
-                  height: 50,
+                  color: _decideColor(Season.spring),
+                  width: _boxSize,
+                  height: _boxSize,
                 ),
                 Container(
-                  color: seasonSet.contains(Season.winter) ? Season.winter.personalColor : Colors.transparent,
-                  width: 50,
-                  height: 50,
+                  color: _decideColor(Season.winter),
+                  width: _boxSize,
+                  height: _boxSize,
                 ),
               ],
             ),
@@ -264,6 +274,18 @@ class _SeasonColumn extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color _decideColor(Season season) {
+    if (!seasonSet.contains(season)) {
+      return Colors.transparent;
+    }
+
+    if (sortingSeason == null || season == sortingSeason) {
+      return season.personalColor;
+    }
+
+    return Colors.grey.shade300;
   }
 }
 
@@ -322,11 +344,14 @@ class _ViewModel with ChangeNotifier {
 
   void didTapHeaderOfSeason() {
     final sortingSeason = _sortingSeason;
-    if (sortingSeason == null) {
-      _sortingSeason = Season.summer;
+    final currentIndex = (sortingSeason != null) ? Season.values.indexOf(sortingSeason) : -1;
+
+    if (currentIndex == Season.values.length - 1) {
+      _sortingSeason = null;
     } else {
-      _sortingSeason = Season.values[(Season.values.indexOf(sortingSeason) + 1) % Season.values.length];
+      _sortingSeason = Season.values[currentIndex + 1];
     }
+
     notifyListeners();
   }
 }
