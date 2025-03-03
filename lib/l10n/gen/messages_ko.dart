@@ -31,7 +31,11 @@ class MessageLookup extends MessageLookupByLibrary {
   final Map<String, dynamic> messages = _notInlinedMessages(_notInlinedMessages);
 
   static Map<String, dynamic> _notInlinedMessages(_) => {
-      'L10nsFarmCardContext_footerFertilizerTooltip': m0,
+      'L10nsCookPageContext_modeChangeSwitchTitleBasic': MessageLookupByLibrary.simpleMessage('기본'),
+    'L10nsCookPageContext_modeChangeSwitchTitleDetail': MessageLookupByLibrary.simpleMessage('자세히'),
+    'L10nsCookPageContext_modeChangeSwitchTitleOnlyImage': MessageLookupByLibrary.simpleMessage('이미지만'),
+    'L10nsCookPageContext_modeChangeSwitchTitleSimple': MessageLookupByLibrary.simpleMessage('간단히'),
+    'L10nsFarmCardContext_footerFertilizerTooltip': m0,
     'L10nsFarmGroupEditorContext_farmGroupSelectionHeader': MessageLookupByLibrary.simpleMessage('밭 그룹'),
     'L10nsFarmGroupEditorContext_farmShapeSelectionHeader': MessageLookupByLibrary.simpleMessage('밭 형태'),
     'L10nsNutrientConditionBoxContext_secondaryText': m1,

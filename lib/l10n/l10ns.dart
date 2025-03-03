@@ -641,6 +641,8 @@ extension L10nsContextualizing on L10ns {
   L10nsFarmCardContext get farmCard => L10nsFarmCardContext(localeName);
 
   L10nsFarmGroupEditorContext get farmGroupEditor => L10nsFarmGroupEditorContext(localeName);
+
+  L10nsCookPageContext get cookPage => L10nsCookPageContext(localeName);
 }
 
 class L10nsRecipeListContext {
@@ -713,6 +715,48 @@ class L10nsFarmGroupEditorContext {
       'Farm Groups',
       name: 'L10nsFarmGroupEditorContext_farmGroupSelectionHeader',
       desc: 'It is a header text of farm group selection.',
+      locale: localeName,
+    );
+  }
+}
+
+class L10nsCookPageContext {
+  const L10nsCookPageContext(this.localeName);
+
+  final String localeName;
+
+  String modeChangeSwitchTitleBasic() {
+    return Intl.message(
+      'Basic',
+      name: 'L10nsCookPageContext_modeChangeSwitchTitleBasic',
+      desc: 'It is a title of the basic mode in the mode change switch.',
+      locale: localeName,
+    );
+  }
+
+  String modeChangeSwitchTitleDetail() {
+    return Intl.message(
+      'Detail',
+      name: 'L10nsCookPageContext_modeChangeSwitchTitleDetail',
+      desc: 'It is a title of the detail mode in the mode change switch.',
+      locale: localeName,
+    );
+  }
+
+  String modeChangeSwitchTitleSimple() {
+    return Intl.message(
+      'Simple',
+      name: 'L10nsCookPageContext_modeChangeSwitchTitleSimple',
+      desc: 'It is a title of the simple mode in the mode change switch.',
+      locale: localeName,
+    );
+  }
+
+  String modeChangeSwitchTitleOnlyImage() {
+    return Intl.message(
+      'Image',
+      name: 'L10nsCookPageContext_modeChangeSwitchTitleOnlyImage',
+      desc: 'It is a title of the only image mode in the mode change switch.',
       locale: localeName,
     );
   }

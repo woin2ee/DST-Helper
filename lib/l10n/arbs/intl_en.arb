@@ -1,7 +1,31 @@
 {
-  "@@last_modified": "2025-03-03T21:44:28.816515",
+  "@@last_modified": "2025-03-03T22:13:17.259656",
   "@@locale": "en",
 
+  "L10nsCookPageContext_modeChangeSwitchTitleBasic": "Basic",
+  "@L10nsCookPageContext_modeChangeSwitchTitleBasic": {
+    "description": "It is a title of the basic mode in the mode change switch.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "L10nsCookPageContext_modeChangeSwitchTitleDetail": "Detail",
+  "@L10nsCookPageContext_modeChangeSwitchTitleDetail": {
+    "description": "It is a title of the detail mode in the mode change switch.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "L10nsCookPageContext_modeChangeSwitchTitleSimple": "Simple",
+  "@L10nsCookPageContext_modeChangeSwitchTitleSimple": {
+    "description": "It is a title of the simple mode in the mode change switch.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "L10nsCookPageContext_modeChangeSwitchTitleOnlyImage": "Image",
+  "@L10nsCookPageContext_modeChangeSwitchTitleOnlyImage": {
+    "description": "It is a title of the only image mode in the mode change switch.",
+    "type": "text",
+    "placeholders": {}
+  },
   "L10nsFarmGroupEditorContext_farmShapeSelectionHeader": "Farm Shapes",
   "@L10nsFarmGroupEditorContext_farmShapeSelectionHeader": {
     "description": "It is a header text of farm type selection.",
