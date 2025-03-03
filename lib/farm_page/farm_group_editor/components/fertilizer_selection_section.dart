@@ -115,9 +115,10 @@ class _FertilizerSelectionHeader extends StatelessWidget {
               fontSize: 13,
               color: Colors.white,
             ),
-            decoration: const ShapeDecoration(
-              shape: _CustomBubbleShape(size: 6),
+            decoration: ShapeDecoration(
+              shape: const _CustomBubbleShape(size: 6),
               color: Colors.black87,
+              shadows: kElevationToShadow[4],
             ),
             verticalOffset: 10,
             padding: const EdgeInsets.only(top: 4, left: 10, right: 10, bottom: 4),
