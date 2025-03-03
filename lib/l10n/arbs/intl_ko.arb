@@ -1,7 +1,19 @@
 {
-  "@@last_modified": "2025-02-06T14:22:32.438287",
+  "@@last_modified": "2025-03-03T21:44:28.816515",
   "@@locale": "ko",
 
+  "L10nsFarmGroupEditorContext_farmShapeSelectionHeader": "밭 형태",
+  "@L10nsFarmGroupEditorContext_farmShapeSelectionHeader": {
+    "description": "It is a header text of farm type selection.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "L10nsFarmGroupEditorContext_farmGroupSelectionHeader": "밭 그룹",
+  "@L10nsFarmGroupEditorContext_farmGroupSelectionHeader": {
+    "description": "It is a header text of farm group selection.",
+    "type": "text",
+    "placeholders": {}
+  },
   "L10nsFarmCardContext_footerFertilizerTooltip": "거대 작물이 되려면 각 성장마다 {fertilizerName} {countOfNeededFertilizer}번 사용해야 합니다.",
   "@L10nsFarmCardContext_footerFertilizerTooltip": {
     "description": "It is a tooltip message of the fertilizer in farm card's footer.",

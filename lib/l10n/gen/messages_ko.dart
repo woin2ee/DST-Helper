@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static Map<String, dynamic> _notInlinedMessages(_) => {
       'L10nsFarmCardContext_footerFertilizerTooltip': m0,
+    'L10nsFarmGroupEditorContext_farmGroupSelectionHeader': MessageLookupByLibrary.simpleMessage('밭 그룹'),
+    'L10nsFarmGroupEditorContext_farmShapeSelectionHeader': MessageLookupByLibrary.simpleMessage('밭 형태'),
     'L10nsNutrientConditionBoxContext_secondaryText': m1,
     'L10nsRecipeListContext_toastMessage': MessageLookupByLibrary.simpleMessage('이미 등록되어 있는 레시피입니다.'),
     'add': MessageLookupByLibrary.simpleMessage('추가'),

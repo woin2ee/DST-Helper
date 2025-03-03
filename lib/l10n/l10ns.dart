@@ -639,6 +639,8 @@ extension L10nsContextualizing on L10ns {
   L10nsNutrientConditionBoxContext get nutrientConditionBox => L10nsNutrientConditionBoxContext(localeName);
 
   L10nsFarmCardContext get farmCard => L10nsFarmCardContext(localeName);
+
+  L10nsFarmGroupEditorContext get farmGroupEditor => L10nsFarmGroupEditorContext(localeName);
 }
 
 class L10nsRecipeListContext {
@@ -687,6 +689,30 @@ class L10nsFarmCardContext {
       name: 'L10nsFarmCardContext_footerFertilizerTooltip',
       desc: 'It is a tooltip message of the fertilizer in farm card\'s footer.',
       args: [fertilizerName, countOfNeededFertilizer],
+      locale: localeName,
+    );
+  }
+}
+
+class L10nsFarmGroupEditorContext {
+  const L10nsFarmGroupEditorContext(this.localeName);
+
+  final String localeName;
+
+  String farmShapeSelectionHeader() {
+    return Intl.message(
+      'Farm Shapes',
+      name: 'L10nsFarmGroupEditorContext_farmShapeSelectionHeader',
+      desc: 'It is a header text of farm type selection.',
+      locale: localeName,
+    );
+  }
+
+  String farmGroupSelectionHeader() {
+    return Intl.message(
+      'Farm Groups',
+      name: 'L10nsFarmGroupEditorContext_farmGroupSelectionHeader',
+      desc: 'It is a header text of farm group selection.',
       locale: localeName,
     );
   }
