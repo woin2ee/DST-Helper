@@ -12,13 +12,15 @@ class FarmGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final farmPageModel = context.watch<farm_page.ViewModel>();
+    
+    const double spacing = 18.0;
 
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.only(bottom: 4.0),
         child: Wrap(
-          spacing: 10.0,
-          runSpacing: 10.0,
+          spacing: spacing,
+          runSpacing: spacing,
           children: [
             ...farmPageModel.farmCardModelsBySelectedSeason.map((model) => IntrinsicWidth(
                   child: FarmCard(
