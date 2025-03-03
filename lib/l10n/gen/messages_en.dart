@@ -31,7 +31,13 @@ class MessageLookup extends MessageLookupByLibrary {
   final Map<String, dynamic> messages = _notInlinedMessages(_notInlinedMessages);
 
   static Map<String, dynamic> _notInlinedMessages(_) => {
-      'L10nsFarmCardContext_footerFertilizerTooltip': m0,
+      'L10nsCookPageContext_modeChangeSwitchTitleBasic': MessageLookupByLibrary.simpleMessage('Basic'),
+    'L10nsCookPageContext_modeChangeSwitchTitleDetail': MessageLookupByLibrary.simpleMessage('Detail'),
+    'L10nsCookPageContext_modeChangeSwitchTitleOnlyImage': MessageLookupByLibrary.simpleMessage('Image'),
+    'L10nsCookPageContext_modeChangeSwitchTitleSimple': MessageLookupByLibrary.simpleMessage('Simple'),
+    'L10nsFarmCardContext_footerFertilizerTooltip': m0,
+    'L10nsFarmGroupEditorContext_farmGroupSelectionHeader': MessageLookupByLibrary.simpleMessage('Farm Groups'),
+    'L10nsFarmGroupEditorContext_farmShapeSelectionHeader': MessageLookupByLibrary.simpleMessage('Farm Shapes'),
     'L10nsNutrientConditionBoxContext_secondaryText': m1,
     'L10nsRecipeListContext_toastMessage': MessageLookupByLibrary.simpleMessage('The recipe is already registered.'),
     'add': MessageLookupByLibrary.simpleMessage('Add'),

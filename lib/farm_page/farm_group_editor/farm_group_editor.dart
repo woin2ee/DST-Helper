@@ -118,7 +118,7 @@ class _FarmGroupEditorState extends State<FarmGroupEditor> {
                       const _TitleTextField(),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        spacing: 8,
+                        spacing: 14,
                         children: [
                           _buildFarmTypeSelectionBox(),
                           _buildFarmGroupTypeSelectionBox(),
@@ -152,31 +152,48 @@ class _FarmGroupEditorState extends State<FarmGroupEditor> {
       final model = context.watch<FarmGroupEditorModel>();
       final colorScheme = Theme.of(context).colorScheme;
 
-      return Row(
-        spacing: 10,
-        children: <Widget>[
-          ...FarmType.values.map((type) => OutlinedButton(
-                onPressed: switch (model.selectedFarmGroupType) {
-                  FarmGroupType.single || FarmGroupType.double => () {
-                      model.setFarmType(type);
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 6,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 4),
+            child: Text(
+              L10ns.of(context).farmGroupEditor.farmShapeSelectionHeader(),
+              style: const TextStyle(
+                fontFamily: FontFamily.pretendard,
+                fontVariations: [FontVariation.weight(500)],
+                fontSize: 14,
+              ),
+            ),
+          ),
+          Row(
+            spacing: 10,
+            children: <Widget>[
+              ...FarmType.values.map((type) => OutlinedButton(
+                    onPressed: switch (model.selectedFarmGroupType) {
+                      FarmGroupType.single || FarmGroupType.double => () {
+                          model.setFarmType(type);
+                        },
+                      FarmGroupType.square => switch (type) {
+                          FarmType.basic => () {},
+                          FarmType.dense => null,
+                          FarmType.reverseDense => null,
+                        },
                     },
-                  FarmGroupType.square => switch (type) {
-                      FarmType.basic => () {},
-                      FarmType.dense => null,
-                      FarmType.reverseDense => null,
-                    },
-                },
-                style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(
-                      model.selectedFarmType == type ? colorScheme.primaryContainer : Colors.white),
-                ),
-                child: Text(
-                  type.localizedName(context),
-                  style: const TextStyle(
-                    fontFamily: FontFamily.pretendard,
-                  ),
-                ),
-              )),
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStatePropertyAll(
+                          model.selectedFarmType == type ? colorScheme.primaryContainer : Colors.white),
+                    ),
+                    child: Text(
+                      type.localizedName(context),
+                      style: const TextStyle(
+                        fontFamily: FontFamily.pretendard,
+                      ),
+                    ),
+                  )),
+            ],
+          ),
         ],
       );
     });
@@ -187,22 +204,39 @@ class _FarmGroupEditorState extends State<FarmGroupEditor> {
       final model = context.watch<FarmGroupEditorModel>();
       final colorScheme = Theme.of(context).colorScheme;
 
-      return Row(
-        spacing: 10.0,
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 6,
         children: [
-          ...FarmGroupType.values.map((type) => OutlinedButton(
-                onPressed: () => model.setFarmGroupType(type),
-                style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(
-                      model.selectedFarmGroupType == type ? colorScheme.primaryContainer : Colors.white),
-                ),
-                child: Text(
-                  type.name,
-                  style: const TextStyle(
-                    fontFamily: FontFamily.pretendard,
-                  ),
-                ),
-              )),
+          Padding(
+            padding: const EdgeInsets.only(left: 4),
+            child: Text(
+              L10ns.of(context).farmGroupEditor.farmGroupSelectionHeader(),
+              style: const TextStyle(
+                fontFamily: FontFamily.pretendard,
+                fontVariations: [FontVariation.weight(500)],
+                fontSize: 14,
+              ),
+            ),
+          ),
+          Row(
+            spacing: 10.0,
+            children: [
+              ...FarmGroupType.values.map((type) => OutlinedButton(
+                    onPressed: () => model.setFarmGroupType(type),
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStatePropertyAll(
+                          model.selectedFarmGroupType == type ? colorScheme.primaryContainer : Colors.white),
+                    ),
+                    child: Text(
+                      type.name,
+                      style: const TextStyle(
+                        fontFamily: FontFamily.pretendard,
+                      ),
+                    ),
+                  )),
+            ],
+          ),
         ],
       );
     });

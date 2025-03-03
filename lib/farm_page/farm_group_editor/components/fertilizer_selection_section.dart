@@ -57,6 +57,39 @@ class FertilizerSelectionSection extends StatelessWidget {
   }
 }
 
+class _CustomBubbleShape extends ShapeBorder {
+  const _CustomBubbleShape({
+    required this.size,
+  });
+
+  final double size;
+
+  @override
+  EdgeInsetsGeometry get dimensions => EdgeInsets.only(bottom: size);
+
+  @override
+  Path getInnerPath(Rect rect, {TextDirection? textDirection}) => Path();
+
+  @override
+  Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
+    rect = Rect.fromPoints(rect.topLeft, rect.bottomRight - Offset(0, size));
+    return Path()
+      ..addRRect(RRect.fromRectAndRadius(rect, Radius.circular(rect.height / 3)))
+      ..moveTo(rect.bottomCenter.dx - size, rect.bottomCenter.dy)
+      ..relativeLineTo(size, size)
+      ..relativeLineTo(size, -size)
+      ..close();
+  }
+
+  @override
+  void paint(Canvas canvas, Rect rect, {TextDirection? textDirection}) {}
+
+  @override
+  ShapeBorder scale(double t) {
+    throw UnimplementedError();
+  }
+}
+
 class _FertilizerSelectionHeader extends StatelessWidget {
   const _FertilizerSelectionHeader();
 
@@ -82,11 +115,12 @@ class _FertilizerSelectionHeader extends StatelessWidget {
               fontSize: 13,
               color: Colors.white,
             ),
-            decoration: const BoxDecoration(
+            decoration: ShapeDecoration(
+              shape: const _CustomBubbleShape(size: 6),
               color: Colors.black87,
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+              shadows: kElevationToShadow[4],
             ),
-            verticalOffset: 15,
+            verticalOffset: 10,
             padding: const EdgeInsets.only(top: 4, left: 10, right: 10, bottom: 4),
             enableTapToDismiss: false,
             preferBelow: false,

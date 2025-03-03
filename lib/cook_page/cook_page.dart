@@ -247,7 +247,22 @@ class _ModeChangeSwitchState extends State<_ModeChangeSwitch> {
       }),
       constraints: const BoxConstraints(minWidth: 64, minHeight: 32),
       isSelected: _selectedModes,
-      children: [..._order.map((mode) => Text(mode.name))],
+      children: [
+        ..._order.map((mode) {
+          final String title;
+          switch (mode) {
+            case RecipeCardMode.basic:
+              title = L10ns.of(context).cookPage.modeChangeSwitchTitleBasic();
+            case RecipeCardMode.detail:
+              title = L10ns.of(context).cookPage.modeChangeSwitchTitleDetail();
+            case RecipeCardMode.simple:
+              title = L10ns.of(context).cookPage.modeChangeSwitchTitleSimple();
+            case RecipeCardMode.onlyImage:
+              title = L10ns.of(context).cookPage.modeChangeSwitchTitleOnlyImage();
+          }
+          return Text(title);
+        }),
+      ],
     );
   }
 }

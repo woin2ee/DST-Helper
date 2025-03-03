@@ -1,7 +1,43 @@
 {
-  "@@last_modified": "2025-02-06T14:22:32.438287",
+  "@@last_modified": "2025-03-03T22:13:17.259656",
   "@@locale": "en",
 
+  "L10nsCookPageContext_modeChangeSwitchTitleBasic": "Basic",
+  "@L10nsCookPageContext_modeChangeSwitchTitleBasic": {
+    "description": "It is a title of the basic mode in the mode change switch.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "L10nsCookPageContext_modeChangeSwitchTitleDetail": "Detail",
+  "@L10nsCookPageContext_modeChangeSwitchTitleDetail": {
+    "description": "It is a title of the detail mode in the mode change switch.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "L10nsCookPageContext_modeChangeSwitchTitleSimple": "Simple",
+  "@L10nsCookPageContext_modeChangeSwitchTitleSimple": {
+    "description": "It is a title of the simple mode in the mode change switch.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "L10nsCookPageContext_modeChangeSwitchTitleOnlyImage": "Image",
+  "@L10nsCookPageContext_modeChangeSwitchTitleOnlyImage": {
+    "description": "It is a title of the only image mode in the mode change switch.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "L10nsFarmGroupEditorContext_farmShapeSelectionHeader": "Farm Shapes",
+  "@L10nsFarmGroupEditorContext_farmShapeSelectionHeader": {
+    "description": "It is a header text of farm type selection.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "L10nsFarmGroupEditorContext_farmGroupSelectionHeader": "Farm Groups",
+  "@L10nsFarmGroupEditorContext_farmGroupSelectionHeader": {
+    "description": "It is a header text of farm group selection.",
+    "type": "text",
+    "placeholders": {}
+  },
   "L10nsFarmCardContext_footerFertilizerTooltip": "You need to use {fertilizerName} {countOfNeededFertilizer} times for each growth to get giant crops.",
   "@L10nsFarmCardContext_footerFertilizerTooltip": {
     "description": "It is a tooltip message of the fertilizer in farm card's footer.",

@@ -98,20 +98,22 @@ class _Header extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = context.watch<_ViewModel>();
 
+    final resetButton = IconButton.filled(
+      onPressed: viewModel.resetSorting,
+      icon: const Icon(Icons.refresh),
+      style: const ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(Colors.red),
+      ),
+    );
+
     return Row(
       spacing: CropsInfoBox.horizontalSpacing,
       children: [
         Container(
-          padding: const EdgeInsets.only(left: 2, top: 2, right: 6, bottom: 6),
+          padding: const EdgeInsets.only(left: 4, top: 4, right: 8, bottom: 8),
           width: CropsInfoBox.imageWidth,
           child: FittedBox(
-            child: IconButton.filled(
-              onPressed: viewModel.resetSorting,
-              icon: const Icon(Icons.refresh),
-              style: const ButtonStyle(
-                backgroundColor: WidgetStatePropertyAll(Colors.red),
-              ),
-            ),
+            child: resetButton,
           ),
         ),
         ..._SortingType.values.map((type) => MouseRegion(
