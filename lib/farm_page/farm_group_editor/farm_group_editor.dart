@@ -48,7 +48,7 @@ class _FarmGroupEditorState extends State<FarmGroupEditor> {
 
     model.selectedFertilizerNotifier.addListener(() {
       final selectedFertilizer = model.selectedFertilizerNotifier.value;
-      model.analysisViewController.nutrientConditionBoxController.selectFertilizer(selectedFertilizer);
+      model.analysisViewController.nutrientConditionBoxController.didSelectFertilizer(selectedFertilizer);
     });
   }
 

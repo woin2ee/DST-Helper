@@ -221,7 +221,7 @@ class _ConditionGroup extends StatelessWidget {
           secondaryTextColor: hintTextColor,
           unsatisfiedBoxColor: unsatisfiedBoxColor,
           satisfiedBoxColor: satisfiedBoxColor,
-          controller: nutrientConditionBoxController,
+          viewModel: nutrientConditionBoxController,
         ),
         FamilyConditionBox(
           unsatisfiedBorderColor: unsatisfiedBorderColor,

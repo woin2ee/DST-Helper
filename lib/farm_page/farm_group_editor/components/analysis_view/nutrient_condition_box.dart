@@ -27,7 +27,7 @@ class NutrientConditionBox extends StatelessWidget {
     required this.secondaryTextColor,
     required this.unsatisfiedBoxColor,
     required this.satisfiedBoxColor,
-    required this.controller,
+    required this.viewModel,
   });
 
   final Color unsatisfiedBorderColor;
@@ -43,17 +43,17 @@ class NutrientConditionBox extends StatelessWidget {
   final Color unsatisfiedBoxColor;
   final Color satisfiedBoxColor;
 
-  final NutrientConditionBoxNotifier controller;
+  final NutrientConditionBoxNotifier viewModel;
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: controller,
+      valueListenable: viewModel,
       builder: (context, value, child) {
         if (value.isSatisfying) {
           return _buildSatisfiedBox(value, context);
         } else {
-          return child ?? _buildUnsatisfiedBox(context);
+          return child!;
         }
       },
       child: _buildUnsatisfiedBox(context),
@@ -79,14 +79,38 @@ class NutrientConditionBox extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           spacing: textSpacing,
           children: [
-            FittedBox(
-              child: Text(
-                L10ns.of(context).localized('nutrient_condition_unsatisfying_first_text'),
-                style: TextStyle(
-                  fontFamily: FontFamily.pretendard,
-                  fontSize: mainTextSize,
+            Row(
+              children: [
+                FittedBox(
+                  child: Text(
+                    L10ns.of(context).localized('nutrient_condition_unsatisfying_first_text'),
+                    style: TextStyle(
+                      fontFamily: FontFamily.pretendard,
+                      fontSize: mainTextSize,
+                    ),
+                  ),
                 ),
-              ),
+                Row(
+                  children: [
+                    Text('('),
+                    Image(
+                      image: AssetImage('assets/images/nutrients_compost_icon.png'),
+                      width: 20,
+                    ),
+                    Text(','),
+                    Image(
+                      image: AssetImage('assets/images/nutrients_growth_formula_icon.png'),
+                      width: 20,
+                    ),
+                    Text(','),
+                    Image(
+                      image: AssetImage('assets/images/nutrients_manure_icon.png'),
+                      width: 20,
+                    ),
+                    Text(')'),
+                  ],
+                ),
+              ],
             ),
             FittedBox(
               child: Text(
@@ -170,18 +194,18 @@ class NutrientConditionBoxNotifier extends ValueNotifier<NutrientConditionBoxMod
         );
 
   factory NutrientConditionBoxNotifier.withModel(FarmCardModel model) {
-    final controller = NutrientConditionBoxNotifier.init();
-    controller._farmGroupModel = model.farmGroupModel;
-    controller._selectedFertilizer = model.linkedFertilizer?.fertilizer;
-    controller._updateValue();
-    return controller;
+    final viewModel = NutrientConditionBoxNotifier.init();
+    viewModel._farmGroupModel = model.farmGroupModel;
+    viewModel._selectedFertilizer = model.linkedFertilizer?.fertilizer;
+    viewModel._updateValue();
+    return viewModel;
   }
 
   BuiltList<Nutrient> get _nutrientsByFarm => _farmGroupModel.farmViewModels.map((e) => e.totalNutrient).toBuiltList();
   Fertilizer? _selectedFertilizer;
   FarmGroupModel _farmGroupModel;
 
-  void selectFertilizer(Fertilizer? fertilizer) {
+  void didSelectFertilizer(Fertilizer? fertilizer) {
     _selectedFertilizer = fertilizer;
     _updateValue();
   }
