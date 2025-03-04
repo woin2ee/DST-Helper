@@ -82,22 +82,7 @@ class _FarmGroupEditorState extends State<FarmGroupEditor> {
                 spacing: 20,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    spacing: 30,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      const FertilizersInfoBox(),
-                      VerticalDivider(
-                        width: 1.0,
-                        color: Colors.grey.shade300,
-                      ),
-                      const CropsInfoBox(),
-                    ],
-                  ),
-                  VerticalDivider(
-                    width: 1.0,
-                    color: Colors.grey.shade300,
-                  ),
+                  const _LeftSideSection(),
                   Column(
                     spacing: 34,
                     children: [
@@ -240,6 +225,106 @@ class _FarmGroupEditorState extends State<FarmGroupEditor> {
         ],
       );
     });
+  }
+}
+
+class _LeftSideSection extends StatefulWidget {
+  const _LeftSideSection();
+
+  @override
+  State<_LeftSideSection> createState() => _LeftSideSectionState();
+}
+
+class _LeftSideSectionState extends State<_LeftSideSection> {
+  bool _isFoldedFertilizersInfo = false;
+  bool _isFoldedCropsInfo = false;
+
+  @override
+  Widget build(BuildContext context) {
+    const dividerColor = Color.fromRGBO(224, 224, 224, 1);
+    const foldingButtonSize = 30.0;
+    const foldingAnimationDuration = Duration(milliseconds: 300);
+
+    return Row(
+      spacing: 20,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        AnimatedSize(
+          alignment: Alignment.centerRight,
+          duration: foldingAnimationDuration,
+          curve: Curves.easeInOut,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            constraints: BoxConstraints(
+              maxWidth: _isFoldedFertilizersInfo ? 0 : double.infinity,
+            ),
+            child: const FertilizersInfoBox(),
+          ),
+        ),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            const VerticalDivider(
+              width: 1.0,
+              color: dividerColor,
+            ),
+            SizedBox.square(
+              dimension: foldingButtonSize,
+              child: FittedBox(
+                child: IconButton(
+                  onPressed: () => setState(() {
+                    _isFoldedFertilizersInfo = !_isFoldedFertilizersInfo;
+                  }),
+                  icon: Icon(
+                    _isFoldedFertilizersInfo ? Icons.chevron_left_rounded : Icons.chevron_right_rounded,
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(Colors.grey.shade200),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        AnimatedSize(
+          alignment: Alignment.centerRight,
+          duration: foldingAnimationDuration,
+          curve: Curves.easeInOut,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            constraints: BoxConstraints(
+              maxWidth: _isFoldedCropsInfo ? 0 : double.infinity,
+            ),
+            child: const CropsInfoBox(),
+          ),
+        ),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            const VerticalDivider(
+              width: 1.0,
+              color: dividerColor,
+            ),
+            SizedBox.square(
+              dimension: foldingButtonSize,
+              child: FittedBox(
+                child: IconButton(
+                  onPressed: () => setState(() {
+                    _isFoldedCropsInfo = !_isFoldedCropsInfo;
+                  }),
+                  icon: Icon(
+                    _isFoldedCropsInfo ? Icons.chevron_left_rounded : Icons.chevron_right_rounded,
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(Colors.grey.shade200),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
 
